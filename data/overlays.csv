@@ -1,4 +1,4 @@
-overlay_id,name,description,type,url
-o_1,Münster Marketing & Stadwerke,Brand advertisement,image,/media/images/display1.gif
-o_2,Movie advertisement,Movie advertisement (Looper),image,/media/images/display_looper.gif
-o_3,News,Uni Muenster Homepage,html,http://www.uni-muenster.de/de/
+overlay_id,name,description,type,url,scenario_id
+o_1,Münster Marketing & Stadwerke,Brand advertisement,image,/media/images/display1.gif,s_2
+o_2,Movie advertisement,Movie advertisement (Looper),image,/media/images/display_looper.gif,s_2
+o_3,News,Uni Muenster Homepage,html,http://www.uni-muenster.de/de/,s_1

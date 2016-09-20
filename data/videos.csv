@@ -1,4 +1,4 @@
-video_id,name,url,description,date,scenario
+video_id,name,url,description,date,scenario_id
 v_1,Schlossplatz,/media/videos/city_center/task01,Schlossplatz bei Tag,,s_1
 v_2,Frauenstraße,/media/videos/city_center/task02,Frauenstraße bei Tag,,s_1
 v_3,Frauenstraße 2,/media/videos/city_center/task03,Frauenstraße 2 bei Tag,,s_1
