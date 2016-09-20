@@ -1,34 +1,34 @@
-location_id,name,lat,lon,description,tags,scenario,parent_location,indoor
-l_1,Schlossplatz,51.9634400797738,7.61775255203247,The Schlossplatz is a large place in the front of the castle,[\"castle\"\,\"schlossplatz\"\,\"schloss\"\,\"uni\"\,\"university\"],s_1,,false
-l_2,Frauenstraße,51.96345330122063,7.618718147277832,A little street in the direct environment of the castle,[\"castle\"\,\"frauenstrasse\"],s_1,,false
-l_3,Frauenstraße 2,51.96357229406666,7.6206547021865845,Intersection of Frauenstraße and Krummer Timpen, overlooking the ULB,[\"frauenstrasse\"\,\"frauenstraße\"\,\"krummer timpen\"\,\"ulb\"\,\"university\"],s_1,,false
-l_4,Krummer Timpen,51.962699672526746,7.619715929031372,The Universitäts- und Landesbibliothek Münster,[\"library\"\,\"ulb\"\,\"uni\"\,\"university\"],s_1,,false
-l_5,Juridicum,51.96176092432709,7.619276046752929,The Universitäts- und Landesbibliothek Münster and the Jurdicum,[\"ulb\"\,\"library\"\,\"uni\"\,\"university\"\,\"juridicum\"\,\"jura\"],s_1,,false
-l_6,Jesuitengang,51.9618666997549,7.621614933013915,A small foodpath between the ULB and Jurdicum, and the Fürstenberghaus,[\"ulb\"\,\"juridicum\"\,\"path\"\,\"park\"\,\"fürstenberghaus\"],s_1,,false
-l_7,Pferdegasse,51.96163531568237,7.6238250732421875,The Pferdegasse next to the Fürstenberghaus. The building is used by the university,[\"pferdegasse\"\,\"wwu\"\,\"uni\"\,\"university\"\,\"students\"\,\"lecture hall\"],s_1,,false
-l_8,Fürstenberghaus,51.962127831773635,7.623996734619141,The building is used by the university,[\"fürstenberghaus\"\,\"wwu\"\,\"uni\"\,\"university\"\,\"students\"\,\"lecture hall\"],s_1,,false
-l_9,Domplatz,51.96201214056061,7.6261210441589355,The Domplatz is the place in front of the huge St. Paulus Dom,[\"square\"\,\"place\"\,\"location\"\,\"cathedral\"\,\"st paulus\"\,\"church\"],s_1,,false
-l_10,Main station (inside),51.95648505819626,7.636367082595825,The main tunnel of the main station,,s_2,,true
-l_11,Main station (side entrance),51.957519785146474,7.634612917900085,The side entrance of the main station,[\"trains\"\,\"main\"\,\"station\"\,\"side entrance\"\,\"building site\"],s_2,,false
-l_12,Main station (pedestrian crossing),51.956842091280016,7.634146213531494,,[\"station\"\,\"main\"\,\"train\"\,\"münster\"],s_2,,false
-l_13,Main station (pedestrian area),51.956842091280016,7.634146213531494,,[\"station\"\,\"main\"\,\"train\"\,\"münster\"],s_2,l_12,false
-l_14,Bahnhofsstraße,51.95575775978631,7.632622718811035,The street where the main station is located,[\"main station\"\,\"railway\"\,\"train\"\,\"bahnhofsstrasse\"],s_2,,false
-l_15,Berliner Platz,51.95602223330042,7.634210586547852,A small square next to the main station,[\"main station\"\,\"railway\"\,\"berliner\"\,\"platz\"\,\"trains\"],s_2,,false
-l_16,Bremer Platz,51.95638588183505,7.637439966201781,The back of the main station,[\"main station\"\,\"bremer\"\,\"platz\"],s_2,,false
-l_17,Bremer Platz 2,51.95638588183505,7.637439966201781,The Bremer Platz behind the main station,[\"main station\"\,\"bremer\"\,\"platz\"],s_2,l_16,false
-l_18,Hafenstraße,51.95404525602805,7.631206512451173,The Hafenstrasse is leading to the harbour of münster, where you can find several bars, restaurants, clubs and a cinema,[\"cinema\"\,\"harbour\"\,\"hafenstrasse\"\,\"pool hall\"\,\"amp\"\,\"restaurants\"\,\"kulturkai\"\,\"jazz club\"],s_2,,false
-l_19,Windthorststraße,51.95709333507907,7.632976770401001,A small street opposite the main station,[\"main\"\,\"station\"\,\"railway\"\,\"train\"\,\"street\"\,\"subway\"\,\"cuba nova\"\,\"volksbank\"\,\"windthorststrasse\"],s_2,,false
-l_20,Car entrance,51.96890681544414,7.595683336257934,,,s_3,,false
-l_21,Parking spot,51.96890681544414,7.595683336257934,,,s_3,,false
-l_22,Main entrance,51.969204260771775,7.595801353454589,,,s_3,,false
-l_23,Ground floor (atrium),51.969432,7.595582,,,s_3,,true
-l_24,Ground floor (elevator),51.969432,7.595582,,,s_3,l_23,true
-l_25,Ground floor (stairs),51.969432,7.595582,,,s_3,l_23,true
-l_26,Ground floor (IVVGeo),51.969432,7.595582,,,s_3,l_23,true
-l_27,Ground floor (2nd atrium),51.969432,7.595582,,,s_3,l_23,true
-l_28,Ground floor (2nd atrium 2),51.969432,7.595582,,,s_3,l_23,true
-l_29,Ground floor (lecture room),51.969432,7.595582,,,s_3,l_23,true
-l_30,1st floor (atrium),51.969432,7.595582,,,s_3,l_23,true
-l_31,1st floor (stairwell),51.969432,7.595582,,,s_3,l_23,true
-l_32,2nd floor (stairwell),51.969432,7.595582,,,s_3,l_23,true
-l_33,4th floor (stairwell),51.969432,7.595582,,,s_3,l_23,true
+location_id,name,lat,lon,description,parent_location,indoor,scenario
+l_1,Schlossplatz,51.9634400797738,7.61775255203247,The Schlossplatz is a large place in the front of the castle,,false,s_1
+l_2,Frauenstraße,51.96345330122063,7.618718147277832,A little street in the direct environment of the castle,,false,s_1
+l_3,Frauenstraße 2,51.96357229406666,7.6206547021865845,Intersection of Frauenstraße and Krummer Timpen, overlooking the ULB,,false,s_1
+l_4,Krummer Timpen,51.962699672526746,7.619715929031372,The Universitäts- und Landesbibliothek Münster,,false,s_1
+l_5,Juridicum,51.96176092432709,7.619276046752929,The Universitäts- und Landesbibliothek Münster and the Jurdicum,,false,s_1
+l_6,Jesuitengang,51.9618666997549,7.621614933013915,A small foodpath between the ULB and Jurdicum, and the Fürstenberghaus,,false,s_1
+l_7,Pferdegasse,51.96163531568237,7.6238250732421875,The Pferdegasse next to the Fürstenberghaus. The building is used by the university,,false,s_1
+l_8,Fürstenberghaus,51.962127831773635,7.623996734619141,The building is used by the university,,false,s_1
+l_9,Domplatz,51.96201214056061,7.6261210441589355,The Domplatz is the place in front of the huge St. Paulus Dom,,false,s_1
+l_10,Main station (inside),51.95648505819626,7.636367082595825,The main tunnel of the main station,,true,s_2
+l_11,Main station (side entrance),51.957519785146474,7.634612917900085,The side entrance of the main station,,false,s_2
+l_12,Main station (pedestrian crossing),51.956842091280016,7.634146213531494,,,false,s_2
+l_13,Main station (pedestrian area),51.956842091280016,7.634146213531494,,l_12,false,s_2
+l_14,Bahnhofsstraße,51.95575775978631,7.632622718811035,The street where the main station is located,,false,s_2
+l_15,Berliner Platz,51.95602223330042,7.634210586547852,A small square next to the main station,,false,s_2
+l_16,Bremer Platz,51.95638588183505,7.637439966201781,The back of the main station,,false,s_2
+l_17,Bremer Platz 2,51.95638588183505,7.637439966201781,The Bremer Platz behind the main station,l_16,false,s_2
+l_18,Hafenstraße,51.95404525602805,7.631206512451173,The Hafenstrasse is leading to the harbour of münster, where you can find several bars, restaurants, clubs and a cinema,,false,s_2
+l_19,Windthorststraße,51.95709333507907,7.632976770401001,A small street opposite the main station,,false,s_2
+l_20,Car entrance,51.96890681544414,7.595683336257934,,,false,s_3
+l_21,Parking spot,51.96890681544414,7.595683336257934,,,false,s_3
+l_22,Main entrance,51.969204260771775,7.595801353454589,,,false,s_3
+l_23,Ground floor (atrium),51.969432,7.595582,,,true,s_3
+l_24,Ground floor (elevator),51.969432,7.595582,,l_23,true,s_3
+l_25,Ground floor (stairs),51.969432,7.595582,,l_23,true,s_3
+l_26,Ground floor (IVVGeo),51.969432,7.595582,,l_23,true,s_3
+l_27,Ground floor (2nd atrium),51.969432,7.595582,,l_23,true,s_3
+l_28,Ground floor (2nd atrium 2),51.969432,7.595582,,l_23,true,s_3
+l_29,Ground floor (lecture room),51.969432,7.595582,,l_23,true,s_3
+l_30,1st floor (atrium),51.969432,7.595582,,l_23,true,s_3
+l_31,1st floor (stairwell),51.969432,7.595582,,l_23,true,s_3
+l_32,2nd floor (stairwell),51.969432,7.595582,,l_23,true,s_3
+l_33,4th floor (stairwell),51.969432,7.595582,,l_23,true,s_3
