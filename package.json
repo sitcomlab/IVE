@@ -22,6 +22,7 @@
   "dependencies": {
     "async": "^2.0.1",
     "body-parser": "^1.15.2",
+    "colors": "^1.1.2",
     "commander": "^2.9.0",
     "cookie": "^0.3.1",
     "cookie-parser": "^1.4.3",
@@ -29,6 +30,7 @@
     "express": "^4.14.0",
     "fs": "0.0.1-security",
     "http": "0.0.0",
+    "moment": "^2.15.1",
     "neo4j-driver": "^1.0.4",
     "path": "^0.12.7",
     "socket.io": "^1.4.8",
