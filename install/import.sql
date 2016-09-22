@@ -1,5 +1,5 @@
 // Delete all nodes and relationships (Reset)
-MATCH (n) DETACH DELETE n
+MATCH (n) DETACH DELETE n;
 
 
 // Add scenarios
@@ -7,7 +7,7 @@ USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/scenarios.csv' AS line FIELDTERMINATOR ','
 WITH line
 CREATE (scenario:Scenarios {
-    scenario_id: line.`scenario_id`,
+    s_id: line.`s_id`,
     name: line.`name`,
     description: line.`description`,
     created: timestamp(),
@@ -19,17 +19,17 @@ CREATE (scenario:Scenarios {
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/locations.csv' AS line FIELDTERMINATOR ','
 CREATE (location:Locations {
-    location_id: line.`location_id`,
+    l_id: line.`l_id`,
     name: line.`name`,
     description: line.`description`,
     lat: toFloat(line.`lat`),
     lon: toFloat(line.`lon`),
-    indoor: line.`indoor`,
+    indoor: (case line.`indoor` WHEN 1 THEN true ELSE false END),
     created: timestamp(),
     updated: timestamp()
 })
 WITH line, location
-MATCH (scenario:Scenarios) WHERE scenario.scenario_id = line.`scenario_id`
+MATCH (scenario:Scenarios) WHERE scenario.s_id = line.`s_id`
 CREATE (location)-[:belongs_to]->(scenario);
 
 
@@ -38,14 +38,14 @@ CREATE (location)-[:belongs_to]->(scenario);
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/videos.csv' AS line FIELDTERMINATOR ','
 CREATE (video:Videos {
-    video_id: line.`video_id`,
+    v_id: line.`v_id`,
     name: line.`name`,
     description: line.`description`,
     created: timestamp(),
     updated: timestamp()
 })
 WITH line, video
-MATCH (scenario:Scenarios) WHERE scenario.scenario_id = line.`scenario_id`
+MATCH (scenario:Scenarios) WHERE scenario.s_id = line.`s_id`
 CREATE (video)-[:belongs_to]->(scenario);
 
 
@@ -53,7 +53,7 @@ CREATE (video)-[:belongs_to]->(scenario);
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/overlays.csv' AS line FIELDTERMINATOR ','
 CREATE (overlay:Overlays {
-    overlay_id: line.`overlay_id`,
+    o_id: line.`o_id`,
     name: line.`name`,
     description: line.`description`,
     type: line.`type`,
@@ -62,7 +62,7 @@ CREATE (overlay:Overlays {
     updated: timestamp()
 })
 WITH line, overlay
-MATCH (scenario:Scenarios) WHERE scenario.scenario_id = line.`scenario_id`
+MATCH (scenario:Scenarios) WHERE scenario.s_id = line.`s_id`
 CREATE (overlay)-[:belongs_to]->(scenario);
 
 
@@ -70,8 +70,8 @@ CREATE (overlay)-[:belongs_to]->(scenario);
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/connected_to.csv' AS line FIELDTERMINATOR ','
 WITH line
-MATCH (location_1:Locations) WHERE location_1.location_id = line.`start_id`
-MATCH (location_2:Locations) WHERE location_2.location_id = line.`end_id`
+MATCH (location_1:Locations) WHERE location_1.l_id = line.`start_id`
+MATCH (location_2:Locations) WHERE location_2.l_id = line.`end_id`
 CREATE (location_1)-[:connected_to {
     weight: line.`weight`,
     intents: line.`intents`
@@ -82,8 +82,8 @@ CREATE (location_1)-[:connected_to {
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/recorded_at.csv' AS line FIELDTERMINATOR ','
 WITH line
-MATCH (location:Locations) WHERE location.location_id = line.`location_id`
-MATCH (video:Videos) WHERE video.video_id = line.`video_id`
+MATCH (location:Locations) WHERE location.l_id = line.`l_id`
+MATCH (video:Videos) WHERE video.v_id = line.`v_id`
 CREATE (video)-[:recorded_at]->(location);
 
 
@@ -91,8 +91,8 @@ CREATE (video)-[:recorded_at]->(location);
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/embedded_in.csv' AS line FIELDTERMINATOR ','
 WITH line
-MATCH (overlay:Overlays) WHERE overlay.overlay_id = line.`overlay_id`
-MATCH (video:Videos) WHERE video.video_id = line.`video_id`
+MATCH (overlay:Overlays) WHERE overlay.o_id = line.`o_id`
+MATCH (video:Videos) WHERE video.v_id = line.`v_id`
 CREATE (overlay)-[:embedded_in {
     w: line.`w`,
     h: line.`h`,
