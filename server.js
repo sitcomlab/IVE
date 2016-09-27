@@ -12,7 +12,18 @@ var httpsPort = httpPort + 443;
 var username = process.env.USERNAME || 'neo4j';
 var password = process.env.PW || 'neo4j';
 var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic(username, password));
-exports.driver = driver;
+var session = driver.session();
+var query = "RETURN true";
+session
+    .run(query)
+    .then(function(result) {
+        session.close();
+        console.log(colors.green(new Date() + " Neo4j is running on Port 7474"));
+        exports.driver = driver;
+    })
+    .catch(function(err) {
+        console.log(colors.red(new Date() + " Neo4j could not been accessed!"));
+    });
 
 // Setup settings
 app.use(bodyParser.json({
