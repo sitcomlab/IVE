@@ -31,11 +31,13 @@ app.use(express.static(__dirname + '/public'));
 var scenarios = require('./routes/scenarios');
 var locations = require('./routes/locations');
 var videos = require('./routes/videos');
+var overlays = require('./routes/overlays');
 
 // Load Routes
 app.use('/api', scenarios);
 app.use('/api', locations);
 app.use('/api', videos);
+app.use('/api', overlays);
 
 
 // Start Webserver

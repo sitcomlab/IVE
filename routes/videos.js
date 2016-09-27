@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var list = require('../controllers/videos/list');
-var list_by_scenario = require('../controllers/videos/list_by_scenario');
+//var list_by_scenario = require('../controllers/videos/list_by_scenario');
 //var post = require('../controllers/videos/post');
 //var get = require('../controllers/videos/get');
 //var put = require('../controllers/videos/put');
@@ -13,7 +13,7 @@ var list_by_scenario = require('../controllers/videos/list_by_scenario');
 router.get('/videos', list.request);
 
 // LIST BY SCENARIO
-router.get('/scenarios/:scenario_id/videos', list_by_scenario.request);
+//router.get('/scenarios/:scenario_id/videos', list_by_scenario.request);
 
 // POST
 //router.post('/videos', post.request);
