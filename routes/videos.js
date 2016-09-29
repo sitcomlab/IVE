@@ -4,7 +4,7 @@ var router = express.Router();
 var list = require('../controllers/videos/list');
 //var list_by_scenario = require('../controllers/videos/list_by_scenario');
 //var post = require('../controllers/videos/post');
-//var get = require('../controllers/videos/get');
+var get = require('../controllers/videos/get');
 //var put = require('../controllers/videos/put');
 //var del = require('../controllers/videos/delete');
 
@@ -19,7 +19,7 @@ router.get('/videos', list.request);
 //router.post('/videos', post.request);
 
 // GET
-//router.get('/videos/:video_id', get.request);
+router.get('/videos/:video_id', get.request);
 
 // PUT
 //router.put('/videos/:video_id', put.request);

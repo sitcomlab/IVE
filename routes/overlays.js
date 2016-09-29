@@ -4,7 +4,7 @@ var router = express.Router();
 var list = require('../controllers/overlays/list');
 //var list_by_scenario = require('../controllers/overlays/list_by_scenario');
 //var post = require('../controllers/overlays/post');
-//var get = require('../controllers/overlays/get');
+var get = require('../controllers/overlays/get');
 //var put = require('../controllers/overlays/put');
 //var del = require('../controllers/overlays/delete');
 
@@ -19,7 +19,7 @@ router.get('/overlays', list.request);
 //router.post('/overlays', post.request);
 
 // GET
-//router.get('/overlays/:overlay_id', get.request);
+router.get('/overlays/:overlay_id', get.request);
 
 // PUT
 //router.put('/overlays/:overlay_id', put.request);

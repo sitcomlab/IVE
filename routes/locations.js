@@ -5,7 +5,7 @@ var list = require('../controllers/locations/list');
 //var list_by_scenario = require('../controllers/locations/list_by_scenario');
 //var post = require('../controllers/locations/post');
 var get = require('../controllers/locations/get');
-//var put = require('../controllers/locations/put');
+var put = require('../controllers/locations/put');
 //var del = require('../controllers/locations/delete');
 
 
@@ -19,7 +19,7 @@ router.get('/locations', list.request);
 //router.post('/locations', post.request);
 
 // GET
-//router.get('/locations/:location_id', get.request);
+router.get('/locations/:location_id', get.request);
 
 // PUT
 //router.put('/locations/:location_id', put.request);
