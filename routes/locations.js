@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var list = require('../controllers/locations/list');
-//var list_by_scenario = require('../controllers/locations/list_by_scenario');
+var list_by_scenario = require('../controllers/locations/list_by_scenario');
 //var post = require('../controllers/locations/post');
 var get = require('../controllers/locations/get');
 var put = require('../controllers/locations/put');
@@ -13,7 +13,7 @@ var put = require('../controllers/locations/put');
 router.get('/locations', list.request);
 
 // LIST BY SCENARIO
-//router.get('/scenarios/:scenario_id/locations', list_by_scenario.request);
+router.get('/scenarios/:scenario_id/locations', list_by_scenario.request);
 
 // POST
 //router.post('/locations', post.request);
