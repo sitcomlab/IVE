@@ -13,7 +13,7 @@ var username = process.env.USERNAME || 'neo4j';
 var password = process.env.PW || 'neo4j';
 var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic(username, password));
 var session = driver.session();
-var query = "RETURN true";
+var query = "RETURN true;";
 session
     .run(query)
     .then(function(result) {
@@ -22,6 +22,7 @@ session
         exports.driver = driver;
     })
     .catch(function(err) {
+        //console.error(err);
         console.log(colors.red(new Date() + " Neo4j could not been accessed!"));
     });
 
@@ -56,3 +57,9 @@ var httpServer = http.createServer(app);
 httpServer.listen(httpPort, function() {
     console.log(colors.green(new Date() + " HTTP-Server is listening at port " + httpPort));
 });
+
+
+var io = require('socket.io')(httpServer);
+exports.io = io;
+var sockets = require('./sockets/sockets.js').sockets;
+console.log(colors.green(new Date() + " Websocket-Server listening"));
