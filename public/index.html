@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="description" content="IVE">
+        <meta name="author" content="Nicholas Schiestel">
+
+        <title>IVE</title>
+
+        <!-- Bootstrap -->
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Custom styles -->
+        <style>
+            html {
+                position: relative;
+                min-height: 100%;
+            }
+
+            body {
+                margin-bottom: 40px;
+            }
+
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                background-color: #f5f5f5;
+            }
+            .link:hover {
+                text-decoration: none;
+            }
+
+            .link > div > p {
+                color: #000000;
+            }
+
+        </style>
+
+    </head>
+    <body>
+
+        <!-- MAIN -->
+        <div class="container-fluid">
+
+            <br>
+            <h1>Immersive Video Environment</h1>
+            <br>
+            <div class="row flex-items-xs-middle">
+                <div class="col-xs">
+                    <div class="col-sm-4">
+                        <a href="/backend" target="_blank" class="link">
+                            <!--TODO: Insert banner:
+                                <img class="card-img-top" src="..." alt="Card image cap">
+                            -->
+                            <div class="card card-block">
+                                <h3 class="card-title">BACKEND</h3>
+                                <p class="card-text">
+                                    Description
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs">
+                    <div class="col-sm-4">
+                        <a href="/frontend" target="_blank" class="link">
+                            <div class="card card-block">
+                                <h3 class="card-title">FRONTEND</h3>
+                                <p class="card-text">
+                                    Description
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs">
+                    <div class="col-sm-4">
+                        <a href="/remote" target="_blank" class="link">
+                            <div class="card card-block">
+                                <h3 class="card-title">REMOTE CONTROL</h3>
+                                <p class="card-text">
+                                    Description
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8">
+                        <center>
+                            <small>
+                                &copy; 2016
+                                <b>Institute for Geoinformatics, Münster</b>
+                                &nbsp;&nbsp;
+                                <a href="https://github.com/sitcomlab/IVE.git" target="_blank">Github-Repository</a>
+                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                                <a href="/docs" target="_blank">Documentation</a>
+                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                                <a href="/api" target="_blank">REST-API</a>
+                            </small>
+                        </center>
+                    </div>
+                    <div class="col-xs-2"></div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
