@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<video id="video" autoplay="autoplay" loop="loop" controls="{{controls}}" vg-src="sources" preload="metadata" ng-if="current.videoStatus" style="z-index:1">
+</video>
+
+<div class="flexbox-container">
+    <div ng-if="!current.scenarioStatus">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <br>
+        <br>
+        <h2>{{ 'PLEASE_SELECT_A' | translate }} {{ 'SCENARIO' | translate }}</h2>
+    </div>
+
+    <div ng-if="current.scenarioStatus && !current.locationStatus">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <br>
+        <br>
+        <h2>{{ 'PLEASE_SELECT_A' | translate }} {{ 'START_LOCATION' | translate }}</h2>
+    </div>
+
+    <div ng-if="current.scenarioStatus && current.locationStatus && !current.videoStatus">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <br>
+        <br>
+        <h2>{{ 'NO_VIDEO_FOUND' | translate }}</h2>
+    </div>
+</div>
