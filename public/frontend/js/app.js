@@ -6,14 +6,16 @@ var app = angular.module("ive", [
     // External Modules
     "ngRoute",
     "pascalprecht.translate",
+    "btford.socket-io",
 
     // Own Modules
     "routes",
     "languages",
+    "sockets",
 
     // Services
     "videoService"
-    
+
 ]);
 
 

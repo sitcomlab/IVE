@@ -4,7 +4,7 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $videoService, $sce) {
+app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $videoService, $sce, $socket) {
 
     // Init
     $scope.current = {
@@ -44,6 +44,22 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
             type: "video/ogg"
         }];
     };
+
+
+    /**
+     *
+     */
+    $socket.on('/set/scenario', function(data) {
+        console.log(new Date() + " /set/scenario: " + data.scenario_id);
+    });
+
+    $socket.on('/set/location', function(data) {
+        console.log(new Date() + " /set/location: " + data.location_id);
+    });
+
+    $socket.on('/set/video', function(data) {
+        console.log(new Date() + " /set/video: " + data.video_id);
+    });
 
     // TODO: On change (Sockets)
     /*$videoService.get($scope.currentVideo.video_id).success(function(response) {
