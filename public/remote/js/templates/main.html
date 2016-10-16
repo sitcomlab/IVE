@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<br>
+
+<!-- Scenarios -->
+<div class="card" ng-if="!currentScenario.status">
+    <div class="card-header">
+        <center>
+            {{ 'PLEASE_SELECT_A' | translate }} {{ 'SCENARIO' | translate }}
+        </center>
+    </div>
+    <button type="button" class="list-group-item list-group-item-action" ng-repeat="scenario in scenarios | orderBy: ['name']" ng-click="setCurrentScenario(scenario)">
+        {{scenario.name}}
+    </button>
+</div>
+
+<!-- Selected scenario - related locations -->
+<div class="card" ng-if="currentScenario.status">
+    <div class="card-header">
+        <center>
+            <b>{{currentScenario.name}}</b><br>
+            {{ 'PLEASE_SELECT_A' | translate }} {{ 'START_LOCATION' | translate }}
+        </center>
+    </div>
+    <button type="button" class="list-group-item list-group-item-action" ng-repeat="location in locations | orderBy: ['name']" ng-click="setCurrentLocation(location)">
+        {{location.name}}
+    </button>
+</div>
+
+{{videos}}

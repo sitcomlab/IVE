@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- TODO: Add favicon
+            <link rel="icon" href="images/favicon/favicon.ico">
+        -->
+        <meta name="description" content="IVE">
+        <meta name="author" content="Nicholas Schiestel">
+
+        <title>IVE - Remote control</title>
+
+        <!-- Bootstrap -->
+        <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Font-Awesome -->
+        <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+
+        <!-- Custom styles -->
+        <link href="css/styles.css" rel="stylesheet"/>
+
+        <!-- Dependecies -->
+        <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="../bower_components/socket.io/lib/socket.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/angular-route/angular-route.min.js"></script>
+        <script src="../bower_components/angular-translate/angular-translate.min.js"></script>
+        <script src="../bower_components/angular-socket-io/socket.min.js"></script>
+
+    </head>
+    <body ng-app="ive">
+
+        <!-- MAIN -->
+        <div class="container-fluid" ng-view></div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8">
+                        <center>
+                            <small>
+                                &copy; 2016
+                                <b>{{ 'IFGI' | translate }}</b>
+                                &nbsp;&nbsp;
+                                <a href="https://github.com/sitcomlab/IVE.git" target="_blank">Github-Repository</a>
+                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                                <a href="/docs" target="_blank">{{ 'DOCUMENTATION' | translate }}</a>
+                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                                <a href="/api" target="_blank">{{ 'REST-API' | translate }} </a>
+                            </small>
+                        </center>
+                    </div>
+                    <div class="col-xs-2"></div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- App Config -->
+        <script src="js/config.js"></script>
+
+        <!-- App Modules -->
+        <!--<script src="js/modules/filters.js"></script>-->
+        <script src="js/modules/routes.js"></script>
+        <script src="js/modules/languages.js"></script>
+
+        <!-- Services -->
+        <script src="js/services/scenarioService.js"></script>
+        <script src="js/services/locationService.js"></script>
+        <script src="js/services/videoService.js"></script>
+        <!-- TODO: <script src="js/services/overlayService.js"></script>-->
+
+        <!-- Main App -->
+        <script src="js/app.js"></script>
+
+        <!-- Main Controllers -->
+        <script src="js/controllers/mainController.js"></script>
+
+    </body>
+</html>
