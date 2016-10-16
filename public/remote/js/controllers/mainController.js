@@ -4,7 +4,7 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService) {
+app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService, $socket) {
 
     // Load Scenarios
     $scope.load_scenarios = function(){
@@ -52,6 +52,11 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         $scope.currentScenario.name = scenario.name;
         $scope.currentScenario.status = true;
         $scope.load_locations();
+
+        // Send socket message
+        $socket.emit('/set/scenario', {
+            scenario_id: scenario.scenario_id
+        });
     };
 
     /**
@@ -64,6 +69,11 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         $scope.currentLocation.status = true;
         $scope.load_videos();
         //TODO: $scope.load_connected_locations();
+
+        // Send socket message
+        $socket.emit('/set/location', {
+            location_id: location.location_id
+        });
     };
 
 
