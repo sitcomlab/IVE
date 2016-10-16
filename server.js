@@ -61,5 +61,5 @@ httpServer.listen(httpPort, function() {
 
 var io = require('socket.io')(httpServer);
 exports.io = io;
-var sockets = require('./sockets/sockets.js').sockets;
+var sockets = require('./controllers/sockets.js').sockets;
 console.log(colors.green(new Date() + " Websocket-Server listening"));
