@@ -12,6 +12,5 @@ app.constant("config", {
     appGithub: "https://github.com/sitcomlab/IVE",
     appVersion: "v0.1",
     appLanguage: 'en_US',
-    apiURL: "/api",
-    timeZone: "Europe/Berlin"
+    apiURL: "/api"
 });

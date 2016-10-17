@@ -7,6 +7,7 @@ var list_by_scenario = require('../controllers/locations/list_by_scenario');
 var get = require('../controllers/locations/get');
 //var put = require('../controllers/locations/put');
 //var del = require('../controllers/locations/delete');
+var list_by_location = require('../controllers/locations/list_by_location');
 
 
 // LIST
@@ -26,6 +27,9 @@ router.get('/locations/:location_id', get.request);
 
 // DELETE
 //router.delete('/locations/:location_id', del.request);
+
+// LIST BY LOCATION
+router.get('/locations/:location_id/locations', list_by_location.request);
 
 
 module.exports = router;
