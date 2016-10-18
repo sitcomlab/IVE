@@ -60,6 +60,7 @@ CREATE (overlay:Overlays {
     description: line.`description`,
     type: line.`type`,
     url: line.`url`,
+    display: (case line.`display` WHEN 1 THEN true ELSE false END),
     created: timestamp(),
     updated: timestamp()
 })
