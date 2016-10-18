@@ -15,25 +15,25 @@ io.on('connection', function(socket) {
 
     // Scenario
     socket.on('/set/scenario', function(data) {
-        console.log(colors.cyan(new Date() + " /set/scenario: " + data.scenario_id));
+        console.log(colors.cyan(new Date() + " /set/scenario: " + JSON.stringify(data)));
         socket.broadcast.emit('/set/scenario', data);
     });
 
     // Location
     socket.on('/set/location', function(data) {
-        console.log(colors.cyan(new Date() + " /set/location: " + data.location_id));
+        console.log(colors.cyan(new Date() + " /set/location: " + JSON.stringify(data)));
         socket.broadcast.emit('/set/location', data);
     });
 
     // Video
     socket.on('/set/video', function(data) {
-        console.log(colors.cyan(new Date() + " /set/video: " + data.video_id));
+        console.log(colors.cyan(new Date() + " /set/video: " + JSON.stringify(data)));
         socket.broadcast.emit('/set/video', data);
     });
 
     // Show/Hide Overlay
     socket.on('/toggle/overlay', function(data) {
-        console.log(colors.cyan(new Date() + " /toggle/overlay: " + data.overlay_id));
+        console.log(colors.cyan(new Date() + " /toggle/overlay: " + JSON.stringify(data)));
         socket.broadcast.emit('/toggle/overlay', data);
     });
 
