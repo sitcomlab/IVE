@@ -1,8 +1,8 @@
 v_id,name,url,description,recorded,s_id
-v_1,Schlossplatz,../media/videos/city_center/task01,Schlossplatz bei Tag,,s_1
-v_2,Frauenstraße,../media/videos/city_center/task02,Frauenstraße bei Tag,,s_1
-v_3,Frauenstraße 2,../media/videos/city_center/task03,Frauenstraße 2 bei Tag,,s_1
-v_4,Krummer Timpen,../media/videos/city_center/task04,Krummer Timpen bei Tag,,s_1
+v_1,Schlossplatz,/media/videos/city_center/task01,Schlossplatz bei Tag,,s_1
+v_2,Frauenstraße,/media/videos/city_center/task02,Frauenstraße bei Tag,,s_1
+v_3,Frauenstraße 2,/media/videos/city_center/task03,Frauenstraße 2 bei Tag,,s_1
+v_4,Krummer Timpen,/media/videos/city_center/task04,Krummer Timpen bei Tag,,s_1
 v_5,Juridicum,/media/videos/city_center/task05,Juridicum bei Tag,,s_1
 v_6,Jesuitengang,/media/videos/city_center/task06,Jesuitengang bei Tag,,s_1
 v_7,Pferdegasse,/media/videos/city_center/task07,Pferdegasse bei Tag,,s_1
