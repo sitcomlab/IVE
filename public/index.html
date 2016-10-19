@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <base href="/"/>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,13 +53,12 @@
             .link {
                 color: #888888;
             }
-
             .link:hover {
                 color: #666666;
                 text-decoration: none;
             }
 
-            .link>div>p {
+            .link > div > p {
                 color: #000000;
             }
 
@@ -66,6 +66,7 @@
                 color: #007fff;
                 font-weight: normal;
             }
+
         </style>
 
     </head>
@@ -74,6 +75,9 @@
         <!-- MAIN -->
         <div class="container-fluid">
             <br>
+            <div style="position: relative; float:right; top: 0px;">
+                <span class="tag tag-pill tag-warning">v2.0</span>
+            </div>
             <h1>
                 <img src="backend/images/logo.svg" alt="logo" height="50px;">
                 Immersive Video Environment
