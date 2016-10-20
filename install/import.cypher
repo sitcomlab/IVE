@@ -115,3 +115,7 @@ CREATE (overlay)-[:embedded_in {
     ry: line.`ry`,
     rz: line.`rz`
 }]->(video);
+
+
+// Check the result
+MATCH (n) RETURN (n);
