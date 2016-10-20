@@ -1,68 +1,68 @@
-v_id,name,url,description,recorded,s_id
-v_1,Schlossplatz,/media/videos/city_center/task01,Schlossplatz bei Tag,,s_1
-v_2,Frauenstraße,/media/videos/city_center/task02,Frauenstraße bei Tag,,s_1
-v_3,Frauenstraße 2,/media/videos/city_center/task03,Frauenstraße 2 bei Tag,,s_1
-v_4,Krummer Timpen,/media/videos/city_center/task04,Krummer Timpen bei Tag,,s_1
-v_5,Juridicum,/media/videos/city_center/task05,Juridicum bei Tag,,s_1
-v_6,Jesuitengang,/media/videos/city_center/task06,Jesuitengang bei Tag,,s_1
-v_7,Pferdegasse,/media/videos/city_center/task07,Pferdegasse bei Tag,,s_1
-v_8,Fürstenberghaus,/media/videos/city_center/task08,Fürstenberghaus bei Tag,,s_1
-v_9,Domplatz,/media/videos/city_center/task09,Domplatz bei Tag,,s_1
-v_10,Main station (inside),/media/videos/main_station/bahnhof_innen,Bahnhof (innen),,s_2
-v_11,Main station (side entrance),/media/videos/main_station/bahnhof_seiteneingang,Bahnhof (Seiteneingang),,s_2
-v_12,Main station (pedestrian area),/media/videos/main_station/bahnhof_windthorststrasse,Bahnhofsampel (Fußgängerzone),,s_2
-v_13,Main station (pedestrian crossing),/media/videos/main_station/bahnhof,Bahnhofsampel (Hauptbahnhof),,s_2
-v_14,Bahnhofsstraße,/media/videos/main_station/bahnhofsstrasse,Bahnhofsstraße,,s_2
-v_15,Berliner Platz,/media/videos/main_station/berliner_platz,Berliner Platz,,s_2
-v_16,Bremer Platz,/media/videos/main_station/bremer_platz,Bremer Platz,,s_2
-v_17,Bremer Platz 2,/media/videos/main_station/bremer_platz_2,Bremer Platz 2,,s_2
-v_18,Hafenstraße,/media/videos/main_station/hafenstrasse,Hafenstraße,,s_2
-v_19,Windthorststraße,/media/videos/main_station/windthorststrasse,Windthorststraße,,s_2
-v_20,GEO-1 (car entrance),/media/videos/geo_1/geo1-aussen-einfahrt,GEO-1 (Einfahrt),,s_3
-v_21,GEO-1 (parking spot),/media/videos/geo_1/geo1-aussen-parkplatz,GEO-1 (Parkplatz),,s_3
-v_22,GEO-1 (main entrance),/media/videos/geo_1/geo1-aussen-haupteingang,GEO-1 (Haupteingang),,s_3
-v_23,Ground floor (atrium),/media/videos/geo_1/geo1-erdgeschoss-atrium,Erdgeschoss (Atrium),,s_3
-v_24,Ground floor (elevator),/media/videos/geo_1/geo1-erdgeschoss-aufzug,Erdgeschoss (Aufzug),,s_3
-v_25,Ground floor (stairs),/media/videos/geo_1/geo1-erdgeschoss-hintere-treppe,Erdgeschoss (Hintere Treppe),,s_3
-v_26,Ground floor (IVVGeo),/media/videos/geo_1/geo1-erdgeschoss-ivvgeo,Erdgeschoss (IVVGeo),,s_3
-v_27,Ground floor (2nd atrium),/media/videos/geo_1/geo1-erdgeschoss-zweites-atrium,Erdgeschoss (2. Atrium),,s_3
-v_28,Ground floor (2nd atrium 2),/media/videos/geo_1/geo1-erdgeschoss-zweites-atrium-2,Erdgeschoss (2. Atrium 2),,s_3
-v_29,Ground floor (lecture room),/media/videos/geo_1/geo1-erdgeschoss-hoersaal,Erdgeschoss (Hörsaal),,s_3
-v_30,1st floor (atrium),/media/videos/geo_1/geo1-erster-stock-atrium,1. Stock (Atrium),,s_3
-v_31,1st floor (stairwell),/media/videos/geo_1/geo1-erster-stock-treppe,1. Stock (Treppenhaus),,s_3
-v_32,2nd floor (stairwell),/media/videos/geo_1/geo1-zweiter-stock-treppe,2. Stock (Treppenhaus),,s_3
-v_33,4th floor (stairwell),/media/videos/geo_1/geo1-vierter-stock-treppe,4. Stock (Treppenhaus),,s_3
-v_34,2DP1-E,/media/videos/geo_1_2nd_floor/2DP1-E,2DP1-E,,s_4
-v_35,2DP1-S,/media/videos/geo_1_2nd_floor/2DP1-S,2DP1-S,,s_4
-v_36,2DP1-W,/media/videos/geo_1_2nd_floor/2DP1-W,2DP1-W,,s_4
-v_37,2DP2-E,/media/videos/geo_1_2nd_floor/2DP2-E,2DP2-E,,s_4
-v_38,2DP2-W,/media/videos/geo_1_2nd_floor/2DP2-W,2DP2-W,,s_4
-v_39,2DP3-E,/media/videos/geo_1_2nd_floor/2DP3-E,2DP3-E,,s_4
-v_40,2DP3-N,/media/videos/geo_1_2nd_floor/2DP3-N,2DP3-N,,s_4
-v_41,2DP3-W,/media/videos/geo_1_2nd_floor/2DP3-W,2DP3-W,,s_4
-v_42,2DP4-N,/media/videos/geo_1_2nd_floor/2DP4-N,2DP4-N,,s_4
-v_43,2DP4-S,/media/videos/geo_1_2nd_floor/2DP4-S,2DP4-S,,s_4
-v_44,2DP4-W,/media/videos/geo_1_2nd_floor/2DP4-W,2DP4-W,,s_4
-v_45,2DP5-E,/media/videos/geo_1_2nd_floor/2DP5-E,2DP5-E,,s_4
-v_46,2DP5-N,/media/videos/geo_1_2nd_floor/2DP5-N,2DP5-N,,s_4
-v_47,2DP5-W,/media/videos/geo_1_2nd_floor/2DP5-W,2DP5-W,,s_4
-v_48,2DP6-N,/media/videos/geo_1_2nd_floor/2DP6-N,2DP6-N,,s_4
-v_49,2DP6-S,/media/videos/geo_1_2nd_floor/2DP6-S,2DP6-S,,s_4
-v_50,2DP6-W,/media/videos/geo_1_2nd_floor/2DP6-W,2DP6-W,,s_4
-v_51,2DP7-N,/media/videos/geo_1_2nd_floor/2DP7-N,2DP7-N,,s_4
-v_52,2DP7-S,/media/videos/geo_1_2nd_floor/2DP7-S,2DP7-S,,s_4
-v_53,2DP8-N,/media/videos/geo_1_2nd_floor/2DP8-N,2DP8-N,,s_4
-v_54,2DP8-S,/media/videos/geo_1_2nd_floor/2DP8-S,2DP8-S,,s_4
-v_55,2DP8-W,/media/videos/geo_1_2nd_floor/2DP8-W,2DP8-W,,s_4
-v_56,2DP9-E,/media/videos/geo_1_2nd_floor/2DP9-E,2DP9-E,,s_4
-v_57,2DP9-N,/media/videos/geo_1_2nd_floor/2DP9-N,2DP9-N,,s_4
-v_58,2DP9-S,/media/videos/geo_1_2nd_floor/2DP9-S,2DP9-S,,s_4
-v_59,2DP10-E,/media/videos/geo_1_2nd_floor/2DP10-E,2DP10-E,,s_4
-v_60,2DP10-N,/media/videos/geo_1_2nd_floor/2DP10-N,2DP10-N,,s_4
-v_61,2DP10-W,/media/videos/geo_1_2nd_floor/2DP10-W,2DP10-W,,s_4
-v_62,2DP11-E,/media/videos/geo_1_2nd_floor/2DP11-E,2DP11-E,,s_4
-v_63,2DP11-S,/media/videos/geo_1_2nd_floor/2DP11-S,2DP11-S,,s_4
-v_64,2DP11-W,/media/videos/geo_1_2nd_floor/2DP11-W,2DP11-W,,s_4
-v_65,2DP12-E,/media/videos/geo_1_2nd_floor/2DP12-E,2DP12-E,,s_4
-v_66,2DP12-N,/media/videos/geo_1_2nd_floor/2DP12-N,2DP12-N,,s_4
-v_67,2DP12-W,/media/videos/geo_1_2nd_floor/2DP12-W,2DP12-W,,s_4
+v_id,name,url,description,description_german,recorded,s_id
+v_1,Schlossplatz,/videos/muenster_city_center/task01,Schlossplatz,Schlossplatz,2014-04-03 11:56:00,s_1
+v_2,Frauenstraße,/videos/muenster_city_center/task02,Frauenstraße,Frauenstraße,2014-04-03 12:43:00,s_1
+v_3,Frauenstraße 2,/videos/muenster_city_center/task03,Frauenstraße 2,Frauenstraße 2,2014-04-03 13:25:00,s_1
+v_4,Krummer Timpen,/videos/muenster_city_center/task04,Krummer Timpen,Krummer Timpen,2014-04-03 14:09:00,s_1
+v_5,Juridicum,/videos/muenster_city_center/task05,Juridicum,Juridicum,2014-04-03 13:52:00,s_1
+v_6,Jesuitengang,/videos/muenster_city_center/task06,Jesuitengang,Jesuitengang,2014-04-03 14:50:00,s_1
+v_7,Pferdegasse,/videos/muenster_city_center/task07,Pferdegasse,Pferdegasse,2014-05-02 09:40:00,s_1
+v_8,Fürstenberghaus,/videos/muenster_city_center/task08,Fürstenberghaus,Fürstenberghaus,2014-05-02 10:23:00,s_1
+v_9,Domplatz,/videos/muenster_city_center/task09,Domplatz,Domplatz,2014-05-02 11:01:00,s_1
+v_10,Main station (inside),/videos/muenster_main_station/main_station_inside,Main station (inside),Hauptbahnhof (innen),,s_2
+v_11,Main station (side entrance),/videos/muenster_main_station/main_station_side_entrance,Main station (side entrance),Hauptbahnhof (Seiteneingang),,s_2
+v_12,Main station (pedestrian area),/videos/muenster_main_station/main_station_windthorststrasse,Main station (pedestrian area),Hauptbahnhof (Fußgängerzone),,s_2
+v_13,Main station (pedestrian crossing),/videos/muenster_main_station/main_station_pedestrian_crossing,Main station (pedestrian crossing),Hauptbahnhof (Fußgängerampel),,s_2
+v_14,Bahnhofsstraße,/videos/muenster_main_station/bahnhofsstrasse,Bahnhofsstraße,Bahnhofsstraße,,s_2
+v_15,Berliner Platz,/videos/muenster_main_station/berliner_platz,Berliner Platz,Berliner Platz,,s_2
+v_16,Bremer Platz,/videos/muenster_main_station/bremer_platz,Bremer Platz,Bremer Platz,,s_2
+v_17,Bremer Platz 2,/videos/muenster_main_station/bremer_platz_2,Bremer Platz 2,Bremer Platz 2,,s_2
+v_18,Hafenstraße,/videos/muenster_main_station/hafenstrasse,Hafenstraße,Hafenstraße,,s_2
+v_19,Windthorststraße,/videos/muenster_main_station/windthorststrasse,Windthorststraße,Windthorststraße,,s_2
+v_20,Heisenbergstraße (car entrance),/videos/geo_1/heisenbergstrasse_car_entrance,Heisenbergstraße (car entrance),Heisenbergstraße (Einfahrt),,s_3
+v_21,Heisenbergstraße (parking lots),/videos/geo_1/heisenbergstrasse_parking_lots,Heisenbergstraße (parking lots),Heisenbergstraße (Parkplatz),,s_3
+v_22,GEO-1 (main entrance),/videos/geo_1/geo1_main_entrance,GEO-1 (main entrance),GEO-1 (Haupteingang),,s_3
+v_23,Ground floor (atrium),/videos/geo_1/geo1_ground_floor_atrium,Ground floor (atrium),Erdgeschoss (Atrium),,s_3
+v_24,Ground floor (elevator),/videos/geo_1/geo1_ground_floor_elevator,Ground floor (elevator),Erdgeschoss (Aufzug),,s_3
+v_25,Ground floor (stairs),/videos/geo_1/geo1_ground_floor_stairs,Ground floor (stairs),Erdgeschoss (Hintere Treppe),,s_3
+v_26,Ground floor (IVVGeo),/videos/geo_1/geo1_ground_floor_ivvgeo,Ground floor (IVVGeo),Erdgeschoss (IVVGeo),,s_3
+v_27,Ground floor (2nd atrium),/videos/geo_1/geo1_ground_floor_2nd_atrium,Ground floor (2nd atrium),Erdgeschoss (2. Atrium),,s_3
+v_28,Ground floor (2nd atrium 2),/videos/geo_1/geo1_ground_floor_2nd_atrium_2,Ground floor (2nd atrium 2),Erdgeschoss (2. Atrium 2),,s_3
+v_29,Ground floor (lecture room),/videos/geo_1/geo1_ground_floor_lecture_room,Ground floor (lecture room),Erdgeschoss (Hörsaal),,s_3
+v_30,1st floor (atrium),/videos/geo_1/geo1_1st_floor_atrium,1st floor (atrium),1. Stock (Atrium),,s_3
+v_31,1st floor (stairwell),/videos/geo_1/geo1_1st_floor_stairwell,1st floor (stairwell),1. Stock (Treppenhaus),,s_3
+v_32,2nd floor (stairwell),/videos/geo_1/geo1_2nd_floor_stairwell,2nd floor (stairwell),2. Stock (Treppenhaus),,s_3
+v_33,4th floor (stairwell),/videos/geo_1/geo1_4th_floor_stairwell,4th floor (stairwell),4. Stock (Treppenhaus),,s_3
+v_34,2DP1-E,/videos/geo_1_2nd_floor/2DP1-E,,2DP1-E,,s_4
+v_35,2DP1-S,/videos/geo_1_2nd_floor/2DP1-S,,2DP1-S,,s_4
+v_36,2DP1-W,/videos/geo_1_2nd_floor/2DP1-W,,2DP1-W,,s_4
+v_37,2DP2-E,/videos/geo_1_2nd_floor/2DP2-E,,2DP2-E,,s_4
+v_38,2DP2-W,/videos/geo_1_2nd_floor/2DP2-W,,2DP2-W,,s_4
+v_39,2DP3-E,/videos/geo_1_2nd_floor/2DP3-E,,2DP3-E,,s_4
+v_40,2DP3-N,/videos/geo_1_2nd_floor/2DP3-N,,2DP3-N,,s_4
+v_41,2DP3-W,/videos/geo_1_2nd_floor/2DP3-W,,2DP3-W,,s_4
+v_42,2DP4-N,/videos/geo_1_2nd_floor/2DP4-N,,2DP4-N,,s_4
+v_43,2DP4-S,/videos/geo_1_2nd_floor/2DP4-S,,2DP4-S,,s_4
+v_44,2DP4-W,/videos/geo_1_2nd_floor/2DP4-W,,2DP4-W,,s_4
+v_45,2DP5-E,/videos/geo_1_2nd_floor/2DP5-E,,2DP5-E,,s_4
+v_46,2DP5-N,/videos/geo_1_2nd_floor/2DP5-N,,2DP5-N,,s_4
+v_47,2DP5-W,/videos/geo_1_2nd_floor/2DP5-W,,2DP5-W,,s_4
+v_48,2DP6-N,/videos/geo_1_2nd_floor/2DP6-N,,2DP6-N,,s_4
+v_49,2DP6-S,/videos/geo_1_2nd_floor/2DP6-S,,2DP6-S,,s_4
+v_50,2DP6-W,/videos/geo_1_2nd_floor/2DP6-W,,2DP6-W,,s_4
+v_51,2DP7-N,/videos/geo_1_2nd_floor/2DP7-N,,2DP7-N,,s_4
+v_52,2DP7-S,/videos/geo_1_2nd_floor/2DP7-S,,2DP7-S,,s_4
+v_53,2DP8-N,/videos/geo_1_2nd_floor/2DP8-N,,2DP8-N,,s_4
+v_54,2DP8-S,/videos/geo_1_2nd_floor/2DP8-S,,2DP8-S,,s_4
+v_55,2DP8-W,/videos/geo_1_2nd_floor/2DP8-W,,2DP8-W,,s_4
+v_56,2DP9-E,/videos/geo_1_2nd_floor/2DP9-E,,2DP9-E,,s_4
+v_57,2DP9-N,/videos/geo_1_2nd_floor/2DP9-N,,2DP9-N,,s_4
+v_58,2DP9-S,/videos/geo_1_2nd_floor/2DP9-S,,2DP9-S,,s_4
+v_59,2DP10-E,/videos/geo_1_2nd_floor/2DP10-E,,2DP10-E,,s_4
+v_60,2DP10-N,/videos/geo_1_2nd_floor/2DP10-N,,2DP10-N,,s_4
+v_61,2DP10-W,/videos/geo_1_2nd_floor/2DP10-W,,2DP10-W,,s_4
+v_62,2DP11-E,/videos/geo_1_2nd_floor/2DP11-E,,2DP11-E,,s_4
+v_63,2DP11-S,/videos/geo_1_2nd_floor/2DP11-S,,2DP11-S,,s_4
+v_64,2DP11-W,/videos/geo_1_2nd_floor/2DP11-W,,2DP11-W,,s_4
+v_65,2DP12-E,/videos/geo_1_2nd_floor/2DP12-E,,2DP12-E,,s_4
+v_66,2DP12-N,/videos/geo_1_2nd_floor/2DP12-N,,2DP12-N,,s_4
+v_67,2DP12-W,/videos/geo_1_2nd_floor/2DP12-W,,2DP12-W,,s_4
