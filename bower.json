@@ -1,21 +1,22 @@
 {
-    "name": "ive",
-    "homepage": "https://github.com/sitcomlab/IVE",
-    "authors": [
-        "Nicholas Schiestel <n.schiestel@uni-muenster.de>"
-    ],
-    "description": "",
-    "main": "",
-    "license": "MIT",
-    "private": true,
-    "dependencies": {
-        "angular": "^1.5.8",
-        "jquery": "^3.1.0",
-        "angular-route": "^1.5.8",
-        "angular-translate": "^2.11.1",
-        "font-awesome": "^4.6.3",
-        "bootstrap": "v4.0.0-alpha.4",
-        "angular-socket-io": "^0.7.0",
-        "socket.io-client": "^1.5.0"
-    }
+  "name": "ive",
+  "homepage": "https://github.com/sitcomlab/IVE",
+  "authors": [
+    "Nicholas Schiestel <n.schiestel@uni-muenster.de>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.5.8",
+    "jquery": "^3.1.0",
+    "angular-route": "^1.5.8",
+    "angular-translate": "^2.11.1",
+    "font-awesome": "^4.6.3",
+    "bootstrap": "v4.0.0-alpha.4",
+    "angular-socket-io": "^0.7.0",
+    "socket.io-client": "^1.5.0",
+    "angular-sanitize": "^1.5.8"
+  }
 }
