@@ -1,4 +1,5 @@
 node_modules/*
 public/bower_components/*
-public/media/*
+public/images/*
+public/videos/*
 .DS_Store

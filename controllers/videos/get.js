@@ -4,76 +4,65 @@ var neo4j = require('neo4j-driver').v1;
 var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
+var fs = require("fs");
+var query = fs.readFileSync(__dirname + '/../../queries/videos/get.cypher', 'utf8').toString();
 
 
 // GET
 exports.request = function(req, res) {
 
     var session = driver.session();
-    var query = "MATCH (v:Videos) " +
-        "WHERE ID(v)= toInt({video_id}) " +
-        "RETURN " +
-            "ID(v) AS video_id, " +
-            "v.created AS created, " +
-            "v.updated AS updated, " +
-            "v.v_id AS v_id, " +
-            "v.name AS name, " +
-            "v.description AS description, " +
-            "v.url AS url, " +
-            "v.recorded AS recorded " +
-        "ORDER BY v.name DESC;";
+    session
+        .run(query, {
+            video_id: req.params.video_id
+        })
+        .then(function(result) {
+            session.close();
+            var results = [];
 
-        session
-            .run(query, {
-                video_id: req.params.video_id
-            })
-            .then(function(result) {
-                session.close();
-                var results = [];
+            async.forEachOf(result.records, function(record, item, callback) {
+                var object = {};
 
-                async.forEachOf(result.records, function (record, item, callback) {
-                    var object = {};
+                async.forEachOf(record.keys, function(key, item, callback) {
 
-                    async.forEachOf(record.keys, function (key, item, callback) {
-
-                        if(typeof(record._fields[item]) === 'object'){
-                            if(key === 'id') {
-                               object[key] = Number(record._fields[item].low);
-                            } else if (record._fields[item] === null){
-                                object[key] = record._fields[item];
-                            } else {
-                               object[key] = Number(record._fields[item]);
-                            }
-                        } else {
+                    if (typeof(record._fields[item]) === 'object') {
+                        if (key === 'id') {
+                            object[key] = Number(record._fields[item].low);
+                        } else if (record._fields[item] === null) {
                             object[key] = record._fields[item];
-                        }
-                        callback();
-                    }, function(){
-                        results.push(object);
-                        callback();
-                    });
-
-                }, function (err) {
-                    if (err) {
-                        console.log(colors.red(err));
-                        res.status(500).send(err);
-                    } else {
-
-                        // Check if Video exists
-                        if(results.length === 0){
-                            console.log(colors.red("Video with id '" + req.params.video_id + "' not found!"));
-                            res.status(404).send("Video not found!");
                         } else {
-                            // Send Result
-                            res.status(200).send(results[0]);
+                            object[key] = Number(record._fields[item]);
                         }
+                    } else {
+                        object[key] = record._fields[item];
                     }
+                    callback();
+                }, function() {
+                    results.push(object);
+                    callback();
                 });
 
-            })
-            .catch(function(err) {
-                console.log(colors.red(err));
-                res.status(500).send(err);
+            }, function(err) {
+                if (err) {
+                    console.log(colors.red(err));
+                    res.status(500).send(err);
+                } else {
+
+                    // Check if Video exists
+                    if (results.length === 0) {
+                        console.log(colors.red("Video with id '" + req.params.video_id + "' not found!"));
+                        res.status(404).send("Video not found!");
+                    } else {
+                        // Send Result
+                        res.status(200).send(results[0]);
+                    }
+                }
             });
+
+        })
+        .catch(function(err) {
+            console.log(colors.red(err));
+            res.status(500).send(err);
+        });
 
 };
