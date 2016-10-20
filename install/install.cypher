@@ -4,5 +4,5 @@ CREATE CONSTRAINT ON (location:Locations) ASSERT location.location_id IS UNIQUE;
 CREATE CONSTRAINT ON (video:Videos) ASSERT video.video_id IS UNIQUE;
 CREATE CONSTRAINT ON (overlay:Overlays) ASSERT overlay.overlay_id IS UNIQUE;
 
-// check constraints
+// Check constraints
 :schema

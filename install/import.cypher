@@ -23,15 +23,14 @@ CREATE (location:Locations {
     name: line.`name`,
     description: line.`description`,
     lat: toFloat(line.`lat`),
-    lon: toFloat(line.`lon`),
-    indoor: (case line.`indoor` WHEN 1 THEN true ELSE false END),
+    lng: toFloat(line.`lng`),
+    location_type: line.`location_type`,
     created: timestamp(),
     updated: timestamp()
 })
 WITH line, location
 MATCH (scenario:Scenarios) WHERE scenario.s_id = line.`s_id`
 CREATE (location)-[:belongs_to]->(scenario);
-
 
 
 // Add videos
@@ -67,6 +66,15 @@ CREATE (overlay:Overlays {
 WITH line, overlay
 MATCH (scenario:Scenarios) WHERE scenario.s_id = line.`s_id`
 CREATE (overlay)-[:belongs_to]->(scenario);
+
+
+// Add parent_location relationships
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/parent_location.csv' AS line FIELDTERMINATOR ','
+WITH line
+MATCH (child:Locations) WHERE child.l_id = line.`child`
+MATCH (parent:Locations) WHERE parent.l_id = line.`parent`
+CREATE (child)-[:parent_location]->(parent);
 
 
 // Add connected_to relationships
