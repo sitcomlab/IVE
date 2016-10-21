@@ -3,3 +3,11 @@ public/bower_components/*
 public/images/*
 public/videos/*
 .DS_Store
+
+controllers/scenarios/post.js
+
+build.js
+
+queries/scenarios/post.cypher
+
+routes/reset.js
