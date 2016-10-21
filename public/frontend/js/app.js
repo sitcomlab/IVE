@@ -5,6 +5,7 @@ var app = angular.module("ive", [
 
     // External Modules
     "ngRoute",
+    "ngSanitize",
     "pascalprecht.translate",
     "btford.socket-io",
 
@@ -23,8 +24,8 @@ var app = angular.module("ive", [
  * Log Provider
  * turn on/off debug logging
  */
-app.config(function($logProvider) {
-    $logProvider.debugEnabled(false);
+app.config(function($logProvider, config) {
+    $logProvider.debugEnabled(config.debugMode);
 });
 
 

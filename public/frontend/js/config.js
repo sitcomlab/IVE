@@ -10,7 +10,9 @@ app.constant("config", {
         github: "nicho90"
     }],
     appGithub: "https://github.com/sitcomlab/IVE",
-    appVersion: "v0.1",
+    appVersion: "v2.0",
     appLanguage: 'en_US',
-    apiURL: "/api"
+    apiURL: "/api",
+    debugMode: false,
+    html5Mode: true
 });

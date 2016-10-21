@@ -1,4 +1,4 @@
-var app = angular.module("languages", [ "config" ]);
+var app = angular.module("languages", []);
 
 /**
  * Translate Provider
@@ -22,11 +22,12 @@ app.config(function($translateProvider, config) {
         PLEASE_SELECT_A: 'Please select a',
         SCENARIO: 'Scenario',
         LOCATION: 'Location',
-        START_LOCATION: 'Start location'
-
+        START_LOCATION: 'start location',
+        NO_VIDEO_FOUND: 'No video found'
     });
 
 
     // Set Default Language
     $translateProvider.preferredLanguage(config.appLanguage);
+    $translateProvider.useSanitizeValueStrategy('sanitize');
 });

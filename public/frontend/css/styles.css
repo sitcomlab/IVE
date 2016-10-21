@@ -7,6 +7,10 @@ body {
     color: #FFFFFF;
 }
 
+h2 {
+    font-weight: normal;
+}
+
 .flexbox-container {
     display: -ms-flexbox;
     display: -webkit-flex;
