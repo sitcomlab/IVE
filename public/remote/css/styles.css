@@ -23,3 +23,7 @@ body {
 .link>div>p {
     color: #000000;
 }
+
+.right {
+    text-align: right;
+}
