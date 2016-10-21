@@ -3,7 +3,7 @@ var app = angular.module("routes", []);
 /**
  * Route Provider
  */
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $locationProvider, config) {
     $routeProvider
 
         // Home
@@ -16,4 +16,6 @@ app.config(function($routeProvider) {
         .otherwise({
             redirectTo: "/"
         });
+
+    $locationProvider.html5Mode(config.html5Mode);
 });
