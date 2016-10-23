@@ -72,8 +72,8 @@ CREATE (overlay)-[:belongs_to]->(scenario);
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/parent_location.csv' AS line FIELDTERMINATOR ','
 WITH line
-MATCH (child:Locations) WHERE child.l_id = line.`child`
-MATCH (parent:Locations) WHERE parent.l_id = line.`parent`
+MATCH (child:Locations) WHERE child.l_id = location.`child_id`
+MATCH (parent:Locations) WHERE parent.l_id = line.`parent_id`
 CREATE (child)-[:parent_location]->(parent);
 
 
@@ -95,7 +95,9 @@ LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/mast
 WITH line
 MATCH (location:Locations) WHERE location.l_id = line.`l_id`
 MATCH (video:Videos) WHERE video.v_id = line.`v_id`
-CREATE (video)-[:recorded_at]->(location);
+CREATE (video)-[:recorded_at {
+    preferred: line.`preferred`
+}]->(location);
 
 
 // Add embedded_in relationships
