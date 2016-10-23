@@ -11,3 +11,5 @@ build.js
 queries/scenarios/post.cypher
 
 routes/reset.js
+
+yarn.lock

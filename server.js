@@ -25,6 +25,7 @@ session
     })
     .catch(function(err) {
         console.log(colors.red(new Date() + " Neo4j could not been accessed!"));
+        console.error(err);
     });
 
 // Setup settings
