@@ -16,23 +16,23 @@ permalink: /schemas/
 
 ### CSV
 
-**Parameters**:
+Parameters:
 
-* `v_id` **required**
-* `name` **required**
-* `url` **required**
-* `description` **optional**
-* `description_international` **optional**
-* `recorded` **optional**
-* `s_id` **required**
+* `v_id` <span class="label label-primary">required</span>
+* `name` <span class="label label-primary">required</span>
+* `url` <span class="label label-primary">required</span>
+* `description` <span class="label label-default">optional</span>
+* `description_international` <span class="label label-default">optional</span>
+* `recorded` <span class="label label-default">optional</span>
+* `s_id` <span class="label label-primary">required</span>
 
-**Example**:
+Example:
 
 | v_id | name | url | description | description_international | recorded | s_id |
-|---|---|---|---|---|---|---|
-| v_20 | Heisenbergstraße (car entrance) | /media/videos/geo_1/heisenbergstrasse_car_entrance | Heisenbergstraße (Einfahrt) | Heisenbergstraße (car entrance) | | s_3 |
-| v_21 | Heisenbergstraße (parking lots) | /media/videos/geo_1/heisenbergstrasse_parking_lots | Heisenbergstraße (Parkplatz) | Heisenbergstraße (parking lots) | | s_3 |
-| v_22 | GEO-1 (main entrance) | /media/videos/geo_1/geo1_main_entrance | GEO-1 (Haupteingang) | GEO-1 (main entrance) | | s_3 |
+|------|------|-----|-------------|---------------------------|----------|------|
+| v_20 | Heisenbergstraße (car entrance) | /media/videos/geo_1/heisenbergstrasse_car_entrance | Heisenbergstraße (Einfahrt) | Heisenbergstraße (car entrance) | | s_3 |
+| v_21 | Heisenbergstraße (parking lots) | /media/videos/geo_1/heisenbergstrasse_parking_lots | Heisenbergstraße (Parkplatz) | Heisenbergstraße (parking lots) | | s_3 |
+| v_22 | GEO-1 (main entrance) | /media/videos/geo_1/geo1_main_entrance | GEO-1 (Haupteingang) | GEO-1 (main entrance) | | s_3 |
 | v_23 | Ground floor (atrium) | /media/videos/geo_1/geo1_ground_floor_atrium | Erdgeschoss (Atrium) | Ground floor (atrium) | | s_3 |
 | v_24 | Ground floor (elevator) | /media/videos/geo_1/geo1-ground_floor_elevator | Erdgeschoss (Aufzug) | Ground floor (elevator) | | s_3 |
 | v_25 | Ground floor (stairs) | /media/videos/geo_1/geo1-erdgeschoss-hintere-treppe | Erdgeschoss (Hintere Treppe) | Ground floor (stairs) | | s_3 |
@@ -63,15 +63,16 @@ permalink: /schemas/
 
 ### API
 
-**Request**:
+Request: <span class="label label-info">POST</span>
 
-```bash
-POST /api/videos
+```
+/api/videos
 ```
 
-**Body**:
+* Content-Type `application/json`
+* Body:
 
-```JSON
+```json
 {
     "v_id": "v_20",
     "name": "Heisenbergstraße (car entrance)",
@@ -83,9 +84,9 @@ POST /api/videos
 }
 ```
 
-**Response** `201`:
+Response `201`:
 
-```JSON
+```json
 {
     "video_id": 1,
     "v_id": "v_20",
