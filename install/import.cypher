@@ -59,7 +59,6 @@ CREATE (overlay:Overlays {
     description: line.`description`,
     type: line.`type`,
     url: line.`url`,
-    display: (case line.`display` WHEN 1 THEN true ELSE false END),
     created: timestamp(),
     updated: timestamp()
 })
@@ -72,7 +71,7 @@ CREATE (overlay)-[:belongs_to]->(scenario);
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/sitcomlab/IVE/master/data/parent_location.csv' AS line FIELDTERMINATOR ','
 WITH line
-MATCH (child:Locations) WHERE child.l_id = location.`child_id`
+MATCH (child:Locations) WHERE child.l_id = line.`child_id`
 MATCH (parent:Locations) WHERE parent.l_id = line.`parent_id`
 CREATE (child)-[:parent_location]->(parent);
 
@@ -96,7 +95,7 @@ WITH line
 MATCH (location:Locations) WHERE location.l_id = line.`l_id`
 MATCH (video:Videos) WHERE video.v_id = line.`v_id`
 CREATE (video)-[:recorded_at {
-    preferred: line.`preferred`
+    preferred: (case line.`preferred` WHEN 1 THEN true ELSE false END)
 }]->(location);
 
 
@@ -115,7 +114,8 @@ CREATE (overlay)-[:embedded_in {
     d: line.`d`,
     rx: line.`rx`,
     ry: line.`ry`,
-    rz: line.`rz`
+    rz: line.`rz`,
+    display: (case line.`display` WHEN 1 THEN true ELSE false END),
 }]->(video);
 
 
