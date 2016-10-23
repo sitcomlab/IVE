@@ -1,8 +1,9 @@
-# Troubleshooting
+---
+layout: page
+permalink: /troubleshooting/
+---
 
-***
-
-##### 2016-10-21
+### 2016-10-21
 * Upgraded from v3.0.4 to v3.0.6 (MacOS), installation via official website
 * Error occurred in Bolt-connection in `server.js`
 * All graph data got deleted and the certification was running out
