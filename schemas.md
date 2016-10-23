@@ -4,17 +4,17 @@ title: Schemas
 permalink: /schemas/
 ---
 
-# Scenarios
+## Scenarios
 
 ***
 
-# Locations
+## Locations
 
 ***
 
-# Videos
+## Videos
 
-### CSV
+#### CSV
 
 Parameters:
 
@@ -61,7 +61,7 @@ Example:
 	4th floor (stairwell)	/media/videos/geo_1/geo1-vierter-stock-treppe	4. Stock (Treppenhaus)	4th floor (stairwell)		s_3
 -->
 
-### API
+#### API
 
 Request: <span class="label label-info">POST</span>
 
