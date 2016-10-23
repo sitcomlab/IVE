@@ -356,3 +356,9 @@ table tr th:last-child {
 .label-danger {
     background-color: $red;
 }
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: $lightGray;
+}
