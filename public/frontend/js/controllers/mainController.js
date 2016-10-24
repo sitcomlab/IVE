@@ -6,26 +6,22 @@ var app = angular.module("ive");
  */
 app.controller("mainController", function($scope, $rootScope, $window, config, $routeParams, $filter, $location, $translate, $videoService, $sce, $socket) {
 
+
     // Init
+    $scope.videoConfig = {
+        loop: true,
+        theme: "../bower_components/videogular-themes-default/videogular.css",
+        autoHide: true,
+		autoHideTime: 100,
+		autoPlay: true
+    };
+    $scope.sources = [];
     $scope.current = {
         scenarioStatus: false,
         locationStatus: false,
         videoStatus: false
     };
-    $scope.controls = true; // Hide videoplayer controls
-    $scope.sources = [ // Video URLs
-        {
-            src: $sce.trustAsResourceUrl("localhost:4000/media/videos/city_center/task01.mp4"),
-        type: "video/mp4"
-        }/*, {
-            src: $sce.trustAsResourceUrl("path/to/video/source.webm"),
-            type: "video/webm"
-        }, {
-            src: $sce.trustAsResourceUrl("path/to/video/source.ogg"),
-            type: "video/ogg"
-        }*/
-    ];
-
+    
 
     /**
      * [changeSource description]
@@ -34,17 +30,18 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      */
     $scope.changeSource = function(path) {
         path = $window.location.origin + path;
-        $scope.sources = [{
-                src: $sce.trustAsResourceUrl(path + ".mp4"),
-                type: "video/mp4"
-            }, {
-                src: $sce.trustAsResourceUrl(path + ".webm"),
-                type: "video/webm"
-            }, {
-                src: $sce.trustAsResourceUrl(path + ".ogg"),
-                type: "video/ogg"
-            }
-        ];
+        $scope.sources = [];
+        $scope.sources.push({
+            src: $sce.trustAsResourceUrl(path + ".mp4"),
+            type: "video/mp4"
+        }, {
+            src: $sce.trustAsResourceUrl(path + ".ogg"),
+            type: "video/ogg"
+        });
+        /*{
+            src: $sce.trustAsResourceUrl(path + ".webm"),
+            type: "video/webm"
+        }*/
     };
 
 
@@ -72,7 +69,28 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
             locationStatus: true,
             videoStatus: false
         };
+
+        // Request related video data automatically
+        $videoService.list_by_location(data.location_id).success(function(response) {
+            for(var i=0; i<response.length; i++){
+                if(response[i].preferred){
+                    $scope.current.videoStatus = true;
+                    $scope.current.video = response[i];
+                    $scope.changeSource($scope.current.video.url);
+                }
+            }
+            if($scope.current.video === undefined && response.length > 0){
+                console.log("No preferred video found");
+                $scope.current.videoStatus = true;
+                $scope.current.video = response[0];
+            } else {
+                console.log("No videos found");
+            }
+        }).error(function(err) {
+            $scope.err = err;
+        });
     });
+
 
     /**
      * [video description]
@@ -88,8 +106,18 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
         // Request video data
         $videoService.get(data.video_id).success(function(response) {
-            $scope.current.video = response;
-            //$scope.changeSource($scope.current.video.url);
+            for(var i=0; i<response.length; i++){
+                if(response[i].preferred){
+                    $scope.current.video = response[i];
+                    $scope.changeSource($scope.current.video.url);
+                }
+            }
+            if($scope.current.video === undefined && response.length > 0){
+                console.log("No preferred video found");
+                $scope.current.video = response[0];
+            } else {
+                console.log("No videos found");
+            }
         }).error(function(err) {
             $scope.err = err;
         });

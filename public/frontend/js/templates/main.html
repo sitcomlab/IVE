@@ -1,22 +1,56 @@
 <!DOCTYPE html>
-<video id="video" autoplay="autoplay" loop="loop" controls="{{controls}}" vg-src="sources" preload="metadata" ng-if="current.videoStatus" style="z-index:1">
-</video>
-
 <div class="flexbox-container">
+
+    <!-- Overlay container -->
+    <div class="overlay-container">
+        <!-- TODO: Render overlays -->
+    </div>
+
+    <!-- Video container -->
+    <div class="videogular-container" ng-if="current.videoStatus">
+
+        <!-- Video player -->
+        <videogular vg-theme="videoConfig.theme" vg-auto-play="videoConfig.autoPlay">
+
+            <!-- Video files -->
+            <vg-media vg-src="sources" vg-loop="videoConfig.loop"></vg-media>
+
+            <!-- Video player controls -->
+            <vg-controls vg-autohide="videoConfig.autoHide" vg-autohide-time="videoConfig.autoHideTime">
+                <vg-play-pause-button></vg-play-pause-button>
+                <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                <vg-scrub-bar>
+                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                </vg-scrub-bar>
+                <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                <vg-volume>
+                    <vg-mute-button></vg-mute-button>
+                    <vg-volume-bar></vg-volume-bar>
+                </vg-volume>
+                <vg-fullscreen-button></vg-fullscreen-button>
+            </vg-controls>
+        </videogular>
+    </div>
+
+    <!-- No scenario -->
     <div ng-if="!current.scenarioStatus">
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <br>
         <br>
-        <h2>{{ 'PLEASE_SELECT_A' | translate }} {{ 'SCENARIO' | translate }}</h2>
+        <h2>{{ 'PLEASE_SELECT_A' | translate }}
+            {{ 'SCENARIO' | translate }}</h2>
     </div>
 
+    <!-- No start location -->
     <div ng-if="current.scenarioStatus && !current.locationStatus">
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <br>
         <br>
-        <h2>{{ 'PLEASE_SELECT_A' | translate }} {{ 'START_LOCATION' | translate }}</h2>
+        <h2>{{ 'PLEASE_SELECT_A' | translate }}
+            {{ 'START_LOCATION' | translate }}</h2>
     </div>
 
+    <!-- No video found -->
     <div ng-if="current.scenarioStatus && current.locationStatus && !current.videoStatus">
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <br>
