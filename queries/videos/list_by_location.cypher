@@ -8,5 +8,6 @@ RETURN
     v.name AS name,
     v.description AS description,
     v.url AS url,
-    v.recorded AS recorded
-ORDER BY v.name DESC;
+    v.recorded AS recorded,
+    r.preferred AS preferred
+ORDER BY r.preferred DESC;

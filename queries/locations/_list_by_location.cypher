@@ -1,5 +1,6 @@
-MATCH (l:Locations)-[r:belongs_to]->(s:Scenarios)
-WHERE ID(s)= toInt({scenario_id}) AND (l.location_type = 'outdoor' OR l.location_type = 'indoor')
+// DEPRECATED
+MATCH (start:Locations)-[r:connected_to]->(l:Locations)
+WHERE ID(start)= toInt({location_id})
 RETURN
     ID(l) AS location_id,
     l.created AS created,
