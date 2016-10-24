@@ -24,8 +24,7 @@ session
         console.log(colors.green(new Date() + " Neo4j is running on Port 7474"));
     })
     .catch(function(err) {
-        console.log(colors.red(new Date() + " Neo4j could not been accessed!"));
-        console.error(err);
+        console.error(colors.red(new Date() + " Neo4j could not been accessed:\n" + JSON.stringify(err)));
     });
 
 // Setup settings
