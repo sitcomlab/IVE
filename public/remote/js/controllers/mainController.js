@@ -4,7 +4,7 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService, $socket) {
+app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService, $overlayService, $socket) {
 
     // Init
     $scope.current = {
@@ -19,19 +19,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     }).error(function(err) {
         $scope.err = err;
     });
-
-    // TEST-DATA
-    $scope.overlays = [
-        {
-            overlay_id: 1,
-            name: "Test",
-            display: true
-        }, {
-            overlay_id: 2,
-            name: "Test-2",
-            display: false
-        }
-    ];
+    
 
     /**
      * [setCurrentScenario description]
@@ -78,6 +66,13 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                 // Send socket message
                 $socket.emit('/set/video', {
                     video_id: $scope.current.video.video_id
+                });
+
+                // Load all related overlays
+                $overlayService.list_by_video($scope.current.video.video_id).success(function(response){
+                    $scope.overlays = response;
+                }).error(function(err) {
+                    $scope.err = err;
                 });
 
             } else {

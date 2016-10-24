@@ -17,7 +17,8 @@ var app = angular.module("ive", [
     // Services
     "scenarioService",
     "locationService",
-    "videoService"
+    "videoService",
+    "overlayService"
 
 ]);
 
