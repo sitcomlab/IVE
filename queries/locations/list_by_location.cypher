@@ -9,7 +9,7 @@ RETURN
     l.description AS description,
     l.lat AS lat,
     l.lng AS lng,
-    l.location_type AS location_type
+    l.location_type AS location_type,
     ID(parent) AS parent_location_id,
     parent.created AS parent_created,
     parent.updated AS parent_updated,
