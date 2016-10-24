@@ -44,7 +44,7 @@ exports.request = function(req, res) {
 
             }, function(err) {
                 if (err) {
-                    console.log(colors.red(err));
+                    console.error(colors.red(JSON.stringify(err)));
                     res.status(500).send(err);
                 } else {
 
@@ -61,7 +61,7 @@ exports.request = function(req, res) {
 
         })
         .catch(function(err) {
-            console.log(colors.red(err));
+            console.error(colors.red(JSON.stringify(err)));
             res.status(500).send(err);
         });
 
