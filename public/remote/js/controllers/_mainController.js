@@ -4,12 +4,13 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService, $overlayService, $socket, _) {
+app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService, $overlayService, $socket) {
 
     // Init
     $scope.current = {
         scenarioStatus: false,
-        locationStatus: false
+        locationStatus: false,
+        videoStatus: false
     };
 
     // Load all scenarios
@@ -21,41 +22,12 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
 
 
     /**
-     * [toggleScenarios description]
-     * @return {[type]} [description]
-     */
-    $scope.toggleScenarios = function() {
-        if($scope.current.scenarioStatus){
-            $scope.current.scenarioStatus = false;
-        } else {
-            $scope.current.scenarioStatus = true;
-        }
-    };
-
-
-    /**
-     * [toggleLocations description]
-     * @return {[type]} [description]
-     */
-    $scope.toggleLocations = function() {
-        if($scope.current.locationStatus){
-            $scope.current.locationStatus = false;
-        } else {
-            $scope.current.locationStatus = true;
-        }
-    };
-
-
-    /**
      * [setCurrentScenario description]
      * @param {[type]} scenario [description]
      */
     $scope.setCurrentScenario = function(scenario){
-        delete $scope.current.scenario;
-        delete $scope.current.location;
         $scope.current.scenario = scenario;
-        $scope.current.scenarioStatus = false;
-        $scope.current.locationStatus = false;
+        $scope.current.scenarioStatus = true;
 
         // Load all related locations
         $locationService.list_by_scenario($scope.current.scenario.scenario_id).success(function(response) {
@@ -70,13 +42,13 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         });
     };
 
-
     /**
      * [setCurrentLocation description]
      * @param {[type]} location [description]
      */
     $scope.setCurrentLocation = function(location){
         $scope.current.location = location;
+        $scope.current.locationStatus = true;
 
         // Send socket message
         $socket.emit('/set/location', {
@@ -88,21 +60,23 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
             $scope.videos = response;
 
             if($scope.videos.length !== 0){
+                $scope.current.video = $scope.videos[0]; // TODO: Change database schema for better preselecting
+                $scope.current.videoStatus = true;
 
-                $scope.current.video = _.findWhere($scope.videos, {
-                    preferred: true
+                // Send socket message
+                $socket.emit('/set/video', {
+                    video_id: $scope.current.video.video_id
                 });
 
-                if($scope.current.video === -1){
-                    delete $scope.current.video;
-                } else {
-                    // Load all related overlays
-                    $overlayService.list_by_video($scope.current.video.video_id).success(function(response){
-                        $scope.overlays = response;
-                    }).error(function(err) {
-                        $scope.err = err;
-                    });
-                }
+                // Load all related overlays
+                $overlayService.list_by_video($scope.current.video.video_id).success(function(response){
+                    $scope.overlays = response;
+                }).error(function(err) {
+                    $scope.err = err;
+                });
+
+            } else {
+                $scope.current.videoStatus = false;
             }
 
         }).error(function(err) {
@@ -124,6 +98,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
      */
     $scope.setCurrentVideo = function(video){
         $scope.current.video = video;
+        $scope.current.videoStatus = true;
 
         // Send socket message
         $socket.emit('/set/video', {
@@ -132,11 +107,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     };
 
 
-    /**
-     * [toggleOverlay description]
-     * @param  {[type]} overlay [description]
-     * @return {[type]}         [description]
-     */
+
     $scope.toggleOverlay = function(overlay){
         if($scope.overlays[0].display){
             $scope.overlays[0].display = false;
@@ -153,14 +124,33 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
 
 
     /**
-     * [reset description]
+     * [resetScenario description]
      */
-    $scope.reset = function(){
+    $scope.resetScenario = function(){
+        delete $scope.current;
+        $scope.current = {
+            scenarioStatus: false,
+            locationStatus: false,
+            videoStatus: false
+        };
+
+        // Send socket message
+        $socket.emit('/reset/scenario', {});
+    };
+
+    /**
+     * [resetLocation description]
+     */
+    $scope.resetLocation = function(){
+        delete $scope.current.location;
+        delete $scope.current.video;
+        $scope.current.scenarioStatus = true;
+        $scope.current.locationStatus = false;
+        $scope.current.videoStatus = false;
 
         // Send socket message
         $socket.emit('/reset/location', {});
     };
-
 
 
 });

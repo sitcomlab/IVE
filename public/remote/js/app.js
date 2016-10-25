@@ -8,6 +8,7 @@ var app = angular.module("ive", [
     "ngSanitize",
     "pascalprecht.translate",
     "btford.socket-io",
+    "underscore",
 
     // Own Modules
     "routes",

@@ -20,10 +20,16 @@ body {
     text-decoration: none;
 }
 
-.link>div>p {
+.link > div > p {
     color: #000000;
 }
 
 .right {
     text-align: right;
+}
+
+#overview > .list-group > .list-group-item.active,
+#overview > .list-group > .list-group-item.active:focus,
+#overview > .list-group > .list-group-item.active:hover {
+    border: 1px solid #FFFFFF;
 }

@@ -19,6 +19,7 @@ app.config(function($translateProvider, config) {
     $translateProvider.translations('en_US', {
 
         PLEASE_SELECT_A: 'Please select a',
+        CHANGE_CURRENT: 'Change current',
         SCENARIO: 'Scenario',
         LOCATION: 'Location',
         VIDEOS: 'Videos',
