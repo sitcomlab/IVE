@@ -13,7 +13,7 @@ var username = process.env.USERNAME || 'neo4j';
 var password = process.env.PW || 'neo4j';
 
 // Connect to Neo4j
-var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic(username, password));
+var driver = neo4j.driver("bolt://127.0.0.1", neo4j.auth.basic(username, password));
 exports.driver = driver;
 var session = driver.session();
 var query = "RETURN true;";
