@@ -8,7 +8,7 @@ var app = angular.module("ive", [
     "ngSanitize",
     "pascalprecht.translate",
     "btford.socket-io",
-    "ngSanitize",
+    "underscore",
 	"com.2fdevs.videogular",
 	"com.2fdevs.videogular.plugins.controls",
 	//"com.2fdevs.videogular.plugins.overlayplay",
@@ -20,7 +20,8 @@ var app = angular.module("ive", [
     "sockets",
 
     // Services
-    "videoService"
+    "videoService",
+    "overlayService"
 
 ]);
 
