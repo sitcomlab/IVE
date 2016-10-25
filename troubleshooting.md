@@ -18,6 +18,8 @@ permalink: /troubleshooting/
 dbms.directories.import=/Users/Nicho/GitHub/IVE/data/
 ```
 
+***
+
 ### 2016-10-21
 * Upgraded from v3.0.4 to v3.0.6 (MacOS), installation via official website
 * Error occurred in Bolt-connection in `server.js`
