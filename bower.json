@@ -20,6 +20,8 @@
     "angular-sanitize": "^1.5.8",
     "videogular": "^1.4.4",
     "videogular-themes-default": "^1.4.4",
-    "videogular-controls": "^1.4.4"
+    "videogular-controls": "^1.4.4",
+    "underscore": "^1.8.3",
+    "angular-underscore-module": "^1.0.3"
   }
 }
