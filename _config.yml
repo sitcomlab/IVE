@@ -9,7 +9,7 @@ name: IVE
 description: The Immersive Video Environment
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: images/logo.png
+avatar: https://sitcomlab.github.io/IVE/images/logo.png
 
 #
 # Flags below are optional
