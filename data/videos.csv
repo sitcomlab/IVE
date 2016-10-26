@@ -1,13 +1,13 @@
 v_id,name,url,description,description_german,recorded,s_id
-v_1,Schlossplatz,/videos/muenster-city-center/task01,Schlossplatz,Schlossplatz,2014-04-03 11:56:00,s_01
-v_2,Frauenstraße [1],/videos/muenster-city-center/task02,Frauenstraße [1],Frauenstraße [1],2014-04-03 12:43:00,s_01
-v_3,Frauenstraße [2],/videos/muenster-city-center/task03,Frauenstraße [2],Frauenstraße [2],2014-04-03 13:25:00,s_01
-v_4,Krummer Timpen,/videos/muenster-city-center/task04,Krummer Timpen,Krummer Timpen,2014-04-03 14:09:00,s_01
-v_5,Juridicum,/videos/muenster-city-center/task05,Juridicum,Juridicum,2014-04-03 13:52:00,s_01
-v_6,Jesuitengang,/videos/muenster-city-center/task06,Jesuitengang,Jesuitengang,2014-04-03 14:50:00,s_01
-v_7,Pferdegasse,/videos/muenster-city-center/task07,Pferdegasse,Pferdegasse,2014-05-02 09:40:00,s_01
-v_8,Fürstenberghaus,/videos/muenster-city-center/task08,Fürstenberghaus,Fürstenberghaus,2014-05-02 10:23:00,s_01
-v_9,Domplatz,/videos/muenster-city-center/task09,Domplatz,Domplatz,2014-05-02 11:01:00,s_01
+v_01,Schlossplatz,/videos/muenster-city-center/task01,Schlossplatz,Schlossplatz,2014-04-03 11:56:00,s_01
+v_02,Frauenstraße [1],/videos/muenster-city-center/task02,Frauenstraße [1],Frauenstraße [1],2014-04-03 12:43:00,s_01
+v_03,Frauenstraße [2],/videos/muenster-city-center/task03,Frauenstraße [2],Frauenstraße [2],2014-04-03 13:25:00,s_01
+v_04,Krummer Timpen,/videos/muenster-city-center/task04,Krummer Timpen,Krummer Timpen,2014-04-03 14:09:00,s_01
+v_05,Juridicum,/videos/muenster-city-center/task05,Juridicum,Juridicum,2014-04-03 13:52:00,s_01
+v_06,Jesuitengang,/videos/muenster-city-center/task06,Jesuitengang,Jesuitengang,2014-04-03 14:50:00,s_01
+v_07,Pferdegasse,/videos/muenster-city-center/task07,Pferdegasse,Pferdegasse,2014-05-02 09:40:00,s_01
+v_08,Fürstenberghaus,/videos/muenster-city-center/task08,Fürstenberghaus,Fürstenberghaus,2014-05-02 10:23:00,s_01
+v_09,Domplatz,/videos/muenster-city-center/task09,Domplatz,Domplatz,2014-05-02 11:01:00,s_01
 v_10,Main station (inside),/videos/muenster-main-station/main-station-inside,Main station (inside),Hauptbahnhof (innen),,s_02
 v_11,Main station (side entrance),/videos/muenster-main-station/main-station-side-entrance,Main station (side entrance),Hauptbahnhof (Seiteneingang),,s_02
 v_12,Main station (pedestrian area) [1],/videos/muenster-main-station/main-station-pedestrian-area-1,Main station (pedestrian area) [1],Hauptbahnhof (Fußgängerzone) [1],,s_02
