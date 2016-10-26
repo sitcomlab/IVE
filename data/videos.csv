@@ -23,48 +23,48 @@ v_21,Windthorststraße,/videos/muenster-main-station/windthorststrasse,Windthors
 v_22,Heisenbergstraße (car entrance),/videos/geo-1/heisenbergstrasse-car-entrance,Heisenbergstraße (car entrance),Heisenbergstraße (Einfahrt),,s_03
 v_23,Heisenbergstraße (parking lots),/videos/geo-1/heisenbergstrasse-parking-lots,Heisenbergstraße (parking lots),Heisenbergstraße (Parkplatz),,s_03
 v_24,GEO-1 (main entrance),/videos/geo-1/geo1-main-entrance,GEO-1 (main entrance),GEO-1 (Haupteingang),,s_03
-v_25,Ground floor (atrium),/videos/geo-1/geo1-gf-atrium,Ground floor (atrium),Erdgeschoss (Atrium),,s_03
-v_26,Ground floor (elevator),/videos/geo-1/geo1-gf-elevator,Ground floor (elevator),Erdgeschoss (Aufzug),,s_03
-v_27,Ground floor (stairs),/videos/geo-1/geo1-gf-stairs,Ground floor (stairs),Erdgeschoss (Hintere Treppe),,s_03
-v_28,Ground floor (IVVGeo),/videos/geo-1/geo1-gf-ivvgeo,Ground floor (IVVGeo),Erdgeschoss (IVVGeo),,s_03
-v_29,Ground floor (2nd atrium) [1],/videos/geo-1/geo1-gf-2nd-atrium-1,Ground floor (2nd atrium) [1],Erdgeschoss (2. Atrium) [1],,s_03
-v_30,Ground floor (2nd atrium) [2],/videos/geo-1/geo1-gf-2nd-atrium-2,Ground floor (2nd atrium) [2],Erdgeschoss (2. Atrium) [2],,s_03
-v_31,Ground floor (lecture room),/videos/geo-1/geo1-gf-lecture-room,Ground floor (lecture room),Erdgeschoss (Hörsaal),,s_03
-v_32,1st floor (atrium),/videos/geo-1/geo1-1st-floor-atrium,1st floor (atrium),1. Stock (Atrium),,s_03
-v_33,1st floor (stairwell),/videos/geo-1/geo1-1st-floor-stairwell,1st floor (stairwell),1. Stock (Treppenhaus),,s_03
-v_34,2nd floor (stairwell),/videos/geo-1/geo1-2nd-floor-stairwell,2nd floor (stairwell),2. Stock (Treppenhaus),,s_03
-v_35,4th floor (stairwell),/videos/geo-1/geo1-4th-floor-stairwell,4th floor (stairwell),4. Stock (Treppenhaus),,s_03
-v_36,2DP1-E,/videos/geo-1-2nd-floor/2DP1-E,2DP1-E,,,s_04
-v_37,2DP1-S,/videos/geo-1-2nd-floor/2DP1-S,2DP1-S,,,s_04
-v_38,2DP1-W,/videos/geo-1-2nd-floor/2DP1-W,2DP1-W,,,s_04
-v_39,2DP2-E,/videos/geo-1-2nd-floor/2DP2-E,2DP2-E,,,s_04
-v_40,2DP2-W,/videos/geo-1-2nd-floor/2DP2-W,2DP2-W,,,s_04
-v_41,2DP3-E,/videos/geo-1-2nd-floor/2DP3-E,2DP3-E,,,s_04
-v_42,2DP3-N,/videos/geo-1-2nd-floor/2DP3-N,2DP3-N,,,s_04
-v_43,2DP3-W,/videos/geo-1-2nd-floor/2DP3-W,2DP3-W,,,s_04
-v_44,2DP4-N,/videos/geo-1-2nd-floor/2DP4-N,2DP4-N,,,s_04
-v_45,2DP4-S,/videos/geo-1-2nd-floor/2DP4-S,2DP4-S,,,s_04
-v_46,2DP4-W,/videos/geo-1-2nd-floor/2DP4-W,2DP4-W,,,s_04
-v_47,2DP5-E,/videos/geo-1-2nd-floor/2DP5-E,2DP5-E,,,s_04
-v_48,2DP5-N,/videos/geo-1-2nd-floor/2DP5-N,2DP5-N,,,s_04
-v_49,2DP5-W,/videos/geo-1-2nd-floor/2DP5-W,2DP5-W,,,s_04
-v_50,2DP6-N,/videos/geo-1-2nd-floor/2DP6-N,2DP6-N,,,s_04
-v_51,2DP6-S,/videos/geo-1-2nd-floor/2DP6-S,2DP6-S,,,s_04
-v_52,2DP6-W,/videos/geo-1-2nd-floor/2DP6-W,2DP6-W,,,s_04
-v_53,2DP7-N,/videos/geo-1-2nd-floor/2DP7-N,2DP7-N,,,s_04
-v_54,2DP7-S,/videos/geo-1-2nd-floor/2DP7-S,2DP7-S,,,s_04
-v_55,2DP8-N,/videos/geo-1-2nd-floor/2DP8-N,2DP8-N,,,s_04
-v_56,2DP8-S,/videos/geo-1-2nd-floor/2DP8-S,2DP8-S,,,s_04
-v_57,2DP8-W,/videos/geo-1-2nd-floor/2DP8-W,2DP8-W,,,s_04
-v_58,2DP9-E,/videos/geo-1-2nd-floor/2DP9-E,2DP9-E,,,s_04
-v_59,2DP9-N,/videos/geo-1-2nd-floor/2DP9-N,2DP9-N,,,s_04
-v_60,2DP9-S,/videos/geo-1-2nd-floor/2DP9-S,2DP9-S,,,s_04
-v_61,2DP10-E,/videos/geo-1-2nd-floor/2DP10-E,2DP10-E,,,s_04
-v_62,2DP10-N,/videos/geo-1-2nd-floor/2DP10-N,2DP10-N,,,s_04
-v_63,2DP10-W,/videos/geo-1-2nd-floor/2DP10-W,2DP10-W,,,s_04
-v_64,2DP11-E,/videos/geo-1-2nd-floor/2DP11-E,2DP11-E,,,s_04
-v_65,2DP11-S,/videos/geo-1-2nd-floor/2DP11-S,2DP11-S,,,s_04
-v_66,2DP11-W,/videos/geo-1-2nd-floor/2DP11-W,2DP11-W,,,s_04
-v_67,2DP12-E,/videos/geo-1-2nd-floor/2DP12-E,2DP12-E,,,s_04
-v_68,2DP12-N,/videos/geo-1-2nd-floor/2DP12-N,2DP12-N,,,s_04
-v_69,2DP12-W,/videos/geo-1-2nd-floor/2DP12-W,2DP12-W,,,s_04
+v_25,Ground floor (atrium),/videos/geo-1/geo1-level-0-atrium-1,Ground floor (atrium),Erdgeschoss (Atrium),,s_03
+v_26,Ground floor (elevator),/videos/geo-1/geo1-level-0-elevator,Ground floor (elevator),Erdgeschoss (Aufzug),,s_03
+v_27,Ground floor (stairs),/videos/geo-1/geo1-level-0-stairs,Ground floor (stairs),Erdgeschoss (Hintere Treppe),,s_03
+v_28,Ground floor (IVVGeo),/videos/geo-1/geo1-level-0-ivvgeo,Ground floor (IVVGeo),Erdgeschoss (IVVGeo),,s_03
+v_29,Ground floor (2nd atrium) [1],/videos/geo-1/geo1-level-0-atrium-2-1,Ground floor (2nd atrium) [1],Erdgeschoss (2. Atrium) [1],,s_03
+v_30,Ground floor (2nd atrium) [2],/videos/geo-1/geo1-level-0-atrium-2-2,Ground floor (2nd atrium) [2],Erdgeschoss (2. Atrium) [2],,s_03
+v_31,Ground floor (lecture room),/videos/geo-1/geo1-level-0-lecture-room,Ground floor (lecture room),Erdgeschoss (Hörsaal),,s_03
+v_32,1st floor (atrium),/videos/geo-1/geo1-level-1-atrium,1st floor (atrium),1. Stock (Atrium),,s_03
+v_33,1st floor (stairwell),/videos/geo-1/geo1-level-1-stairwell,1st floor (stairwell),1. Stock (Treppenhaus),,s_03
+v_34,2nd floor (stairwell),/videos/geo-1/geo1-level-2-stairwell,2nd floor (stairwell),2. Stock (Treppenhaus),,s_03
+v_35,4th floor (stairwell),/videos/geo-1/geo1-level-4-stairwell,4th floor (stairwell),4. Stock (Treppenhaus),,s_03
+v_36,2DP1-E,/videos/geo-1-level-2/2DP1-E,2DP1-E,,,s_04
+v_37,2DP1-S,/videos/geo-1-level-2/2DP1-S,2DP1-S,,,s_04
+v_38,2DP1-W,/videos/geo-1-level-2-floor/2DP1-W,2DP1-W,,,s_04
+v_39,2DP2-E,/videos/geo-1-level-2-floor/2DP2-E,2DP2-E,,,s_04
+v_40,2DP2-W,/videos/geo-1-level-2-floor/2DP2-W,2DP2-W,,,s_04
+v_41,2DP3-E,/videos/geo-1-level-2-floor/2DP3-E,2DP3-E,,,s_04
+v_42,2DP3-N,/videos/geo-1-level-2-floor/2DP3-N,2DP3-N,,,s_04
+v_43,2DP3-W,/videos/geo-1-level-2-floor/2DP3-W,2DP3-W,,,s_04
+v_44,2DP4-N,/videos/geo-1-level-2-floor/2DP4-N,2DP4-N,,,s_04
+v_45,2DP4-S,/videos/geo-1-level-2-floor/2DP4-S,2DP4-S,,,s_04
+v_46,2DP4-W,/videos/geo-1-level-2-floor/2DP4-W,2DP4-W,,,s_04
+v_47,2DP5-E,/videos/geo-1-level-2-floor/2DP5-E,2DP5-E,,,s_04
+v_48,2DP5-N,/videos/geo-1-level-2-floor/2DP5-N,2DP5-N,,,s_04
+v_49,2DP5-W,/videos/geo-1-level-2-floor/2DP5-W,2DP5-W,,,s_04
+v_50,2DP6-N,/videos/geo-1-level-2-floor/2DP6-N,2DP6-N,,,s_04
+v_51,2DP6-S,/videos/geo-1-level-2-floor/2DP6-S,2DP6-S,,,s_04
+v_52,2DP6-W,/videos/geo-1-level-2-floor/2DP6-W,2DP6-W,,,s_04
+v_53,2DP7-N,/videos/geo-1-level-2-floor/2DP7-N,2DP7-N,,,s_04
+v_54,2DP7-S,/videos/geo-1-level-2-floor/2DP7-S,2DP7-S,,,s_04
+v_55,2DP8-N,/videos/geo-1-level-2-floor/2DP8-N,2DP8-N,,,s_04
+v_56,2DP8-S,/videos/geo-1-level-2-floor/2DP8-S,2DP8-S,,,s_04
+v_57,2DP8-W,/videos/geo-1-level-2-floor/2DP8-W,2DP8-W,,,s_04
+v_58,2DP9-E,/videos/geo-1-level-2-floor/2DP9-E,2DP9-E,,,s_04
+v_59,2DP9-N,/videos/geo-1-level-2-floor/2DP9-N,2DP9-N,,,s_04
+v_60,2DP9-S,/videos/geo-1-level-2-floor/2DP9-S,2DP9-S,,,s_04
+v_61,2DP10-E,/videos/geo-1-level-2-floor/2DP10-E,2DP10-E,,,s_04
+v_62,2DP10-N,/videos/geo-1-level-2-floor/2DP10-N,2DP10-N,,,s_04
+v_63,2DP10-W,/videos/geo-1-level-2-floor/2DP10-W,2DP10-W,,,s_04
+v_64,2DP11-E,/videos/geo-1-level-2-floor/2DP11-E,2DP11-E,,,s_04
+v_65,2DP11-S,/videos/geo-1-level-2-floor/2DP11-S,2DP11-S,,,s_04
+v_66,2DP11-W,/videos/geo-1-level-2-floor/2DP11-W,2DP11-W,,,s_04
+v_67,2DP12-E,/videos/geo-1-level-2-floor/2DP12-E,2DP12-E,,,s_04
+v_68,2DP12-N,/videos/geo-1-level-2-floor/2DP12-N,2DP12-N,,,s_04
+v_69,2DP12-W,/videos/geo-1-level-2-floor/2DP12-W,2DP12-W,,,s_04
