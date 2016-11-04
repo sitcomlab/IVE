@@ -3,11 +3,61 @@ layout: page
 permalink: /schemas/
 ---
 
+### Overview
+1. [Scenarios](#scenarios)
+2. [Locations](#locations)
+3. [Videos](#videos)
+
+***
+
 # Scenarios
+
+### CSV
+
+Parameters:
+
+* `s_id` <span class="label label-primary">required</span>
+* `name` <span class="label label-primary">required</span>
+* `description` <span class="label label-default">optional</span>
+
+Example:
+
+### API
+
 
 ***
 
 # Locations
+
+### CSV
+
+Parameters:
+
+* `l_id` <span class="label label-primary">required</span><br>
+*(string): Unique id for the location*
+* `name` <span class="label label-primary">required</span><br>
+*(string): Name of the location*
+* `lat` <span class="label label-primary">required</span><br>
+*(number, default: `0.0`): Latitude value*
+* `lng` <span class="label label-primary">required</span><br>
+*(number, default: `0.0`): Longitude value*
+* `description` <span class="label label-default">optional</span>
+* `location_type` <span class="label label-primary">required</span><br>
+*(string, values: `outdoor`, `indoor`, `transitional`): The location type describes if a location is inside or outside a building. A transitional location is a location to which all indoor locations of the same building are belonging. Create a transitional location, if you want to connect outdoor locations with indoor locations of a building. Indoor locations doesn't require valid latitude, longitude values. These values have to be defined in a transitional location.*
+* `parent_location` <span class="label label-default">optional</span><br>
+The l_id of a location for filtering the locations. All locations
+* `s_id` <span class="label label-primary">required</span><br>
+The reference id of a scenario for filtering the locations
+
+Example:
+
+| l_id | name | lat | lng | description | location_type | parent_location | s_id |
+|------|------|-----|-----|-------------|---------------|-----------------|------|
+| | | | | | | 
+
+
+### API
+
 
 ***
 
