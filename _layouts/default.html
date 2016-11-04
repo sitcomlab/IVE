@@ -15,6 +15,9 @@
         <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
 
         <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+
+        <!-- Fontawesome -->
+        <script src="https://use.fontawesome.com/ed5739a2c3.js"></script>
     </head>
 
     <body>
@@ -40,17 +43,20 @@
             </div>
         </div>
 
-        <div id="main" role="main" class="container">
+        <div id="main" role="main" class="container main">
             {{ content }}
         </div>
 
-        <div class="wrapper-footer">
-            <div class="container">
-                <footer class="footer">
-                    {% include svg-icons.html %}
-                </footer>
-            </div>
-        </div>
+        <footer class="footer">
+            <small>
+                &copy; 2016
+                <b>Institute for Geoinformatics, Münster</b>
+                &nbsp;&nbsp;
+                <a href="https://github.com/sitcomlab/IVE" target="_blank" class="link">
+                    <i class="fa fa-lg fa-github" aria-hidden="true"></i>
+                </a>
+            </small>
+        </footer>
 
         {% include analytics.html %}
     </body>
