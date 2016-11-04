@@ -363,6 +363,22 @@ table tr th:last-child {
     background-color: $red;
 }
 
+.label-scenario {
+    background-color: #9932CC;
+}
+.label-location {
+    background-color: #007FFF;
+}
+.label-abstract-location {
+    background-color: #32CD32;
+}
+.label-video {
+    background-color: #DC143C;
+}
+.label-overlay {
+    background-color: #FFD700;
+}
+
 hr {
     border: 0;
     height: 1px;
