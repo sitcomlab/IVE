@@ -1,12 +1,14 @@
 ---
 layout: page
-permalink: /schemas/
+permalink: /import/
 ---
 
 ### Overview
+
 1. [Scenarios](#scenarios)
 2. [Locations](#locations)
 3. [Videos](#videos)
+4. [Overlays](#overlays)
 
 ***
 
