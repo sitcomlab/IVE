@@ -384,3 +384,17 @@ hr {
     height: 1px;
     background-color: $lightGray;
 }
+
+.picture {
+    width: 100%;
+}
+
+.time {
+    color: $gray;
+    padding-top: 12px;
+}
+
+.time, .author {
+    font-size: 11pt;
+    text-align: right;
+}
