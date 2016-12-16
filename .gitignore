@@ -7,7 +7,4 @@ yarn.lock
 _site
 .sass-cache
 log.txt
-controllers/scenarios/post.js
-queries/scenarios/post.cypher
 build.js
-routes/reset.js
