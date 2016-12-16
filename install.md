@@ -22,7 +22,7 @@ permalink: /install/
 ### 1.1. Neo4j
 
 * Go to [https://neo4j.com/download/](https://neo4j.com/download/) and download the latest community-version of Neo4j. If you are on Linux, like Ubuntu, make sure, that you have Java 8 installed, which is not included in Ubuntu 14.04 LTS or Debian 8 (Jessie).
-* If you are on macOS you can alternativly use Homebrew ([http://brew.sh/index_de.html](http://brew.sh/index_de.html)) to install Neo4j:
+* If you are on macOS you can alternatively use Homebrew ([http://brew.sh/index_de.html](http://brew.sh/index_de.html)) to install Neo4j:
 * Install and run Neo4j
 * Open the UI in webbrowser: [http://localhost:7474](http://localhost:7474)
 * If you have installed it on a Ubuntu Server, you might need to open the port, so that you can access the UI on your host. Open the config file: `sudo nano /etc/neo4j/neo4j.conf` and change the following lines like this:
