@@ -163,4 +163,99 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
 
 
 
+    /**
+     * [scenario description]
+     * @type {String}
+     */
+    $socket.on('/set/scenario', function(data) {
+        console.log(new Date() + " /set/scenario: " + data.scenario_id);
+
+        // Load Scenario
+        $scenarioService.get(data.scenario_id).success(function(response) {
+            delete $scope.current.scenario;
+            delete $scope.current.location;
+
+            $scope.current.scenario = response;
+            $scope.current.scenarioStatus = false;
+            $scope.current.locationStatus = false;
+
+            // Load all related locations
+            $locationService.list_by_scenario($scope.current.scenario.scenario_id).success(function(response) {
+                $scope.locations = response;
+            }).error(function(err) {
+                $scope.err = err;
+            });
+
+        }).error(function(err) {
+            $scope.err = err;
+        });
+
+    });
+
+    /**
+     * [location description]
+     * @type {String}
+     */
+    $socket.on('/set/location', function(data) {
+        console.log(new Date() + " /set/location: " + data.location_id);
+
+        // Load Location
+        $locationService.get(data.location_id).success(function(response) {
+            $scope.current.location = response;
+
+            // Load all related videos
+            $videoService.list_by_location($scope.current.location.location_id).success(function(response) {
+                $scope.videos = response;
+
+                if($scope.videos.length !== 0){
+
+                    $scope.current.video = _.findWhere($scope.videos, {
+                        preferred: true
+                    });
+
+                    if($scope.current.video === -1){
+                        delete $scope.current.video;
+                    } else {
+                        // Load all related overlays
+                        $overlayService.list_by_video($scope.current.video.video_id).success(function(response){
+                            $scope.overlays = response;
+                        }).error(function(err) {
+                            $scope.err = err;
+                        });
+                    }
+                }
+
+            }).error(function(err) {
+                $scope.err = err;
+            });
+
+            // Load all connected locations
+            $locationService.list_by_location($scope.current.location.location_id).success(function(response) {
+                $scope.connected_locations = response;
+            }).error(function(err) {
+                $scope.err = err;
+            });
+
+        }).error(function(err) {
+            $scope.err = err;
+        });
+
+    });
+
+    /**
+     * [video description]
+     * @type {String}
+     */
+    $socket.on('/set/video', function(data) {
+        console.log(new Date() + " /set/video: " + data.video_id);
+
+        // Load Video
+        $videoService.get(data.video_id).success(function(response) {
+            $scope.current.video = response;
+        }).error(function(err) {
+            $scope.err = err;
+        });
+    });
+
+
 });

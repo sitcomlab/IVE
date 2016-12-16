@@ -15,6 +15,9 @@ app.factory('$overlayService', function($http, config) {
         },
         list_by_video: function(video_id) {
             return $http.get(config.apiURL + "/videos/" + video_id + "/overlays");
+        },
+        get: function(overlay_id) {
+            return $http.get(config.apiURL + "/overlays/" + overlay_id);
         }
 
     };
