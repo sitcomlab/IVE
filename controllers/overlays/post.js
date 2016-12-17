@@ -3,30 +3,44 @@ var async = require('async');
 var neo4j = require('neo4j-driver').v1;
 var _ = require('underscore');
 var moment = require('moment');
+var uuid = require('uuid');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query_get_overlay = fs.readFileSync(__dirname + '/../../queries/overlays/get.cypher', 'utf8').toString();
+var query_create_overlay = fs.readFileSync(__dirname + '/../../queries/overlays/create.cypher', 'utf8').toString();
 
 
-// GET
+// POST
 exports.request = function(req, res) {
 
     // Start session
     var session = driver.session();
 
     async.waterfall([
-        function(callback) { // Find entry by Id
+        function(callback){ // Parameter validation
+
+            // Check o_id
+            var o_id = uuid.v1();
+            if(req.body.o_id && req.body.o_id !== ""){
+                o_id = req.body.o_id;
+            }
+
+            // TODO: Validate all attributes of req.body
+
+            var params = {
+                o_id: o_id,
+                name: req.body.name,
+                description: req.body.description,
+                category: req.body.category,
+                url: req.body.url
+            };
+
+            callback(null, params);
+        },
+        function(params, callback) { // Create new entry
             session
-                .run(query_get_overlay, {
-                    overlay_id: req.params.overlay_id
-                })
+                .run(query_create_overlay, params)
                 .then(function(result) {
-                    // Check if Overlay exists
-                    if (result.records.length === 0) {
-                        callback(new Error("Overlay with id '" + req.params.overlay_id + "' not found!"), 404);
-                    } else {
-                        callback(null, result);
-                    }
+                    callback(null, result);
                 })
                 .catch(function(err) {
                     callback(err, 500);
@@ -58,7 +72,7 @@ exports.request = function(req, res) {
                 });
 
             }, function() {
-                callback(null, 200, results[0]);
+                callback(null, 201, results[0]);
             });
         }
     ], function(err, code, result){

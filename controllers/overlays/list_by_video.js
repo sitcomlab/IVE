@@ -5,19 +5,46 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query = fs.readFileSync(__dirname + '/../../queries/overlays/list_by_video.cypher', 'utf8').toString();
+var query_list_overlays_by_video = fs.readFileSync(__dirname + '/../../queries/overlays/list_by_video.cypher', 'utf8').toString();
 
 
 // LIST BY SCENARIO
 exports.request = function(req, res) {
 
+    // Start session
     var session = driver.session();
-    session
-        .run(query, {
-            video_id: req.params.video_id
-        })
-        .then(function(result) {
-            session.close();
+
+    async.waterfall([
+        function(callback) { // Find entry by Id
+            session
+                .run(query_get_video, {
+                    video_id: req.params.video_id
+                })
+                .then(function(result) {
+                    // Check if Video exists
+                    if (result.records.length === 0) {
+                        callback(new Error("Video with id '" + req.params.video_id + "' not found!"), 404);
+                    } else {
+                        callback(null);
+                    }
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(callback) { // Find entries
+            session
+                .run(query_list_overlays_by_video, {
+                    video_id: req.params.video_id
+                })
+                .then(function(result) {
+                    callback(null, result);
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(result, callback){ // Format attributes
             var results = [];
 
             async.forEachOf(result.records, function(record, item, callback) {
@@ -42,20 +69,21 @@ exports.request = function(req, res) {
                     callback();
                 });
 
-            }, function(err) {
-                if (err) {
-                    console.error(colors.red(JSON.stringify(err)));
-                    res.status(500).send(err);
-                } else {
-                    // Send Result
-                    res.status(200).send(results);
-                }
+            }, function() {
+                callback(null, 200, results);
             });
+        }
+    ], function(err, code, result){
+        // Close session
+        session.close();
 
-        })
-        .catch(function(err) {
-            console.error(colors.red(JSON.stringify(err)));
-            res.status(500).send(err);
-        });
+        // Send response
+        if(err){
+            console.error(colors.red(err));
+            res.status(code).send(err.message);
+        } else {
+            res.status(code).send(result);
+        }
+    });
 
 };
