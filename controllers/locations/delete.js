@@ -6,10 +6,10 @@ var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
 var query_get_location = fs.readFileSync(__dirname + '/../../queries/locations/get.cypher', 'utf8').toString();
-var query_list_locations_by_location = fs.readFileSync(__dirname + '/../../queries/locations/list_by_location.cypher', 'utf8').toString();
+var query_delete_location = fs.readFileSync(__dirname + '/../../queries/locations/delete.cypher', 'utf8').toString();
 
 
-// LIST BY LOCATION
+// DELETE
 exports.request = function(req, res) {
 
     // Start session
@@ -22,57 +22,28 @@ exports.request = function(req, res) {
                     location_id: req.params.location_id
                 })
                 .then(function(result) {
-                    // Check if Scenario exists
+                    // Check if Location exists
                     if (result.records.length === 0) {
                         callback(new Error("Location with id '" + req.params.location_id + "' not found!"), 404);
                     } else {
-                        callback(null);
+                        callback(null, result);
                     }
                 })
                 .catch(function(err) {
                     callback(err, 500);
                 });
         },
-        function(callback) { // Find entries
+        function(result, callback){ // Delete entry
             session
-                .run(query_list_locations_by_location, {
+                .run(query_delete_location, {
                     location_id: req.params.location_id
                 })
                 .then(function(result) {
-                    callback(null, result);
+                    callback(null, 204, null);
                 })
                 .catch(function(err) {
                     callback(err, 500);
                 });
-        },
-        function(result, callback){ // Format attributes
-            var results = [];
-
-            async.forEachOf(result.records, function(record, item, callback) {
-                var object = {};
-
-                async.forEachOf(record.keys, function(key, item, callback) {
-
-                    if (typeof(record._fields[item]) === 'object') {
-                        if (key === 'id') {
-                            object[key] = Number(record._fields[item].low);
-                        } else if (record._fields[item] === null) {
-                            object[key] = record._fields[item];
-                        } else {
-                            object[key] = Number(record._fields[item]);
-                        }
-                    } else {
-                        object[key] = record._fields[item];
-                    }
-                    callback();
-                }, function() {
-                    results.push(object);
-                    callback();
-                });
-
-            }, function() {
-                callback(null, 200, results);
-            });
         }
     ], function(err, code, result){
         // Close session
@@ -86,5 +57,4 @@ exports.request = function(req, res) {
             res.status(code).send(result);
         }
     });
-
 };

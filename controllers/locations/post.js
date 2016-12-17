@@ -3,21 +3,43 @@ var async = require('async');
 var neo4j = require('neo4j-driver').v1;
 var _ = require('underscore');
 var moment = require('moment');
+var uuid = require('uuid');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query_list_locations = fs.readFileSync(__dirname + '/../../queries/locations/list.cypher', 'utf8').toString();
+var query_create_location = fs.readFileSync(__dirname + '/../../queries/locations/create.cypher', 'utf8').toString();
 
 
-// LIST
+// POST
 exports.request = function(req, res) {
 
     // Start session
     var session = driver.session();
 
     async.waterfall([
-        function(callback) { // Find entries
+        function(callback){ // Parameter validation
+
+            // Check l_id
+            var l_id = uuid.v1();
+            if(req.body.l_id && req.body.l_id !== ""){
+                l_id = req.body.l_id;
+            }
+
+            // TODO: Validate all attributes of req.body
+
+            var params = {
+                l_id: l_id,
+                name: req.body.name,
+                description: req.body.description,
+                lat: req.body.lat,
+                lng: req.body.lng,
+                location_type: req.body.location_type
+            };
+
+            callback(null, params);
+        },
+        function(params, callback) { // Create new entry
             session
-                .run(query_list_locations)
+                .run(query_create_location, params)
                 .then(function(result) {
                     callback(null, result);
                 })
@@ -51,7 +73,7 @@ exports.request = function(req, res) {
                 });
 
             }, function() {
-                callback(null, 200, results);
+                callback(null, 201, results[0]);
             });
         }
     ], function(err, code, result){
