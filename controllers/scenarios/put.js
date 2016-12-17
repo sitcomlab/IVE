@@ -6,16 +6,34 @@ var moment = require('moment');
 var uuid = require('uuid');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query = fs.readFileSync(__dirname + '/../../queries/scenarios/create.cypher', 'utf8').toString();
+var query_get = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
+var query_edit = fs.readFileSync(__dirname + '/../../queries/scenarios/edit.cypher', 'utf8').toString();
 
 
-// POST
+// PUT
 exports.request = function(req, res) {
 
     // Start session
     var session = driver.session();
 
     async.waterfall([
+        function(callback){ // Find entry
+            session
+                .run(query_get, {
+                    scenario_id: req.params.scenario_id
+                })
+                .then(function(result) {
+                    // Check if Scenario exists
+                    if (result.records.length === 0) {
+                        callback(new Error("Scenario with id '" + req.params.scenario_id + "' not found!"), 404);
+                    } else {
+                        callback(null);
+                    }
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
         function(callback){ // Parameter validation
 
             // Check s_id
@@ -27,6 +45,7 @@ exports.request = function(req, res) {
             // TODO: Validate all attributes of req.body
 
             var params = {
+                scenario_id: req.params.scenario_id,
                 s_id: s_id,
                 name: req.body.name,
                 description: req.body.description
@@ -34,9 +53,11 @@ exports.request = function(req, res) {
 
             callback(null, params);
         },
-        function(params, callback) { // Create new entry
+        function(params, callback) { // Edit entry
+            console.log(colors.blue(query_edit));
+            console.log(colors.magenta(JSON.stringify(params)));
             session
-                .run(query_create, params)
+                .run(query_edit, params)
                 .then(function(result) {
                     callback(null, result);
                 })
@@ -70,7 +91,7 @@ exports.request = function(req, res) {
                 });
 
             }, function() {
-                callback(null, 201, results[0]);
+                callback(null, 200, results[0]);
             });
         }
     ], function(err, code, result){
