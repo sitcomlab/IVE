@@ -5,7 +5,7 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query_get = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
+var query_get_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
 
 
 // GET
@@ -17,7 +17,7 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback) { // Find entry by Id
             session
-                .run(query_get, {
+                .run(query_get_scenario, {
                     scenario_id: req.params.scenario_id
                 })
                 .then(function(result) {

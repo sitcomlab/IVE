@@ -6,8 +6,8 @@ var moment = require('moment');
 var uuid = require('uuid');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query_get = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
-var query_edit = fs.readFileSync(__dirname + '/../../queries/scenarios/edit.cypher', 'utf8').toString();
+var query_get_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
+var query_edit_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/edit.cypher', 'utf8').toString();
 
 
 // PUT
@@ -19,7 +19,7 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback){ // Find entry
             session
-                .run(query_get, {
+                .run(query_get_scenario, {
                     scenario_id: req.params.scenario_id
                 })
                 .then(function(result) {
@@ -54,10 +54,8 @@ exports.request = function(req, res) {
             callback(null, params);
         },
         function(params, callback) { // Edit entry
-            console.log(colors.blue(query_edit));
-            console.log(colors.magenta(JSON.stringify(params)));
             session
-                .run(query_edit, params)
+                .run(query_edit_scenario, params)
                 .then(function(result) {
                     callback(null, result);
                 })

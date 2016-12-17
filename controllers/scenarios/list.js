@@ -5,7 +5,7 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query_list = fs.readFileSync(__dirname + '/../../queries/scenarios/list.cypher', 'utf8').toString();
+var query_list_scenarios = fs.readFileSync(__dirname + '/../../queries/scenarios/list.cypher', 'utf8').toString();
 
 
 // LIST
@@ -17,9 +17,7 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback) { // Find entries
             session
-                .run(query_list, {
-                    scenario_id: req.params.scenario_id
-                })
+                .run(query_list_scenarios)
                 .then(function(result) {
                     callback(null, result);
                 })

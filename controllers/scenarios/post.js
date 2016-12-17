@@ -6,7 +6,7 @@ var moment = require('moment');
 var uuid = require('uuid');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query = fs.readFileSync(__dirname + '/../../queries/scenarios/create.cypher', 'utf8').toString();
+var query_create_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/create.cypher', 'utf8').toString();
 
 
 // POST
@@ -36,7 +36,7 @@ exports.request = function(req, res) {
         },
         function(params, callback) { // Create new entry
             session
-                .run(query_create, params)
+                .run(query_create_scenario, params)
                 .then(function(result) {
                     callback(null, result);
                 })
