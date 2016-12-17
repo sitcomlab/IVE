@@ -3,21 +3,61 @@ var async = require('async');
 var neo4j = require('neo4j-driver').v1;
 var _ = require('underscore');
 var moment = require('moment');
+var uuid = require('uuid');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query_list_videos = fs.readFileSync(__dirname + '/../../queries/videos/list.cypher', 'utf8').toString();
+var query_get_video = fs.readFileSync(__dirname + '/../../queries/videos/get.cypher', 'utf8').toString();
+var query_edit_video = fs.readFileSync(__dirname + '/../../queries/videos/edit.cypher', 'utf8').toString();
 
 
-// LIST
+// PUT
 exports.request = function(req, res) {
 
     // Start session
     var session = driver.session();
 
     async.waterfall([
-        function(callback) { // Find entries
+        function(callback){ // Find entry
             session
-                .run(query_list_videos)
+                .run(query_get_video, {
+                    video_id: req.params.video_id
+                })
+                .then(function(result) {
+                    // Check if Video exists
+                    if (result.records.length === 0) {
+                        callback(new Error("Video with id '" + req.params.video_id + "' not found!"), 404);
+                    } else {
+                        callback(null);
+                    }
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(callback){ // Parameter validation
+
+            // Check v_id
+            var v_id = uuid.v1();
+            if(req.body.v_id && req.body.v_id !== ""){
+                v_id = req.body.v_id;
+            }
+
+            // TODO: Validate all attributes of req.body
+
+            var params = {
+                video_id: req.params.video_id,
+                v_id: v_id,
+                name: req.body.name,
+                description: req.body.description,
+                url: req.body.url,
+                recorded: req.body.recorded
+            };
+
+            callback(null, params);
+        },
+        function(params, callback) { // Edit entry
+            session
+                .run(query_edit_video, params)
                 .then(function(result) {
                     callback(null, result);
                 })
@@ -51,7 +91,7 @@ exports.request = function(req, res) {
                 });
 
             }, function() {
-                callback(null, 200, results);
+                callback(null, 200, results[0]);
             });
         }
     ], function(err, code, result){
