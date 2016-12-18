@@ -47,12 +47,12 @@ async.forEachOf(queries, function (query, key, callback) {
             callback(err);
         });
 }, function(err){
+    // Close connection
+    session.close();
+
     if(err) {
-        console.error(colors.red(err));
+        console.error(colors.red(JSON.stringify(err)));
     } else {
         console.log(colors.green("Setup successfully done!"));
     }
-
-    // Close connection
-    session.close();
 });

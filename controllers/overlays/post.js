@@ -81,8 +81,8 @@ exports.request = function(req, res) {
 
         // Send response
         if(err){
-            console.error(colors.red(err));
-            res.status(code).send(err.message);
+            console.error(colors.red(JSON.stringify(err)));
+            res.status(code).send(JSON.stringify(err));
         } else {
             res.status(code).send(result);
         }

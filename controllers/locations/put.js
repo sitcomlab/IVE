@@ -101,7 +101,7 @@ exports.request = function(req, res) {
 
         // Send response
         if(err){
-            console.error(colors.red(err));
+            console.error(colors.red(JSON.stringify(err)));
             res.status(code).send(err.message);
         } else {
             res.status(code).send(result);

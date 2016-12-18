@@ -25,7 +25,9 @@ exports.request = function(req, res) {
                 .then(function(result) {
                     // Check if Overlay exists
                     if (result.records.length === 0) {
-                        callback(new Error("Overlay with id '" + req.params.overlay_id + "' not found!"), 404);
+                        callback(new Error({
+                            message: "Overlay with id '" + req.params.overlay_id + "' not found!"
+                        }, 404));
                     } else {
                         callback(null);
                     }
@@ -100,8 +102,8 @@ exports.request = function(req, res) {
 
         // Send response
         if(err){
-            console.error(colors.red(err));
-            res.status(code).send(err.message);
+            console.error(colors.red(JSON.stringify(err)));
+            res.status(code).send(JSON.stringify(err));
         } else {
             res.status(code).send(result);
         }
