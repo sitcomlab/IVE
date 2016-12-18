@@ -10,4 +10,4 @@ RETURN
     o.type AS type,
     o.url AS url,
     r.display AS display
-ORDER BY v.name DESC;
+ORDER BY o.name DESC;

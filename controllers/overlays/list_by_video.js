@@ -5,6 +5,7 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
+var query_get_video = fs.readFileSync(__dirname + '/../../queries/videos/get.cypher', 'utf8').toString();
 var query_list_overlays_by_video = fs.readFileSync(__dirname + '/../../queries/overlays/list_by_video.cypher', 'utf8').toString();
 
 
@@ -79,7 +80,7 @@ exports.request = function(req, res) {
 
         // Send response
         if(err){
-            console.error(colors.red(err));
+            console.error(colors.red(JSON.stringify(err)));
             res.status(code).send(err.message);
         } else {
             res.status(code).send(result);

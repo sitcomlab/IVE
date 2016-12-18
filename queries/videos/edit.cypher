@@ -2,7 +2,7 @@ MATCH (v:Videos)
 WHERE ID(v) = toInt({video_id})
 SET
     v.updated = timestamp(),
-    v.v_id = v_id,
+    v.v_id = {v_id},
     v.name = {name},
     v.description = {description},
     v.url = {url},

@@ -21,7 +21,7 @@ router.get('/overlays', list.request);
 router.post('/overlays', post.request);
 
 // DELETE ALL
-route.delete('/overlays', del_all.request);
+router.delete('/overlays', del_all.request);
 
 
 // GET

@@ -5,6 +5,7 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
+var query_get_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
 var query_list_overlays_by_scenario = fs.readFileSync(__dirname + '/../../queries/overlays/list_by_scenario.cypher', 'utf8').toString();
 
 
@@ -79,7 +80,7 @@ exports.request = function(req, res) {
 
         // Send response
         if(err){
-            console.error(colors.red(err));
+            console.error(colors.red(JSON.stringify(err)));
             res.status(code).send(err.message);
         } else {
             res.status(code).send(result);

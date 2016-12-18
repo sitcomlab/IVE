@@ -1,5 +1,5 @@
 MATCH (o:Overlays)
-WHERE ID(l) = toInt({location_id})
+WHERE ID(o) = toInt({overlay_id})
 SET
     o.updated = timestamp(),
     o.o_id = {o_id},
