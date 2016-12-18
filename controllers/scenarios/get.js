@@ -23,7 +23,9 @@ exports.request = function(req, res) {
                 .then(function(result) {
                     // Check if Scenario exists
                     if (result.records.length === 0) {
-                        callback(new Error("Scenario with id '" + req.params.scenario_id + "' not found!"), 404);
+                        callback(new Error({
+                            message: "Scenario with id '" + req.params.scenario_id + "' not found!"
+                        }), 404);
                     } else {
                         callback(null, result);
                     }
@@ -68,7 +70,7 @@ exports.request = function(req, res) {
         // Send response
         if(err){
             console.error(colors.red(JSON.stringify(err)));
-            res.status(code).send(err.message);
+            res.status(code).send(err);
         } else {
             res.status(code).send(result);
         }

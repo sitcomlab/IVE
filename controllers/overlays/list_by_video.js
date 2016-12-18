@@ -24,7 +24,9 @@ exports.request = function(req, res) {
                 .then(function(result) {
                     // Check if Video exists
                     if (result.records.length === 0) {
-                        callback(new Error("Video with id '" + req.params.video_id + "' not found!"), 404);
+                        callback(new Error({
+                            message: "Video with id '" + req.params.video_id + "' not found!"
+                        }), 404);
                     } else {
                         callback(null);
                     }
@@ -81,7 +83,7 @@ exports.request = function(req, res) {
         // Send response
         if(err){
             console.error(colors.red(JSON.stringify(err)));
-            res.status(code).send(err.message);
+            res.status(code).send(err);
         } else {
             res.status(code).send(result);
         }

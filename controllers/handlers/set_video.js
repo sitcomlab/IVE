@@ -26,7 +26,9 @@ exports.request = function(req, res) {
                 .then(function(result) {
                     // Check if Video exists
                     if (result.records.length === 0) {
-                        callback(new Error("Video with id '" + req.params.video_id + "' not found!"), 404);
+                        callback(new Error({
+                            message: "Video with id '" + req.params.video_id + "' not found!"
+                        }), 404);
                     } else {
                         callback(null, result);
                     }
@@ -35,42 +37,7 @@ exports.request = function(req, res) {
                     callback(err, 500);
                 });
         },
-        function(result, callback){ // Format attributes
-            /*var results = [];
-
-            async.forEachOf(result.records, function(record, item, callback) {
-                var object = {};
-
-                async.forEachOf(record.keys, function(key, item, callback) {
-
-                    if (typeof(record._fields[item]) === 'object') {
-                        if (key === 'id') {
-                            object[key] = Number(record._fields[item].low);
-                        } else if (record._fields[item] === null) {
-                            object[key] = record._fields[item];
-                        } else {
-                            object[key] = Number(record._fields[item]);
-                        }
-                    } else {
-                        object[key] = record._fields[item];
-                    }
-                    callback();
-                }, function() {
-                    results.push(object);
-                    callback();
-                });
-
-            }, function() {
-                // Send Websocket-Message
-                var client = io.connect("http://localhost:" + httpPort);
-                client.on('connect',function() {
-                    client.emit('/set/location', results[0]);
-                    client.close();
-                    callback(null, 204, null);
-                });
-            });*/
-
-            // Send Websocket-Message
+        function(result, callback){ // Send Websocket-Message
             var client = io.connect("http://localhost:" + httpPort);
             client.on('connect',function() {
                 client.emit('/set/location', {
@@ -87,7 +54,7 @@ exports.request = function(req, res) {
         // Send response
         if(err){
             console.error(colors.red(JSON.stringify(err)));
-            res.status(code).send(err.message);
+            res.status(code).send(err);
         } else {
             res.status(code).send(result);
         }

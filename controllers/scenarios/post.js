@@ -80,7 +80,7 @@ exports.request = function(req, res) {
         // Send response
         if(err){
             console.error(colors.red(JSON.stringify(err)));
-            res.status(code).send(err.message);
+            res.status(code).send(err);
         } else {
             res.status(code).send(result);
         }
