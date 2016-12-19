@@ -43,11 +43,13 @@ app.use(express.static(__dirname + '/public'));
 
 
 // Load routes for API
+var reset = require('./routes/reset');
 var scenarios = require('./routes/scenarios');
 var locations = require('./routes/locations');
 var videos = require('./routes/videos');
 var overlays = require('./routes/overlays');
 var handlers = require('./routes/handlers');
+app.use('/api', reset);
 app.use('/api', scenarios);
 app.use('/api', locations);
 app.use('/api', videos);
