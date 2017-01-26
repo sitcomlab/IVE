@@ -16,7 +16,7 @@ app.factory('$videoService', function($http, config) {
         list_by_location: function(location_id) {
             return $http.get(config.apiURL + "/locations/" + location_id + "/videos");
         },
-        get: function(video_id) {
+        retrieve: function(video_id) {
             return $http.get(config.apiURL + "/videos/" + video_id);
         }
 

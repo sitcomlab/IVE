@@ -7,6 +7,7 @@ var app = angular.module("ive", [
     "ngRoute",
     "ngSanitize",
     "pascalprecht.translate",
+    "angular-momentjs",
     "btford.socket-io",
     "underscore",
 

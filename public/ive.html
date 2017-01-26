@@ -42,7 +42,7 @@
                 background-color: #000000;
             }
 
-            .footer {
+            footer {
                 position: absolute;
                 bottom: 0;
                 width: 100%;
@@ -51,21 +51,19 @@
                 background-color: #111111;
             }
 
-            .link {
-                color: #FFFFFF;
-            }
-            .link:hover {
-                color: #CCCCCC;
-                text-decoration: none;
-            }
-
-            .link > div > p {
-                color: #666666;
-            }
-
             h1 {
                 color: #007fff;
                 font-weight: normal;
+            }
+
+
+            .link:hover {
+                text-decoration: none;
+            }
+
+
+            .card-size {
+                min-width: 300px;
             }
 
             .card-dark {
@@ -73,80 +71,85 @@
                 border-color: #333333;
             }
 
+            .card-link {
+                color: #FFFFFF;
+            }
+            .card-link:hover {
+                color: #CCCCCC;
+            }
+            .card-link > div > p {
+                color: #666666;
+            }
+
+
+            .middle {
+                text-align: center;
+            }
+
         </style>
 
     </head>
     <body>
 
-        <!-- MAIN -->
-        <div class="container-fluid">
+        <!-- Content -->
+        <main class="container-fluid">
             <br>
             <div style="position: relative; float:right; top: 0px;">
-                <span class="tag tag-pill tag-warning">v2.0</span>
+                <span class="badge badge-pill badge-warning">v2.0</span>
             </div>
             <h1>
                 <img src="backend/images/logo.svg" alt="logo" height="50px;">
                 Immersive Video Environment
             </h1>
             <br>
-            <div class="row flex-items-xs-middle">
-                <div class="col-xs col-sm">
-                    <div class="col-sm-4">
-                        <a href="/backend" target="_blank" class="link">
-                            <div class="card card-dark card-block">
-                                <h3 class="card-title">BACKEND</h3>
-                                <p class="card-text">
-                                    Description
-                                </p>
-                            </div>
-                        </a>
-                    </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <a href="/frontend" target="_blank" class="link card-link">
+                        <div class="card card-size card-dark card-block">
+                            <h3 class="card-title">FRONTEND</h3>
+                            <p class="card-text">
+                                Description
+                            </p>
+                        </div>
+                    </a>
                 </div>
-                <div class="col-xs col-sm">
-                    <div class="col-sm-4">
-                        <a href="/frontend" target="_blank" class="link">
-                            <div class="card card-dark card-block">
-                                <h3 class="card-title">FRONTEND</h3>
-                                <p class="card-text">
-                                    Description
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs col-sm">
-                    <div class="col-sm-4">
-                        <a href="/remote" target="_blank" class="link">
-                            <div class="card card-dark card-block">
-                                <h3 class="card-title">REMOTE CONTROL</h3>
-                                <p class="card-text">
-                                    Description
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                <div class="col"></div>
             </div>
-        </div>
+            <br>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <a href="/remote" target="_blank" class="link card-link">
+                        <div class="card card-size card-dark card-block">
+                            <h3 class="card-title">REMOTE CONTROL</h3>
+                            <p class="card-text">
+                                Description
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col"></div>
+            </div>
+        </main>
 
-        <!-- FOOTER -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <span class="text-muted">
-                    <center>
-                        <small>
-                            &copy; 2016
-                            <b>Institute for Geoinformatics, Münster</b>
-                            &nbsp;&nbsp;
-                            <a href="https://github.com/sitcomlab/IVE" target="_blank" class="link">
-                                <i class="fa fa-github" aria-hidden="true"></i>
-                            </a>
-                            &nbsp;|&nbsp;
-                            <a href="/docs" target="_blank">Docs</a>
-                        </small>
-                    </center>
-                </span>
-            </div>
+        <!-- Footer -->
+        <footer>
+            <nav class="bg-inverse middle">
+                <small class="text-muted">
+                    &copy; 2017
+                    <a href="https://www.uni-muenster.de/Geoinformatics/en/index.html" target="_blank">Institute for Geoinformatics</a>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a href="/" target="_self" class="link">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </a>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a href="https://github.com/sitcomlab/IVE" target="_blank" class="link">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                    </a>
+                </small>
+            </nav>
         </footer>
+
     </body>
 </html>
