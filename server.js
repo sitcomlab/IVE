@@ -11,6 +11,8 @@ var httpPort = process.env.PORT || 5000;
 var httpsPort = httpPort + 443;
 var username = process.env.USERNAME || 'neo4j';
 var password = process.env.PW || 'neo4j';
+exports.httpPort = httpPort;
+
 
 // Connect to Neo4j
 var driver = neo4j.driver("bolt://127.0.0.1", neo4j.auth.basic(username, password));
@@ -41,14 +43,18 @@ app.use(express.static(__dirname + '/public'));
 
 
 // Load routes for API
+var reset = require('./routes/reset');
 var scenarios = require('./routes/scenarios');
 var locations = require('./routes/locations');
 var videos = require('./routes/videos');
 var overlays = require('./routes/overlays');
+var handlers = require('./routes/handlers');
+app.use('/api', reset);
 app.use('/api', scenarios);
 app.use('/api', locations);
 app.use('/api', videos);
 app.use('/api', overlays);
+app.use('/api', handlers);
 
 
 // Start webserver

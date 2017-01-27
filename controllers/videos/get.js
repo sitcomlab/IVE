@@ -5,19 +5,34 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query = fs.readFileSync(__dirname + '/../../queries/videos/get.cypher', 'utf8').toString();
+var query_get_video = fs.readFileSync(__dirname + '/../../queries/videos/get.cypher', 'utf8').toString();
 
 
 // GET
 exports.request = function(req, res) {
 
+    // Start session
     var session = driver.session();
-    session
-        .run(query, {
-            video_id: req.params.video_id
-        })
-        .then(function(result) {
-            session.close();
+
+    async.waterfall([
+        function(callback) { // Find entry by Id
+            session
+                .run(query_get_video, {
+                    video_id: req.params.video_id
+                })
+                .then(function(result) {
+                    // Check if Video exists
+                    if (result.records.length === 0) {
+                        callback(new Error("Video with id '" + req.params.video_id + "' not found!"), 404);
+                    } else {
+                        callback(null, result);
+                    }
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(result, callback){ // Format attributes
             var results = [];
 
             async.forEachOf(result.records, function(record, item, callback) {
@@ -42,27 +57,24 @@ exports.request = function(req, res) {
                     callback();
                 });
 
-            }, function(err) {
-                if (err) {
-                    console.error(colors.red(JSON.stringify(err)));
-                    res.status(500).send(err);
-                } else {
-
-                    // Check if Video exists
-                    if (results.length === 0) {
-                        console.log(colors.red("Video with id '" + req.params.video_id + "' not found!"));
-                        res.status(404).send("Video not found!");
-                    } else {
-                        // Send Result
-                        res.status(200).send(results[0]);
-                    }
-                }
+            }, function() {
+                callback(null, 200, results[0]);
             });
+        }
+    ], function(err, code, result){
+        // Close session
+        session.close();
 
-        })
-        .catch(function(err) {
-            console.error(colors.red(JSON.stringify(err)));
-            res.status(500).send(err);
-        });
+        // Send response
+        if(err){
+            if(!err.message){
+                err.message = JSON.stringify(err);
+            }
+            console.error(colors.red(err.message));
+            res.status(code).send(err.message);
+        } else {
+            res.status(code).send(result);
+        }
+    });
 
 };

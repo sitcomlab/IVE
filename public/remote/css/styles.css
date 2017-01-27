@@ -24,6 +24,12 @@ body {
     color: #000000;
 }
 
+.left {
+    text-align: left;
+}
+.middle {
+    text-align: center;
+}
 .right {
     text-align: right;
 }

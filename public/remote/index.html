@@ -37,16 +37,18 @@
         <link href="css/styles.css" rel="stylesheet"/>
 
         <!-- Dependecies -->
-        <script src="../bower_components/socket.io-client/socket.io.js"></script>
+        <script src="../bower_components/socket.io-client/dist/socket.io.js"></script>
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/underscore/underscore.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bower_components/moment/min/moment.min.js"></script>
         <script src="../bower_components/angular/angular.min.js"></script>
         <script src="../bower_components/angular-route/angular-route.min.js"></script>
         <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
         <script src="../bower_components/angular-translate/angular-translate.min.js"></script>
         <script src="../bower_components/angular-socket-io/socket.min.js"></script>
         <script src="../bower_components/angular-underscore-module/angular-underscore-module.js"></script>
+        <script src="../bower_components/angular-momentjs/angular-momentjs.js"></script>
 
     </head>
     <body ng-app="ive">
@@ -60,16 +62,12 @@
                 <span class="text-muted">
                     <center>
                         <small>
-                            &copy; 2016
-                            <b>Institute for Geoinformatics, Münster</b>
-                            &nbsp;&nbsp;
-                            <a href="https://github.com/sitcomlab/IVE" target="_blank" class="link">
-                                <i class="fa fa-github" aria-hidden="true"></i>
+                            &copy; {{config.appYear}}
+                            <a href="https://www.uni-muenster.de/Geoinformatics/en/index.html" target="_blank">Institute for Geoinformatics</a>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="/" target="_self" class="link">
+                                <i class="fa fa-home" aria-hidden="true"></i>
                             </a>
-                            &nbsp;|&nbsp;
-                            <a href="/docs" target="_blank">Documentation</a>
-                            &nbsp;|&nbsp;
-                            <a href="/api" target="_blank">API</a>
                         </small>
                     </center>
                 </span>

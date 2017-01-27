@@ -71,8 +71,9 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         };
 
         // Request related video data automatically
-        $videoService.list_by_location(data.location_id).success(function(response) {
-            $scope.videos = response;
+        $videoService.list_by_location(data.location_id)
+        .then(function onSuccess(response) {
+            $scope.videos = response.data;
 
             // Check for videos
             if($scope.videos.length !== 0){
@@ -93,18 +94,19 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                     $scope.changeSource($scope.current.video.url);
 
                     // Load all related overlays
-                    $overlayService.list_by_video($scope.current.video.video_id).success(function(response){
-                        $scope.overlays = response;
-                    }).error(function(err) {
-                        $scope.err = err;
+                    $overlayService.list_by_video($scope.current.video.video_id)
+                    .then(function onSuccess(response){
+                        $scope.overlays = response.data;
+                    }).catch(function onError(response) {
+                        $scope.err = response.data;
                     });
                 }
             } else {
                 console.log("No videos found");
             }
 
-        }).error(function(err) {
-            $scope.err = err;
+        }).catch(function onError(response) {
+            $scope.err = response.data;
         });
 
     });
@@ -123,14 +125,15 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         };
 
         // Request video data
-        $videoService.get(data.video_id).success(function(response) {
-            $scope.current.video = response;
+        $videoService.get(data.video_id)
+        .then(function onSuccess(response) {
+            $scope.current.video = response.data;
 
             // Add to video player
             $scope.changeSource($scope.current.video.url);
 
-        }).error(function(err) {
-            $scope.err = err;
+        }).catch(function onError(response) {
+            $scope.err = response.data;
         });
     });
 

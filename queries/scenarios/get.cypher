@@ -1,5 +1,5 @@
 MATCH (s:Scenarios)
-WHERE ID(s)= toInt({scenario_id})
+WHERE ID(s) = toInt({scenario_id})
 RETURN
     ID(s) AS scenario_id,
     s.created AS created,

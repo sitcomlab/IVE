@@ -5,19 +5,47 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query = fs.readFileSync(__dirname + '/../../queries/locations/list_by_scenario.cypher', 'utf8').toString();
+var query_get_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
+var query_list_locations_by_scenario = fs.readFileSync(__dirname + '/../../queries/locations/list_by_scenario.cypher', 'utf8').toString();
 
 
 // LIST BY SCENARIO
 exports.request = function(req, res) {
 
+    // Start session
     var session = driver.session();
-    session
-        .run(query, {
-            scenario_id: req.params.scenario_id
-        })
-        .then(function(result) {
-            session.close();
+
+    async.waterfall([
+        function(callback) { // Find entry by Id
+            session
+                .run(query_get_scenario, {
+                    scenario_id: req.params.scenario_id
+                })
+                .then(function(result) {
+                    // Check if Scenario exists
+                    if (result.records.length === 0) {
+                        callback(new Error("Scenario with id '" + req.params.scenario_id + "' not found!"), 404);
+                    } else {
+                        callback(null);
+                    }
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(callback) { // Find entries
+            session
+                .run(query_list_locations_by_scenario, {
+                    scenario_id: req.params.scenario_id
+                })
+                .then(function(result) {
+                    callback(null, result);
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(result, callback){ // Format attributes
             var results = [];
 
             async.forEachOf(result.records, function(record, item, callback) {
@@ -42,20 +70,24 @@ exports.request = function(req, res) {
                     callback();
                 });
 
-            }, function(err) {
-                if (err) {
-                    console.error(colors.red(JSON.stringify(err)));
-                    res.status(500).send(err);
-                } else {
-                    // Send Result
-                    res.status(200).send(results);
-                }
+            }, function() {
+                callback(null, 200, results);
             });
+        }
+    ], function(err, code, result){
+        // Close session
+        session.close();
 
-        })
-        .catch(function(err) {
-            console.error(colors.red(JSON.stringify(err)));
-            res.status(500).send(err);
-        });
+        // Send response
+        if(err){
+            if(!err.message){
+                err.message = JSON.stringify(err);
+            }
+            console.error(colors.red(err.message));
+            res.status(code).send(err.message);
+        } else {
+            res.status(code).send(result);
+        }
+    });
 
 };

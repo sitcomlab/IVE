@@ -5,17 +5,27 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query = fs.readFileSync(__dirname + '/../../queries/scenarios/list.cypher', 'utf8').toString();
+var query_list_scenarios = fs.readFileSync(__dirname + '/../../queries/scenarios/list.cypher', 'utf8').toString();
 
 
 // LIST
 exports.request = function(req, res) {
 
+    // Start session
     var session = driver.session();
-    session
-        .run(query)
-        .then(function(result) {
-            session.close();
+
+    async.waterfall([
+        function(callback) { // Find entries
+            session
+                .run(query_list_scenarios)
+                .then(function(result) {
+                    callback(null, result);
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(result, callback){ // Format attributes
             var results = [];
 
             async.forEachOf(result.records, function(record, item, callback) {
@@ -40,20 +50,24 @@ exports.request = function(req, res) {
                     callback();
                 });
 
-            }, function(err) {
-                if (err) {
-                    console.error(colors.red(JSON.stringify(err)));
-                    res.status(500).send(err);
-                } else {
-                    // Send Result
-                    res.status(200).send(results);
-                }
+            }, function() {
+                callback(null, 200, results);
             });
+        }
+    ], function(err, code, result){
+        // Close session
+        session.close();
 
-        })
-        .catch(function(err) {
-            console.error(colors.red(JSON.stringify(err)));
-            res.status(500).send(err);
-        });
+        // Send response
+        if(err){
+            if(!err.message){
+                err.message = JSON.stringify(err);
+            }
+            console.error(colors.red(err.message));
+            res.status(code).send(err.message);
+        } else {
+            res.status(code).send(result);
+        }
+    });
 
 };

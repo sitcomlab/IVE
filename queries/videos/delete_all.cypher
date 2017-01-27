@@ -1,0 +1,2 @@
+MATCH (v:Videos)
+DETACH DELETE v;

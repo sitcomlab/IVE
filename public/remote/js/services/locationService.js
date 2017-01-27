@@ -15,6 +15,9 @@ app.factory('$locationService', function($http, config) {
         },
         list_by_location: function(location_id) {
             return $http.get(config.apiURL + "/locations/" + location_id + "/locations");
+        },
+        retrieve: function(location_id) {
+            return $http.get(config.apiURL + "/locations/" + location_id);
         }
 
     };

@@ -5,6 +5,7 @@ var app = angular.module("config", []);
  */
 app.constant("config", {
     appName: "IVE",
+    appSubname: "Frontend",
     appDevelopers: [{
         name: "Nicholas Schiestel",
         github: "nicho90"
