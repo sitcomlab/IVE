@@ -11,6 +11,10 @@ app.config(function($routeProvider, $locationProvider, config) {
             templateUrl: "js/templates/login.html",
             controller: "loginController"
         })
+        .when("/help", {
+            templateUrl: "js/templates/help.html",
+            controller: "helpController"
+        })
 
         // Scenarios
         .when("/scenarios", {
