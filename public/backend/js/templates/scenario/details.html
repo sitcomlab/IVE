@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!-- LOADING -->
+<div class="loading" ng-show="tab==0">
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+</div>
+
+<!-- MAIN -->
+<div class="row" ng-show="tab>0">
+    <!-- Left padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+
+    <!-- Content -->
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8" ng-show="tab==1">
+        <br>
+
+        <!-- BUTTONS -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+                <div class="btn-group" role="group" aria-label="buttons">
+                    <button type="button" class="btn btn-secondary" ng-click="editUser()">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteUser()">
+                        <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <!-- Profile -->
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">
+                    {{scenario.name}}
+                </h4>
+                <br>
+                <ul>
+                    <li>{{scenario.scenario_id}}</li>
+                    <li>{{scenario.s_id}}</li>
+                    <li>{{scenario.name}}</li>
+                    <li>{{scenario.description}}</li>
+                    <li>{{scenario.created}}</li>
+                    <li>{{scenario.updated}}</li>
+                </ul>
+                <br>
+            </div>
+
+            <!-- Related locations -->
+            <div class="list-group list-group-flush" ng-if="scenario.locations.length==0">
+                <div class="list-group-item active">
+                    - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS'  | translate }} -
+                </div>
+            </div>
+            <div class="list-group list-group-flush" ng-if="scenario.locations.length>0">
+                <a href="" class="list-group-item list-group-item-action active d-flex justify-content-between" ng-click="toggle('relatedLocations')">
+                    <span ng-if="!relatedLocations">
+                        {{ 'SHOW' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}
+                    </span>
+                    <span ng-if="!relatedLocations">
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </span>
+                    <span ng-if="relatedLocations">
+                        {{ 'HIDE' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}
+                    </span>
+                    <span ng-if="relatedLocations">
+                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                    </span>
+                </a>
+            </div>
+            <div class="list-group list-group-flush" ng-if="scenario.locations.length>0 && relatedLocations">
+                <a href="" class="list-group-item list-group-item-action" ng-repeat="location in scenario.locations" ng-click="redirect('/locations/' + location.location_id)">
+                    {{location.name}}
+                </a>
+            </div>
+            <br>
+
+            <!-- Related Videos -->
+            <div class="list-group list-group-flush" ng-if="scenario.videos.length==0">
+                <div class="list-group-item active">
+                    - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'VIDEOS'  | translate }} -
+                </div>
+            </div>
+            <div class="list-group list-group-flush" ng-if="scenario.videos.length>0">
+                <a href="" class="list-group-item list-group-item-action active d-flex justify-content-between" ng-click="toggle('relatedVideos')">
+                    <span ng-if="!relatedVideos">
+                        {{ 'SHOW' | translate }} {{ 'RELATED' | translate }} {{ 'VIDEOS' | translate }}
+                    </span>
+                    <span ng-if="!relatedVideos">
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </span>
+                    <span ng-if="relatedVideos">
+                        {{ 'HIDE' | translate }} {{ 'RELATED' | translate }} {{ 'VIDEOS' | translate }}
+                    </span>
+                    <span ng-if="relatedVideos">
+                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                    </span>
+                </a>
+            </div>
+            <div class="list-group list-group-flush" ng-if="scenario.videos.length>0 && relatedVideos">
+                <a href="" class="list-group-item list-group-item-action" ng-repeat="video in scenario.videos" ng-click="redirect('/videos/' + video.video_id)">
+                    {{video.name}}
+                </a>
+            </div>
+            <br>
+
+
+            <!-- Related Overlays -->
+            <div class="list-group list-group-flush" ng-if="scenario.overlays.length==0">
+                <div class="list-group-item active">
+                    - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'OVERLAYS'  | translate }} -
+                </div>
+            </div>
+            <div class="list-group list-group-flush" ng-if="scenario.overlays.length>0">
+                <a href="" class="list-group-item list-group-item-action active d-flex justify-content-between" ng-click="toggle('relatedOverlays')">
+                    <span ng-if="!relatedOverlays">
+                        {{ 'SHOW' | translate }} {{ 'RELATED' | translate }} {{ 'OVERLAYS' | translate }}
+                    </span>
+                    <span ng-if="!relatedOverlays">
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </span>
+                    <span ng-if="relatedOverlays">
+                        {{ 'HIDE' | translate }} {{ 'RELATED' | translate }} {{ 'OVERLAYS' | translate }}
+                    </span>
+                    <span ng-if="relatedOverlays">
+                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                    </span>
+                </a>
+            </div>
+            <div class="list-group list-group-flush" ng-if="scenario.overlays.length>0 && relatedOverlays">
+                <a href="" class="list-group-item list-group-item-action" ng-repeat="overlay in scenario.overlays" ng-click="redirect('/overlays/' + overlay.overlay_id)">
+                    {{overlay.name}}
+                </a>
+            </div>
+            <br>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-block btn-primary" role="button" ng-click="cancel()">
+                            {{ 'CLOSE' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+
+    <!-- Right padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+</div>
+<br>

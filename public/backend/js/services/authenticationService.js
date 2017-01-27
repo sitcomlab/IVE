@@ -25,6 +25,19 @@ app.factory('$authenticationService', function($http, $log, config) {
             } else {
                 return false;
             }
+        },
+        setToken: function(data){
+            token = data;
+        },
+        getToken: function(){
+            if(token === undefined){
+                return undefined;
+            } else {
+                return token;
+            }
+        },
+        authenticate: function(data) {
+            return $http.post(config.apiURL + "/login", data);
         }
 
     };
