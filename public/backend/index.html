@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <base href="/backend/"/>
+        <base href="/backend/index.html"/>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -94,7 +94,7 @@
                         <ul class="navbar-nav nav-pills" ng-if="authenticated_user">
                             <li class="nav-item dropdown">
                                 <a class="nav-link active user-pill dropdown-toggle" href="" id="user_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer; background-color:#FFFFFF; border: 1px solid #CCCCCC; color: #292b2c;">
-                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;<span ng-if="authenticated_user.title">{{authenticated_user.title}}&nbsp;</span>{{authenticated_user.first_name}} {{authenticated_user.last_name}}
+                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;{{authenticated_user.username}}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user_dropdown">
                                     <a class="dropdown-item" href="" ng-click="logout()">
@@ -140,10 +140,10 @@
 
         <!-- Services -->
         <script src="js/services/authenticationService.js"></script>
-        <!--<script src="js/services/scenarioService.js"></script>
+        <script src="js/services/scenarioService.js"></script>
         <script src="js/services/locationService.js"></script>
         <script src="js/services/videoService.js"></script>
-        <script src="js/services/overlayService.js"></script>-->
+        <script src="js/services/overlayService.js"></script>
 
         <!-- Main App -->
         <script src="js/app.js"></script>
@@ -152,22 +152,22 @@
         <script src="js/controllers/navController.js"></script>
         <script src="js/controllers/footerController.js"></script>
         <script src="js/controllers/loginController.js"></script>
-        <!--<script src="js/controllers/scenarios/listController.js"></script>
-        <script src="js/controllers/scenarios/detailsController.js"></script>
-        <script src="js/controllers/scenarios/editController.js"></script>
-        <script src="js/controllers/scenarios/createController.js"></script>
-        <script src="js/controllers/locations/listController.js"></script>
-        <script src="js/controllers/locations/detailsController.js"></script>
-        <script src="js/controllers/locations/editController.js"></script>
-        <script src="js/controllers/locations/createController.js"></script>
-        <script src="js/controllers/videos/listController.js"></script>
-        <script src="js/controllers/videos/detailsController.js"></script>
-        <script src="js/controllers/videos/editController.js"></script>
-        <script src="js/controllers/videos/createController.js"></script>
-        <script src="js/controllers/overlays/listController.js"></script>
-        <script src="js/controllers/overlays/detailsController.js"></script>
-        <script src="js/controllers/overlays/editController.js"></script>
-        <script src="js/controllers/overlays/createController.js"></script>-->
+        <script src="js/controllers/scenario/listController.js"></script>
+        <script src="js/controllers/scenario/detailsController.js"></script>
+        <!--<script src="js/controllers/scenario/editController.js"></script>
+        <script src="js/controllers/scenario/createController.js"></script>-->
+        <script src="js/controllers/location/listController.js"></script>
+        <script src="js/controllers/location/detailsController.js"></script>
+        <!--<script src="js/controllers/location/editController.js"></script>
+        <script src="js/controllers/location/createController.js"></script>-->
+        <script src="js/controllers/video/listController.js"></script>
+        <script src="js/controllers/video/detailsController.js"></script>
+        <!--<script src="js/controllers/video/editController.js"></script>
+        <script src="js/controllers/video/createController.js"></script>-->
+        <script src="js/controllers/overlay/listController.js"></script>
+        <script src="js/controllers/overlay/detailsController.js"></script>
+        <!--<script src="js/controllers/overlay/editController.js"></script>
+        <script src="js/controllers/overlay/createController.js"></script>-->
 
     </body>
 </html>

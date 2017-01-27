@@ -10,16 +10,15 @@ var app = angular.module("ive", [
     "angular-momentjs",
 
     // Own Modules
-    //"filters",
     "routes",
     "languages",
 
     // Services
-    "authenticationService"
-    /*"scenarioService",
+    "authenticationService",
+    "scenarioService",
     "locationService",
     "videoService",
-    "overlayService"*/
+    "overlayService"
 
 ]);
 

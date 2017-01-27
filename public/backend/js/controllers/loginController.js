@@ -36,10 +36,24 @@ app.controller("loginController", function($scope, $rootScope, config, $location
         // Validate input
         if($scope.loginForm.$invalid) {
             // Update UI
-            $scope.loginForm.document_id.$pristine = false;
+            $scope.loginForm.username.$pristine = false;
+            $scope.loginForm.password.$pristine = false;
         } else {
             $scope.changeTab(0);
-            $scope.redirect("/scenarios");
+
+            $authenticationService.authenticate($scope.login)
+            .then(function onSuccess(response) {
+                $authenticationService.set(response.data);
+
+                // Update navbar
+                $rootScope.$broadcast('updateNavbar');
+
+                $scope.redirect("/scenarios");
+            })
+            .catch(function onError(response) {
+                $window.alert(response.data);
+            });
+
         }
     };
 
