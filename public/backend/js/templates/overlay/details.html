@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- LOADING -->
+<div class="loading" ng-show="tab==0">
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+</div>
+
+<!-- MAIN -->
+<div class="row" ng-show="tab>0">
+    <!-- Left padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+
+    <!-- Content -->
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8" ng-show="tab==1">
+        <br>
+
+        <!-- BUTTONS -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+                <div class="btn-group" role="group" aria-label="buttons">
+                    <button type="button" class="btn btn-secondary" ng-click="edit()">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="delete()">
+                        <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <!-- Profile -->
+        <div class="card">
+            <div class="card-header middle" style="font-size: 20pt;">
+                {{overlay.name}}
+            </div>
+            <div class="card-block">
+                <br>
+                <ul>
+                    <li>{{overlay.overlay_id}}</li>
+                    <li>{{overlay.o_id}}</li>
+                    <li>{{overlay.name}}</li>
+                    <li>{{overlay.description}}</li>
+                    <li>{{overlay.category}}</li>
+                    <li>{{overlay.url}}</li>
+                    <li>{{overlay.created}}</li>
+                    <li>{{overlay.updated}}</li>
+                </ul>
+                <br>
+            </div>
+
+            <!-- recordedAt-Locationship -->
+            <div class="list-group list-group-flush" ng-if="overlay.locations.length==0">
+                <div class="list-group-item">
+                    - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS'  | translate }} -
+                </div>
+            </div>
+            <div class="list-group list-group-flush" ng-if="overlay.locations.length>0">
+                <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedLocations')">
+                    <span ng-if="!relatedLocations">
+                        <b>{{ 'SHOW' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+                    </span>
+                    <span ng-if="!relatedLocations">
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </span>
+                    <span ng-if="relatedLocations">
+                        <b>{{ 'HIDE' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+                    </span>
+                    <span ng-if="relatedLocations">
+                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                    </span>
+                </a>
+            </div>
+            <div class="list-group list-group-flush" ng-if="scenario.locations.length>0 && relatedLocations">
+                <a href="" class="list-group-item list-group-item-action" ng-repeat="location in scenario.locations" ng-click="redirect('/locations/' + location.location_id)">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
+                </a>
+            </div>
+            <br>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-block btn-primary" role="button" ng-click="cancel()">
+                            {{ 'CLOSE' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+
+    <!-- Right padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+</div>
+<br>

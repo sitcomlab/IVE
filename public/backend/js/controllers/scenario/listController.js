@@ -25,10 +25,18 @@ app.controller("scenarioListController", function($scope, $rootScope, $translate
         $location.url(path);
     };
 
+    /**
+     * [reset description]
+     */
+    $scope.resetSearch = function(){
+        $scope.searchText = "";
+    };
+
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
+    $scope.searchText = "";
 
     // Load scenarios
     $scenarioService.list()
