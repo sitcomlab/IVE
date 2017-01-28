@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Scenario list controller
-app.controller("scenarioListController", function($scope, $rootScope, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+// Overlay delete controller
+app.controller("overlayDeleteController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
@@ -26,22 +26,27 @@ app.controller("scenarioListController", function($scope, $rootScope, $translate
     };
 
     /**
-     * [reset description]
+     * [cancel description]
+     * @return {[type]} [description]
      */
-    $scope.resetSearch = function(){
-        $scope.searchText = "";
+    $scope.cancel = function(){
+        if($authenticationService.get()){
+            $scope.redirect("/overlays");
+        } else {
+            $scope.redirect("/overlays/" + $scope.overlay.overlay_id);
+        }
     };
+
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
-    $scope.searchText = "";
 
-    // Load scenarios
-    $scenarioService.list()
+    // Load overlay
+    $overlayService.retrieve($routeParams.overlay_id)
     .then(function onSuccess(response) {
-        $scope.scenarios = response.data;
+        $scope.overlay = response.data;
         $scope.changeTab(1);
     })
     .catch(function onError(response) {

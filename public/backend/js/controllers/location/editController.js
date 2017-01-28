@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Scenario list controller
-app.controller("scenarioListController", function($scope, $rootScope, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+// Location edit controller
+app.controller("locationEditController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $locationService) {
 
     /*************************************************
         FUNCTIONS
@@ -26,22 +26,27 @@ app.controller("scenarioListController", function($scope, $rootScope, $translate
     };
 
     /**
-     * [reset description]
+     * [cancel description]
+     * @return {[type]} [description]
      */
-    $scope.resetSearch = function(){
-        $scope.searchText = "";
+    $scope.cancel = function(){
+        if($authenticationService.get()){
+            $scope.redirect("/locations");
+        } else {
+            $scope.redirect("/locations/" + $scope.location.location_id);
+        }
     };
+
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
-    $scope.searchText = "";
 
-    // Load scenarios
-    $scenarioService.list()
+    // Load location
+    $locationService.retrieve($routeParams.location_id)
     .then(function onSuccess(response) {
-        $scope.scenarios = response.data;
+        $scope.location = response.data;
         $scope.changeTab(1);
     })
     .catch(function onError(response) {

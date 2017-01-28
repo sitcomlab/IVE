@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Video details controller
-app.controller("videoDetailsController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $locationService, $videoService, $overlayService) {
+// Location details controller
+app.controller("locationDetailsController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $locationService, $videoService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
@@ -43,29 +43,29 @@ app.controller("videoDetailsController", function($scope, $rootScope, $routePara
      *************************************************/
     $scope.changeTab(0);
 
-    // Load video
+    // Load location
     $locationService.retrieve($routeParams.location_id)
     .then(function onSuccess(response) {
-        $scope.video = response.data;
+        $scope.location = response.data;
         $scope.changeTab(1);
 
         // Load related locations
-        $locationService.list_by_location($scope.location.location_id)
+        /*$locationService.list_by_location($scope.location.location_id)
         .then(function onSuccess(response) {
             $scope.location.related_locations = response.data;
         })
         .catch(function onError(response) {
             $window.alert(response.data);
-        });
+        });*/
 
         // Load related videos
-        $videoService.list_by_location($scope.location.location_id)
+        /*$videoService.list_by_location($scope.location.location_id)
         .then(function onSuccess(response) {
             $scope.location.videos = response.data;
         })
         .catch(function onError(response) {
             $window.alert(response.data);
-        });
+        });*/
 
     })
     .catch(function onError(response) {

@@ -28,6 +28,20 @@ app.controller("navController", function($scope, $rootScope, $location, $window,
         $scope.redirect("/");
     };
 
+    /**
+     * [isActive description]
+     * @param  {[type]}  viewLocation [description]
+     * @return {Boolean}              [description]
+     */
+    $scope.isActive = function(viewLocation){
+        var path = $location.path();
+        if(path.indexOf(viewLocation) !== -1){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
 
     /*************************************************
         EVENT LISTENERS

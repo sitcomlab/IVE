@@ -1,36 +1,26 @@
-/* Flexbox-container */
-.wrapper {
-    display: flex;
-    flex-direction: column;
+html, body {
+    height: 100vh;
     min-height: 100vh;
 }
 
-/* Flexbox-items */
-.wrapper > * {
-    flex: 1 1 auto;
+body {
+    display: flex;
+    flex-direction: column;
 }
 
-/* Header Flexbox-item */
-header {
-    height: 56px;
+header, footer {
+    flex: 0 0 auto;
 }
 
-/* Main Flexbox-item and nested Flexbox-container*/
 main {
+    flex: 1 1 auto;
+    overflow-x: hidden;
     overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
     padding-left: 5px;
     padding-right: 5px;
 }
 
 footer {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-}
-
-footer > * {
-    flex: 1 1 auto;
     line-height: 60px;
     border-top: 1px solid #f5f5f5;
 }

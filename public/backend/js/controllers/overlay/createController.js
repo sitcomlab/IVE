@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Scenario list controller
-app.controller("scenarioListController", function($scope, $rootScope, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+// Overlay create controller
+app.controller("overlayCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
@@ -26,26 +26,22 @@ app.controller("scenarioListController", function($scope, $rootScope, $translate
     };
 
     /**
-     * [reset description]
+     * [cancel description]
+     * @return {[type]} [description]
      */
-    $scope.resetSearch = function(){
-        $scope.searchText = "";
+    $scope.cancel = function(){
+        if($authenticationService.get()){
+            $scope.redirect("/overlays");
+        } else {
+            $scope.redirect("/overlays");
+        }
     };
+
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
-    $scope.searchText = "";
-
-    // Load scenarios
-    $scenarioService.list()
-    .then(function onSuccess(response) {
-        $scope.scenarios = response.data;
-        $scope.changeTab(1);
-    })
-    .catch(function onError(response) {
-        $window.alert(response.data);
-    });
+    $scope.overlay = $overlayService.init();
 
 });

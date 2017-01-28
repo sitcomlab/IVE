@@ -50,13 +50,13 @@ app.controller("videoDetailsController", function($scope, $rootScope, $routePara
         $scope.changeTab(1);
 
         // Load related overlays
-        $overlayService.list_by_scenario($scope.video.video_id)
+        /*$overlayService.list_by_scenario($scope.video.video_id)
         .then(function onSuccess(response) {
             $scope.video.overlays = response.data;
         })
         .catch(function onError(response) {
             $window.alert(response.data);
-        });
+        });*/
 
     })
     .catch(function onError(response) {

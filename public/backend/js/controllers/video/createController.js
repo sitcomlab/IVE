@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Scenario list controller
-app.controller("scenarioListController", function($scope, $rootScope, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+// Video create controller
+app.controller("videoCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $videoService) {
 
     /*************************************************
         FUNCTIONS
@@ -26,26 +26,22 @@ app.controller("scenarioListController", function($scope, $rootScope, $translate
     };
 
     /**
-     * [reset description]
+     * [cancel description]
+     * @return {[type]} [description]
      */
-    $scope.resetSearch = function(){
-        $scope.searchText = "";
+    $scope.cancel = function(){
+        if($authenticationService.get()){
+            $scope.redirect("/videos");
+        } else {
+            $scope.redirect("/videos");
+        }
     };
+
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
-    $scope.searchText = "";
-
-    // Load scenarios
-    $scenarioService.list()
-    .then(function onSuccess(response) {
-        $scope.scenarios = response.data;
-        $scope.changeTab(1);
-    })
-    .catch(function onError(response) {
-        $window.alert(response.data);
-    });
+    $scope.video = $videoService.init();
 
 });
