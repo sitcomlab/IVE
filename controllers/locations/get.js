@@ -18,7 +18,7 @@ exports.request = function(req, res) {
         function(callback) { // Find entry by Id
             session
                 .run(query_get_location, {
-                    location: req.params.location_id
+                    location_id: req.params.location_id
                 })
                 .then(function(result) {
                     // Check if Location exists
