@@ -31,9 +31,16 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        /*.when("/scenarios/:scenario_id/edit", {
+        .when("/scenarios/:scenario_id/edit", {
             templateUrl: "js/templates/scenario/edit.html",
             controller: "scenarioEditController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/scenarios/:scenario_id/delete", {
+            templateUrl: "js/templates/scenario/delete.html",
+            controller: "scenarioDeleteController",
             resolve: {
                 factory: checkAuthentication
             }
@@ -44,7 +51,7 @@ app.config(function($routeProvider, $locationProvider, config) {
             resolve: {
                 factory: checkAuthentication
             }
-        })*/
+        })
 
         // Locations
         .when("/locations", {
@@ -61,9 +68,16 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        /*.when("/locations/:location_id/edit", {
+        .when("/locations/:location_id/edit", {
             templateUrl: "js/templates/location/edit.html",
             controller: "locationEditController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/locations/:location_id/delete", {
+            templateUrl: "js/templates/location/delete.html",
+            controller: "locationDeleteController",
             resolve: {
                 factory: checkAuthentication
             }
@@ -74,7 +88,7 @@ app.config(function($routeProvider, $locationProvider, config) {
             resolve: {
                 factory: checkAuthentication
             }
-        })*/
+        })
 
         // Videos
         .when("/videos", {
@@ -91,9 +105,16 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        /*.when("/videos/:video_id/edit", {
+        .when("/videos/:video_id/edit", {
             templateUrl: "js/templates/video/edit.html",
             controller: "videoEditController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/videos/:video_id/delete", {
+            templateUrl: "js/templates/video/delete.html",
+            controller: "videoDeleteController",
             resolve: {
                 factory: checkAuthentication
             }
@@ -104,7 +125,7 @@ app.config(function($routeProvider, $locationProvider, config) {
             resolve: {
                 factory: checkAuthentication
             }
-        })*/
+        })
 
         // Overlays
         .when("/overlays", {
@@ -121,20 +142,27 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        /*.when("/overlays/:overlay_id/edit", {
+        .when("/overlays/:overlay_id/edit", {
             templateUrl: "js/templates/overlay/edit.html",
             controller: "overlayEditController",
             resolve: {
                 factory: checkAuthentication
             }
         })
-        .when("/new/video", {
+        .when("/overlays/:overlay_id/delete", {
+            templateUrl: "js/templates/overlay/delete.html",
+            controller: "overlayDeleteController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/new/overlay", {
             templateUrl: "js/templates/overlay/create.html",
             controller: "overlayCreateController",
             resolve: {
                 factory: checkAuthentication
             }
-        })*/
+        })
 
         // Redirect
         .otherwise({

@@ -14,18 +14,27 @@
         <br>
 
         <!-- SEARCH -->
-        <div class="input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </span>
-            <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}" ng-model="searchText">
-            <span class="input-group-btn" ng-if="searchText">
-                <a href="" class="btn btn-secondary" ng-click="resetSearch()">
-                    <i class="fa fa-times" aria-hidden="true"></i>
+        <div class="row">
+            <div class="col">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}" ng-model="searchText">
+                    <span class="input-group-btn" ng-if="searchText">
+                        <a href="" class="btn btn-secondary" ng-click="resetSearch()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </span>
+                </div>
+                <small class="form-text text-muted">{{ 'SEARCH_FOR' | translate }} {{ 'LOCATIONS' | translate }}</small>
+            </div>
+            <div class="col-12 col-md-auto">
+                <a href="" class="btn btn-secondary" ng-click="redirect('/new/location')">
+                    <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE' | translate }}
                 </a>
-            </span>
+            </div>
         </div>
-        <small class="form-text text-muted">{{ 'SEARCH_FOR' | translate }} {{ 'LOCATIONS' | translate }}</small>
         <br>
 
         <div class="middle" ng-if="!locations">
@@ -43,8 +52,6 @@
                 </div>
             </a>
         </div>
-        <br>
-        <br>
     </div>
 
     <!-- Right padding -->
