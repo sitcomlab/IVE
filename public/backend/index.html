@@ -62,27 +62,27 @@
                 </a>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item" ng-if="authenticated_user">
+                        <li class="nav-item" ng-class="{ active: isActive('/scenarios') }" ng-if="authenticated_user">
                             <a class="nav-link" href="" ng-click="redirect('/scenarios')">
                                 {{ 'SCENARIOS' | translate }}
                             </a>
                         </li>
-                        <li class="nav-item" ng-if="authenticated_user">
+                        <li class="nav-item" ng-class="{ active: isActive('/locations') }" ng-if="authenticated_user">
                             <a class="nav-link" href="" ng-click="redirect('/locations')">
                                 {{ 'LOCATIONS' | translate }}
                             </a>
                         </li>
-                        <li class="nav-item" ng-if="authenticated_user">
+                        <li class="nav-item" ng-class="{ active: isActive('/videos') }" ng-if="authenticated_user">
                             <a class="nav-link" href="" ng-click="redirect('/videos')">
                                 {{ 'VIDEOS' | translate }}
                             </a>
                         </li>
-                        <li class="nav-item" ng-if="authenticated_user">
+                        <li class="nav-item" ng-class="{ active: isActive('/overlays') }" ng-if="authenticated_user">
                             <a class="nav-link" href="" ng-click="redirect('/overlays')">
                                 {{ 'OVERLAYS' | translate }}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" ng-class="{ active: isActive('/help') }">
                             <a class="nav-link" href="" ng-click="redirect('/help')">
                                 {{ 'HELP' | translate }}
                             </a>
@@ -125,7 +125,7 @@
                 </small>
             </nav>
         </footer>
-        
+
 
         <!-- App Config -->
         <script src="js/config.js"></script>
@@ -144,27 +144,35 @@
         <!-- Main App -->
         <script src="js/app.js"></script>
 
-        <!-- Controllers -->
+        <!-- Main Controllers -->
         <script src="js/controllers/navController.js"></script>
         <script src="js/controllers/footerController.js"></script>
         <script src="js/controllers/loginController.js"></script>
         <script src="js/controllers/helpController.js"></script>
+        <!-- Scenario controller -->
         <script src="js/controllers/scenario/listController.js"></script>
         <script src="js/controllers/scenario/detailsController.js"></script>
-        <!--<script src="js/controllers/scenario/editController.js"></script>
-        <script src="js/controllers/scenario/createController.js"></script>-->
+        <script src="js/controllers/scenario/editController.js"></script>
+        <script src="js/controllers/scenario/deleteController.js"></script>
+        <script src="js/controllers/scenario/createController.js"></script>
+        <!-- Location controller -->
         <script src="js/controllers/location/listController.js"></script>
         <script src="js/controllers/location/detailsController.js"></script>
-        <!--<script src="js/controllers/location/editController.js"></script>
-        <script src="js/controllers/location/createController.js"></script>-->
+        <script src="js/controllers/location/editController.js"></script>
+        <script src="js/controllers/location/deleteController.js"></script>
+        <script src="js/controllers/location/createController.js"></script>
+        <!-- Video controller -->
         <script src="js/controllers/video/listController.js"></script>
         <script src="js/controllers/video/detailsController.js"></script>
-        <!--<script src="js/controllers/video/editController.js"></script>
-        <script src="js/controllers/video/createController.js"></script>-->
+        <script src="js/controllers/video/editController.js"></script>
+        <script src="js/controllers/video/deleteController.js"></script>
+        <script src="js/controllers/video/createController.js"></script>
+        <!-- Overlay controller -->
         <script src="js/controllers/overlay/listController.js"></script>
         <script src="js/controllers/overlay/detailsController.js"></script>
-        <!--<script src="js/controllers/overlay/editController.js"></script>
-        <script src="js/controllers/overlay/createController.js"></script>-->
+        <script src="js/controllers/overlay/editController.js"></script>
+        <script src="js/controllers/overlay/deleteController.js"></script>
+        <script src="js/controllers/overlay/createController.js"></script>
 
     </body>
 </html>
