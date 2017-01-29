@@ -44,12 +44,8 @@
             - {{ 'NO' | translate }} {{ 'SCENARIOS' | translate }} {{ 'FOUND' | translate }} -
         </div>
         <div class="list-group" ng-if="scenarios && scenarios.length>0">
-            <a href="" ng-click="redirect('/scenarios/' + scenario.scenario_id)" class="list-group-item list-group-item-action" ng-repeat="scenario in scenarios | filter: searchText">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        {{scenario.name}}
-                    </div>
-                </div>
+            <a href="" ng-click="redirect('/scenarios/' + scenario.scenario_id)" class="list-group-item list-group-item-action" ng-repeat="scenario in scenarios | orderBy: ['name'] | filter: searchText">
+                <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{scenario.name}}
             </a>
         </div>
     </div>
