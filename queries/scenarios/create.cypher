@@ -10,5 +10,5 @@ CREATE (s:Scenarios {
     s.updated AS updated,
     s.s_id AS s_id,
     s.name AS name,
-    s.description AS description,
+    s.description AS description
 ;

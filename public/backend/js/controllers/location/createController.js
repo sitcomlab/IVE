@@ -37,11 +37,48 @@ app.controller("locationCreateController", function($scope, $rootScope, $routePa
         }
     };
 
+    /**
+     * [send description]
+     * @return {[type]} [description]
+     */
+    $scope.send = function(){
+        // Validate input
+        if($scope.createDocumentForm.$invalid) {
+            // Update UI
+            $scope.createDocumentForm.document_title.$pristine = false;
+            $scope.createDocumentForm.document_email_address.$pristine = false;
+        } else {
+            $scope.changeTab(0);
+
+            $userService.findByEmail($scope.new_document.email_address)
+            .success(function(response) {
+                // Check if user exists
+                if(JSON.parse(response)){
+                    $documentService.create($scope.new_document)
+                    .success(function(response) {
+                        $window.alert("Your new document has been created and an email with the document-ID has been sent to you!");
+                        $scope.redirect("/");
+                    })
+                    .error(function(response) {
+                        $window.alert(response);
+                    });
+                } else {
+                    $scope.new_user.email_address = $scope.new_document.email_address || "";
+                    $scope.changeTab(2);
+                }
+            })
+            .error(function(response) {
+                $window.alert(response);
+            });
+        }
+    };
+
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
     $scope.location = $locationService.init();
+    $scope.changeTab(1);
 
 });

@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Scenario details controller
-app.controller("scenarioDetailsController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $scenarioService, $locationService, $videoService, $overlayService) {
+// Relationship belongs_to list controller
+app.controller("belongsToListController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
@@ -26,15 +26,10 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
+     * [reset description]
      */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/scenarios");
-        } else {
-            $scope.redirect("/");
-        }
+    $scope.resetSearch = function(){
+        $scope.searchText = "";
     };
 
     /**
@@ -63,46 +58,35 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
         INIT
      *************************************************/
     $scope.changeTab(0);
+    $scope.searchText = "";
     $scope.relatedLocations = false;
     $scope.relatedVideos = false;
     $scope.relatedOverlays = false;
 
-    // Load scenario
-    $scenarioService.retrieve($routeParams.scenario_id)
+    $relationshipService.list_by_type('belongs_to', 'locations')
     .then(function onSuccess(response) {
-        $scope.scenario = response.data;
-        $scope.changeTab(1);
+        $scope.location_relationships = response.data;
 
-        // Load related locations
-        $locationService.list_by_scenario($scope.scenario.scenario_id)
+        $relationshipService.list_by_type('belongs_to', 'videos')
         .then(function onSuccess(response) {
-            $scope.scenario.locations = response.data;
+            $scope.video_relationships = response.data;
+
+            $relationshipService.list_by_type('belongs_to', 'overlays')
+            .then(function onSuccess(response) {
+                $scope.overlay_relationships = response.data;
+                $scope.changeTab(1);
+            })
+            .catch(function onError(response) {
+                $window.alert(response.data);
+            });
         })
         .catch(function onError(response) {
             $window.alert(response.data);
         });
-
-        // Load related videos
-        $videoService.list_by_scenario($scope.scenario.scenario_id)
-        .then(function onSuccess(response) {
-            $scope.scenario.videos = response.data;
-        })
-        .catch(function onError(response) {
-            $window.alert(response.data);
-        });
-
-        // Load related overlays
-        $overlayService.list_by_scenario($scope.scenario.scenario_id)
-        .then(function onSuccess(response) {
-            $scope.scenario.overlays = response.data;
-        })
-        .catch(function onError(response) {
-            $window.alert(response.data);
-        });
-
     })
     .catch(function onError(response) {
         $window.alert(response.data);
     });
+
 
 });

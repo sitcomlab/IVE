@@ -82,6 +82,11 @@
                                 {{ 'OVERLAYS' | translate }}
                             </a>
                         </li>
+                        <li class="nav-item" ng-class="{ active: isActive('/relationships') || isActive('/relationship') }" ng-if="authenticated_user">
+                            <a class="nav-link" href="" ng-click="redirect('/relationships')">
+                                {{ 'RELATIONSHIPS' | translate }}
+                            </a>
+                        </li>
                         <li class="nav-item" ng-class="{ active: isActive('/help') }">
                             <a class="nav-link" href="" ng-click="redirect('/help')">
                                 {{ 'HELP' | translate }}
@@ -140,6 +145,7 @@
         <script src="js/services/locationService.js"></script>
         <script src="js/services/videoService.js"></script>
         <script src="js/services/overlayService.js"></script>
+        <script src="js/services/relationshipService.js"></script>
 
         <!-- Main App -->
         <script src="js/app.js"></script>
@@ -173,6 +179,28 @@
         <script src="js/controllers/overlay/editController.js"></script>
         <script src="js/controllers/overlay/deleteController.js"></script>
         <script src="js/controllers/overlay/createController.js"></script>
+        <!-- Relationship controller -->
+        <script src="js/controllers/relationship/listController.js"></script>
+        <script src="js/controllers/relationship/list/belongsToController.js"></script>
+        <script src="js/controllers/relationship/list/connectedToController.js"></script>
+        <script src="js/controllers/relationship/list/embeddedInController.js"></script>
+        <script src="js/controllers/relationship/list/parentLocationController.js"></script>
+        <script src="js/controllers/relationship/list/recordedAtController.js"></script>
+        <!--<script src="js/controllers/relationship/details/belongsToController.js"></script>
+        <script src="js/controllers/relationship/details/connectedToController.js"></script>
+        <script src="js/controllers/relationship/details/embeddedInController.js"></script>
+        <script src="js/controllers/relationship/details/parentLocationController.js"></script>
+        <script src="js/controllers/relationship/details/recordedAtController.js"></script>
+        <script src="js/controllers/relationship/edit/belongsToController.js"></script>
+        <script src="js/controllers/relationship/edit/connectedToController.js"></script>
+        <script src="js/controllers/relationship/edit/embeddedInController.js"></script>
+        <script src="js/controllers/relationship/edit/parentLocationController.js"></script>
+        <script src="js/controllers/relationship/edit/recordedAtController.js"></script>
+        <script src="js/controllers/relationship/create/belongsToController.js"></script>
+        <script src="js/controllers/relationship/create/connectedToController.js"></script>
+        <script src="js/controllers/relationship/create/embeddedInController.js"></script>
+        <script src="js/controllers/relationship/create/parentLocationController.js"></script>
+        <script src="js/controllers/relationship/create/recordedAtController.js"></script>-->
 
     </body>
 </html>

@@ -6,7 +6,15 @@ var app = angular.module("locationService", []);
 app.factory('$locationService', function($http, config) {
 
     return {
-
+        init: function() {
+            return {
+                name: "",
+                description: "",
+                location_type: null,
+                lng: null,
+                lat: null
+            };
+        },
         list: function() {
             return $http.get(config.apiURL + "/locations");
         },

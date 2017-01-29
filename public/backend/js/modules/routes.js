@@ -164,6 +164,135 @@ app.config(function($routeProvider, $locationProvider, config) {
             }
         })
 
+        // Relationships
+        .when("/relationships", {
+            templateUrl: "js/templates/relationship/list.html",
+            controller: "relationshipListController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        /*.when("/relationships/:relationship_id", {
+            templateUrl: "js/templates/relationship/details.html",
+            controller: "relationshipDetailsController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationship/belongs_to/:relationship_id", {
+            templateUrl: "js/templates/relationship/details/belongs_to.html",
+            controller: "belongsToDetailsController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationship/connected_to/:relationship_id", {
+            templateUrl: "js/templates/relationship/details/connected_to.html",
+            controller: "connectedToDetailsController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationship/embedded_in/:relationship_id", {
+            templateUrl: "js/templates/relationship/details/embedded_in.html",
+            controller: "embeddedInDetailsController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationship/parent_location/:relationship_id", {
+            templateUrl: "js/templates/relationship/details/parent_location.html",
+            controller: "parentLocationDetailsController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationship/recorded_at/:relationship_id", {
+            templateUrl: "js/templates/relationship/details/recorded_at.html",
+            controller: "recordedAtDetailsController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })*/
+        .when("/relationship/belongs_to", {
+            templateUrl: "js/templates/relationship/list/belongs_to.html",
+            controller: "belongsToListController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationship/connected_to", {
+            templateUrl: "js/templates/relationship/list/connected_to.html",
+            controller: "connectedToListController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationship/embedded_in", {
+            templateUrl: "js/templates/relationship/list/embedded_in.html",
+            controller: "embeddedInListController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationship/parent_location", {
+            templateUrl: "js/templates/relationship/list/parent_location.html",
+            controller: "parentLocationListController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationship/recorded_at", {
+            templateUrl: "js/templates/relationship/list/recorded_at.html",
+            controller: "recordedAtListController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        /*.when("/new/relationship", {
+            templateUrl: "js/templates/relationship/create.html",
+            controller: "createRelationshipController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/new/belongs_to/relationship", {
+            templateUrl: "js/templates/relationship/create/belongs_to.html",
+            controller: "belongsToCreateController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/new/connected_to/relationship", {
+            templateUrl: "js/templates/relationship/create/connected_to.html",
+            controller: "connectedToCreateController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/new/embedded_in/relationship", {
+            templateUrl: "js/templates/relationship/create/embedded_in.html",
+            controller: "embeddedInCreateController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/new/parent_location/relationship", {
+            templateUrl: "js/templates/relationship/create/parent_location.html",
+            controller: "parentLocationCreateController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/new/recorded_at/relationship", {
+            templateUrl: "js/templates/relationship/create/recorded_at.html",
+            controller: "recordedAtCreateController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })*/
+
+
         // Redirect
         .otherwise({
             redirectTo: "/"

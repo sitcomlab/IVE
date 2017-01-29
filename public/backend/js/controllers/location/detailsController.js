@@ -37,11 +37,26 @@ app.controller("locationDetailsController", function($scope, $rootScope, $routeP
         }
     };
 
+    /**
+     * [toggle description]
+     * @param  {[type]} item [description]
+     * @return {[type]}      [description]
+     */
+    $scope.toggle = function(item){
+        switch (item) {
+            case 'connectedLocations': {
+                $scope.connectedLocations = !$scope.connectedLocations;
+                break;
+            }
+        }
+    };
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
+    $scope.connectedLocations = false;
+
 
     // Load location
     $locationService.retrieve($routeParams.location_id)
@@ -49,14 +64,15 @@ app.controller("locationDetailsController", function($scope, $rootScope, $routeP
         $scope.location = response.data;
         $scope.changeTab(1);
 
-        // Load related locations
-        /*$locationService.list_by_location($scope.location.location_id)
+        // Load connected locations
+        $locationService.list_by_location($scope.location.location_id)
         .then(function onSuccess(response) {
-            $scope.location.related_locations = response.data;
+            console.log(response.data);
+            $scope.location.connected_locations = response.data;
         })
         .catch(function onError(response) {
             $window.alert(response.data);
-        });*/
+        });
 
         // Load related videos
         /*$videoService.list_by_location($scope.location.location_id)
