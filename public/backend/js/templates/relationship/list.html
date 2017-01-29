@@ -39,7 +39,7 @@
 
         <div class="list-group">
             <a href="" ng-click="redirect('/relationship/' + relationship_type.name)" class="list-group-item list-group-item-action" ng-repeat="relationship_type in relationship_types | orderBy: ['name'] | filter: searchText">
-                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship_type.name}}
+                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship_type.name | uppercaseFilter }}
             </a>
         </div>
     </div>

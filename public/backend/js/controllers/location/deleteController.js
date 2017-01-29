@@ -37,11 +37,27 @@ app.controller("locationDeleteController", function($scope, $rootScope, $routePa
         }
     };
 
+    /**
+     * [delete description]
+     * @return {[type]} [description]
+     */
+    $scope.delete = function(){
+        $scope.changeTab(0);
+
+        $locationService.delete($scope.location.location_id)
+        .success(function(response) {
+            $scope.redirect("/locations");
+        })
+        .error(function(response) {
+            $window.alert(response);
+        });
+    };
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
+    $scope.input = "";
 
     // Load location
     $locationService.retrieve($routeParams.location_id)

@@ -37,11 +37,27 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
         }
     };
 
+    /**
+     * [delete description]
+     * @return {[type]} [description]
+     */
+    $scope.delete = function(){
+        $scope.changeTab(0);
+
+        $scenarioService.delete($scope.scenario.scenario_id)
+        .success(function(response) {
+            $scope.redirect("/scenarios");
+        })
+        .error(function(response) {
+            $window.alert(response);
+        });
+    };
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
+    $scope.input = "";
 
     // Load scenario
     $scenarioService.retrieve($routeParams.scenario_id)
