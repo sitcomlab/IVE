@@ -55,7 +55,6 @@ app.controller("locationCreateController", function($scope, $rootScope, $routePa
             $locationService.create($scope.location)
             .then(function onSuccess(response) {
                 var new_location = response.data;
-                console.log(response.data);
                 $scope.redirect("/locations/" + new_location.location_id);
             })
             .catch(function onError(response) {

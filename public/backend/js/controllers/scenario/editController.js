@@ -37,6 +37,29 @@ app.controller("scenarioEditController", function($scope, $rootScope, $routePara
         }
     };
 
+    /**
+     * [send description]
+     * @return {[type]} [description]
+     */
+    $scope.send = function(){
+        // Validate input
+        if($scope.editScenarioForm.$invalid) {
+            // Update UI
+            $scope.editScenarioForm.name.$pristine = false;
+            $scope.editScenarioForm.description.$pristine = false;
+        } else {
+            $scope.changeTab(0);
+            $scenarioService.edit($scope.scenario.scenario_id, $scope.scenario)
+            .then(function onSuccess(response) {
+                $scope.scenario = response.data;
+                $scope.redirect("/scenarios/" + $scope.scenario.scenario_id);
+            })
+            .catch(function onError(response) {
+                $window.alert(response.data);
+            });
+        }
+    };
+
 
     /*************************************************
         INIT
