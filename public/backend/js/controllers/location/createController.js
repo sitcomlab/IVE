@@ -43,32 +43,23 @@ app.controller("locationCreateController", function($scope, $rootScope, $routePa
      */
     $scope.send = function(){
         // Validate input
-        if($scope.createDocumentForm.$invalid) {
+        if($scope.createLocationForm.$invalid) {
             // Update UI
-            $scope.createDocumentForm.document_title.$pristine = false;
-            $scope.createDocumentForm.document_email_address.$pristine = false;
+            $scope.createLocationForm.name.$pristine = false;
+            $scope.createLocationForm.description.$pristine = false;
+            $scope.createLocationForm.location_type.$pristine = false;
+            $scope.createLocationForm.lng.$pristine = false;
+            $scope.createLocationForm.lat.$pristine = false;
         } else {
             $scope.changeTab(0);
-
-            $userService.findByEmail($scope.new_document.email_address)
-            .success(function(response) {
-                // Check if user exists
-                if(JSON.parse(response)){
-                    $documentService.create($scope.new_document)
-                    .success(function(response) {
-                        $window.alert("Your new document has been created and an email with the document-ID has been sent to you!");
-                        $scope.redirect("/");
-                    })
-                    .error(function(response) {
-                        $window.alert(response);
-                    });
-                } else {
-                    $scope.new_user.email_address = $scope.new_document.email_address || "";
-                    $scope.changeTab(2);
-                }
+            $locationService.create($scope.location)
+            .then(function onSuccess(response) {
+                var new_location = response.data;
+                console.log(response.data);
+                $scope.redirect("/locations/" + new_location.location_id);
             })
-            .error(function(response) {
-                $window.alert(response);
+            .catch(function onError(response) {
+                $window.alert(response.data);
             });
         }
     };
