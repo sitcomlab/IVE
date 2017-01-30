@@ -43,13 +43,12 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
      */
     $scope.delete = function(){
         $scope.changeTab(0);
-
-        $scenarioService.delete($scope.scenario.scenario_id)
-        .success(function(response) {
+        $scenarioService.remove($scope.scenario.scenario_id)
+        .then(function onSuccess(response) {
             $scope.redirect("/scenarios");
         })
-        .error(function(response) {
-            $window.alert(response);
+        .catch(function onError(response) {
+            $window.alert(response.data);
         });
     };
 

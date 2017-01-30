@@ -6,7 +6,14 @@ var app = angular.module("videoService", []);
 app.factory('$videoService', function($http, config) {
 
     return {
-
+        init: function() {
+            return {
+                name: "",
+                description: "",
+                url: "",
+                recorded: ""
+            };
+        },
         list: function() {
             return $http.get(config.apiURL + "/videos");
         },
@@ -19,13 +26,13 @@ app.factory('$videoService', function($http, config) {
         retrieve: function(video_id) {
             return $http.get(config.apiURL + "/videos/" + video_id);
         },
-        create: function() {
-            return $http.post(config.apiURL + "/videos");
+        create: function(data) {
+            return $http.post(config.apiURL + "/videos", data);
         },
-        edit: function(video_id) {
-            return $http.put(config.apiURL + "/videos/" + video_id);
+        edit: function(video_id, data) {
+            return $http.put(config.apiURL + "/videos/" + video_id, data);
         },
-        delete: function(video_id) {
+        remove: function(video_id) {
             return $http.delete(config.apiURL + "/videos/" + video_id);
         }
 

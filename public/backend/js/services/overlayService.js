@@ -6,7 +6,14 @@ var app = angular.module("overlayService", []);
 app.factory('$overlayService', function($http, config) {
 
     return {
-
+        init: function() {
+            return {
+                name: "",
+                description: "",
+                category: "website",
+                url: ""
+            };
+        },
         list: function() {
             return $http.get(config.apiURL + "/overlays");
         },
@@ -19,13 +26,13 @@ app.factory('$overlayService', function($http, config) {
         retrieve: function(overlay_id) {
             return $http.get(config.apiURL + "/overlays/" + overlay_id);
         },
-        create: function() {
-            return $http.post(config.apiURL + "/overlays");
+        create: function(data) {
+            return $http.post(config.apiURL + "/overlays", data);
         },
-        edit: function(overlay_id) {
-            return $http.put(config.apiURL + "/overlays/" + overlay_id);
+        edit: function(overlay_id, data) {
+            return $http.put(config.apiURL + "/overlays/" + overlay_id, data);
         },
-        delete: function(overlay_id) {
+        remove: function(overlay_id) {
             return $http.delete(config.apiURL + "/overlays/" + overlay_id);
         }
 

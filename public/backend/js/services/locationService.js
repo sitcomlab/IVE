@@ -10,7 +10,7 @@ app.factory('$locationService', function($http, config) {
             return {
                 name: "",
                 description: "",
-                location_type: null,
+                location_type: "outdoor",
                 lng: null,
                 lat: null
             };
@@ -27,13 +27,13 @@ app.factory('$locationService', function($http, config) {
         retrieve: function(location_id) {
             return $http.get(config.apiURL + "/locations/" + location_id);
         },
-        create: function() {
-            return $http.post(config.apiURL + "/locations/" + location_id);
+        create: function(data) {
+            return $http.post(config.apiURL + "/locations", data);
         },
-        edit: function(location_id) {
-            return $http.put(config.apiURL + "/locations/" + location_id);
+        edit: function(location_id, data) {
+            return $http.put(config.apiURL + "/locations/" + location_id, data);
         },
-        delete: function(location_id) {
+        remove: function(location_id) {
             return $http.delete(config.apiURL + "/locations/" + location_id);
         }
 

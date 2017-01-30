@@ -43,13 +43,12 @@ app.controller("overlayDeleteController", function($scope, $rootScope, $routePar
      */
     $scope.delete = function(){
         $scope.changeTab(0);
-
-        $overlayService.delete($scope.overlay.overlay_id)
-        .success(function(response) {
+        $overlayService.remove($scope.overlay.overlay_id)
+        .then(function onSuccess(response) {
             $scope.redirect("/overlays");
         })
-        .error(function(response) {
-            $window.alert(response);
+        .catch(function onError(response) {
+            $window.alert(response.data);
         });
     };
 

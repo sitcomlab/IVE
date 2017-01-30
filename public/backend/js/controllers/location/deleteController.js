@@ -43,13 +43,12 @@ app.controller("locationDeleteController", function($scope, $rootScope, $routePa
      */
     $scope.delete = function(){
         $scope.changeTab(0);
-
-        $locationService.delete($scope.location.location_id)
-        .success(function(response) {
+        $locationService.remove($scope.location.location_id)
+        .then(function onSuccess(response) {
             $scope.redirect("/locations");
         })
-        .error(function(response) {
-            $window.alert(response);
+        .catch(function onError(response) {
+            $window.alert(response.data);
         });
     };
 

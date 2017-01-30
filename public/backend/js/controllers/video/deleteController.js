@@ -43,13 +43,12 @@ app.controller("videoDeleteController", function($scope, $rootScope, $routeParam
      */
     $scope.delete = function(){
         $scope.changeTab(0);
-
-        $videoService.delete($scope.video.video_id)
-        .success(function(response) {
+        $videoService.remove($scope.video.video_id)
+        .then(function onSuccess(response) {
             $scope.redirect("/videos");
         })
-        .error(function(response) {
-            $window.alert(response);
+        .catch(function onError(response) {
+            $window.alert(response.data);
         });
     };
 
