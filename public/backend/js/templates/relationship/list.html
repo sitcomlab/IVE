@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- LOADING -->
+<div class="loading" ng-show="tab==0">
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+</div>
+
+<!-- MAIN -->
+<div class="row" ng-show="tab>0">
+    <!-- Left padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+
+    <!-- Content -->
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8" ng-show="tab==1">
+        <br>
+
+        <!-- SEARCH -->
+        <div class="row">
+            <div class="col">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}" ng-model="searchText">
+                    <span class="input-group-btn" ng-if="searchText">
+                        <a href="" class="btn btn-secondary" ng-click="resetSearch()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </span>
+                </div>
+                <small class="form-text text-muted">{{ 'SEARCH_FOR' | translate }} {{ 'RELATIONSHIPS' | translate }}</small>
+            </div>
+            <div class="col-12 col-md-auto">
+                <a href="" class="btn btn-secondary" ng-click="redirect('/new/relationship')">
+                    <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE' | translate }}
+                </a>
+            </div>
+        </div>
+        <br>
+
+        <div class="list-group">
+            <a href="" ng-click="redirect('/relationship/' + relationship_type.name)" class="list-group-item list-group-item-action" ng-repeat="relationship_type in relationship_types | orderBy: ['name'] | filter: searchText">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship_type.name | uppercaseFilter }}
+            </a>
+        </div>
+    </div>
+
+    <!-- Right padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+</div>
+<br>

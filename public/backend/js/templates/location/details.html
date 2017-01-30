@@ -32,7 +32,7 @@
         <!-- Profile -->
         <div class="card">
             <div class="card-header middle" style="font-size: 20pt;">
-                {{location.name}}
+                <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
             </div>
             <div class="card-block">
                 <br>
@@ -43,14 +43,48 @@
                     <li>{{location.description}}</li>
                     <li>{{location.lng}}</li>
                     <li>{{location.lat}}</li>
-                    <li>{{location.location_type}}</li>
+                    <li>
+                        <span class="badge" ng-class="{
+                            'badge-primary': location.location_type=='outdoor',
+                            'badge-default': location.location_type=='indoor',
+                            'badge-success': location.location_type=='abstract'
+                        }">{{location.location_type}}</span>
+                    </li>
                     <li>{{location.created}}</li>
                     <li>{{location.updated}}</li>
                 </ul>
                 <br>
             </div>
 
-            <!-- recordedAt-Locationship -->
+            <!-- connectedTo-relationship -->
+            <div class="list-group list-group-flush" ng-if="location.connected_locations.length==0">
+                <div class="list-group-item">
+                    - {{ 'NO' | translate }} {{ 'CONNECTED' | translate }} {{ 'LOCATIONS'  | translate }} -
+                </div>
+            </div>
+            <div class="list-group list-group-flush" ng-if="location.connected_locations.length>0">
+                <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('connectedLocations')">
+                    <span ng-if="!connectedLocations">
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;
+                        <b>{{ 'SHOW' | translate }} {{ 'CONNECTED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+                    </span>
+                    <span ng-if="connectedLocations">
+                        <i class="fa fa-caret-up" aria-hidden="true"></i>&nbsp;&nbsp;
+                        <b>{{ 'HIDE' | translate }} {{ 'CONNECTED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+                    </span>
+                    <span class="badge badge-default badge-pill">
+                        {{location.connected_locations.length}}
+                    </span>
+                </a>
+            </div>
+            <div class="list-group list-group-flush" ng-if="location.connected_locations.length>0 && connectedLocations">
+                <a href="" class="list-group-item list-group-item-action" ng-repeat="connected_location in location.connected_locations" ng-click="redirect('/locations/' + connected_location.location_id)">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{connected_location.name}}
+                </a>
+            </div>
+            <br>
+
+            <!-- recordedAt-relationship -->
             <div class="list-group list-group-flush" ng-if="location.locations.length==0">
                 <div class="list-group-item">
                     - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS'  | translate }} -

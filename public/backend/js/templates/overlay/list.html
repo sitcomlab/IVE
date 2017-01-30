@@ -44,12 +44,8 @@
             - {{ 'NO' | translate }} {{ 'OVERLAYS' | translate }} {{ 'FOUND' | translate }} -
         </div>
         <div class="list-group" ng-if="overlays && overlays.length>0">
-            <a href="" ng-click="redirect('/overlays/' + overlay.overlay_id)" class="list-group-item list-group-item-action" ng-repeat="overlay in overlays | filter: searchText">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        {{overlay.name}}
-                    </div>
-                </div>
+            <a href="" ng-click="redirect('/overlays/' + overlay.overlay_id)" class="list-group-item list-group-item-action" ng-repeat="overlay in overlays | orderBy: ['name'] | filter: searchText">
+                <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{overlay.name}}
             </a>
         </div>
     </div>

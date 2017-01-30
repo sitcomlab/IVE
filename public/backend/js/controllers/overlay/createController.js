@@ -37,11 +37,37 @@ app.controller("overlayCreateController", function($scope, $rootScope, $routePar
         }
     };
 
+    /**
+     * [send description]
+     * @return {[type]} [description]
+     */
+    $scope.send = function(){
+        // Validate input
+        if($scope.createOverlayForm.$invalid) {
+            // Update UI
+            $scope.createOverlayForm.name.$pristine = false;
+            $scope.createOverlayForm.description.$pristine = false;
+            $scope.createOverlayForm.category.$pristine = false;
+            $scope.createOverlayForm.url.$pristine = false;
+        } else {
+            $scope.changeTab(0);
+            $overlayService.create($scope.overlay)
+            .then(function onSuccess(response) {
+                var new_overlay = response.data;
+                $scope.redirect("/overlays/" + new_overlay.overlay_id);
+            })
+            .catch(function onError(response) {
+                $window.alert(response.data);
+            });
+        }
+    };
+
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
     $scope.overlay = $overlayService.init();
+    $scope.changeTab(1);
 
 });

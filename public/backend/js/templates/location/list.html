@@ -44,12 +44,15 @@
             - {{ 'NO' | translate }} {{ 'LOCATIONS' | translate }} {{ 'FOUND' | translate }} -
         </div>
         <div class="list-group" ng-if="locations && locations.length>0">
-            <a href="" ng-click="redirect('/locations/' + location.location_id)" class="list-group-item list-group-item-action" ng-repeat="location in locations | filter: searchText">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        {{location.name}}
-                    </div>
-                </div>
+            <a href="" ng-click="redirect('/locations/' + location.location_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="location in locations | orderBy: ['location_type','name'] | filter: searchText">
+                <span>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
+                </span>
+                <span class="badge" ng-class="{
+                    'badge-primary': location.location_type=='outdoor',
+                    'badge-default': location.location_type=='indoor',
+                    'badge-success': location.location_type=='abstract'
+                }">{{location.location_type}}</span>
             </a>
         </div>
     </div>

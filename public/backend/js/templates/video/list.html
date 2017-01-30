@@ -44,12 +44,8 @@
             - {{ 'NO' | translate }} {{ 'VIDEOS' | translate }} {{ 'FOUND' | translate }} -
         </div>
         <div class="list-group" ng-if="videos && videos.length>0">
-            <a href="" ng-click="redirect('/videos/' + video.video_id)" class="list-group-item list-group-item-action" ng-repeat="video in videos | filter: searchText">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        {{video.name}}
-                    </div>
-                </div>
+            <a href="" ng-click="redirect('/videos/' + video.video_id)" class="list-group-item list-group-item-action" ng-repeat="video in videos | orderBy: ['name'] | filter: searchText">
+                <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{video.name}}
             </a>
         </div>
     </div>

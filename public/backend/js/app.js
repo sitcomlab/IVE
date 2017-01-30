@@ -12,13 +12,15 @@ var app = angular.module("ive", [
     // Own Modules
     "routes",
     "languages",
+    "filters",
 
     // Services
     "authenticationService",
     "scenarioService",
     "locationService",
     "videoService",
-    "overlayService"
+    "overlayService",
+    "relationshipService"
 
 ]);
 

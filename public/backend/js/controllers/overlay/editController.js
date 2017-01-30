@@ -37,6 +37,31 @@ app.controller("overlayEditController", function($scope, $rootScope, $routeParam
         }
     };
 
+    /**
+     * [send description]
+     * @return {[type]} [description]
+     */
+    $scope.send = function(){
+        // Validate input
+        if($scope.editOverlayForm.$invalid) {
+            // Update UI
+            $scope.editOverlayForm.name.$pristine = false;
+            $scope.editOverlayForm.description.$pristine = false;
+            $scope.editOverlayForm.category.$pristine = false;
+            $scope.editOverlayForm.url.$pristine = false;
+        } else {
+            $scope.changeTab(0);
+            $overlayService.edit($scope.overlay.overlay_id, $scope.overlay)
+            .then(function onSuccess(response) {
+                $scope.overlay = response.data;
+                $scope.redirect("/overlays/" + $scope.overlay.overlay_id);
+            })
+            .catch(function onError(response) {
+                $window.alert(response.data);
+            });
+        }
+    };
+
 
     /*************************************************
         INIT

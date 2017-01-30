@@ -37,11 +37,26 @@ app.controller("overlayDeleteController", function($scope, $rootScope, $routePar
         }
     };
 
+    /**
+     * [delete description]
+     * @return {[type]} [description]
+     */
+    $scope.delete = function(){
+        $scope.changeTab(0);
+        $overlayService.remove($scope.overlay.overlay_id)
+        .then(function onSuccess(response) {
+            $scope.redirect("/overlays");
+        })
+        .catch(function onError(response) {
+            $window.alert(response.data);
+        });
+    };
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
+    $scope.input = "";
 
     // Load overlay
     $overlayService.retrieve($routeParams.overlay_id)

@@ -37,6 +37,11 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
         }
     };
 
+    /**
+     * [toggle description]
+     * @param  {[type]} item [description]
+     * @return {[type]}      [description]
+     */
     $scope.toggle = function(item){
         switch (item) {
             case 'relatedLocations': {

@@ -37,7 +37,7 @@ exports.request = function(req, res) {
             console.error(colors.red(err.message));
             res.status(code).send(err.message);
         } else {
-            res.status(code).send(result);
+            res.status(code).send();
         }
     });
 };

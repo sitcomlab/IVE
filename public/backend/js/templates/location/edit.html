@@ -1,1 +1,161 @@
-EDIT LOCATION
+<!DOCTYPE html>
+<!-- LOADING -->
+<div class="loading" ng-show="tab==0">
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+</div>
+
+<!-- MAIN -->
+<div class="row" ng-show="tab>0">
+    <!-- Left padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+
+    <!-- Content -->
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8">
+        <br>
+
+        <div class="card" ng-show="tab==1">
+            <form class="form-horizontal" name="editLocationForm" ng-submit="send()">
+                <div class="card-header middle" style="font-size: 20pt;">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT' | translate }} {{ 'LOCATION' | translate }}
+                </div>
+                <div class="card-block">
+                    <br>
+                    <label>
+                        <b>{{ 'NAME' | translate }}*</b>
+                    </label>
+                    <div class="form-group" ng-class="{'has-danger': editLocationForm.name.$invalid && !editLocationForm.name.$pristine}">
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="location.name"
+                            name="name"
+                            id="name"
+                            placeholder="{{ 'NAME' | translate }}*"
+                            aria-describedby="inputName"
+                            autofocus
+                            required>
+                        <span ng-show="editLocationForm.name.$error.required && !editLocationForm.name.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <br>
+
+
+                    <label>
+                        <b>{{ 'DESCRIPTION' | translate }}</b>
+                    </label>
+                    <div class="form-group" ng-class="{'has-danger': editLocationForm.description.$invalid && !editLocationForm.description.$pristine }">
+                        <textarea
+                            class="form-control"
+                            rows="5"
+                            placeholder="{{ 'DESCRIPTION' | translate }}" ng-model="location.description"
+                            name="description"
+                            id="description"></textarea>
+                    </div>
+                    <br>
+
+                    <label>
+                        <b>{{ 'LOCATION_TYPE' | translate }}*</b>
+                    </label>
+                    <div class="form-group" ng-class="{'has-danger': editLocationForm.location_type.$invalid && !editLocationForm.location_type.$pristine }">
+                        <select
+                            class="form-control custom-select"
+                            ng-model="location.location_type"
+                            name="location_type"
+                            id="location_type"
+                            required>
+                            <option value="abstract">{{ 'ABSTRACT' | translate}}</option>
+                            <option value="indoor">{{ 'INDOOR' | translate}}</option>
+                            <option value="outdoor">{{ 'OUTDOOR' | translate}}</option>
+                        </select>
+                        <span ng-show="editLocationForm.location_type.$error.required && !editLocationForm.location_type.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label>
+                                <b>{{ 'LONGITUDE' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editLocationForm.lng.$invalid && !editLocationForm.lng.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="location.lng"
+                                    name="lng"
+                                    id="lng"
+                                    placeholder="{{ 'LONGITUDE' | translate }}*"
+                                    aria-describedby="inputLng"
+                                    required>
+                                <span ng-show="editLocationForm.lng.$error.required && !editLocationForm.lng.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'REQUIRED' | translate }}
+                                    </small>
+                                </span>
+                                <span ng-show="editLocationForm.lng.$error.number && !editLocationForm.lng.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'NOT_A_NUMBER' | translate }}
+                                    </small>
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label>
+                                <b>{{ 'LATITUDE' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editLocationForm.lat.$invalid && !editLocationForm.lat.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="location.lat"
+                                    name="lat"
+                                    id="lat"
+                                    placeholder="{{ 'LATITUDE' | translate }}*"
+                                    aria-describedby="inputLat"
+                                    autofocus
+                                    required>
+                                <span ng-show="editLocationForm.lat.$error.required && !editLocationForm.lat.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'REQUIRED' | translate }}
+                                    </small>
+                                </span>
+                                <span ng-show="editLocationForm.lat.$error.number && !editLocationForm.lat.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'NOT_A_NUMBER' | translate }}
+                                    </small>
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="cancel()">
+                                <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-success btn-block" role="submit">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SAVE' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+    </div>
+
+    <!-- Right padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+</div>

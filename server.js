@@ -77,6 +77,7 @@ var scenarios = require('./routes/scenarios');
 var locations = require('./routes/locations');
 var videos = require('./routes/videos');
 var overlays = require('./routes/overlays');
+var relationships = require('./routes/relationships');
 var handlers = require('./routes/handlers');
 app.use('/api', reset);
 app.use('/api', login);
@@ -84,6 +85,7 @@ app.use('/api', scenarios);
 app.use('/api', locations);
 app.use('/api', videos);
 app.use('/api', overlays);
+app.use('/api', relationships);
 app.use('/api', handlers);
 
 

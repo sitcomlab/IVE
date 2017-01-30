@@ -37,11 +37,27 @@ app.controller("videoDeleteController", function($scope, $rootScope, $routeParam
         }
     };
 
+    /**
+     * [delete description]
+     * @return {[type]} [description]
+     */
+    $scope.delete = function(){
+        $scope.changeTab(0);
+        $videoService.remove($scope.video.video_id)
+        .then(function onSuccess(response) {
+            $scope.redirect("/videos");
+        })
+        .catch(function onError(response) {
+            $window.alert(response.data);
+        });
+    };
+
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
+    $scope.input = "";
 
     // Load video
     $videoService.retrieve($routeParams.video_id)
