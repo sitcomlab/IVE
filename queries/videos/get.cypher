@@ -9,4 +9,4 @@ RETURN
     v.description AS description,
     v.url AS url,
     v.recorded AS recorded
-ORDER BY v.name DESC;
+;

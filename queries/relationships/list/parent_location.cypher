@@ -10,6 +10,8 @@ RETURN
     child.lng AS child_location_lng,
     child.location_type AS child_location_type,
     ID(r) AS relationship_id,
+    r.created AS relationship_created,
+    r.updated AS relationship_updated,
     ID(parent) AS parent_location_id,
     parent.created AS parent_location_created,
     parent.updated AS parent_location_updated,

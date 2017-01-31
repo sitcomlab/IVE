@@ -3,12 +3,12 @@ var async = require('async');
 var neo4j = require('neo4j-driver').v1;
 var _ = require('underscore');
 var moment = require('moment');
-var driver = require('../../server.js').driver;
+var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_embedded_in = fs.readFileSync(__dirname + '/../../queries/relationships/embedded_in.cypher', 'utf8').toString();
+var query_connected_to = fs.readFileSync(__dirname + '/../../../queries/relationships/list/connected_to.cypher', 'utf8').toString();
 
 
-// LIST BY REALTIONSHIP-TYPE (:embedded_in)
+// LIST BY REALTIONSHIP-TYPE (:connected_to)
 exports.request = function(req, res) {
 
     // Start session
@@ -17,7 +17,7 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback) { // Find entries
             session
-                .run(query_embedded_in)
+                .run(query_connected_to)
                 .then(function(result) {
                     callback(null, result);
                 })

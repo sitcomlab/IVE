@@ -3,9 +3,9 @@ var async = require('async');
 var neo4j = require('neo4j-driver').v1;
 var _ = require('underscore');
 var moment = require('moment');
-var driver = require('../../server.js').driver;
+var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_recorded_at = fs.readFileSync(__dirname + '/../../queries/relationships/recorded_at.cypher', 'utf8').toString();
+var query_embedded_in = fs.readFileSync(__dirname + '/../../../queries/relationships/list/embedded_in.cypher', 'utf8').toString();
 
 
 // LIST BY REALTIONSHIP-TYPE (:embedded_in)
@@ -17,7 +17,7 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback) { // Find entries
             session
-                .run(query_recorded_at)
+                .run(query_embedded_in)
                 .then(function(result) {
                     callback(null, result);
                 })

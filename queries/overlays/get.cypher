@@ -9,4 +9,4 @@ RETURN
     o.description AS description,
     o.category AS category,
     o.url AS url
-ORDER BY o.name DESC;
+;

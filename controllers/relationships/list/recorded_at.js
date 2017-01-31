@@ -3,41 +3,21 @@ var async = require('async');
 var neo4j = require('neo4j-driver').v1;
 var _ = require('underscore');
 var moment = require('moment');
-var driver = require('../../server.js').driver;
+var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_list_locations_belongs_to = fs.readFileSync(__dirname + '/../../queries/relationships/belongs_to_locations.cypher', 'utf8').toString();
-var query_list_videos_belongs_to = fs.readFileSync(__dirname + '/../../queries/relationships/belongs_to_videos.cypher', 'utf8').toString();
-var query_list_overlays_belongs_to = fs.readFileSync(__dirname + '/../../queries/relationships/belongs_to_overlays.cypher', 'utf8').toString();
+var query_recorded_at = fs.readFileSync(__dirname + '/../../../queries/relationships/list/recorded_at.cypher', 'utf8').toString();
 
 
-// LIST BY REALTIONSHIP-TYPE (:belongs_to)
+// LIST BY REALTIONSHIP-TYPE (:embedded_in)
 exports.request = function(req, res) {
 
     // Start session
     var session = driver.session();
 
-    var query;
-    switch (req.params.label) {
-        case 'locations': {
-            query = query_list_locations_belongs_to;
-            break;
-        }
-        case 'videos': {
-            query = query_list_videos_belongs_to;
-            break;
-        }
-        case 'overlays': {
-            query = query_list_overlays_belongs_to;
-            break;
-        }
-        default:
-            query = "";
-    }
-
     async.waterfall([
         function(callback) { // Find entries
             session
-                .run(query)
+                .run(query_recorded_at)
                 .then(function(result) {
                     callback(null, result);
                 })

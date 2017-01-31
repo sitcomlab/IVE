@@ -13,4 +13,7 @@ CREATE (location:Locations {
 })
 WITH line, location
 MATCH (scenario:Scenarios) WHERE scenario.s_id = line.`s_id`
-CREATE (location)-[:belongs_to]->(scenario);
+CREATE (location)-[:belongs_to {
+    created: timestamp(),
+    updated: timestamp()
+}]->(scenario);

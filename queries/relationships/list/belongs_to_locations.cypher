@@ -10,6 +10,8 @@ RETURN
     l.lng AS location_lng,
     l.location_type AS location_type,
     ID(r) AS relationship_id,
+    r.created AS relationship_created,
+    r.updated AS relationship_updated,
     ID(s) AS scenario_id,
     s.created AS scenario_created,
     s.updated AS scenario_updated,

@@ -5,14 +5,16 @@ WITH line
 MATCH (overlay:Overlays) WHERE overlay.o_id = line.`o_id`
 MATCH (video:Videos) WHERE video.v_id = line.`v_id`
 CREATE (overlay)-[:embedded_in {
-    w: line.`w`,
-    h: line.`h`,
-    x: line.`x`,
-    y: line.`y`,
-    z: line.`z`,
-    d: line.`d`,
-    rx: line.`rx`,
-    ry: line.`ry`,
-    rz: line.`rz`,
+    created: timestamp(),
+    updated: timestamp(),
+    w: toFloat(line.`w`),
+    h: toFloat(line.`h`),
+    x: toFloat(line.`x`),
+    y: toFloat(line.`y`),
+    z: toFloat(line.`z`),
+    d: toFloat(line.`d`),
+    rx: toFloat(line.`rx`),
+    ry: toFloat(line.`ry`),
+    rz: toFloat(line.`rz`),
     display: (CASE toInt(line.`display`) WHEN 1 THEN true ELSE false END)
 }]->(video);

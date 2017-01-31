@@ -3,9 +3,9 @@ var async = require('async');
 var neo4j = require('neo4j-driver').v1;
 var _ = require('underscore');
 var moment = require('moment');
-var driver = require('../../server.js').driver;
+var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_parent_location = fs.readFileSync(__dirname + '/../../queries/relationships/parent_location.cypher', 'utf8').toString();
+var query_parent_location = fs.readFileSync(__dirname + '/../../../queries/relationships/list/parent_location.cypher', 'utf8').toString();
 
 
 // LIST BY REALTIONSHIP-TYPE (:connected_to)
