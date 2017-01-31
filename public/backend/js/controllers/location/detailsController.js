@@ -25,37 +25,12 @@ app.controller("locationDetailsController", function($scope, $rootScope, $routeP
         $location.url(path);
     };
 
-    /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/locations");
-        } else {
-            $scope.redirect("/");
-        }
-    };
-
-    /**
-     * [toggle description]
-     * @param  {[type]} item [description]
-     * @return {[type]}      [description]
-     */
-    $scope.toggle = function(item){
-        switch (item) {
-            case 'connectedLocations': {
-                $scope.connectedLocations = !$scope.connectedLocations;
-                break;
-            }
-        }
-    };
 
     /*************************************************
         INIT
      *************************************************/
     $scope.changeTab(0);
-    $scope.connectedLocations = false;
+    $scope.connectedLocations = true;
 
 
     // Load location
@@ -67,7 +42,6 @@ app.controller("locationDetailsController", function($scope, $rootScope, $routeP
         // Load connected locations
         $locationService.list_by_location($scope.location.location_id)
         .then(function onSuccess(response) {
-            console.log(response.data);
             $scope.location.connected_locations = response.data;
         })
         .catch(function onError(response) {

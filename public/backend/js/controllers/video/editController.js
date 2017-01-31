@@ -24,19 +24,7 @@ app.controller("videoEditController", function($scope, $rootScope, $routeParams,
     $scope.redirect = function(path){
         $location.url(path);
     };
-
-    /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/videos");
-        } else {
-            $scope.redirect("/videos/" + $scope.video.video_id);
-        }
-    };
-
+    
     /**
      * [send description]
      * @return {[type]} [description]

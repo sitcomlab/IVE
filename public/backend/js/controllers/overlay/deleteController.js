@@ -26,18 +26,6 @@ app.controller("overlayDeleteController", function($scope, $rootScope, $routePar
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/overlays");
-        } else {
-            $scope.redirect("/overlays/" + $scope.overlay.overlay_id);
-        }
-    };
-
-    /**
      * [delete description]
      * @return {[type]} [description]
      */

@@ -26,18 +26,6 @@ app.controller("videoDeleteController", function($scope, $rootScope, $routeParam
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/videos");
-        } else {
-            $scope.redirect("/videos/" + $scope.video.video_id);
-        }
-    };
-
-    /**
      * [delete description]
      * @return {[type]} [description]
      */

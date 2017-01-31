@@ -26,18 +26,6 @@ app.controller("scenarioEditController", function($scope, $rootScope, $routePara
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/scenarios");
-        } else {
-            $scope.redirect("/scenarios/" + $scope.scenario.scenario_id);
-        }
-    };
-
-    /**
      * [send description]
      * @return {[type]} [description]
      */

@@ -25,18 +25,6 @@ app.controller("overlayDetailsController", function($scope, $rootScope, $routePa
         $location.url(path);
     };
 
-    /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/overlays");
-        } else {
-            $scope.redirect("/");
-        }
-    };
-
 
     /*************************************************
         INIT

@@ -29,7 +29,7 @@
         </div>
         <br>
 
-        <!-- Profile -->
+        <!-- MAIN -->
         <div class="card">
             <div class="card-header middle" style="font-size: 20pt;">
                 <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{scenario.name}}
@@ -187,7 +187,7 @@
             <div class="card-footer">
                 <div class="row">
                     <div class="col-12">
-                        <button class="btn btn-block btn-primary" role="button" ng-click="cancel()">
+                        <button class="btn btn-block btn-primary" role="button" ng-click="redirect('/scenarios')">
                             {{ 'CLOSE' | translate }}
                         </button>
                     </div>

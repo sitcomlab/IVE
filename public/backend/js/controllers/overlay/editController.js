@@ -26,18 +26,6 @@ app.controller("overlayEditController", function($scope, $rootScope, $routeParam
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/overlays");
-        } else {
-            $scope.redirect("/overlays/" + $scope.overlay.overlay_id);
-        }
-    };
-
-    /**
      * [send description]
      * @return {[type]} [description]
      */

@@ -26,18 +26,6 @@ app.controller("overlayCreateController", function($scope, $rootScope, $routePar
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/overlays");
-        } else {
-            $scope.redirect("/overlays");
-        }
-    };
-
-    /**
      * [send description]
      * @return {[type]} [description]
      */

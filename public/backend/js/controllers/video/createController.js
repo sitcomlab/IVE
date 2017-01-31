@@ -26,18 +26,6 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/videos");
-        } else {
-            $scope.redirect("/videos");
-        }
-    };
-
-    /**
      * [send description]
      * @return {[type]} [description]
      */

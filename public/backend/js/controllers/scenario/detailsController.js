@@ -26,18 +26,6 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/scenarios");
-        } else {
-            $scope.redirect("/");
-        }
-    };
-
-    /**
      * [toggle description]
      * @param  {[type]} item [description]
      * @return {[type]}      [description]
