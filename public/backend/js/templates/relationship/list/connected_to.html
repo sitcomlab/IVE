@@ -44,15 +44,25 @@
             - {{ 'NO' | translate }} {{ 'RELATIONSHIPS' | translate }} {{ 'FOUND' | translate }} -
         </div>
         <div class="list-group" ng-if="relationships && relationships.length>0">
-            <a href="" ng-click="redirect('/relationship/' + relationship.relationship_type)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="relationship in relationships | orderBy: ['start_location_name'] | filter: searchText">
+            <a href="" ng-click="redirect('/relationship/connected_to/' + relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="relationship in relationships | orderBy: ['start_location_name'] | filter: searchText">
                 <div>
                     <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.start_location_name}}
+                    <span class="badge" ng-class="{
+                        'badge-primary': relationship.start_location_type=='outdoor',
+                        'badge-default': relationship.start_location_type=='indoor',
+                        'badge-success': relationship.start_location_type=='abstract'
+                    }">{{relationship.start_location_type}}</span>
                 </div>
                 <div>
                     <b>-:CONNECTED_TO-&gt;</b>
                 </div>
                 <div>
                     <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.end_location_name}}
+                    <span class="badge" ng-class="{
+                        'badge-primary': relationship.end_location_type=='outdoor',
+                        'badge-default': relationship.end_location_type=='indoor',
+                        'badge-success': relationship.end_location_type=='abstract'
+                    }">{{relationship.end_location_type}}</span>
                 </div>
             </a>
         </div>

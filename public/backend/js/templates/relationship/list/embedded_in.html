@@ -44,7 +44,7 @@
             - {{ 'NO' | translate }} {{ 'RELATIONSHIPS' | translate }} {{ 'FOUND' | translate }} -
         </div>
         <div class="list-group" ng-if="relationships && relationships.length>0">
-            <a href="" ng-click="redirect('/relationship/' + relationship.relationship_type)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="relationship in relationships | orderBy: [''] | filter: searchText">
+            <a href="" ng-click="redirect('/relationship/embedded_in/' + relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="relationship in relationships | orderBy: [''] | filter: searchText">
                 <div>
                     <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
                 </div>

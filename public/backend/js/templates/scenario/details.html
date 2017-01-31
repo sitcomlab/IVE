@@ -36,15 +36,60 @@
             </div>
             <div class="card-block">
                 <br>
-                <ul>
-                    <li>{{scenario.scenario_id}}</li>
-                    <li>{{scenario.s_id}}</li>
-                    <li>{{scenario.name}}</li>
-                    <li>{{scenario.description}}</li>
-                    <li>{{scenario.created}}</li>
-                    <li>{{scenario.updated}}</li>
-                </ul>
-                <br>
+                <h6>{{ 'PROPERTIES' | translate }}</h6>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>
+                                {{ 'ID' | translate }}
+                            </th>
+                            <td>
+                                <code>{{scenario.scenario_id}}</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'EXPORT_ID' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{scenario.s_id}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'NAME' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{scenario.name}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'DESCRIPTION' | translate }}
+                            </th>
+                            <td>
+                                <kbd ng-if="scenario.description!=null">{{scenario.description}}</kbd>
+                                <span class="text-muted" ng-if="scenario.description==null">-</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'CREATED' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{scenario.created | timestamp }}</kbd>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eceeef">
+                            <th>
+                                {{ 'LAST_UPDATED' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{scenario.updated | timestamp }}</kbd>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- Related locations -->
