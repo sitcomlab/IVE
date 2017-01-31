@@ -13,6 +13,20 @@
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8">
         <br>
 
+        <!-- BUTTONS -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+                <div class="btn-group" role="group" aria-label="buttons">
+                    <a href="" class="btn btn-danger" ng-click="redirect('/locations/' + location.location_id + '/delete')">
+                        <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <!-- MAIN -->
         <div class="card" ng-show="tab==1">
             <form class="form-horizontal" name="editLocationForm" ng-submit="send()">
                 <div class="card-header middle" style="font-size: 20pt;">
@@ -140,7 +154,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-secondary btn-block" role="button" ng-click="cancel()">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/locations/' + location.location_id)">
                                 <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
                             </button>
                         </div>
