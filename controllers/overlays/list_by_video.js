@@ -23,7 +23,7 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Video exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Video with id '" + req.params.video_id + "' not found!"), 404);
                     } else {
                         callback(null);

@@ -23,10 +23,10 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Relationship exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Relationship with id '" + req.params.relationship_id + "' not found!"), 404);
                     } else {
-                        callback(null, result);
+                        callback(null);
                     }
                 })
                 .catch(function(err) {

@@ -23,7 +23,7 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Relationship exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Relationship with id '" + req.params.relationship_id + "' not found!"), 404);
                     } else {
                         callback(null);
@@ -36,21 +36,20 @@ exports.request = function(req, res) {
         function(callback){ // Parameter validation
 
             // TODO: Validate all attributes of req.body
-
             var params = {
                 relationship_id: req.params.relationship_id,
                 overlay_id: req.body.overlay_id,
                 video_id: req.body.video_id,
-                w: req.body.w || req.body.relationship_w,
-                h: req.body.h || req.body.relationship_h,
-                d: req.body.d || req.body.relationship_d,
-                x: req.body.x || req.body.relationship_x,
-                y: req.body.y || req.body.relationship_y,
-                z: req.body.z || req.body.relationship_z,
-                rx: req.body.rx || req.body.relationship_rx,
-                ry: req.body.ry || req.body.relationship_ry,
-                rz: req.body.rz || req.body.relationship_rz,
-                display: req.body.display || req.body.relationship_display
+                w: req.body.relationship_w,
+                h: req.body.relationship_h,
+                d: req.body.relationship_d,
+                x: req.body.relationship_x,
+                y: req.body.relationship_y,
+                z: req.body.relationship_z,
+                rx: req.body.relationship_rx,
+                ry: req.body.relationship_ry,
+                rz: rreq.body.relationship_rz,
+                display: req.body.relationship_display
             };
 
             callback(null, params);

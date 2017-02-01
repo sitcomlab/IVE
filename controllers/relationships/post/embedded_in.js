@@ -24,10 +24,10 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Overlay exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Overlay with id '" + req.body.overlay_id + "' not found!"), 404);
                     } else {
-                        callback(null, result);
+                        callback(null);
                     }
                 })
                 .catch(function(err) {
@@ -41,10 +41,10 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Video exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Video with id '" + req.body.video_id + "' not found!"), 404);
                     } else {
-                        callback(null, result);
+                        callback(null);
                     }
                 })
                 .catch(function(err) {
@@ -54,20 +54,19 @@ exports.request = function(req, res) {
         function(callback){ // Parameter validation
 
             // TODO: Validate all attributes of req.body
-
             var params = {
                 overlay_id: req.body.overlay_id,
                 video_id: req.body.video_id,
-                w: req.body.w || req.body.relationship_w,
-                h: req.body.h || req.body.relationship_h,
-                d: req.body.d || req.body.relationship_d,
-                x: req.body.x || req.body.relationship_x,
-                y: req.body.y || req.body.relationship_y,
-                z: req.body.z || req.body.relationship_z,
-                rx: req.body.rx || req.body.relationship_rx,
-                ry: req.body.ry || req.body.relationship_ry,
-                rz: req.body.rz || req.body.relationship_rz,
-                display: req.body.display || req.body.relationship_display
+                w: req.body.w,
+                h: req.body.h,
+                d: req.body.d,
+                x: req.body.x,
+                y: req.body.y,
+                z: req.body.z,
+                rx: req.body.rx,
+                ry: req.body.ry,
+                rz: req.body.rz,
+                display: req.body.display
             };
 
             callback(null, params);

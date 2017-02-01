@@ -23,7 +23,7 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Relationship exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Relationship with id '" + req.params.relationship_id + "' not found!"), 404);
                     } else {
                         callback(null);
@@ -36,7 +36,6 @@ exports.request = function(req, res) {
         function(callback){ // Parameter validation
 
             // TODO: Validate all attributes of req.body
-
             var params = {
                 relationship_id: req.params.relationship_id,
             };

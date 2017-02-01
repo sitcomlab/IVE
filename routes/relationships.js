@@ -38,10 +38,10 @@ router.get('/relationship/recorded_at', list_recorded_at.request);
 
 // POST BY RELATIONSHIP-TYPE
 //router.post('/relationship/belongs_to/:label', post_belongs_to.request);
-//router.post('/relationship/connected_to', post_connected_to.request);
-//router.post('/relationship/embedded_in', post_embedded_in.request);
-//router.post('/relationship/parent_location', post_parent_location.request);
-//router.post('/relationship/recorded_at', post_recorded_at.request);
+router.post('/relationship/connected_to', post_connected_to.request);
+router.post('/relationship/embedded_in', post_embedded_in.request);
+router.post('/relationship/parent_location', post_parent_location.request);
+router.post('/relationship/recorded_at', post_recorded_at.request);
 
 // GET BY ID
 //router.get('/relationship/belongs_to/:relationship_id/:label', get_belongs_to.request);

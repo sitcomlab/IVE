@@ -23,10 +23,10 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Location exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Location with id '" + req.body.child_location_id + "' not found!"), 404);
                     } else {
-                        callback(null, result);
+                        callback(null);
                     }
                 })
                 .catch(function(err) {
@@ -40,10 +40,10 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Location exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Location with id '" + req.body.parent_location_id + "' not found!"), 404);
                     } else {
-                        callback(null, result);
+                        callback(null);
                     }
                 })
                 .catch(function(err) {
@@ -53,7 +53,6 @@ exports.request = function(req, res) {
         function(callback){ // Parameter validation
 
             // TODO: Validate all attributes of req.body
-
             var params = {
                 child_location_id: req.body.child_location_id,
                 parent_location_id: req.body.parent_location_id

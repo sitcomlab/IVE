@@ -25,7 +25,7 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Location exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Location with id '" + req.params.location_id + "' not found!"), 404);
                     } else {
                         callback(null, result);

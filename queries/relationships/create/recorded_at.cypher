@@ -1,5 +1,5 @@
-MATCH (v:Videos) WHERE ID(v) = {video_id}
-MATCH (l:Locations) WHERE ID(end) = {location_id}
+MATCH (v:Videos) WHERE ID(v) = toInt({video_id})
+MATCH (l:Locations) WHERE ID(l) = toInt({location_id})
 CREATE (v)-[r:recorded_at {
     created: timestamp(),
     updated: timestamp(),

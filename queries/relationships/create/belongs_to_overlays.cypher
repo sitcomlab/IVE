@@ -1,5 +1,5 @@
-MATCH (o:Overlays) WHERE ID(o) = {overlay_id}
-MATCH (s:Scenarios) WHERE ID(s) = {scenario_id}
+MATCH (o:Overlays) WHERE ID(o) = toInt({overlay_id})
+MATCH (s:Scenarios) WHERE ID(s) = toInt({scenario_id})
 CREATE (o)-[r:belongs_to {
     created: timestamp(),
     updated: timestamp()

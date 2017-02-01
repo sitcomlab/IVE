@@ -1,5 +1,5 @@
-MATCH (l:Locations) WHERE ID(l) = {location_id}
-MATCH (s:Scenarios) WHERE ID(s) = {scenario_id}
+MATCH (l:Locations) WHERE ID(l) = toInt({location_id})
+MATCH (s:Scenarios) WHERE ID(s) = toInt({scenario_id})
 CREATE (l)-[r:belongs_to {
     created: timestamp(),
     updated: timestamp()

@@ -24,10 +24,10 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Location exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Location with id '" + req.body.location_id + "' not found!"), 404);
                     } else {
-                        callback(null, result);
+                        callback(null);
                     }
                 })
                 .catch(function(err) {
@@ -41,10 +41,10 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Video exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Video with id '" + req.body.video_id + "' not found!"), 404);
                     } else {
-                        callback(null, result);
+                        callback(null);
                     }
                 })
                 .catch(function(err) {
@@ -54,19 +54,10 @@ exports.request = function(req, res) {
         function(callback){ // Parameter validation
 
             // TODO: Validate all attributes of req.body
-            var preferred;
-            if(req.body.preferred){
-                preferred = req.body.preferred;
-            } else if(req.body.relationship_preferred){
-                preferred = req.body.relationship_preferred;
-            } else {
-                preferred = true;
-            }
-
             var params = {
                 video_id: req.body.video_id,
                 location_id: req.body.location_id,
-                preferred: preferred
+                preferred: req.body.preferred
             };
 
             callback(null, params);

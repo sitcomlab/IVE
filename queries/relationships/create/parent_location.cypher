@@ -1,5 +1,5 @@
-MATCH (child:Locations) WHERE ID(child) = {child_location_id}
-MATCH (parent:Locations) WHERE ID(parent) = {parent_scenario_id}
+MATCH (child:Locations) WHERE ID(child) = toInt({child_location_id})
+MATCH (parent:Locations) WHERE ID(parent) = toInt({parent_scenario_id})
 CREATE (child)-[r:parent_location {
     created: timestamp(),
     updated: timestamp()

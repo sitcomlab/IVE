@@ -23,7 +23,7 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Relationship exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Relationship with id '" + req.params.relationship_id + "' not found!"), 404);
                     } else {
                         callback(null);
@@ -36,18 +36,9 @@ exports.request = function(req, res) {
         function(callback){ // Parameter validation
 
             // TODO: Validate all attributes of req.body
-            var preferred;
-            if(req.body.preferred){
-                preferred = req.body.preferred;
-            } else if(req.body.relationship_preferred){
-                preferred = req.body.relationship_preferred;
-            } else {
-                preferred = true;
-            }
-
             var params = {
                 relationship_id: req.params.relationship_id,
-                preferred: preferred
+                preferred: req.body.relationship_preferred
             };
 
             callback(null, params);

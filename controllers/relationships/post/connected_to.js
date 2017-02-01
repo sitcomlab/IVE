@@ -23,10 +23,10 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Location exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Location with id '" + req.body.start_location_id + "' not found!"), 404);
                     } else {
-                        callback(null, result);
+                        callback(null);
                     }
                 })
                 .catch(function(err) {
@@ -40,10 +40,10 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Location exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Location with id '" + req.body.end_location_id + "' not found!"), 404);
                     } else {
-                        callback(null, result);
+                        callback(null);
                     }
                 })
                 .catch(function(err) {
@@ -53,19 +53,10 @@ exports.request = function(req, res) {
         function(callback){ // Parameter validation
 
             // TODO: Validate all attributes of req.body
-            var weight;
-            if(req.body.weight){
-                weight = req.body.weight;
-            } else if(req.body.relationship_weight){
-                weight = req.body.relationship_weight;
-            } else {
-                weight = 1;
-            }
-
             var params = {
                 start_location_id: req.body.start_location_id,
                 end_location_id: req.body.end_location_id,
-                weight: weight
+                weight: req.body.weight
             };
 
             callback(null, params);
@@ -83,10 +74,10 @@ exports.request = function(req, res) {
         function(result, callback){ // Format attributes
             var results = [];
 
-            async.forEachOf(result.records, function(record, item, callback) {
+            async.eachOf(result.records, function(record, item, callback) {
                 var object = {};
 
-                async.forEachOf(record.keys, function(key, item, callback) {
+                async.eachOf(record.keys, function(key, item, callback) {
 
                     if (typeof(record._fields[item]) === 'object') {
                         if (key === 'id') {

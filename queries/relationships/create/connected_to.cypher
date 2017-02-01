@@ -1,5 +1,5 @@
-MATCH (start:Locations) WHERE ID(start) = {start_location_id}
-MATCH (end:Locations) WHERE ID(end) = {end_location_id}
+MATCH (start:Locations) WHERE ID(start) = toInt({start_location_id})
+MATCH (end:Locations) WHERE ID(end) = toInt({end_location_id})
 CREATE (start)-[r:connected_to {
     created: timestamp(),
     updated: timestamp(),

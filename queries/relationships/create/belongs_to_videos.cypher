@@ -1,5 +1,5 @@
-MATCH (v:Videos) WHERE ID(v) = {video_id}
-MATCH (s:Scenarios) WHERE ID(s) = {scenario_id}
+MATCH (v:Videos) WHERE ID(v) = toInt({video_id})
+MATCH (s:Scenarios) WHERE ID(s) = toInt({scenario_id})
 CREATE (v)-[r:belongs_to {
     created: timestamp(),
     updated: timestamp()

@@ -1,5 +1,5 @@
-MATCH (o:Overlays) WHERE ID(o) = {overlay_id}
-MATCH (v:Videos) WHERE ID(v) = {video_id}
+MATCH (o:Overlays) WHERE ID(o) = toInt({overlay_id})
+MATCH (v:Videos) WHERE ID(v) = toInt({video_id})
 CREATE (o)-[r:embedded_in {
     created: timestamp(),
     updated: timestamp(),
@@ -13,7 +13,7 @@ CREATE (o)-[r:embedded_in {
     ry: {ry},
     rz: {rz},
     display: {display}
-}]->(s)
+}]->(v)
 RETURN
     ID(o) AS overlay_id,
     o.created AS overlay_created,
