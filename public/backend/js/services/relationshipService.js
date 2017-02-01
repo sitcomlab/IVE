@@ -6,13 +6,27 @@ var app = angular.module("relationshipService", []);
 app.factory('$relationshipService', function($http, config) {
 
     return {
-        init: function(label){
+        init: function(relationship_type, label){
             var new_object;
-            switch (label) {
+            switch (relationship_type){
                 case 'belongs_to': {
                     new_object = {
                         scenario_id: null
                     };
+                    switch (label){
+                        case 'location': {
+                            new_object.location_id = null;
+                            break;
+                        }
+                        case 'video': {
+                            new_object.video_id = null;
+                            break;
+                        }
+                        case 'overlay': {
+                            new_object.overlay_id = null;
+                            break;
+                        }
+                    }
                     break;
                 }
                 case 'connected_to': {
@@ -43,7 +57,7 @@ app.factory('$relationshipService', function($http, config) {
                 case 'parent_location': {
                     new_object = {
                         start_location_id: null,
-                        end_location_id: null,
+                        end_location_id: null
                     };
                     break;
                 }
@@ -51,7 +65,7 @@ app.factory('$relationshipService', function($http, config) {
                     new_object = {
                         video_id: null,
                         location_id: null,
-                        preferred: true,
+                        preferred: true
                     };
                     break;
                 }
@@ -86,8 +100,8 @@ app.factory('$relationshipService', function($http, config) {
         retrieve_by_id: function(relationship_type, relationship_id) {
             return $http.get(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id);
         },
-        create: function(data) {
-            return $http.post(config.apiURL + "/relationships", data);
+        create: function(relationship_type, data) {
+            return $http.post(config.apiURL + "/relationship/" + relationship_type, data);
         },
         edit: function(relationship_type, relationship_id, data) {
             return $http.put(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id, data);

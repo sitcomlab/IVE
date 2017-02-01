@@ -56,13 +56,13 @@
                             <label>
                                 <b>{{ 'WIDTH' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.width.$invalid && !editRelationshipForm.width.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.w.$invalid && !editRelationshipForm.w.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
                                     ng-model="relationship.relationship_w"
-                                    name="width"
-                                    id="width"
+                                    name="w"
+                                    id="w"
                                     placeholder="{{ 'WIDTH' | translate }}*"
                                     aria-describedby="inputWidth"
                                     required
@@ -74,13 +74,13 @@
                             <label>
                                 <b>{{ 'HEIGHT' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.height.$invalid && !editRelationshipForm.height.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.h.$invalid && !editRelationshipForm.h.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
                                     ng-model="relationship.relationship_h"
-                                    name="height"
-                                    id="height"
+                                    name="h"
+                                    id="h"
                                     placeholder="{{ 'HEIGHT' | translate }}*"
                                     aria-describedby="inputHeight"
                                     required>

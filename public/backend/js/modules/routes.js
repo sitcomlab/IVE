@@ -319,14 +319,14 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        /*.when("/new/relationship", {
+        .when("/new/relationship", {
             templateUrl: "js/templates/relationship/create.html",
-            controller: "createRelationshipController",
+            controller: "relationshipCreateController",
             resolve: {
                 factory: checkAuthentication
             }
         })
-        .when("/new/belongs_to/relationship", {
+        /*.when("/new/belongs_to/relationship", {
             templateUrl: "js/templates/relationship/create/belongs_to.html",
             controller: "belongsToCreateController",
             resolve: {

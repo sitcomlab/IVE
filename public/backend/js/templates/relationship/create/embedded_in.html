@@ -19,38 +19,120 @@
                 <div class="card-header middle" style="font-size: 20pt;">
                     <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE_NEW' | translate }} {{ 'RELATIONSHIP' | translate }}
                 </div>
-                <br>
-                <div class="list-group list-group-flush">
-                    <div class="list-group-item justify-content-between">
-                        <div>
-                            <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
-                        </div>
-                        <div>
-                            <b>-:EMBEDDED_IN-&gt;</b>
-                        </div>
-                        <div>
-                            <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
-                        </div>
-                    </div>
-                </div>
                 <div class="card-block">
                     <br>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'FILTER' | translate }} {{ 'OVERLAYS' | translate }} {{ 'BY' | translate }} {{ 'SCENARIO' | translate }}</b>
+                            </label>
+                            <br>
+                            <select class="custom-select form-control" ng-change="updateDropdown('overlays')" ng-model="overlayDropdown.scenario_id" autofocus>
+                                <option value="" selected>
+                                    {{ 'ALL' | translate }}
+                                </option>
+                                <option ng-repeat="scenario in scenarios | orderBy: ['name']" value="{{scenario.scenario_id}}">
+                                    {{ scenario.name }}
+                                </option>
+                            </select>
+                            <br>
+                            <br>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'FILTER' | translate }} {{ 'VIDEOS' | translate }} {{ 'BY' | translate }} {{ 'SCENARIO' | translate }}</b>
+                            </label>
+                            <br>
+                            <select class="custom-select form-control" ng-change="updateDropdown('videos')" ng-model="videoDropdown.scenario_id" autofocus>
+                                <option value="" selected>
+                                    {{ 'ALL' | translate }}
+                                </option>
+                                <option ng-repeat="scenario in scenarios | orderBy: ['name']" value="{{scenario.scenario_id}}">
+                                    {{ scenario.name }}
+                                </option>
+                            </select>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b><i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'OVERLAY' | translate }}*</b>
+                            </label>
+                            <br>
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.overlay_id.$invalid && !createRelationshipForm.overlay_id.$pristine}">
+                                <select
+                                    class="custom-select form-control"
+                                    id="overlay_id"
+                                    name="overlay_id"
+                                    ng-model="relationship.overlay_id"
+                                    ng-disabled="overlayDropdown.status"
+                                    ng-options="overlay.overlay_id as overlay.name group by overlay.category for overlay in overlays | orderBy:['name']"
+                                    required>
+                                </select>
+                                <span ng-show="createRelationshipForm.overlay_id.$error.required && !createRelationshipForm.overlay_id.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'REQUIRED' | translate }}
+                                    </small>
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 middle">
+                            <span class="text-muted">
+                                <b>-:EMBEDDED_IN-&gt;</b>
+                            </span>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b><i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'VIDEO' | translate }}*</b>
+                            </label>
+                            <br>
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.video_id.$invalid && !createRelationshipForm.video_id.$pristine}">
+                                <select
+                                    class="custom-select form-control"
+                                    id="video_id"
+                                    name="video_id"
+                                    ng-model="relationship.video_id"
+                                    ng-disabled="videoDropdown.status"
+                                    ng-options="video.video_id as video.name for video in videos | orderBy:['name']"
+                                    required>
+                                </select>
+                                <span ng-show="createRelationshipForm.video_id.$error.required && !createRelationshipForm.video_id.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'REQUIRED' | translate }}
+                                    </small>
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <p class="text-muted middle">
+                        <b>{{ 'PROPERTIES' | translate }}</b>
+                    </p>
+
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             <label>
                                 <b>{{ 'WIDTH' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.width.$invalid && !editRelationshipForm.width.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.w.$invalid && !createRelationshipForm.w.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
-                                    ng-model="relationship.relationship_w"
-                                    name="width"
-                                    id="width"
+                                    ng-model="relationship.w"
+                                    name="w"
+                                    id="w"
                                     placeholder="{{ 'WIDTH' | translate }}*"
                                     aria-describedby="inputWidth"
-                                    required
-                                    autofocus>
+                                    required>
                             </div>
                             <br>
                         </div>
@@ -58,13 +140,13 @@
                             <label>
                                 <b>{{ 'HEIGHT' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.height.$invalid && !editRelationshipForm.height.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.h.$invalid && !createRelationshipForm.h.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
-                                    ng-model="relationship.relationship_h"
-                                    name="height"
-                                    id="height"
+                                    ng-model="relationship.h"
+                                    name="h"
+                                    id="h"
                                     placeholder="{{ 'HEIGHT' | translate }}*"
                                     aria-describedby="inputHeight"
                                     required>
@@ -75,11 +157,11 @@
                             <label>
                                 <b>{{ 'DISTORTION' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.d.$invalid && !editRelationshipForm.d.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.d.$invalid && !createRelationshipForm.d.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
-                                    ng-model="relationship.relationship_d"
+                                    ng-model="relationship.d"
                                     name="d"
                                     id="d"
                                     placeholder="{{ 'D' | translate }}*"
@@ -95,11 +177,11 @@
                             <label>
                                 <b>{{ 'TRANSLATION' | translate }} X-{{ 'AXIS' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.x.$invalid && !editRelationshipForm.x.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.x.$invalid && !createRelationshipForm.x.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
-                                    ng-model="relationship.relationship_x"
+                                    ng-model="relationship.x"
                                     name="x"
                                     id="x"
                                     placeholder="{{ 'X' | translate }}*"
@@ -112,11 +194,11 @@
                             <label>
                                 <b>{{ 'TRANSLATION' | translate }} Y-{{ 'AXIS' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.y.$invalid && !editRelationshipForm.y.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.y.$invalid && !createRelationshipForm.y.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
-                                    ng-model="relationship.relationship_y"
+                                    ng-model="relationship.y"
                                     name="y"
                                     id="y"
                                     placeholder="{{ 'Y' | translate }}*"
@@ -129,11 +211,11 @@
                             <label>
                                 <b>{{ 'TRANSLATION' | translate }} Z-{{ 'AXIS' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.z.$invalid && !editRelationshipForm.z.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.z.$invalid && !createRelationshipForm.z.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
-                                    ng-model="relationship.relationship_z"
+                                    ng-model="relationship.z"
                                     name="z"
                                     id="z"
                                     placeholder="{{ 'Z' | translate }}*"
@@ -149,11 +231,11 @@
                             <label>
                                 <b>{{ 'ROTATION' | translate }} X-{{ 'AXIS' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.rx.$invalid && !editRelationshipForm.rx.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.rx.$invalid && !createRelationshipForm.rx.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
-                                    ng-model="relationship.relationship_rx"
+                                    ng-model="relationship.rx"
                                     name="rx"
                                     id="rx"
                                     placeholder="{{ 'RX' | translate }}*"
@@ -166,11 +248,11 @@
                             <label>
                                 <b>{{ 'ROTATION' | translate }} Y-{{ 'AXIS' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.ry.$invalid && !editRelationshipForm.ry.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.ry.$invalid && !createRelationshipForm.ry.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
-                                    ng-model="relationship.relationship_ry"
+                                    ng-model="relationship.ry"
                                     name="ry"
                                     id="ry"
                                     placeholder="{{ 'RY' | translate }}*"
@@ -183,11 +265,11 @@
                             <label>
                                 <b>{{ 'ROTATION' | translate }} Z-{{ 'AXIS' | translate }}*</b>
                             </label>
-                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.rz.$invalid && !editRelationshipForm.rz.$pristine}">
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.rz.$invalid && !createRelationshipForm.rz.$pristine}">
                                 <input
                                     type="number"
                                     class="form-control"
-                                    ng-model="relationship.relationship_rz"
+                                    ng-model="relationship.rz"
                                     name="rz"
                                     id="rz"
                                     placeholder="{{ 'RZ' | translate }}*"
@@ -196,15 +278,56 @@
                             </div>
                             <br>
                         </div>
-
-
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <label>
+                                <b>{{ 'DISPLAY' | translate }}</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.display.$invalid && !createRelationshipForm.display.$pristine}">
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="custom-control custom-radio">
+                                            <input
+                                                type="radio"
+                                                class="custom-control-input"
+                                                id="display1"
+                                                name="display"
+                                                ng-value="true"
+                                                ng-model="relationship.display"
+                                                required>
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">
+                                                {{ 'YES' | translate }}
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="col">
+                                        <label class="custom-control custom-radio">
+                                            <input
+                                                type="radio"
+                                                class="custom-control-input"
+                                                id="display2"
+                                                name="display"
+                                                ng-value="false"
+                                                ng-model="relationship.display"
+                                                required>
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">
+                                                {{ 'NO' | translate }}
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/embedded_in/')">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/embedded_in')">
                                 <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
                             </button>
                         </div>

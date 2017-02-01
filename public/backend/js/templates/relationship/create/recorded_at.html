@@ -19,35 +19,151 @@
                 <div class="card-header middle" style="font-size: 20pt;">
                     <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE_NEW' | translate }} {{ 'RELATIONSHIP' | translate }}
                 </div>
-                <br>
-                <div class="list-group list-group-flush">
-                    <div class="list-group-item justify-content-between">
-                        <div>
-                            <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
-                        </div>
-                        <div>
-                            <b>-:RECORDED_AT-&gt;</b>
-                        </div>
-                        <div>
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
-                        </div>
-                    </div>
-                </div>
                 <div class="card-block">
                     <br>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'FILTER' | translate }} {{ 'VIDEOS' | translate }} {{ 'BY' | translate }} {{ 'SCENARIO' | translate }}</b>
+                            </label>
+                            <br>
+                            <select class="custom-select form-control" ng-change="updateDropdown('videos')" ng-model="videoDropdown.scenario_id" autofocus>
+                                <option value="" selected>
+                                    {{ 'ALL' | translate }}
+                                </option>
+                                <option ng-repeat="scenario in scenarios | orderBy: ['name']" value="{{scenario.scenario_id}}">
+                                    {{ scenario.name }}
+                                </option>
+                            </select>
+                            <br>
+                            <br>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'FILTER' | translate }} {{ 'LOCATIONS' | translate }} {{ 'BY' | translate }} {{ 'SCENARIO' | translate }}</b>
+                            </label>
+                            <br>
+                            <select class="custom-select form-control" ng-change="updateDropdown('locations')" ng-model="locationDropdown.scenario_id" autofocus>
+                                <option value="" selected>
+                                    {{ 'ALL' | translate }}
+                                </option>
+                                <option ng-repeat="scenario in scenarios | orderBy: ['name']" value="{{scenario.scenario_id}}">
+                                    {{ scenario.name }}
+                                </option>
+                            </select>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b><i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'VIDEO' | translate }}*</b>
+                            </label>
+                            <br>
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.video_id.$invalid && !createRelationshipForm.video_id.$pristine}">
+                                <select
+                                    class="custom-select form-control"
+                                    id="video_id"
+                                    name="video_id"
+                                    ng-model="relationship.video_id"
+                                    ng-disabled="videoDropdown.status"
+                                    ng-options="video.video_id as video.name for video in videos | orderBy:['name']"
+                                    required>
+                                </select>
+                                <span ng-show="createRelationshipForm.video_id.$error.required && !createRelationshipForm.video_id.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'REQUIRED' | translate }}
+                                    </small>
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 middle">
+                            <span class="text-muted">
+                                <b>-:RECORDED_AT-&gt;</b>
+                            </span>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'LOCATION' | translate }}*</b>
+                            </label>
+                            <br>
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.location_id.$invalid && !createRelationshipForm.location_id.$pristine}">
+                                <select
+                                    class="custom-select form-control"
+                                    id="location_id"
+                                    name="location_id"
+                                    ng-model="relationship.location_id"
+                                    ng-disabled="locationDropdown.status"
+                                    ng-options="location.location_id as location.name group by location.location_type for location in locations | orderBy:['name']"
+                                    required>
+                                </select>
+                                <span ng-show="createRelationshipForm.location_id.$error.required && !createRelationshipForm.location_id.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'REQUIRED' | translate }}
+                                    </small>
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <p class="text-muted middle">
+                        <b>{{ 'PROPERTIES' | translate }}</b>
+                    </p>
                     <label>
                         <b>{{ 'PREFERRED' | translate }}</b>
                     </label>
-                    <div class="form-group" ng-class="{'has-danger': editRelationshipForm.preferred.$invalid && !editRelationshipForm.preferred.$pristine}">
-                        relationship_preferred
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.preferred.$invalid && !createRelationshipForm.preferred.$pristine}">
+                        <div class="row">
+                            <div class="col">
+                                <label class="custom-control custom-radio">
+                                    <input
+                                        type="radio"
+                                        class="custom-control-input"
+                                        id="preferred1"
+                                        name="preferred"
+                                        ng-value="true"
+                                        ng-model="relationship.preferred"
+                                        required>
+                                    <span class="custom-control-indicator"></span>
+                                    <span class="custom-control-description">
+                                        {{ 'YES' | translate }}
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label class="custom-control custom-radio">
+                                    <input
+                                        type="radio"
+                                        class="custom-control-input"
+                                        id="preferred2"
+                                        name="preferred"
+                                        ng-value="false"
+                                        ng-model="relationship.preferred"
+                                        required>
+                                    <span class="custom-control-indicator"></span>
+                                    <span class="custom-control-description">
+                                        {{ 'NO' | translate }}
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <br>
+
                 </div>
 
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/recorded_at/')">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/recorded_at')">
                                 <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
                             </button>
                         </div>

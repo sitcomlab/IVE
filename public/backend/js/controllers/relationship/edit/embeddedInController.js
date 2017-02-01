@@ -33,16 +33,16 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
         // Validate input
         if($scope.editRelationshipForm.$invalid) {
             // Update UI
-            $scope.editRelationshipForm.relationship_w.$pristine = false;
-            $scope.editRelationshipForm.relationship_h.$pristine = false;
-            $scope.editRelationshipForm.relationship_d.$pristine = false;
-            $scope.editRelationshipForm.relationship_x.$pristine = false;
-            $scope.editRelationshipForm.relationship_y.$pristine = false;
-            $scope.editRelationshipForm.relationship_z.$pristine = false;
-            $scope.editRelationshipForm.relationship_rx.$pristine = false;
-            $scope.editRelationshipForm.relationship_ry.$pristine = false;
-            $scope.editRelationshipForm.relationship_rz.$pristine = false;
-            $scope.editRelationshipForm.relationship_display.$pristine = false;
+            $scope.editRelationshipForm.w.$pristine = false;
+            $scope.editRelationshipForm.h.$pristine = false;
+            $scope.editRelationshipForm.d.$pristine = false;
+            $scope.editRelationshipForm.x.$pristine = false;
+            $scope.editRelationshipForm.y.$pristine = false;
+            $scope.editRelationshipForm.z.$pristine = false;
+            $scope.editRelationshipForm.rx.$pristine = false;
+            $scope.editRelationshipForm.ry.$pristine = false;
+            $scope.editRelationshipForm.rz.$pristine = false;
+            $scope.editRelationshipForm.display.$pristine = false;
         } else {
             $scope.changeTab(0);
             $relationshipService.edit('embedded_in', $scope.relationship.relationship_id, $scope.relationship)

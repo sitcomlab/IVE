@@ -53,6 +53,11 @@
                 </div>
                 <div>
                     <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
+                    <span class="badge" ng-class="{
+                        'badge-primary': relationship.location_type=='outdoor',
+                        'badge-default': relationship.location_type=='indoor',
+                        'badge-success': relationship.location_type=='abstract'
+                    }">{{relationship.location_type}}</span>
                 </div>
             </a>
         </div>
