@@ -207,13 +207,13 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        /*.when("/relationship/belongs_to/:relationship_id", {
+        .when("/relationship/belongs_to/:label/:relationship_id", {
             templateUrl: "js/templates/relationship/details/belongs_to.html",
             controller: "belongsToDetailsController",
             resolve: {
                 factory: checkAuthentication
             }
-        })*/
+        })
         .when("/relationship/connected_to/:relationship_id", {
             templateUrl: "js/templates/relationship/details/connected_to.html",
             controller: "connectedToDetailsController",
@@ -242,13 +242,13 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        /*.when("/relationship/belongs_to/:relationship_id/edit", {
+        .when("/relationship/belongs_to/:label/:relationship_id/edit", {
             templateUrl: "js/templates/relationship/edit/belongs_to.html",
             controller: "belongsToEditController",
             resolve: {
                 factory: checkAuthentication
             }
-        })*/
+        })
         .when("/relationship/connected_to/:relationship_id/edit", {
             templateUrl: "js/templates/relationship/edit/connected_to.html",
             controller: "connectedToEditController",
@@ -284,13 +284,13 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        /*.when("/relationship/belongs_to/:relationship_id/delete", {
+        .when("/relationship/belongs_to/:label/:relationship_id/delete", {
             templateUrl: "js/templates/relationship/delete/belongs_to.html",
             controller: "belongsToDeleteController",
             resolve: {
                 factory: checkAuthentication
             }
-        })*/
+        })
         .when("/relationship/connected_to/:relationship_id/delete", {
             templateUrl: "js/templates/relationship/delete/connected_to.html",
             controller: "connectedToDeleteController",
@@ -326,13 +326,20 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        /*.when("/new/belongs_to/relationship", {
+        .when("/new/belongs_to/relationship", {
+            templateUrl: "js/templates/relationship/create_belongs_to.html",
+            controller: "relationshipCreateController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/new/belongs_to/relationship/:label", {
             templateUrl: "js/templates/relationship/create/belongs_to.html",
             controller: "belongsToCreateController",
             resolve: {
                 factory: checkAuthentication
             }
-        })*/
+        })
         .when("/new/connected_to/relationship", {
             templateUrl: "js/templates/relationship/create/connected_to.html",
             controller: "connectedToCreateController",

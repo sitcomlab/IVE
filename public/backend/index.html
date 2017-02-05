@@ -64,27 +64,27 @@
                     <ul class="navbar-nav">
                         <li class="nav-item" ng-class="{ active: isActive('/scenarios') }" ng-if="authenticated_user">
                             <a class="nav-link" href="" ng-click="redirect('/scenarios')">
-                                {{ 'SCENARIOS' | translate }}
+                                {{ '_SCENARIOS' | translate }}
                             </a>
                         </li>
                         <li class="nav-item" ng-class="{ active: isActive('/locations') }" ng-if="authenticated_user">
                             <a class="nav-link" href="" ng-click="redirect('/locations')">
-                                {{ 'LOCATIONS' | translate }}
+                                {{ '_LOCATIONS' | translate }}
                             </a>
                         </li>
                         <li class="nav-item" ng-class="{ active: isActive('/videos') }" ng-if="authenticated_user">
                             <a class="nav-link" href="" ng-click="redirect('/videos')">
-                                {{ 'VIDEOS' | translate }}
+                                {{ '_VIDEOS' | translate }}
                             </a>
                         </li>
                         <li class="nav-item" ng-class="{ active: isActive('/overlays') }" ng-if="authenticated_user">
                             <a class="nav-link" href="" ng-click="redirect('/overlays')">
-                                {{ 'OVERLAYS' | translate }}
+                                {{ '_OVERLAYS' | translate }}
                             </a>
                         </li>
                         <li class="nav-item" ng-class="{ active: isActive('/relationships') || isActive('/relationship') }" ng-if="authenticated_user">
                             <a class="nav-link" href="" ng-click="redirect('/relationships')">
-                                {{ 'RELATIONSHIPS' | translate }}
+                                {{ '_RELATIONSHIPS' | translate }}
                             </a>
                         </li>
                         <li class="nav-item" ng-class="{ active: isActive('/help') }">
@@ -187,18 +187,18 @@
         <script src="js/controllers/relationship/list/embeddedInController.js"></script>
         <script src="js/controllers/relationship/list/parentLocationController.js"></script>
         <script src="js/controllers/relationship/list/recordedAtController.js"></script>
-        <!--<script src="js/controllers/relationship/details/belongsToController.js"></script>-->
+        <script src="js/controllers/relationship/details/belongsToController.js"></script>
         <script src="js/controllers/relationship/details/connectedToController.js"></script>
         <script src="js/controllers/relationship/details/embeddedInController.js"></script>
         <script src="js/controllers/relationship/details/parentLocationController.js"></script>
         <script src="js/controllers/relationship/details/recordedAtController.js"></script>
-        <!--<script src="js/controllers/relationship/edit/belongsToController.js"></script>-->
+        <script src="js/controllers/relationship/edit/belongsToController.js"></script>
         <script src="js/controllers/relationship/edit/connectedToController.js"></script>
         <script src="js/controllers/relationship/edit/embeddedInController.js"></script>
         <script src="js/controllers/relationship/edit/parentLocationController.js"></script>
         <script src="js/controllers/relationship/edit/recordedAtController.js"></script>
         <script src="js/controllers/relationship/edit/embeddedInPreviewController.js"></script>
-        <!--<script src="js/controllers/relationship/delete/belongsToController.js"></script>-->
+        <script src="js/controllers/relationship/delete/belongsToController.js"></script>
         <script src="js/controllers/relationship/delete/connectedToController.js"></script>
         <script src="js/controllers/relationship/delete/embeddedInController.js"></script>
         <script src="js/controllers/relationship/delete/parentLocationController.js"></script>

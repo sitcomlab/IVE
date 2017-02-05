@@ -63,15 +63,15 @@ app.controller("belongsToListController", function($scope, $rootScope, $routePar
     $scope.relatedVideos = false;
     $scope.relatedOverlays = false;
 
-    $relationshipService.list_by_type('belongs_to', 'locations')
+    $relationshipService.list_by_type('belongs_to', 'location')
     .then(function onSuccess(response) {
         $scope.location_relationships = response.data;
 
-        $relationshipService.list_by_type('belongs_to', 'videos')
+        $relationshipService.list_by_type('belongs_to', 'video')
         .then(function onSuccess(response) {
             $scope.video_relationships = response.data;
 
-            $relationshipService.list_by_type('belongs_to', 'overlays')
+            $relationshipService.list_by_type('belongs_to', 'overlay')
             .then(function onSuccess(response) {
                 $scope.overlay_relationships = response.data;
                 $scope.changeTab(1);

@@ -32,7 +32,7 @@
         <!-- MAIN -->
         <div class="card">
             <div class="card-header middle" style="font-size: 20pt;">
-                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'RELATIONSHIP' | translate }}
+                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_RELATIONSHIP' | translate }}
             </div>
             <br>
             <div class="list-group list-group-flush">
@@ -46,7 +46,9 @@
                         }">{{relationship.start_location_type}}</span>
                     </div>
                     <div>
-                        <b>-:CONNECTED_TO-&gt;</b>
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;CONNECTED_TO&nbsp;&mdash;&gt;
+                        </span>
                     </div>
                     <div>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.end_location_name}}

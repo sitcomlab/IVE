@@ -30,7 +30,7 @@
         <div class="card">
             <form class="form-horizontal" name="editRelationshipForm" ng-submit="send()">
                 <div class="card-header middle" style="font-size: 20pt;">
-                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'RELATIONSHIP' | translate }}
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_RELATIONSHIP' | translate }}
                 </div>
                 <br>
                 <div class="list-group list-group-flush">
@@ -44,7 +44,9 @@
                             }">{{relationship.child_location_type}}</span>
                         </div>
                         <div>
-                            <b>-:PARENT_LOCATION-&gt;</b>
+                            <span class="badge badge-pill badge-default">
+                                &mdash;&nbsp;PARENT_LOCATION&nbsp;&mdash;&gt;
+                            </span>
                         </div>
                         <div>
                             <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.parent_location_name}}

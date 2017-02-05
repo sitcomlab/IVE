@@ -32,7 +32,7 @@
         <!-- MAIN -->
         <div class="card">
             <div class="card-header middle" style="font-size: 20pt;">
-                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'RELATIONSHIP' | translate }}
+                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_RELATIONSHIP' | translate }}
             </div>
             <br>
             <div class="list-group list-group-flush">
@@ -41,7 +41,9 @@
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
                     </div>
                     <div>
-                        <b>-:RECORDED_AT-&gt;</b>
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;RECORDED_AT&nbsp;&mdash;&gt;
+                        </span>
                     </div>
                     <div>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}

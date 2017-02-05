@@ -60,69 +60,13 @@
                         <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_SCENARIO' | translate }}
                     </div>
                 </a>
-
-                <a href="" ng-click="redirect('/new/connected_to/relationship')" class="list-group-item list-group-item-action justify-content-between">
-                    <div>
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'START_LOCATION' | translate }}
-                    </div>
-                    <div>
-                        <span class="badge badge-pill badge-default">
-                            &mdash;&nbsp;CONNECTED_TO&nbsp;&mdash;&gt;
-                        </span>
-                    </div>
-                    <div>
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'END_LOCATION' | translate }}
-                    </div>
-                </a>
-
-                <a href="" ng-click="redirect('/new/embedded_in/relationship')" class="list-group-item list-group-item-action justify-content-between">
-                    <div>
-                        <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_OVERLAY' | translate }}
-                    </div>
-                    <div>
-                        <span class="badge badge-pill badge-default">
-                            &mdash;&nbsp;EMBEDDED_IN&nbsp;&mdash;&gt;
-                        </span>
-                    </div>
-                    <div>
-                        <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}
-                    </div>
-                </a>
-
-                <a href="" ng-click="redirect('/new/parent_location/relationship')" class="list-group-item list-group-item-action justify-content-between">
-                    <div>
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CHILD_LOCATION' | translate }}
-                    </div>
-                    <div>
-                        <span class="badge badge-pill badge-default">
-                            &mdash;&nbsp;PARENT_LOCATION&nbsp;&mdash;&gt;
-                        </span>
-                    </div>
-                    <div>
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'PARENT_LOCATION' | translate }}
-                    </div>
-                </a>
-
-                <a href="" ng-click="redirect('/new/recorded_at/relationship')" class="list-group-item list-group-item-action justify-content-between">
-                    <div>
-                        <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}
-                    </div>
-                    <div>
-                        <span class="badge badge-pill badge-default">
-                            &mdash;&nbsp;RECORDED_AT&nbsp;&mdash;&gt;
-                        </span>
-                    </div>
-                    <div>
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_LOCATION' | translate }}
-                    </div>
-                </a>
             </div>
             <br>
 
             <div class="card-footer">
                 <div class="row">
                     <div class="col-12">
-                        <button class="btn btn-block btn-primary" role="button" ng-click="redirect('/relationships')">
+                        <button class="btn btn-block btn-primary" role="button" ng-click="redirect('/relationship/belongs_to')">
                             {{ 'CLOSE' | translate }}
                         </button>
                     </div>

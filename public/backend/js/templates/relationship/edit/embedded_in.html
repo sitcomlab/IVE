@@ -19,7 +19,7 @@
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
                 <div class="btn-group" role="group" aria-label="buttons">
                     <a href="" class="btn btn-info" ng-click="redirect('/relationship/embedded_in/' + relationship.relationship_id + '/preview')">
-                        <i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'PREVIEW_MODE' | translate}}
+                        <i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'OPEN_PREVIEW_MODE' | translate}}
                     </a>
                     <a href="" class="btn btn-danger" ng-click="redirect('/relationship/embedded_in/' + relationship.relationship_id + '/delete')">
                         <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate}}
@@ -33,7 +33,7 @@
         <div class="card">
             <form class="form-horizontal" name="editRelationshipForm" ng-submit="send()">
                 <div class="card-header middle" style="font-size: 20pt;">
-                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'RELATIONSHIP' | translate }}
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_RELATIONSHIP' | translate }}
                 </div>
                 <br>
                 <div class="list-group list-group-flush">
@@ -42,7 +42,9 @@
                             <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
                         </div>
                         <div>
-                            <b>-:EMBEDDED_IN-&gt;</b>
+                            <span class="badge badge-pill badge-default">
+                                &mdash;&nbsp;EMBEDDED_IN&nbsp;&mdash;&gt;
+                            </span>
                         </div>
                         <div>
                             <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}

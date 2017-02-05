@@ -97,14 +97,18 @@ app.factory('$relationshipService', function($http, config) {
                 return $http.get(config.apiURL + "/relationship/" + relationship_type);
             }
         },
-        retrieve_by_id: function(relationship_type, relationship_id) {
-            return $http.get(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id);
+        retrieve_by_id: function(relationship_type, relationship_id, label) {
+            if(label){
+                return $http.get(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id + "/" + label);
+            } else {
+                return $http.get(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id);
+            }
         },
-        create: function(relationship_type, data) {
-            return $http.post(config.apiURL + "/relationship/" + relationship_type, data);
+        create: function(relationship_type, label, data) {
+            return $http.post(config.apiURL + "/relationship/" + relationship_type + "/" + label, data);
         },
-        edit: function(relationship_type, relationship_id, data) {
-            return $http.put(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id, data);
+        edit: function(relationship_type, relationship_id, label, data) {
+            return $http.put(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id + "/" + label, data);
         },
         remove: function(relationship_id) {
             return $http.delete(config.apiURL + "/relationships/" + relationship_id);
