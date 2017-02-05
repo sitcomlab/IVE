@@ -5,9 +5,13 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_belongs_to_locations = fs.readFileSync(__dirname + '/../../../queries/relationships/get/belongs_to_locations.cypher', 'utf8').toString();
-var query_belongs_to_videos = fs.readFileSync(__dirname + '/../../../queries/relationships/get/belongs_to_videos.cypher', 'utf8').toString();
-var query_belongs_to_overlays = fs.readFileSync(__dirname + '/../../../queries/relationships/get/belongs_to_overlays.cypher', 'utf8').toString();
+var query_create_relationship_location = fs.readFileSync(__dirname + '/../../../queries/relationships/create/belongs_to_location.cypher', 'utf8').toString();
+var query_create_relationship_video = fs.readFileSync(__dirname + '/../../../queries/relationships/create/belongs_to_video.cypher', 'utf8').toString();
+var query_create_relationship_to_overlay = fs.readFileSync(__dirname + '/../../../queries/relationships/create/belongs_to_overlay.cypher', 'utf8').toString();
+var query_get_scenario = fs.readFileSync(__dirname + '/../../../queries/scenarios/get.cypher', 'utf8').toString();
+var query_get_location = fs.readFileSync(__dirname + '/../../../queries/locations/get.cypher', 'utf8').toString();
+var query_get_video = fs.readFileSync(__dirname + '/../../../queries/videos/get.cypher', 'utf8').toString();
+var query_get_overlay = fs.readFileSync(__dirname + '/../../../queries/overlays/get.cypher', 'utf8').toString();
 
 
 // POST (:belongs_to)
@@ -16,18 +20,63 @@ exports.request = function(req, res) {
     // Start session
     var session = driver.session();
 
-    var query;
+    var query_1;
+    var query_2;
+    var query_3;
     switch (req.params.label) {
-        case 'locations': {
-            query = query_belongs_to_locations;
+        case 'location': {
+            query_1 = query_get_location;
+            query_2_params = {
+                location_id: req.body.location_id
+            };
+            query_2 = query_get_scenario;
+            query_2_params = {
+                scenario_id: req.body.scenario_id
+            };
+
+            query_3 = query_create_relationship_location;
+
+            // TODO: Parameter validation
+            query_3_params = {
+                location_id: req.body.location_id,
+                scenario_id: req.body.scenario_id
+            };
             break;
         }
-        case 'videos': {
-            query = query_belongs_to_videos;
+        case 'video': {
+            query_1 = query_get_video;
+            query_1_params = {
+                video_id: req.body.video_id
+            };
+            query_2 = query_get_scenario;
+            query_2_params = {
+                scenario_id: req.body.scenario_id
+            };
+            query_3 = query_create_relationship_video;
+
+            // TODO: Parameter validation
+            query_3_params = {
+                video_id: req.body.video_id,
+                scenario_id: req.body.scenario_id
+            };
             break;
         }
-        case 'overlays': {
-            query = query_belongs_to_overlays;
+        case 'overlay': {
+            query_1 = query_get_overlay;
+            query_1_params = {
+                overlay_id: req.body.overlay_id
+            };
+            query_2 = query_get_scenario;
+            query_2_params = {
+                scenario_id: req.body.scenario_id
+            };
+            query_3 = query_create_relationship_overlay;
+
+            // TODO: Parameter validation
+            query_3_params = {
+                overlay_id: req.body.overlay_id,
+                scenario_id: req.body.scenario_id
+            };
             break;
         }
         default:
@@ -35,11 +84,47 @@ exports.request = function(req, res) {
     }
 
     async.waterfall([
-        function(callback) { // Find entries
+        function(callback) { // Find entry by Id
             session
-                .run(query, {
-                    relationship_id: req.params.relationship_id
+                .run(query_1, query_1_params)
+                .then(function(result) {
+                    // Check if Location / Video / Overlay exists
+                    if (result.records.length===0) {
+                        var err;
+                        if(query_1_params.location_id){
+                            err = new Error("Location with id '" + query_1_params.location_id + "' not found!");
+                        } else if(query_1_params.video_id){
+                            err = new Error("Video with id '" + query_1_params.video_idquery_1_params.video_id + "' not found!");
+                        } else if (query_1_params.overlay_id){
+                            err = new Error("Overlay with id '" + query_1_params.overlay_id + "' not found!");
+                        }
+                        callback(err, 404);
+                    } else {
+                        callback(null);
+                    }
                 })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(callback) { // Find entry by Id
+            session
+                .run(query_2, query_2_params)
+                .then(function(result) {
+                    // Check if Scenario exists
+                    if (result.records.length===0) {
+                        callback(new Error("Scenario with id '" + req.body.scenario_id + "' not found!"), 404);
+                    } else {
+                        callback(null);
+                    }
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(callback) { // Create new entry
+            session
+                .run(query_3, query_3_params)
                 .then(function(result) {
                     callback(null, result);
                 })
@@ -50,10 +135,10 @@ exports.request = function(req, res) {
         function(result, callback){ // Format attributes
             var results = [];
 
-            async.forEachOf(result.records, function(record, item, callback) {
+            async.eachOf(result.records, function(record, item, callback) {
                 var object = {};
 
-                async.forEachOf(record.keys, function(key, item, callback) {
+                async.eachOf(record.keys, function(key, item, callback) {
 
                     if (typeof(record._fields[item]) === 'object') {
                         if (key === 'id') {
@@ -77,7 +162,7 @@ exports.request = function(req, res) {
                 if(results.length===0){
                     callback(new Error("Relationship not found"), 404);
                 } else {
-                    callback(null, 200, results[0]);
+                    callback(null, 201, results[0]);
                 }
             });
         }

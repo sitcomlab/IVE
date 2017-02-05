@@ -5,9 +5,9 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_belongs_to_locations = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_locations.cypher', 'utf8').toString();
-var query_belongs_to_videos = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_videos.cypher', 'utf8').toString();
-var query_belongs_to_overlays = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_overlays.cypher', 'utf8').toString();
+var query_belongs_to_location = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_location.cypher', 'utf8').toString();
+var query_belongs_to_video = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_video.cypher', 'utf8').toString();
+var query_belongs_to_overlay = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_overlay.cypher', 'utf8').toString();
 
 
 // LIST BY REALTIONSHIP-TYPE (:belongs_to)
@@ -18,16 +18,16 @@ exports.request = function(req, res) {
 
     var query;
     switch (req.params.label) {
-        case 'locations': {
-            query = query_belongs_to_locations;
+        case 'location': {
+            query = query_belongs_to_location;
             break;
         }
-        case 'videos': {
-            query = query_belongs_to_videos;
+        case 'video': {
+            query = query_belongs_to_video;
             break;
         }
-        case 'overlays': {
-            query = query_belongs_to_overlays;
+        case 'overlay': {
+            query = query_belongs_to_overlay;
             break;
         }
         default:

@@ -5,12 +5,13 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_belongs_to_locations = fs.readFileSync(__dirname + '/../../../queries/relationships/get/belongs_to_locations.cypher', 'utf8').toString();
-var query_belongs_to_videos = fs.readFileSync(__dirname + '/../../../queries/relationships/get/belongs_to_videos.cypher', 'utf8').toString();
-var query_belongs_to_overlays = fs.readFileSync(__dirname + '/../../../queries/relationships/get/belongs_to_overlays.cypher', 'utf8').toString();
+var query_get_relationship_locatio = fs.readFileSync(__dirname + '/../../../queries/relationships/get.cypher', 'utf8').toString();
+var query_edit_relationship_location = fs.readFileSync(__dirname + '/../../../queries/relationships/edit/belongs_to_location.cypher', 'utf8').toString();
+var query_edit_relationship_video = fs.readFileSync(__dirname + '/../../../queries/relationships/edit/belongs_to_location.cypher', 'utf8').toString();
+var query_edit_relationship_overlay = fs.readFileSync(__dirname + '/../../../queries/relationships/edit/belongs_to_location.cypher', 'utf8').toString();
 
 
-// GET BY ID (:belongs_to)
+// PUT (:connected_to)
 exports.request = function(req, res) {
 
     // Start session
@@ -18,16 +19,16 @@ exports.request = function(req, res) {
 
     var query;
     switch (req.params.label) {
-        case 'locations': {
-            query = query_belongs_to_locations;
+        case 'location': {
+            query = query_edit_relationship_location;
             break;
         }
-        case 'videos': {
-            query = query_belongs_to_videos;
+        case 'video': {
+            query = query_edit_relationship_video;
             break;
         }
-        case 'overlays': {
-            query = query_belongs_to_overlays;
+        case 'overlay': {
+            query = query_edit_relationship_overlay;
             break;
         }
         default:
@@ -35,11 +36,35 @@ exports.request = function(req, res) {
     }
 
     async.waterfall([
-        function(callback) { // Find entries
+        function(callback) { // Find entry
             session
-                .run(query, {
+                .run(query_get_relationship, {
                     relationship_id: req.params.relationship_id
                 })
+                .then(function(result) {
+                    // Check if Relationship exists
+                    if (result.records.length===0) {
+                        callback(new Error("Relationship with id '" + req.params.relationship_id + "' not found!"), 404);
+                    } else {
+                        callback(null);
+                    }
+                })
+                .catch(function(err) {
+                    callback(err, 500);
+                });
+        },
+        function(callback){ // Parameter validation
+
+            // TODO: Validate all attributes of req.body
+            var params = {
+                relationship_id: req.params.relationship_id
+            };
+
+            callback(null, params);
+        },
+        function(params, callback) { // Update entry
+            session
+                .run(query, params)
                 .then(function(result) {
                     callback(null, result);
                 })
@@ -73,12 +98,7 @@ exports.request = function(req, res) {
                 });
 
             }, function() {
-                // Check if relationship exists
-                if(results.length===0){
-                    callback(new Error("Relationship not found"), 404);
-                } else {
-                    callback(null, 200, results[0]);
-                }
+                callback(null, 200, results[0]);
             });
         }
     ], function(err, code, result){
