@@ -119,7 +119,6 @@
                                     id="lat"
                                     placeholder="{{ 'LATITUDE' | translate }}*"
                                     aria-describedby="inputLat"
-                                    autofocus
                                     required>
                                 <span ng-show="createLocationForm.lat.$error.required && !createLocationForm.lat.$pristine" class="text-danger">
                                     <small>
@@ -140,7 +139,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-secondary btn-block" role="button" ng-click="cancel()">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/locations')">
                                 <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
                             </button>
                         </div>

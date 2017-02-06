@@ -25,18 +25,6 @@ app.controller("videoDetailsController", function($scope, $rootScope, $routePara
         $location.url(path);
     };
 
-    /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/videos");
-        } else {
-            $scope.redirect("/");
-        }
-    };
-
 
     /*************************************************
         INIT

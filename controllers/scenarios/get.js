@@ -22,7 +22,7 @@ exports.request = function(req, res) {
                 })
                 .then(function(result) {
                     // Check if Scenario exists
-                    if (result.records.length === 0) {
+                    if (result.records.length===0) {
                         callback(new Error("Scenario with id '" + req.params.scenario_id + "' not found!"), 404);
                     } else {
                         callback(null, result);

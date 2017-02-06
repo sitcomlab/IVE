@@ -26,18 +26,6 @@ app.controller("locationDeleteController", function($scope, $rootScope, $routePa
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/locations");
-        } else {
-            $scope.redirect("/locations/" + $scope.location.location_id);
-        }
-    };
-
-    /**
      * [delete description]
      * @return {[type]} [description]
      */

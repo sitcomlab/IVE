@@ -60,12 +60,14 @@
                 </a>
             </div>
             <div class="list-group list-group-flush" ng-if="relatedLocations && location_relationships.length>0">
-                <a href="" ng-click="redirect('/relationship/' + location_relationship.relationship_type)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="location_relationship in location_relationships | orderBy: ['scenario_name', 'location_name'] | filter: searchText">
+                <a href="" ng-click="redirect('/relationship/belongs_to/location/' + location_relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="location_relationship in location_relationships | orderBy: ['scenario_name', 'location_name'] | filter: searchText">
                     <div>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location_relationship.location_name}}
                     </div>
                     <div>
-                        <b>-:BELONGS_TO-&gt;</b>
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                        </span>
                     </div>
                     <div>
                         <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{location_relationship.scenario_name}}
@@ -98,12 +100,14 @@
                 </a>
             </div>
             <div class="list-group list-group-flush" ng-if="relatedVideos && video_relationships.length>0">
-                <a href="" ng-click="redirect('/relationship/' + video_relationship.relationship_type)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="video_relationship in video_relationships | orderBy: ['scenario_name', 'video_name'] | filter: searchText">
+                <a href="" ng-click="redirect('/relationship/belongs_to/video/' + video_relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="video_relationship in video_relationships | orderBy: ['scenario_name', 'video_name'] | filter: searchText">
                     <div>
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{video_relationship.video_name}}
                     </div>
                     <div>
-                        <b>-:BELONGS_TO-&gt;</b>
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                        </span>
                     </div>
                     <div>
                         <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{video_relationship.scenario_name}}
@@ -136,12 +140,14 @@
                 </a>
             </div>
             <div class="list-group list-group-flush" ng-if="relatedOverlays && overlay_relationships.length>0">
-                <a href="" ng-click="redirect('/relationship/' + overlay_relationship.relationship_type)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="overlay_relationship in overlay_relationships | orderBy: ['scenario_name', 'overlay_name'] | filter: searchText">
+                <a href="" ng-click="redirect('/relationship/belongs_to/overlay/' + overlay_relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="overlay_relationship in overlay_relationships | orderBy: ['scenario_name', 'overlay_name'] | filter: searchText">
                     <div>
                         <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{overlay_relationship.overlay_name}}
                     </div>
                     <div>
-                        <b>-:BELONGS_TO-&gt;</b>
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                        </span>
                     </div>
                     <div>
                         <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{overlay_relationship.scenario_name}}

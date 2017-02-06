@@ -1,18 +1,22 @@
-var app = angular.module("filters", []);
+var app = angular.module("filters", ['angular-momentjs']);
 
 /**
- * time filter
+ * timestamp filter
  */
-app.filter('timeFilter', function() {
-    return function(time) {
-        return time.substr(0, 5);
+app.filter('timestamp', function() {
+    return function(timestamp) {
+        if(timestamp){
+            return moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
+        } else {
+            return "-";
+        }
     };
 });
 
 /**
  * uppercase filter
  */
-app.filter('uppercaseFilter', function() {
+app.filter('uppercase', function() {
     return function(relationship) {
         return relationship.toUpperCase();
     };

@@ -26,18 +26,6 @@ app.controller("locationEditController", function($scope, $rootScope, $routePara
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/locations");
-        } else {
-            $scope.redirect("/locations/" + $scope.location.location_id);
-        }
-    };
-
-    /**
      * [send description]
      * @return {[type]} [description]
      */

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!-- LOADING -->
+<div class="loading" ng-show="tab==0">
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+</div>
+
+<!-- MAIN -->
+<div class="row" ng-show="tab>0">
+    <!-- Left padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+
+    <!-- Content -->
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8" ng-show="tab==1">
+        <br>
+
+        <!-- BUTTONS -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+                <div class="btn-group" role="group" aria-label="buttons">
+                    <a href="" class="btn btn-info" ng-click="redirect('/relationship/embedded_in/' + relationship.relationship_id + '/preview')">
+                        <i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'OPEN_PREVIEW_MODE' | translate}}
+                    </a>
+                    <a href="" class="btn btn-danger" ng-click="redirect('/relationship/embedded_in/' + relationship.relationship_id + '/delete')">
+                        <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <!-- MAIN -->
+        <div class="card">
+            <form class="form-horizontal" name="editRelationshipForm" ng-submit="send()">
+                <div class="card-header middle" style="font-size: 20pt;">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_RELATIONSHIP' | translate }}
+                </div>
+                <br>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item justify-content-between">
+                        <div>
+                            <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
+                        </div>
+                        <div>
+                            <span class="badge badge-pill badge-default">
+                                &mdash;&nbsp;EMBEDDED_IN&nbsp;&mdash;&gt;
+                            </span>
+                        </div>
+                        <div>
+                            <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'WIDTH' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.w.$invalid && !editRelationshipForm.w.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="relationship.relationship_w"
+                                    name="w"
+                                    id="w"
+                                    placeholder="{{ 'WIDTH' | translate }}*"
+                                    aria-describedby="inputWidth"
+                                    required
+                                    autofocus>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'HEIGHT' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.h.$invalid && !editRelationshipForm.h.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="relationship.relationship_h"
+                                    name="h"
+                                    id="h"
+                                    placeholder="{{ 'HEIGHT' | translate }}*"
+                                    aria-describedby="inputHeight"
+                                    required>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'DISTORTION' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.d.$invalid && !editRelationshipForm.d.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="relationship.relationship_d"
+                                    name="d"
+                                    id="d"
+                                    placeholder="{{ 'D' | translate }}*"
+                                    aria-describedby="inputD"
+                                    required>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'TRANSLATION' | translate }} X-{{ 'AXIS' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.x.$invalid && !editRelationshipForm.x.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="relationship.relationship_x"
+                                    name="x"
+                                    id="x"
+                                    placeholder="{{ 'X' | translate }}*"
+                                    aria-describedby="inputX"
+                                    required>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'TRANSLATION' | translate }} Y-{{ 'AXIS' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.y.$invalid && !editRelationshipForm.y.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="relationship.relationship_y"
+                                    name="y"
+                                    id="y"
+                                    placeholder="{{ 'Y' | translate }}*"
+                                    aria-describedby="inputY"
+                                    required>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'TRANSLATION' | translate }} Z-{{ 'AXIS' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.z.$invalid && !editRelationshipForm.z.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="relationship.relationship_z"
+                                    name="z"
+                                    id="z"
+                                    placeholder="{{ 'Z' | translate }}*"
+                                    aria-describedby="inputZ"
+                                    required>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'ROTATION' | translate }} X-{{ 'AXIS' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.rx.$invalid && !editRelationshipForm.rx.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="relationship.relationship_rx"
+                                    name="rx"
+                                    id="rx"
+                                    placeholder="{{ 'RX' | translate }}*"
+                                    aria-describedby="inputRX"
+                                    required>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'ROTATION' | translate }} Y-{{ 'AXIS' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.ry.$invalid && !editRelationshipForm.ry.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="relationship.relationship_ry"
+                                    name="ry"
+                                    id="ry"
+                                    placeholder="{{ 'RY' | translate }}*"
+                                    aria-describedby="inputRY"
+                                    required>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b>{{ 'ROTATION' | translate }} Z-{{ 'AXIS' | translate }}*</b>
+                            </label>
+                            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.rz.$invalid && !editRelationshipForm.rz.$pristine}">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    ng-model="relationship.relationship_rz"
+                                    name="rz"
+                                    id="rz"
+                                    placeholder="{{ 'RZ' | translate }}*"
+                                    aria-describedby="inputRZ"
+                                    required>
+                            </div>
+                            <br>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/embedded_in/' + relationship.relationship_id)">
+                                <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-success btn-block" role="submit">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SAVE' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Right padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+</div>
+<br>

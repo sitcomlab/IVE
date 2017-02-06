@@ -5,11 +5,14 @@ CREATE (overlay:Overlays {
     o_id: line.`o_id`,
     name: line.`name`,
     description: line.`description`,
-    type: line.`type`,
+    category: line.`category`,
     url: line.`url`,
     created: timestamp(),
     updated: timestamp()
 })
 WITH line, overlay
 MATCH (scenario:Scenarios) WHERE scenario.s_id = line.`s_id`
-CREATE (overlay)-[:belongs_to]->(scenario);
+CREATE (overlay)-[:belongs_to {
+    created: timestamp(),
+    updated: timestamp()
+}]->(scenario);

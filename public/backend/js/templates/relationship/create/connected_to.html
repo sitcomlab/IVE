@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!-- LOADING -->
+<div class="loading" ng-show="tab==0">
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+</div>
+
+<!-- MAIN -->
+<div class="row" ng-show="tab>0">
+    <!-- Left padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+
+    <!-- Content -->
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8" ng-show="tab==1">
+        <br>
+
+        <!-- MAIN -->
+        <div class="card">
+            <form class="form-horizontal" name="createRelationshipForm" ng-submit="send()">
+                <div class="card-header middle" style="font-size: 20pt;">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE_NEW' | translate }} {{ 'RELATIONSHIP' | translate }}
+                </div>
+                <div class="card-block">
+                    <br>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <label>
+                                <b>{{ 'FILTER' | translate }} {{ 'LOCATIONS' | translate }} {{ 'BY' | translate }} {{ 'SCENARIO' | translate }}</b>
+                            </label>
+                            <br>
+                            <select class="custom-select form-control" ng-change="updateDropdown('locations')" ng-model="locationDropdown.scenario_id" autofocus>
+                                <optgroup label="{{ 'DEFAULT' | translate }}">
+                                    <option value="" selected>
+                                        {{ 'ALL' | translate }}
+                                    </option>
+                                </optgroup>
+                                <optgroup label="{{ '_SCENARIOS' | translate }}">
+                                    <option ng-repeat="scenario in scenarios | orderBy: ['name']" value="{{scenario.scenario_id}}">
+                                        {{ scenario.name }}
+                                    </option>
+                                </optgroup>
+                            </select>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'START_LOCATION' | translate }}*</b>
+                            </label>
+                            <br>
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.start_location_id.$invalid && !createRelationshipForm.start_location_id.$pristine}">
+                                <select
+                                    class="custom-select form-control"
+                                    id="start_location_id"
+                                    name="start_location_id"
+                                    ng-model="relationship.start_location_id"
+                                    ng-disabled="locationDropdown.status"
+                                    ng-options="location.location_id as location.name group by location.location_type for location in locations | orderBy:['name']"
+                                    required>
+                                </select>
+                                <span ng-show="createRelationshipForm.start_location_id.$error.required && !createRelationshipForm.start_location_id.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'REQUIRED' | translate }}
+                                    </small>
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 middle">
+                            <span class="badge badge-pill badge-default">
+                                &mdash;&nbsp;CONNECTED_TO&nbsp;&mdash;&gt;
+                            </span>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label>
+                                <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'END_LOCATION' | translate }}*</b>
+                            </label>
+                            <br>
+                            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.end_location_id.$invalid && !createRelationshipForm.end_location_id.$pristine}">
+                                <select
+                                    class="custom-select form-control"
+                                    id="end_location_id"
+                                    name="end_location_id"
+                                    ng-model="relationship.end_location_id"
+                                    ng-disabled="locationDropdown.status"
+                                    ng-options="location.location_id as location.name group by location.location_type for location in locations | orderBy:['name'] | filter: locationType"
+                                    required>
+                                </select>
+                                <span ng-show="createRelationshipForm.end_location_id.$error.required && !createRelationshipForm.end_location_id.$pristine" class="text-danger">
+                                    <small>
+                                        {{ 'REQUIRED' | translate }}
+                                    </small>
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <p class="text-muted middle">
+                        <b>{{ 'PROPERTIES' | translate }}</b>
+                    </p>
+                    <label>
+                        <b>{{ 'WEIGHT' | translate }}*</b>
+                    </label>
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.weight.$invalid && !createRelationshipForm.weight.$pristine}">
+                        <input
+                            type="number"
+                            class="form-control"
+                            ng-model="relationship.weight"
+                            name="weight"
+                            id="weight"
+                            placeholder="{{ 'WEIGHT' | translate }}*"
+                            aria-describedby="inputWeight"
+                            required>
+                        <span ng-show="createRelationshipForm.weight.$error.required && !createRelationshipForm.weight.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <br>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/connected_to')">
+                                <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-success btn-block" role="submit">
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Right padding -->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+</div>
+<br>

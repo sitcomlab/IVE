@@ -21,7 +21,7 @@
   "homepage": "https://github.com/sitcomlab/IVE#readme",
   "dependencies": {
     "ajv": "^4.7.3",
-    "async": "^2.0.1",
+    "async": "^2.1.4",
     "body-parser": "^1.15.2",
     "colors": "^1.1.2",
     "commander": "^2.9.0",

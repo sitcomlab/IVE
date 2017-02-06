@@ -26,18 +26,6 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/scenarios");
-        } else {
-            $scope.redirect("/scenarios/" + $scope.scenario.scenario_id);
-        }
-    };
-
-    /**
      * [delete description]
      * @return {[type]} [description]
      */

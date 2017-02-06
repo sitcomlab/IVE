@@ -26,18 +26,6 @@ app.controller("locationCreateController", function($scope, $rootScope, $routePa
     };
 
     /**
-     * [cancel description]
-     * @return {[type]} [description]
-     */
-    $scope.cancel = function(){
-        if($authenticationService.get()){
-            $scope.redirect("/locations");
-        } else {
-            $scope.redirect("/locations");
-        }
-    };
-
-    /**
      * [send description]
      * @return {[type]} [description]
      */

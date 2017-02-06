@@ -29,31 +29,100 @@
         </div>
         <br>
 
-        <!-- Profile -->
+        <!-- MAIN -->
         <div class="card">
             <div class="card-header middle" style="font-size: 20pt;">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
+                <small>
+                    <span class="badge" ng-class="{
+                        'badge-primary': location.location_type=='outdoor',
+                        'badge-default': location.location_type=='indoor',
+                        'badge-success': location.location_type=='abstract'
+                    }">
+                        {{location.location_type}}
+                    </span>
+                </small>
             </div>
             <div class="card-block">
                 <br>
-                <ul>
-                    <li>{{location.location_id}}</li>
-                    <li>{{location.l_id}}</li>
-                    <li>{{location.name}}</li>
-                    <li>{{location.description}}</li>
-                    <li>{{location.lng}}</li>
-                    <li>{{location.lat}}</li>
-                    <li>
-                        <span class="badge" ng-class="{
-                            'badge-primary': location.location_type=='outdoor',
-                            'badge-default': location.location_type=='indoor',
-                            'badge-success': location.location_type=='abstract'
-                        }">{{location.location_type}}</span>
-                    </li>
-                    <li>{{location.created}}</li>
-                    <li>{{location.updated}}</li>
-                </ul>
-                <br>
+                <h6>{{ 'PROPERTIES' | translate }}</h6>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>
+                                {{ 'ID' | translate }}
+                            </th>
+                            <td>
+                                <code>{{location.location_id}}</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'EXPORT_ID' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.l_id}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'NAME' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.name}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'DESCRIPTION' | translate }}
+                            </th>
+                            <td>
+                                <kbd ng-if="location.description!=null">{{location.description}}</kbd>
+                                <span class="text-muted" ng-if="location.description==null">-</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'LONGITUDE' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.lng}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'LATITUDE' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.lat}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'LOCATION_TYPE' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.location_type}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'CREATED' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.created | timestamp }}</kbd>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eceeef">
+                            <th>
+                                {{ 'LAST_UPDATED' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.updated | timestamp }}</kbd>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- connectedTo-relationship -->
@@ -79,7 +148,17 @@
             </div>
             <div class="list-group list-group-flush" ng-if="location.connected_locations.length>0 && connectedLocations">
                 <a href="" class="list-group-item list-group-item-action" ng-repeat="connected_location in location.connected_locations" ng-click="redirect('/locations/' + connected_location.location_id)">
-                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{connected_location.name}}
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    {{connected_location.name}}
+                    &nbsp;
+                    <span class="badge" ng-class="{
+                        'badge-primary': connected_location.location_type=='outdoor',
+                        'badge-default': connected_location.location_type=='indoor',
+                        'badge-success': connected_location.location_type=='abstract'
+                    }">
+                        {{connected_location.location_type}}
+                    </span>
                 </a>
             </div>
             <br>
@@ -116,7 +195,7 @@
             <div class="card-footer">
                 <div class="row">
                     <div class="col-12">
-                        <button class="btn btn-block btn-primary" role="button" ng-click="cancel()">
+                        <button class="btn btn-block btn-primary" role="button" ng-click="redirect('/locations')">
                             {{ 'CLOSE' | translate }}
                         </button>
                     </div>
