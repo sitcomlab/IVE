@@ -60,9 +60,14 @@
                 </a>
             </div>
             <div class="list-group list-group-flush" ng-if="relatedLocations && location_relationships.length>0">
-                <a href="" ng-click="redirect('/relationship/belongs_to/location/' + location_relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="location_relationship in location_relationships | orderBy: ['scenario_name', 'location_name'] | filter: searchText">
+                <a href="" ng-click="redirect('/relationship/belongs_to/location/' + location_relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="location_relationship in location_relationships | orderBy: ['scenario_name', 'location_type', 'location_name'] | filter: searchText">
                     <div>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location_relationship.location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': location_relationship.location_type=='outdoor',
+                            'badge-default': location_relationship.location_type=='indoor',
+                            'badge-success': location_relationship.location_type=='abstract'
+                        }">{{location_relationship.location_type}}</span>
                     </div>
                     <div>
                         <span class="badge badge-pill badge-default">

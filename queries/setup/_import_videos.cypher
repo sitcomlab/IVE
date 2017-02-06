@@ -9,4 +9,10 @@ CREATE (video:Videos {
     recorded: line.`recorded`,
     created: timestamp(),
     updated: timestamp()
-});
+})
+WITH line, video
+MATCH (scenario:Scenarios) WHERE scenario.s_id = line.`s_id`
+CREATE (video)-[:belongs_to {
+    created: timestamp(),
+    updated: timestamp()
+}]->(scenario);
