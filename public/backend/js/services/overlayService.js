@@ -3,7 +3,7 @@ var app = angular.module("overlayService", []);
 /**
  * Overlay Service Provider
  */
-app.factory('$overlayService', function($http, config) {
+app.factory('$overlayService', function($http, config, $authenticationService) {
 
     return {
         init: function() {
@@ -27,13 +27,27 @@ app.factory('$overlayService', function($http, config) {
             return $http.get(config.apiURL + "/overlays/" + overlay_id);
         },
         create: function(data) {
-            return $http.post(config.apiURL + "/overlays", data);
+            return $http.post(config.apiURL + "/overlays", data, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                    'Content-Type': 'application/json'
+                }
+            });
         },
         edit: function(overlay_id, data) {
-            return $http.put(config.apiURL + "/overlays/" + overlay_id, data);
+            return $http.put(config.apiURL + "/overlays/" + overlay_id, data, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                    'Content-Type': 'application/json'
+                }
+            });
         },
         remove: function(overlay_id) {
-            return $http.delete(config.apiURL + "/overlays/" + overlay_id);
+            return $http.delete(config.apiURL + "/overlays/" + overlay_id, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
         }
 
     };

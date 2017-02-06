@@ -3,7 +3,7 @@ var app = angular.module("videoService", []);
 /**
  * Video Service Provider
  */
-app.factory('$videoService', function($http, config) {
+app.factory('$videoService', function($http, config, $authenticationService) {
 
     return {
         init: function() {
@@ -27,13 +27,27 @@ app.factory('$videoService', function($http, config) {
             return $http.get(config.apiURL + "/videos/" + video_id);
         },
         create: function(data) {
-            return $http.post(config.apiURL + "/videos", data);
+            return $http.post(config.apiURL + "/videos", data, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                    'Content-Type': 'application/json'
+                }
+            });
         },
         edit: function(video_id, data) {
-            return $http.put(config.apiURL + "/videos/" + video_id, data);
+            return $http.put(config.apiURL + "/videos/" + video_id, data, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                    'Content-Type': 'application/json'
+                }
+            });
         },
         remove: function(video_id) {
-            return $http.delete(config.apiURL + "/videos/" + video_id);
+            return $http.delete(config.apiURL + "/videos/" + video_id, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
         }
 
     };

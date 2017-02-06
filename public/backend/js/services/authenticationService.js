@@ -27,13 +27,17 @@ app.factory('$authenticationService', function($http, $log, config) {
             }
         },
         setToken: function(data){
-            token = data;
+            authenticated_user.token = data;
         },
         getToken: function(){
-            if(token === undefined){
-                return undefined;
+            if(authenticated_user !== undefined){
+                if(authenticated_user.token !== undefined){
+                    return authenticated_user.token;
+                } else {
+                    return undefined;
+                }
             } else {
-                return token;
+                return undefined;
             }
         },
         authenticate: function(data) {

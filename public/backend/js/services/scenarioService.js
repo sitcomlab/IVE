@@ -3,7 +3,7 @@ var app = angular.module("scenarioService", []);
 /**
  * Scenario Service Provider
  */
-app.factory('$scenarioService', function($http, config) {
+app.factory('$scenarioService', function($http, config, $authenticationService) {
 
     return {
         init: function() {
@@ -19,13 +19,27 @@ app.factory('$scenarioService', function($http, config) {
             return $http.get(config.apiURL + "/scenarios/" + scenario_id);
         },
         create: function(data) {
-            return $http.post(config.apiURL + "/scenarios", data);
+            return $http.post(config.apiURL + "/scenarios", data, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                    'Content-Type': 'application/json'
+                }
+            });
         },
         edit: function(scenario_id, data) {
-            return $http.put(config.apiURL + "/scenarios/" + scenario_id, data);
+            return $http.put(config.apiURL + "/scenarios/" + scenario_id, data, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                    'Content-Type': 'application/json'
+                }
+            });
         },
         remove: function(scenario_id) {
-            return $http.delete(config.apiURL + "/scenarios/" + scenario_id);
+            return $http.delete(config.apiURL + "/scenarios/" + scenario_id, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
         }
 
     };
