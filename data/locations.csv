@@ -1,71 +1,71 @@
-l_id,name,lat,lng,description,location_type,s_id
-l_01,Schlossplatz,51.96344,7.617753,The Schlossplatz is a large place in the front of the castle,outdoor,s_01
-l_02,Frauenstraße [1],51.963453,7.618718,A little street in the direct environment of the castle,outdoor,s_01
-l_03,Frauenstraße [2],51.963572,7.620655,Intersection of Frauenstraße and Krummer Timpen overlooking the ULB,outdoor,s_01
-l_04,Krummer Timpen,51.9627,7.619716,The Universitäts- und Landesbibliothek Münster,outdoor,s_01
-l_05,Juridicum,51.962409,7.619694,The Universitäts- und Landesbibliothek Münster and the Jurdicum,outdoor,s_01
-l_06,Jesuitengang,51.961867,7.621615,A small foodpath between the ULB and Jurdicum and the Fürstenberghaus,outdoor,s_01
-l_07,Pferdegasse,51.961635,7.623825,The Pferdegasse next to the Fürstenberghaus,outdoor,s_01
-l_08,Fürstenberghaus,51.962128,7.623997,The building is used by the university,outdoor,s_01
-l_09,Domplatz,51.962012,7.626121,The Domplatz is the place in front of the huge St Paulus Dom,outdoor,s_01
-l_10,Main station,51.956485,7.636367,The main station,abstract,s_02
-l_10_1,Main station (inside),0,0,The main tunnel of the main station,indoor,s_02
-l_11,Main station (side entrance),51.95752,7.634613,The side entrance of the main station,outdoor,s_02
-l_12,Main station (pedestrian area),7.634173,51.956826,"Infront of the main station, pedestrian traffic lights towards city center",outdoor,s_02
-l_13,Main station (pedestrian crossing),7.633958,51.956872,"Infront of the main station, pedestrian traffic lights towards main station entrance",outdoor,s_02
-l_14,Bahnhofsstraße,51.955731,7.632623,The street where the main station is located,outdoor,s_02
-l_15,Berliner Platz,51.956231,7.633873,A small square next to the main station,outdoor,s_02
-l_16,Bremer Platz [1],51.956422,7.63707,The back of the main station,outdoor,s_02
-l_17,Bremer Platz [2],51.956396,7.637419,The Bremer Platz behind the main station,outdoor,s_02
-l_18,Hafenstraße,51.954045,7.631207,The Hafenstrasse is leading to the harbour of Münster where you can find several bars & restaurants & clubs & a cinema,outdoor,s_02
-l_19,Windthorststraße,51.957093,7.632977,The pedestrian area between the main station and the city center,outdoor,s_02
-l_20,Heisenbergstraße,51.968907,7.595683,Heisenbergstraße,abstract,s_03
-l_20_01,Heisenbergstraße (car entrance),0,0,Heisenbergstraße (car entrance),outdoor,s_03
-l_20_02,Heisenbergstraße (parking spot),0,0,Heisenbergstraße (parking spot),outdoor,s_03
-l_21,GEO-1 (main entrance),51.969204,7.595801,GEO-1 (main entrance),outdoor,s_03
-l_22,GEO-1,51.969439,7.595737,GEO-1,abstract,s_03
-l_22_01,Ground floor (atrium),0,0,Ground floor (atrium),indoor,s_03
-l_22_02,Ground floor (elevator),0,0,Ground floor (elevator),indoor,s_03
-l_22_03,Ground floor (stairs),0,0,Ground floor (stairs),indoor,s_03
-l_22_04,Ground floor (IVVGeo),0,0,Ground floor (IVVGeo),indoor,s_03
-l_22_05,Ground floor (2nd atrium) [1],0,0,Ground floor (2nd atrium) [1],indoor,s_03
-l_22_06,Ground floor (2nd atrium) [2],0,0,Ground floor (2nd atrium) [2],indoor,s_03
-l_22_07,Ground floor (lecture room),0,0,Ground floor (lecture room),indoor,s_03
-l_22_08_a,1st floor (atrium),0,0,1st floor (atrium),indoor,s_03
-l_22_08_b,1st floor (stairwell),0,0,1st floor (stairwell),indoor,s_03
-l_22_09,2nd floor (stairwell),0,0,2nd floor (stairwell),indoor,s_03
-l_22_10,4th floor (stairwell),0,0,4th floor (stairwell),indoor,s_03
-l_23_01_a,2DP1-E,0,0,,indoor,s_04
-l_23_01_b,2DP1-S,0,0,,indoor,s_04
-l_23_01_c,2DP1-W,0,0,,indoor,s_04
-l_23_02_a,2DP2-E,0,0,,indoor,s_04
-l_23_02_b,2DP2-W,0,0,,indoor,s_04
-l_23_03_a,2DP3-E,0,0,,indoor,s_04
-l_23_03_b,2DP3-N,0,0,,indoor,s_04
-l_23_03_c,2DP3-W,0,0,,indoor,s_04
-l_23_04_a,2DP4-N,0,0,,indoor,s_04
-l_23_04_b,2DP4-S,0,0,,indoor,s_04
-l_23_04_c,2DP4-W,0,0,,indoor,s_04
-l_23_05_a,2DP5-E,0,0,,indoor,s_04
-l_23_05_b,2DP5-N,0,0,,indoor,s_04
-l_23_05_c,2DP5-W,0,0,,indoor,s_04
-l_23_06_a,2DP6-N,0,0,,indoor,s_04
-l_23_06_b,2DP6-S,0,0,,indoor,s_04
-l_23_06_c,2DP6-W,0,0,,indoor,s_04
-l_23_07_a,2DP7-N,0,0,,indoor,s_04
-l_23_07_b,2DP7-S,0,0,,indoor,s_04
-l_23_08_a,2DP8-N,0,0,,indoor,s_04
-l_23_08_b,2DP8-S,0,0,,indoor,s_04
-l_23_08_c,2DP8-W,0,0,,indoor,s_04
-l_23_09_a,2DP9-E,0,0,,indoor,s_04
-l_23_09_b,2DP9-N,0,0,,indoor,s_04
-l_23_09_c,2DP9-S,0,0,,indoor,s_04
-l_23_10_a,2DP10-E,0,0,,indoor,s_04
-l_23_10_b,2DP10-N,0,0,,indoor,s_04
-l_23_10_c,2DP10-W,0,0,,indoor,s_04
-l_23_11_a,2DP11-E,0,0,,indoor,s_04
-l_23_11_b,2DP11-S,0,0,,indoor,s_04
-l_23_11_c,2DP11-W,0,0,,indoor,s_04
-l_23_12_a,2DP12-E,0,0,,indoor,s_04
-l_23_12_b,2DP12-N,0,0,,indoor,s_04
-l_23_12_c,2DP12-W,0,0,,indoor,s_04
+l_id,name,lat,lng,description,location_type
+l_01,Schlossplatz,51.96344,7.617753,The Schlossplatz is a large place in the front of the castle,outdoor
+l_02,Frauenstraße [1],51.963453,7.618718,A little street in the direct environment of the castle,outdoor
+l_03,Frauenstraße [2],51.963572,7.620655,Intersection of Frauenstraße and Krummer Timpen overlooking the ULB,outdoor
+l_04,Krummer Timpen,51.9627,7.619716,The Universitäts- und Landesbibliothek Münster,outdoor
+l_05,Juridicum,51.962409,7.619694,The Universitäts- und Landesbibliothek Münster and the Jurdicum,outdoor
+l_06,Jesuitengang,51.961867,7.621615,A small foodpath between the ULB and Jurdicum and the Fürstenberghaus,outdoor
+l_07,Pferdegasse,51.961635,7.623825,The Pferdegasse next to the Fürstenberghaus,outdoor
+l_08,Fürstenberghaus,51.962128,7.623997,The building is used by the university,outdoor
+l_09,Domplatz,51.962012,7.626121,The Domplatz is the place in front of the huge St Paulus Dom,outdoor
+l_10,Main station,51.956485,7.636367,The main station,abstract
+l_10_01,Main station (inside),,,The main tunnel of the main station,indoor
+l_11,Main station (side entrance),51.95752,7.634613,The side entrance of the main station,outdoor
+l_12,Main station (pedestrian area),7.634173,51.956826,Infront of the main station; pedestrian traffic lights towards city center,outdoor
+l_13,Main station (pedestrian crossing),7.633958,51.956872,Infront of the main station; pedestrian traffic lights towards main station entrance,outdoor
+l_14,Bahnhofsstraße,51.955731,7.632623,The street where the main station is located,outdoor
+l_15,Berliner Platz,51.956231,7.633873,A small square next to the main station,outdoor
+l_16,Bremer Platz [1],51.956422,7.63707,The back of the main station,outdoor
+l_17,Bremer Platz [2],51.956396,7.637419,The Bremer Platz behind the main station,outdoor
+l_18,Hafenstraße,51.954045,7.631207,The Hafenstrasse is leading to the harbour of Münster where you can find several bars & restaurants & clubs & a cinema,outdoor
+l_19,Windthorststraße,51.957093,7.632977,The pedestrian area between the main station and the city center,outdoor
+l_20,Heisenbergstraße,51.968907,7.595683,Heisenbergstraße,abstract
+l_20_01,Heisenbergstraße (car entrance),,,Heisenbergstraße (car entrance),outdoor
+l_20_02,Heisenbergstraße (parking spot),,,Heisenbergstraße (parking spot),outdoor
+l_21,GEO-1 (main entrance),51.969204,7.595801,GEO-1 (main entrance),outdoor
+l_22,GEO-1,51.969439,7.595737,GEO-1,abstract
+l_22_01,Ground floor (atrium),,,Ground floor (atrium),indoor
+l_22_02,Ground floor (elevator),,,Ground floor (elevator),indoor
+l_22_03,Ground floor (stairs),,,Ground floor (stairs),indoor
+l_22_04,Ground floor (IVVGeo),,,Ground floor (IVVGeo),indoor
+l_22_05,Ground floor (2nd atrium) [1],,,Ground floor (2nd atrium) [1],indoor
+l_22_06,Ground floor (2nd atrium) [2],,,Ground floor (2nd atrium) [2],indoor
+l_22_07,Ground floor (lecture room),,,Ground floor (lecture room),indoor
+l_22_08_a,1st floor (atrium),,,1st floor (atrium),indoor
+l_22_08_b,1st floor (stairwell),,,1st floor (stairwell),indoor
+l_22_09,2nd floor (stairwell),,,2nd floor (stairwell),indoor
+l_22_10,4th floor (stairwell),,,4th floor (stairwell),indoor
+l_23_01_a,2DP1-E,,,,indoor
+l_23_01_b,2DP1-S,,,,indoor
+l_23_01_c,2DP1-W,,,,indoor
+l_23_02_a,2DP2-E,,,,indoor
+l_23_02_b,2DP2-W,,,,indoor
+l_23_03_a,2DP3-E,,,,indoor
+l_23_03_b,2DP3-N,,,,indoor
+l_23_03_c,2DP3-W,,,,indoor
+l_23_04_a,2DP4-N,,,,indoor
+l_23_04_b,2DP4-S,,,,indoor
+l_23_04_c,2DP4-W,,,,indoor
+l_23_05_a,2DP5-E,,,,indoor
+l_23_05_b,2DP5-N,,,,indoor
+l_23_05_c,2DP5-W,,,,indoor
+l_23_06_a,2DP6-N,,,,indoor
+l_23_06_b,2DP6-S,,,,indoor
+l_23_06_c,2DP6-W,,,,indoor
+l_23_07_a,2DP7-N,,,,indoor
+l_23_07_b,2DP7-S,,,,indoor
+l_23_08_a,2DP8-N,,,,indoor
+l_23_08_b,2DP8-S,,,,indoor
+l_23_08_c,2DP8-W,,,,indoor
+l_23_09_a,2DP9-E,,,,indoor
+l_23_09_b,2DP9-N,,,,indoor
+l_23_09_c,2DP9-S,,,,indoor
+l_23_10_a,2DP10-E,,,,indoor
+l_23_10_b,2DP10-N,,,,indoor
+l_23_10_c,2DP10-W,,,,indoor
+l_23_11_a,2DP11-E,,,,indoor
+l_23_11_b,2DP11-S,,,,indoor
+l_23_11_c,2DP11-W,,,,indoor
+l_23_12_a,2DP12-E,,,,indoor
+l_23_12_b,2DP12-N,,,,indoor
+l_23_12_c,2DP12-W,,,,indoor
