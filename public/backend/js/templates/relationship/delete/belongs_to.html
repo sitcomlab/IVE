@@ -70,6 +70,21 @@
                     </small>
                     <br>
                 </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/belongs_to/' + label + '/' + relationship.relationship_id)">
+                                <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <button class="btn btn-danger btn-block" role="button" ng-click="delete()" ng-disabled="input != relationship_type">
+                                <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- (Video) -->
@@ -107,6 +122,21 @@
                         {{ 'PLEASE_TYPE_IN_THE_TYPE_OF_THIS' | translate }} {{ 'RELATIONSHIP' | translate }} {{ 'TO_CONFIRM' | translate }}
                     </small>
                     <br>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/belongs_to/' + label + '/' + relationship.relationship_id)">
+                                <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <button class="btn btn-danger btn-block" role="button" ng-click="delete()" ng-disabled="input != relationship_type">
+                                <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -146,23 +176,23 @@
                     </small>
                     <br>
                 </div>
-            </div>
 
-
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/belongs_to/' + label + '/' + relationship.relationship_id)">
-                            <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
-                        </button>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <button class="btn btn-danger btn-block" role="button" ng-click="delete()" ng-disabled="input != relationship_type">
-                            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
-                        </button>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/belongs_to/' + label + '/' + relationship.relationship_id)">
+                                <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <button class="btn btn-danger btn-block" role="button" ng-click="delete()" ng-disabled="input != relationship_type">
+                                <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 

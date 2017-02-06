@@ -33,7 +33,7 @@ app.controller("belongsToDeleteController", function($scope, $rootScope, $routeP
         $scope.changeTab(0);
         $relationshipService.remove($scope.relationship.relationship_id)
         .then(function onSuccess(response) {
-            $scope.redirect("/relationship/belongs_to/");
+            $scope.redirect("/relationship/belongs_to");
         })
         .catch(function onError(response) {
             $window.alert(response.data);
