@@ -7,7 +7,7 @@ var driver = require('../../../server.js').driver;
 var fs = require("fs");
 var query_create_relationship_location = fs.readFileSync(__dirname + '/../../../queries/relationships/create/belongs_to_location.cypher', 'utf8').toString();
 var query_create_relationship_video = fs.readFileSync(__dirname + '/../../../queries/relationships/create/belongs_to_video.cypher', 'utf8').toString();
-var query_create_relationship_to_overlay = fs.readFileSync(__dirname + '/../../../queries/relationships/create/belongs_to_overlay.cypher', 'utf8').toString();
+var query_create_relationship_overlay = fs.readFileSync(__dirname + '/../../../queries/relationships/create/belongs_to_overlay.cypher', 'utf8').toString();
 var query_get_scenario = fs.readFileSync(__dirname + '/../../../queries/scenarios/get.cypher', 'utf8').toString();
 var query_get_location = fs.readFileSync(__dirname + '/../../../queries/locations/get.cypher', 'utf8').toString();
 var query_get_video = fs.readFileSync(__dirname + '/../../../queries/videos/get.cypher', 'utf8').toString();
@@ -26,7 +26,7 @@ exports.request = function(req, res) {
     switch (req.params.label) {
         case 'location': {
             query_1 = query_get_location;
-            query_2_params = {
+            query_1_params = {
                 location_id: req.body.location_id
             };
             query_2 = query_get_scenario;
