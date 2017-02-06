@@ -3,7 +3,7 @@ var app = angular.module("relationshipService", []);
 /**
  * Relationship Service Provider
  */
-app.factory('$relationshipService', function($http, config) {
+app.factory('$relationshipService', function($http, config, $authenticationService) {
 
     return {
         init: function(relationship_type, label){
@@ -105,13 +105,27 @@ app.factory('$relationshipService', function($http, config) {
             }
         },
         create: function(relationship_type, label, data) {
-            return $http.post(config.apiURL + "/relationship/" + relationship_type + "/" + label, data);
+            return $http.post(config.apiURL + "/relationship/" + relationship_type + "/" + label, data, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                    'Content-Type': 'application/json'
+                }
+            });
         },
         edit: function(relationship_type, relationship_id, label, data) {
-            return $http.put(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id + "/" + label, data);
+            return $http.put(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id + "/" + label, data, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                    'Content-Type': 'application/json'
+                }
+            });
         },
         remove: function(relationship_id) {
-            return $http.delete(config.apiURL + "/relationships/" + relationship_id);
+            return $http.delete(config.apiURL + "/relationships/" + relationship_id, {
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
         }
     };
 

@@ -17,7 +17,7 @@ exports.request = function(req, res) {
         payload = {
             iss: server_url,
             username: backend_account.username,
-            exp: moment().add(1, 'days').format('x')
+            exp: moment().add(1, 'days').valueOf()
         };
         // Create JWT
         var result = {
