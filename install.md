@@ -7,7 +7,10 @@ permalink: /install/
 
 1. [Graph database](#graph-database)
     1. [Neo4j](#neo4j)
-    2. [Import graph](#import-graph)
+    2. [Import an existing graph](#import-an-existing-graph)
+        1. [Automatic import](#import-an-existing-graph)
+        2. [Own import](#own-import)
+    3. [View your imported data](#view-your-imported-data)
 2. [IVE](#ive)
     1. [Git/GitHub](#gitgithub)
     2. [GitHub repository](#github-repository)
@@ -42,17 +45,46 @@ dbms.connector.https.encryption=TLS
 dbms.connector.https.address=localhost:7473
 ```
 
-* Restart Neo4j with `sudo neo4j restart` and open the UI in webbrowser again. If you have access it for the first time, you need to create a username (`neo4j`) and password (`neo4j`) for your database.
+* Restart Neo4j with `sudo neo4j restart` and open the UI in webbrowser again. If you have access it for the first time, you need to create a username (`neo4j`) and password (`neo4j`) for your database. Change your password to `123456` as a default setting, which are used in the node-scripts.
 
-### 1.2. Import graph
+### 1.2. Import an existing graph
 
-* If you want to import the data from the CSV files of `IVE/data/*`, you need to setup the import-path in Neo4j. Open the config file `sudo nano /etc/neo4j/neo4j.conf` and set the directory to the path of your local repository:
+* If you want to import the data from the CSV files of `IVE/data/*`, you need to setup the import-path for Neo4j. Open the config file `sudo nano /etc/neo4j/neo4j.conf` and set the directory to the path of your local repository, e.g.:
 
 ```
 dbms.directories.import=/Users/sitcomlab/IVE/data/
 ```
 
-* After this step, you need to define some CONSTRAINTS inside the database. Open the GUI in your webbrowser and execute the following Cypher commands (**one by one**) in the Neo4j-shell (for resetting, you can find the commands also in  `IVE/install/import.cypher`):
+#### 1.2.1. Automatic import (RECOMMENDED)
+You can use a setup-script to prepare the database CONSTRAINTS and import all CSV-files automatically. If you want to do it manually, which is only necessary, if you need a clean installation without any imported data, then checkout the instructions of 1.2.2.
+
+* If you don't have Nodejs installed, please follow the instructions of 2.3 first.
+* Execute the setup-script with the following command (run the command with `sudo`, if you don't have permission):
+
+```
+node setup.js
+```
+
+* If you need to specify the **NODE ENVIRONMENT VARIABLES**, these parameters can be set:
+    * `DB_HOST`: Neo4j-database host address (default: `127.0.0.1`)
+    * `DB_PORT`: Neo4j-database port number (default: `7687`)
+    * `DB_USER`: Neo4j-database username (default: `neo4j`)
+    * `DB_PASSWORD`: Neo4j-database password (default: `123456`)
+* Run the following command, like this:
+
+```
+# Linux & macOS
+DB_PORT=7687 DB_USER=neo4j DB_PASSWORD=neo4j node setup.js
+
+# Windows
+set DB_PORT=7687 DB_USER=neo4j DB_PASSWORD=neo4j node setup.js
+```
+
+#### 1.2.2. Own import (NOT RECOMMENDED)
+
+You setup the database CONSTRAINTS and import all CSV-files manually by following the next steps, but it is highly recommended to use the setup-script to do this job for you. A manually setup is only necessary, if you need a clean installation without any imported data.
+
+* To define some CONSTRAINTS inside the database, open the GUI in your webbrowser and execute the following Cypher commands (**one by one**) in the Neo4j-shell (for resetting, you can find the commands also in  `IVE/install/import.cypher`):
 
 ```
 CREATE CONSTRAINT ON (scenario:Scenarios) ASSERT scenario.s_id IS UNIQUE;
@@ -64,7 +96,9 @@ CREATE CONSTRAINT ON (video:Videos) ASSERT video.v_id IS UNIQUE;
 CREATE CONSTRAINT ON (overlay:Overlays) ASSERT overlay.o_id IS UNIQUE;
 ```
 
-* After this step, you can import the data from the CSV files. Run all Cypher commands (**one by one**) from the file `IVE/install/import.cypher`.
+* After this step, you are able to import the data from CSV files. You can run all Cypher commands (**one by one**) from the file `IVE/queries/setup/` folder. The setup-script contains all of those commands and can also do this job for you.
+
+#### 1.3. View your imported data
 
 * Check if your data has been imported with the Cypher query:
 
@@ -136,12 +170,45 @@ sudo bower install --allow-root
 
 ***
 
-# 3. Start the IVE
+# 3. Starting the IVE
 
-* Open a webbrowser and go to [http://localhost:4000](http://localhost:4000/) (there is also a **dark-version** for production: [http://localhost:4000/ive.html](http://localhost:4000/ive.html))
+* You can start the IVE-server with the following command:
 
-* Open the **FRONTEND** in a new tab ([http://localhost:4000/frontend](http://localhost:4000/frontend)))
-* Open the **REMOTE CONTROL APP** in a new tab or on your smartphone ([http://localhost:4000/remote](http://localhost:4000/remote)))
+```
+node server.js
+```
+
+* If you need to specify the **NODE ENVIRONMENT VARIABLES**, these parameters can be set:
+    * `NODE_ENV`: server environment (default: `development`, option: `production`)
+    * `SERVER_URL`: url of the nodejs-server (default: `http://giv-sitcomdev.uni-muenster.de`)
+    * `HTTP_PORT`: port number of the nodejs-server: (default: `5000`)
+    * `HTTPS_PORT`: secure port number of the nodejs-server: (default: `HTTP_PORT + 443`)
+    * `DB_HOST`: Neo4j-database host address (default: `127.0.0.1`)
+    * `DB_PORT`: Neo4j-database port number (default: `7687`)
+    * `DB_USER`: Neo4j-database username (default: `neo4j`)
+    * `DB_PASSWORD`: Neo4j-database password (default: `123456`)
+    * `BACKEND_USER`: Username for the backend admin account (default: `admin`)
+    * `BACKEND_PASSWORD`: Password for the backend admin account (default: `admin`)
+    * `JWTSECRET`: Secret for the JSON-Webtoken-authentication (default: `superSecretKey`)
+
+* Run the following command, like this:
+
+```
+# Linux & macOS
+HTTP_PORT=4000 node server.js
+
+# Windows
+HTTP_PORT=4000 node server.js
+```
+
+***
+
+# 4. Using the IVE
+
+* Open a webbrowser and go to [http://localhost:4000](http://localhost:4000/) (there is also a **night-version** for the demonstrations in the IVE: [http://localhost:4000/ive.html](http://localhost:4000/ive.html))
+
+* Open the **FRONTEND** in a new tab ([http://localhost:4000/frontend](http://localhost:4000/frontend))
+* Open the **REMOTE CONTROL APP** in a new tab or on your smartphone ([http://localhost:4000/remote](http://localhost:4000/remote))
 * In the remote app, select a Scenario from the list
 * After that, select a starting location
 
@@ -149,10 +216,10 @@ Have fun!
 
 ***
 
-# 4. Documentation
+# 5. Documentation
 
 * If you want to contribute to this documentation, you need to install Jekyll ([https://jekyllrb.com/docs/installation/](https://jekyllrb.com/docs/installation/)) your local machine. Attention: Jekyll is not officially supported by Windows. Please follow the instructions on their website.
-* Switch to the `gh-pages` branch in you local repository:
+* Switch to the `gh-pages` branch in your local repository:
 
 ```
 git checkout gh-pages

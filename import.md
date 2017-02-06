@@ -5,14 +5,51 @@ permalink: /import/
 
 ### Overview
 
-1. [Scenarios](#scenarios)
-2. [Locations](#locations)
-3. [Videos](#videos)
-4. [Overlays](#overlays)
+1. [Introduction](#introduction)
+    1. [IVE-Backend](#ive-backend)
+    2. [CSV files](#csv-files)
+    3. [REST-API](#rest-api)
+    4. [Cypher queries](#cypher-queries)
+2. [Data structure](#data-structure)
+    1. [Scenarios](#scenarios)
+    2. [Locations](#locations)
+    3. [Videos](#videos)
+    4. [Overlays](#overlays)
+    5. [Relationships](#relationships)
 
 ***
 
-# Scenarios
+# 1. Introduction
+
+The IVE provides different import functionalities to get your data into Neo4j. The 4 options can be seen in the following picture:
+
+[<img src="{{ site.baseurl }}/images/import.svg" alt="import options" class="picture" />]({{ site.baseurl }}/)
+
+## 1.1. IVE-Backend (RECOMMENDED)
+The IVE-Backend is the recommended way to create new entries or manage you existing entries.
+
+## 1.2. CSV files
+For sharing a graph, the CSV format is the best. Therefore the setup-script can be used to import the example graph of the IVE. It contains several scenarios with locations, videos, overlays and their relationships. Beside the automatic import of the setup-script, it is possible to create own CSV files and upload them by using the cypher-commands of Neo4j. You need to specify the import-path for Neo4j, please checkout the instructions in the installation guide to get more information about it. All necessary cypher commands can be found in the folder `/queries/setup/*`.
+
+## 1.3. REST-API
+The IVE-Backend, as well as the IVE-Frontend and IVE-Remote control, are using internally an REST-API to request and retrieve the data. So the REST-API is an alternative way to creating new entries or managing existing ones, but most requests need a JSON-webtoken for authentication, so you need to request a token first, before you can use all API endpoints. Submit a POST-request to the endpoint `/login` to authenticate:
+
+```json
+{
+    "username": "admin",
+    "password": "admin"
+}
+```
+
+It is not recommended to use it in this way, because the IVE-Backend provides a much better user-interface, where you can easily create new entries. But if you plan to create a new application to create or import data, the REST-API is the perfect way for that.
+
+## 1.4. Cypher queries
+This option is on the database-level and a direct way to your data. It is also not recommended, because the IVE-Backend provides a much better user-interface, where you can easily create new entries or edit existing ones. But if you need to check your data, as well as the graph for validating, the built-in neo4j-shell is the best way to do this.
+
+
+# 2. Data structure
+
+## 2.1. Scenarios
 
 ### CSV
 

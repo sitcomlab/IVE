@@ -15,8 +15,8 @@ permalink: /troubleshooting/
 * Change in the config file the import path to your local repository: 
 
 ```bash
-# OLD 
-# dbms.directories.import=import 
+# OLD
+# dbms.directories.import=import
 # NEW
 dbms.directories.import=/Users/Nicho/GitHub/IVE/data/
 ```
