@@ -3,8 +3,8 @@ layout: page
 permalink: /data/
 ---
 
-
 ### Overview
+
 1. [Example graph](#example-graph)
 2. [Nodes](#nodes)
     1. [Scenarios](#scenarios)
@@ -133,7 +133,7 @@ This relationship is used to attach one (or more) video(s) to a location, where 
 
 <span class="label label-overlay">Overlay</span> *(1)* `-[EMBEDDED_IN]->` *(1..n)* <span class="label label-video">Video</span><br>
 
-*** 
+***
 
 ## 1.1. First scenario
 

@@ -3,16 +3,13 @@ layout: page
 permalink: /troubleshooting/
 ---
 
-### Test
-
-
 ### 2016-10-25
 * Problem using local import paths for importing CSV files
 * **Solved**: Updating `neo4j.conf` file (Source: [http://neo4j.com/docs/operations-manual/current/deployment/file-locations/](http://neo4j.com/docs/operations-manual/current/deployment/file-locations/))
 * Installed via apt-get (Ubuntu) go to folder `/etc/neo4j/neo4j.conf`
 * Installed via Homebrew (MacOS) go to folder `/usr/local/Cellar/neo4j/3.0.6/`
 * Installed manually (MacOS) go to folder `~/Documents/Neo4j`
-* Change in the config file the import path to your local repository: 
+* Change in the config file the import path to your local repository:
 
 ```bash
 # OLD

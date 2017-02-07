@@ -3,8 +3,8 @@ layout: page
 permalink: /extensions/
 ---
 
-
 ### Overview
+
 1. [Introduction](#introduction)
     1. [Extending nodes](#nodes)
     2. [Extending relationships](#extending-relationships)
@@ -33,4 +33,4 @@ The following image shows the basic architecture of the implementation.
 
 [<img src="{{ site.baseurl }}/images/voice-control.svg" alt="Voice control system" class="picture" />]({{ site.baseurl }}/)
 
-The voice control system uses the expressions <-> intents concept, so a user can say different commands (expressions), but the meaning (intent) are all the same. Based on this concept, multiple intents can be used to navigate inside the IVE. The property `intent_id` inside a `-[CONNECTED_TO]->` relationship is used as a reference-key. In a second relational database ([PostgreSQL](https://www.postgresql.org)), the `intent_id` is unique and contains all possible intents. If a spoken voice command (expression) was identified by the external voice recognition system ([Wit.Ai](https://wit.ai)), the external voice recognition system tries to find the intent, which the expression is related to. It sends the identified intent (e.g. `go_left`) back to the IVE-Server, where a simple algorithm tries to found the intent inside all outgoing `-[CONNECTED_TO]->` relationships of the current <span class="label label-location">Location</span>. If there is a match, the IVE goes to the new location and switch the video. 
+The voice control system uses the expressions <-> intents concept, so a user can say different commands (expressions), but the meaning (intent) are all the same. Based on this concept, multiple intents can be used to navigate inside the IVE. The property `intent_id` inside a `-[CONNECTED_TO]->` relationship is used as a reference-key. In a second relational database ([PostgreSQL](https://www.postgresql.org)), the `intent_id` is unique and contains all possible intents. If a spoken voice command (expression) was identified by the external voice recognition system ([Wit.Ai](https://wit.ai)), the external voice recognition system tries to find the intent, which the expression is related to. It sends the identified intent (e.g. `go_left`) back to the IVE-Server, where a simple algorithm tries to found the intent inside all outgoing `-[CONNECTED_TO]->` relationships of the current <span class="label label-location">Location</span>. If there is a match, the IVE goes to the new location and switch the video.
