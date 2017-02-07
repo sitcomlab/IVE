@@ -1,16 +1,16 @@
 ---
 layout: page
-permalink: /about/
+permalink: /intro/
 ---
 
 ### Overview
-1. [Introduction](#introduction)
+1. [About the IVE](#about-the-ive)
 2. [Architecture](#architecture)
 3. [Demo](#demo)
 
 ***
 
-# 1. Introduction
+# 1. About the IVE
 
 [<img src="{{ site.baseurl }}/images/ive.jpeg" alt="IVE" class="picture" />]({{ site.baseurl }}/)
 
