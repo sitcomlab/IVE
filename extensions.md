@@ -4,14 +4,16 @@ permalink: /extensions/
 ---
 
 #### Overview
-1. [Introduction](#introduction)
+1. [Database](#database)
     1. [Extending nodes](#nodes)
     2. [Extending relationships](#extending-relationships)
-2. [Voice control system](#voice-control-system)
+2. [REST-API](#rest-api)
+3. [Websockets](#websockets)
+4. [Voice control system](#voice-control-system)
 
 ***
 
-# 1. Introduction
+# 1. Database
 
 The underlaying graph structure is very flexible and easy to extend. Beside creating new nodes (entities) and relationships, it is also possible to extend the existing ones for your application. The following sections focus on this option.
 
@@ -25,7 +27,19 @@ All relationships can be weighted. In the example graph the property `weight` in
 
 ***
 
-# 2. Voice control system
+# 2. REST-API
+
+TODO
+
+***
+
+# 3. Websockets
+
+TODO
+
+***
+
+# 4. Voice control system
 
 The IVE was extended by **Nicholas Schiestel** <a href="https://github.com/nicho90" target="_blank" class="link"><i class="fa fa-github-alt" aria-hidden="true"></i></a> <a href="https://twitter.com/Nicho_S_90" target="_blank" class="link"><i class="fa fa-twitter" aria-hidden="true"></i></a> with a voice control system as part of his bachelor thesis.
 The following image shows the basic architecture of the implementation.

@@ -38,6 +38,8 @@ As it can be seen in the previous example graph, there are 4 main nodes (or enti
 
 ## 2.1. Scenarios
 
+TODO
+
 ###### PROPERTIES
 
 * `scenario_id`:
@@ -86,8 +88,11 @@ This relationship builds the navigation between two <span class="label label-loc
 
 ### 3.2.1.
 
+TODO
 
 ### 3.2.2.
+
+TODO
 
 
 ## 3.3. HAS_PARENT_LOCATION
@@ -134,26 +139,46 @@ This relationship is used to attach one (or more) video(s) to a location, where 
 
 ***
 
-## 1.1. First scenario
+# 4. Available scenarios
+
+TODO (add new screenshots)
+
+## 4.1. First scenario
 
 [<img src="{{ site.baseurl }}/images/scenario_1.png" alt="1st scenario" class="picture" />]({{ site.baseurl }}/)
 
 This scenario contains the area of Münsters city center as well as an overlay.
 
-## 1.2. Second scenario
+```sql
+MATCH (n)-[r:belongs_to]->(s:Scenarios) WHERE s.s_id='s_01' RETURN n;
+```
+
+## 4.2. Second scenario
 
 [<img src="{{ site.baseurl }}/images/scenario_2.png" alt="2nd scenario" class="picture" />]({{ site.baseurl }}/)
 
 This scenario contains the area around and from Münsters main station as well as two overlays.
 
-## 1.3. Third scenario
+```sql
+MATCH (n)-[r:belongs_to]->(s:Scenarios) WHERE s.s_id='s_02' RETURN n;
+```
+
+## 4.3. Third scenario
 
 [<img src="{{ site.baseurl }}/images/scenario_3.png" alt="3rd scenario" class="picture" />]({{ site.baseurl }}/)
 
 This scenario contains the GEO-1 building and was used in a bachelor thesis. The thesis focused on a voice control system for the IVE.
 
-## 1.4. Fourth scenario
+```sql
+MATCH (n)-[r:belongs_to]->(s:Scenarios) WHERE s.s_id='s_03' RETURN n;
+```
+
+## 4.4. Fourth scenario
 
 [<img src="{{ site.baseurl }}/images/scenario_4.png" alt="4th scenario" class="picture" />]({{ site.baseurl }}/)
 
 This scenario contains in much more detailed way the second floor of the GEO-1 building, but the relationships of this scenario have not been finished until yet.
+
+```sql
+MATCH (n)-[r:belongs_to]->(s:Scenarios) WHERE s.s_id='s_04' RETURN n;
+```

@@ -20,6 +20,8 @@ Public displays have become ubiquitous in urban areas. They can efficiently deli
 
 # 2. Architecture
 
+TODO
+
 [<img src="{{ site.baseurl }}/images/architecture.svg" alt="Architecture" class="picture" />]({{ site.baseurl }}/)
 
 ***

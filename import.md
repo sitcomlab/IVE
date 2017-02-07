@@ -4,7 +4,7 @@ permalink: /import/
 ---
 
 #### Overview
-1. [Introduction](#introduction)
+1. [Options](#options)
     1. [IVE-Backend](#ive-backend)
     2. [CSV files](#csv-files)
     3. [REST-API](#rest-api)
@@ -18,7 +18,7 @@ permalink: /import/
 
 ***
 
-# 1. Introduction
+# 1. Options
 
 The IVE provides different import functionalities to get your data into Neo4j. The 4 options can be seen in the following picture:
 
