@@ -3,8 +3,7 @@ layout: page
 permalink: /data/
 ---
 
-### Overview
-
+#### Overview
 1. [Example graph](#example-graph)
 2. [Nodes](#nodes)
     1. [Scenarios](#scenarios)
@@ -99,15 +98,15 @@ The parent location approach was introduced to the graph to provide a better map
 
 It is easy to connect <span class="label label-location">outdoor:Locations</span> with a `-[CONNECTED_TO]->` relationship:
 
-[<img src="{{ site.baseurl }}/images/1_outdoor.png" alt="graph overview" class="picture" />]({{ site.baseurl }}/)
+[<img src="{{ site.baseurl }}/images/1_outdoor.png" alt="map marker outdoor" class="picture" />]({{ site.baseurl }}/)
 
 But when it comes to <span class="label label-location">indoor:Locations</span>, it is difficult to click them on a map, because the coordinates are very close to each other. The following graph demonstrates the problem with <span class="label label-location">indoor:Locations</span> of the institute building:
 
-[<img src="{{ site.baseurl }}/images/2_fail.png" alt="graph overview" class="picture" />]({{ site.baseurl }}/)
+[<img src="{{ site.baseurl }}/images/2_fail.png" alt="map marker fail" class="picture" />]({{ site.baseurl }}/)
 
 The solution is to aggregate the <span class="label label-location">indoor:Locations</span> to a single marker representation:
 
-[<img src="{{ site.baseurl }}/images/3_indoor.png" alt="graph overview" class="picture" />]({{ site.baseurl }}/)
+[<img src="{{ site.baseurl }}/images/3_indoor.png" alt="map marker indoor" class="picture" />]({{ site.baseurl }}/)
 
 Therefore each <span class="label label-location">indoor:Location</span> has to be connected with the relationship `-[HAS_PARENT_LOCATION]->` to a so called <span class="label label-abstract-location">abstract:Location</span>.
 An <span class="label label-abstract-location">abstract:Location</span> is a representative location to provide the coordinates for the marker, which means all related <span class="label label-location">indoor:Locations</span> can have empty coordinates (`lng: 0.0, lat: 0.0` or `lng: null, lat: null`).

@@ -3,8 +3,7 @@ layout: page
 permalink: /extensions/
 ---
 
-### Overview
-
+#### Overview
 1. [Introduction](#introduction)
     1. [Extending nodes](#nodes)
     2. [Extending relationships](#extending-relationships)

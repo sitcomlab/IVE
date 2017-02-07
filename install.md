@@ -3,8 +3,7 @@ layout: page
 permalink: /install/
 ---
 
-### Overview
-
+#### Overview
 1. [Graph database](#graph-database)
     1. [Neo4j](#neo4j)
     2. [Import an existing graph](#import-an-existing-graph)
