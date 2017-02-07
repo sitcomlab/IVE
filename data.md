@@ -6,14 +6,22 @@ permalink: /data/
 
 ### Overview
 1. [Example graph](#example-graph)
+2. [Nodes](#nodes)
+    1. [Scenarios](#scenarios)
+    2. [Locations](#locations)
+    3. [Videos](#videos)
+    4. [Overlays](#overlays)
+2. [Relationships](#relationships)
+    1. [BELONGS_TO](#belongsto)
+    2. [CONNECTED_TO](#connectedto)
+    3. [HAS_PARENT_LOCATION](#hasparentlocation)
+    4. [RECORDED_AT](#recordedat)
+    5. [EMBEDDED_IN](#embeddedin)
+3. [Available scenarios](#available-scenarios)
     1. [First Scenario](#first-scenario)
     2. [Second Scenario](#second-scenario)
     3. [Third Scenario](#third-scenario)
     4. [Fourth Scenario](#fourth-scenario)
-2. [Relationships](#relationships)
-3. [Parent location approach](#parent-location-approach)
-4. [Weighting for relationships](#weighting-for-relationships)
-5. [Voice control](#voice-control)
 
 ***
 
@@ -22,6 +30,8 @@ permalink: /data/
 The following graph gives a quick overview about the nodes and edges of the IVE inside the Neo4j database. It is a simple representation and doesn't contain all required properties (and was created with the [arrow tool](http://www.apcjones.com/arrows/), which is made by [apcjones](https://github.com/apcj)):
 
 [<img src="{{ site.baseurl }}/images/graph_overview.png" alt="graph overview" class="picture" />]({{ site.baseurl }}/)
+
+***
 
 # 2. Nodes
 
@@ -54,6 +64,8 @@ PROPERTIES
 
 ## 2.4. Overlays
 PROPERTIES
+
+***
 
 # 3. Relationships
 
@@ -121,13 +133,7 @@ This relationship is used to attach one (or more) video(s) to a location, where 
 
 <span class="label label-overlay">Overlay</span> *(1)* `-[EMBEDDED_IN]->` *(1..n)* <span class="label label-video">Video</span><br>
 
-
-
-
-
-# 4. Weighting for relationships
-
-All relationships can be weighted by default. In the previous graph the property `weights` in the `-[CONNECTED_TO]->` relationship has the value `1.0`. But this property could also be used or renamed to `travel-minutes`, which could  then contain the minutes to go from one <span class="label label-location">Location</span> to another. If you need weights in your application, all properties inside the relationships are fully customizable. Another example is the `-[EMBEDDED_IN]->` relationship, between an <span class="label label-overlay">Overlay</span> and a <span class="label label-video">Video</span>. All settings of the translation, rotation and scaling are saved inside the `-[EMBEDDED_IN]->` relationship, so a <span class="label label-overlay">Overlay</span> can used multiple times in different positions or different <span class="label label-video">Videos</span>, without duplicating an <span class="label label-overlay">Overlay</span> object.
+*** 
 
 ## 1.1. First scenario
 

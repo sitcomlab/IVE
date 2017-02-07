@@ -8,15 +8,17 @@ permalink: /install/
 1. [Graph database](#graph-database)
     1. [Neo4j](#neo4j)
     2. [Import an existing graph](#import-an-existing-graph)
-        1. [Automatic import](#import-an-existing-graph)
-        2. [Own import](#own-import)
+        1. [Automatic import](#automatic-import-recommended)
+        2. [Own import](#own-import-not-recommended)
     3. [View your imported data](#view-your-imported-data)
 2. [IVE](#ive)
     1. [Git/GitHub](#gitgithub)
     2. [GitHub repository](#github-repository)
     3. [Nodejs](#nodejs)
     4. [Bower](#bower)
-3. [Documentation](#documentation)
+3. [Starting the IVE](#starting-the-ive)
+4. [Using the IVE](#using-the-ive)
+5. [Documentation](#documentation)
 
 ***
 
@@ -198,7 +200,7 @@ node server.js
 HTTP_PORT=4000 node server.js
 
 # Windows
-HTTP_PORT=4000 node server.js
+set HTTP_PORT=4000 node server.js
 ```
 
 ***
@@ -218,14 +220,14 @@ Have fun!
 
 # 5. Documentation
 
-* If you want to contribute to this documentation, you need to install Jekyll ([https://jekyllrb.com/docs/installation/](https://jekyllrb.com/docs/installation/)) your local machine. Attention: Jekyll is not officially supported by Windows. Please follow the instructions on their website.
+* If you want to contribute to this documentation, you need to install Jekyll ([https://jekyllrb.com/docs/installation/](https://jekyllrb.com/docs/installation/)) on your local machine. **Attention**: Jekyll is not officially supported by Windows. Please follow the instructions on their website.
 * Switch to the `gh-pages` branch in your local repository:
 
 ```
 git checkout gh-pages
 ```
 
-* Run Jekylls-built-in-server with the following command (run it with `sudo`, if you don't have permission):
+* Run Jekylls built-in-server with the following command (run it with `sudo`, if you don't have permission):
 
 ```
 jekyll serve
