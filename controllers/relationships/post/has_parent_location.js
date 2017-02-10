@@ -9,11 +9,11 @@ var backend_account = require('../../../server.js').backend_account;
 var server_url = require('../../../server.js').server_url;
 var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_create_relationship = fs.readFileSync(__dirname + '/../../../queries/relationships/create/parent_location.cypher', 'utf8').toString();
+var query_create_relationship = fs.readFileSync(__dirname + '/../../../queries/relationships/create/has_parent_location.cypher', 'utf8').toString();
 var query_get_location = fs.readFileSync(__dirname + '/../../../queries/locations/get.cypher', 'utf8').toString();
 
 
-// POST (:parent_location)
+// POST (:has_parent_location)
 exports.request = function(req, res) {
 
     // Start session
@@ -61,12 +61,12 @@ exports.request = function(req, res) {
         function(callback) { // Find entry by Id
             session
                 .run(query_get_location, {
-                    location_id: req.body.parent_location_id
+                    location_id: req.body.has_parent_location_id
                 })
                 .then(function(result) {
                     // Check if Location exists
                     if (result.records.length===0) {
-                        callback(new Error("Location with id '" + req.body.parent_location_id + "' not found!"), 404);
+                        callback(new Error("Location with id '" + req.body.has_parent_location_id + "' not found!"), 404);
                     } else {
                         callback(null);
                     }
@@ -80,7 +80,7 @@ exports.request = function(req, res) {
             // TODO: Validate all attributes of req.body
             var params = {
                 child_location_id: req.body.child_location_id,
-                parent_location_id: req.body.parent_location_id
+                has_parent_location_id: req.body.has_parent_location_id
             };
 
             callback(null, params);

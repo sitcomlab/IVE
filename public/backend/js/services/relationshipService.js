@@ -54,7 +54,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                     };
                     break;
                 }
-                case 'parent_location': {
+                case 'has_parent_location': {
                     new_object = {
                         start_location_id: null,
                         end_location_id: null
@@ -81,7 +81,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 }, {
                     name: "embedded_in"
                 }, {
-                    name: "parent_location"
+                    name: "has_parent_location"
                 }, {
                     name: "recorded_at"
                 }

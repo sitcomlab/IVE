@@ -193,9 +193,9 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        .when("/relationship/parent_location", {
-            templateUrl: "js/templates/relationship/list/parent_location.html",
-            controller: "parentLocationListController",
+        .when("/relationship/has_parent_location", {
+            templateUrl: "js/templates/relationship/list/has_parent_location.html",
+            controller: "hasParentLocationListController",
             resolve: {
                 factory: checkAuthentication
             }
@@ -228,9 +228,9 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        .when("/relationship/parent_location/:relationship_id", {
-            templateUrl: "js/templates/relationship/details/parent_location.html",
-            controller: "parentLocationDetailsController",
+        .when("/relationship/has_parent_location/:relationship_id", {
+            templateUrl: "js/templates/relationship/details/has_parent_location.html",
+            controller: "hasParentLocationDetailsController",
             resolve: {
                 factory: checkAuthentication
             }
@@ -263,9 +263,9 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        .when("/relationship/parent_location/:relationship_id/edit", {
-            templateUrl: "js/templates/relationship/edit/parent_location.html",
-            controller: "parentLocationEditController",
+        .when("/relationship/has_parent_location/:relationship_id/edit", {
+            templateUrl: "js/templates/relationship/edit/has_parent_location.html",
+            controller: "hasParentLocationEditController",
             resolve: {
                 factory: checkAuthentication
             }
@@ -305,9 +305,9 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        .when("/relationship/parent_location/:relationship_id/delete", {
-            templateUrl: "js/templates/relationship/delete/parent_location.html",
-            controller: "parentLocationDeleteController",
+        .when("/relationship/has_parent_location/:relationship_id/delete", {
+            templateUrl: "js/templates/relationship/delete/has_parent_location.html",
+            controller: "hasParentLocationDeleteController",
             resolve: {
                 factory: checkAuthentication
             }
@@ -354,9 +354,9 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
-        .when("/new/parent_location/relationship", {
-            templateUrl: "js/templates/relationship/create/parent_location.html",
-            controller: "parentLocationCreateController",
+        .when("/new/has_parent_location/relationship", {
+            templateUrl: "js/templates/relationship/create/has_parent_location.html",
+            controller: "hasParentLocationCreateController",
             resolve: {
                 factory: checkAuthentication
             }

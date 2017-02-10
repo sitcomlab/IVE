@@ -10,10 +10,10 @@ var server_url = require('../../../server.js').server_url;
 var driver = require('../../../server.js').driver;
 var fs = require("fs");
 var query_get_relationship = fs.readFileSync(__dirname + '/../../../queries/relationships/get.cypher', 'utf8').toString();
-var query_edit_relationship = fs.readFileSync(__dirname + '/../../../queries/relationships/edit/parent_location.cypher', 'utf8').toString();
+var query_edit_relationship = fs.readFileSync(__dirname + '/../../../queries/relationships/edit/has_parent_location.cypher', 'utf8').toString();
 
 
-// PUT (:parent_location)
+// PUT (:has_parent_location)
 exports.request = function(req, res) {
 
     // Start session

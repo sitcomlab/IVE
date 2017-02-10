@@ -5,10 +5,10 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_parent_location = fs.readFileSync(__dirname + '/../../../queries/relationships/get/parent_location.cypher', 'utf8').toString();
+var query_has_parent_location = fs.readFileSync(__dirname + '/../../../queries/relationships/list/has_parent_location.cypher', 'utf8').toString();
 
 
-// GET BY ID (:connected_to)
+// LIST BY REALTIONSHIP-TYPE (:connected_to)
 exports.request = function(req, res) {
 
     // Start session
@@ -17,9 +17,7 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback) { // Find entries
             session
-                .run(query_parent_location, {
-                    relationship_id: req.params.relationship_id
-                })
+                .run(query_has_parent_location)
                 .then(function(result) {
                     callback(null, result);
                 })
@@ -53,12 +51,7 @@ exports.request = function(req, res) {
                 });
 
             }, function() {
-                // Check if relationship exists
-                if(results.length===0){
-                    callback(new Error("Relationship not found"), 404);
-                } else {
-                    callback(null, 200, results[0]);
-                }
+                callback(null, 200, results);
             });
         }
     ], function(err, code, result){

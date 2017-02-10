@@ -93,14 +93,14 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 middle">
                             <span class="badge badge-pill badge-default">
-                                &mdash;&nbsp;CONNECTED_TO&nbsp;&mdash;&gt;
+                                &mdash;&nbsp;HAS_PARENT_LOCATION&nbsp;&mdash;&gt;
                             </span>
                             <br>
                             <br>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             <label>
-                                <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'END_LOCATION' | translate }}*</b>
+                                <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'PARENT_LOCATION' | translate }}*</b>
                             </label>
                             <br>
                             <div class="form-group" ng-class="{'has-danger': createRelationshipForm.parent_location_id.$invalid && !createRelationshipForm.parent_location_id.$pristine}">
@@ -129,7 +129,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/connected_to')">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/has_parent_location')">
                                 <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
                             </button>
                         </div>

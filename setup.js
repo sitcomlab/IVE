@@ -33,7 +33,7 @@ queries.push(fs.readFileSync(__dirname + dir + 'import_overlays.cypher', 'utf8')
 queries.push(fs.readFileSync(__dirname + dir + 'import_belongs_to_locations.cypher', 'utf8').toString());
 queries.push(fs.readFileSync(__dirname + dir + 'import_belongs_to_videos.cypher', 'utf8').toString());
 queries.push(fs.readFileSync(__dirname + dir + 'import_belongs_to_overlays.cypher', 'utf8').toString());
-queries.push(fs.readFileSync(__dirname + dir + 'import_parent_location.cypher', 'utf8').toString());
+queries.push(fs.readFileSync(__dirname + dir + 'import_has_parent_location.cypher', 'utf8').toString());
 queries.push(fs.readFileSync(__dirname + dir + 'import_connected_to.cypher', 'utf8').toString());
 queries.push(fs.readFileSync(__dirname + dir + 'import_recorded_at.cypher', 'utf8').toString());
 queries.push(fs.readFileSync(__dirname + dir + 'import_embedded_in.cypher', 'utf8').toString());
