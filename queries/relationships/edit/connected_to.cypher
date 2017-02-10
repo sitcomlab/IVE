@@ -2,7 +2,7 @@ MATCH (start:Locations)-[r:connected_to]->(end:Locations)
 WHERE ID(r)=toInt({relationship_id})
 SET
     r.updated = timestamp(),
-    r.weight = {weight}
+    r.i_id = {i_id}
 RETURN
     ID(start) AS start_location_id,
     start.created AS start_location_created,
@@ -16,7 +16,7 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
-    r.weight AS relationship_weight,
+    r.i_id AS relationship_i_id,
     ID(end) AS end_location_id,
     end.created AS end_location_created,
     end.updated AS end_location_updated,

@@ -7,5 +7,5 @@ MATCH (location_2:Locations) WHERE location_2.l_id = line.`end_id`
 CREATE (location_1)-[:connected_to {
     created: timestamp(),
     updated: timestamp(),
-    weight: toFloat(line.`weight`)
+    i_id: toFloat(line.`i_id`)
 }]->(location_2);
