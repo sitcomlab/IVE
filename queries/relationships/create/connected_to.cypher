@@ -2,8 +2,7 @@ MATCH (start:Locations) WHERE ID(start) = toInt({start_location_id})
 MATCH (end:Locations) WHERE ID(end) = toInt({end_location_id})
 CREATE (start)-[r:connected_to {
     created: timestamp(),
-    updated: timestamp(),
-    weight: {weight}
+    updated: timestamp()
 }]->(end)
 RETURN
     ID(start) AS start_location_id,
@@ -18,7 +17,6 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
-    r.weight AS relationship_weight,
     ID(end) AS end_location_id,
     end.created AS end_location_created,
     end.updated AS end_location_updated,

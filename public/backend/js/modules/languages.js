@@ -78,7 +78,6 @@ app.config(function($translateProvider, config) {
         EXAMPLE: 'Example',
         WEBSITE: 'website',
         PICTURE: 'picture',
-        WEIGHT: 'Weight',
         WIDTH: 'Width',
         HEIGHT: 'Height',
         DISTORTION: 'Distortion',

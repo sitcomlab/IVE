@@ -13,7 +13,6 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
-    r.weight AS relationship_weight,
     ID(end) AS end_location_id,
     end.created AS end_location_created,
     end.updated AS end_location_updated,
