@@ -36,6 +36,7 @@
     "moment": "^2.15.2",
     "neo4j-driver": "^1.0.4",
     "path": "^0.12.7",
+    "pg": "^6.1.2",
     "socket.io": "^1.5.1",
     "socket.io-client": "^1.7.2",
     "underscore": "^1.8.3",
