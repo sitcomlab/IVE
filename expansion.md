@@ -8,6 +8,8 @@ permalink: /expansion/
     1. [Extending nodes](#nodes)
     2. [Extending relationships](#extending-relationships)
 2. [REST-API](#rest-api)
+    1. [Postman](#postman)
+    2. [Endpoints](#endpoints)
 3. [Websockets](#websockets)
 4. [Extensions](#extensions)
     1. [Voice control system](#voice-control-system)
@@ -29,6 +31,17 @@ All relationships can be weighted. In the example graph the property `weight` in
 ***
 
 # 2. REST-API
+
+## 2.1. Postman
+
+All data can be accessed by a REST-API. You can easily test out the endpoints with the program [Postman](https://www.getpostman.com). Install it as a client or as an [Google Chrome extension](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop).
+In the folder `/rest/*` inside the repository, you can find two files, which can be imported to Postman. Import one of these files into Postman, like in the picture below or use the following button to download it automatically:
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/49c3353265bbafb1bb96)
+
+[<img src="{{ site.baseurl }}/images/postman.png" alt="Postman" class="picture" />]({{ site.baseurl }}/)
+
+## 2.2. Endpoints
 
 * Base-url: `/api/*`
 * Headers:
