@@ -393,6 +393,10 @@ hr {
     width: 100%;
 }
 
+.bordered {
+    border: 1px solid $lightGray;
+}
+
 .time {
     color: $gray;
     padding-top: 12px;

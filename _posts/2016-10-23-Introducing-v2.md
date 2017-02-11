@@ -7,11 +7,11 @@ excerpt_separator: <!--more-->
 
 > TL;DR: 2nd version is in development, everything will be more awesome!
 
+<!--more-->
+
 Hi folks,
 
 it's Nicho from the SitcomLab and I'm proud to announce the **2nd version** of the **Immersive Video Environment**! The development is currently in progress and a first prototype is already running. As the 1st version of the IVE (originally known as the *IPED-TOOLKIT*)  had some problems across the whole implementation, the 2nd version is a complete rebuild from scratch with a lot improvements under the hood.
-
-<!--more-->
 
 The original concept of a distributed client-server approach still exists. The following parts forms the system:
 
@@ -28,7 +28,7 @@ On the frontend side, I switched from Backbone.js to AngularJS (v1.5.x), which i
 Thanks to the new development, I was also able to the redesign the database schema, which fixed some shortcomings in the previous version:
 
 * A new entity (or in Cypher-language: label) was introduced: `Scenarios`. It allows filtering Locations, Videos and Overlays by a Scenario and builds also the fundament for future extensions
-* Overlays are no longer connected to locations, instead they are directly connected to videos, because a video must have a least one location. This approach allows you to embed the same overlay to different videos. Therefore the parameters of scaling, rotation and translation are no longer stored inside an Overlay object, they are now stored in the `-[:embedded_in]->` relationship.
+* Overlays are no longer connected to locations, instead they are directly connected to videos, because a video must have a least one location. This approach allows you to embed the same overlay to different videos. Therefore the parameters of scaling, rotation and translation are no longer stored inside an Overlay object, they are now stored in the `-[EMBEDDED_IN]->` relationship.
 * Renaming all relationships to make them more semantic, please see [this overview](/graph/#relationships) for more information about them
 * Finally the problem of indoor locations, which lay close to each other on a map and could not be clicked properly, was solved by introducing a so called <span class="label label-abstract-location">abstract:Location</span>, which works as parent location, please read [this documentation](/graph/#parent-location-approach) to get more information about it.
 
