@@ -31,11 +31,68 @@ All relationships can be weighted. In the example graph the property `weight` in
 # 2. REST-API
 
 * Base-url: `/api/*`
-* Authentication: `{ }`
+* Headers:
+    * `Content-Type: application/json` for the body of POST and PUT requests
+    * `Authorization: Bearer <TOKEN>` for protected endpoints
 
-| Method | Endpoint | Body | Description |
-|--------|----------|------|-------------|
-| **POST** | `/login` | `{ "": "" }` | |
+| Method | Endpoint | Authentication | Description |
+|--------|----------|----------------|-------------|
+| **POST** | `/login` | | |
+| **GET** | `/scenarios` | | |
+| **POST** | `/scenarios` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **DELETE** | `/scenarios` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/scenarios/:scenario_id` | | |
+| **PUT** | `/scenarios/:scenario_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **DELETE** | `/scenarios/:scenario_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/locations` | | |
+| **POST** | `/locations` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **DELETE** | `/locations` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/locations/:location_id` | | |
+| **PUT** | `/locations/:location_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **DELETE** | `/locations/:location_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/locations/:location_id/locations` | | |
+| **GET** | `/scenarios/:scenario_id/locations` | | |
+| **GET** | `/videos` | | |
+| **POST** | `/videos` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **DELETE** | `/videos` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/videos/:video_id` | | |
+| **PUT** | `/videos/:video_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **DELETE** | `/videos/:video_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/locations/:location_id/videos` | | |
+| **GET** | `/scenarios/:scenario_id/locations` | | |
+| **GET** | `/overlays` | | |
+| **POST** | `/overlays` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **DELETE** | `/overlays` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/overlays/:overlay_id` | | |
+| **PUT** | `/overlays/:overlay_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **DELETE** | `/overlays/:overlay_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/videos/:video_id/overlays` | | |
+| **GET** | `/scenarios/:scenario_id/overlays` | | |
+| **GET** | `/relationship/belongs_to/:labels` | | |
+| **GET** | `/relationship/connected_to` | | |
+| **GET** | `/relationship/embedded_in` | | |
+| **GET** | `/relationship/has_parent_location` | | |
+| **GET** | `/relationship/recorded_at` | | |
+| **POST** | `/relationship/belongs_to/:label` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **POST** | `/relationship/connected_to` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **POST** | `/relationship/embedded_in` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **POST** | `/relationship/has_parent_location` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **POST** | `/relationship/recorded_at` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/relationship/belongs_to/:relationship_id/:label` | | |
+| **GET** | `/relationship/connected_to/:relationship_id` | | |
+| **GET** | `/relationship/embedded_in/:relationship_id` | | |
+| **GET** | `/relationship/has_parent_location/:relationship_id` | | |
+| **GET** | `/relationship/recorded_at/:relationship_id` | | |
+| **PUT** | `/relationship/belongs_to/:relationship_id/:label` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **PUT** | `/relationship/connected_to/:relationship_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **PUT** | `/relationship/embedded_in/:relationship_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **PUT** | `/relationship/has_parent_location/:relationship_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **PUT** | `/relationship/recorded_at/:relationship_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **DELETE** | `/relationships/:relationship_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** or **DELETE** | `/reset` | <i class="fa fa-lock" aria-hidden="true"></i> | |
+| **GET** | `/handlers/set/scenario/:scenario_id` | | |
+| **GET** | `/handlers/set/location/:location_id'` | | |
+| **GET** | `/handlers/set/video/:video_id` | | |
 
 ***
 
