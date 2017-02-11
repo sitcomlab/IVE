@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /extensions/
+permalink: /expansion/
 ---
 
 #### Overview
@@ -9,7 +9,8 @@ permalink: /extensions/
     2. [Extending relationships](#extending-relationships)
 2. [REST-API](#rest-api)
 3. [Websockets](#websockets)
-4. [Voice control system](#voice-control-system)
+4. [Extensions](#extensions)
+    1. [Voice control system](#voice-control-system)
 
 ***
 
@@ -29,17 +30,29 @@ All relationships can be weighted. In the example graph the property `weight` in
 
 # 2. REST-API
 
-TODO
+* Base-url: `/api/*`
+* Authentication: `{ }`
+
+| Method | Endpoint | Body | Description |
+|--------|----------|------|-------------|
+| **POST** | `/login` | `{ "": "" }` | |
 
 ***
 
 # 3. Websockets
 
-TODO
+| Endpoint | Message | Description |
+|----------|---------|-------------|
+| `/set/scenario` | `{ "scenario_id": 1 }` | Set the scenario inside the frontend application |
+| `/set/location` | `{ "location_id": 2 }` | Set the (start-) location inside the frontend application |
+| `/set/video` | `{ "video_id": 3 }` | Set (change) the current video inside the frontend application |
+| `/toggle/overlay` | `{ "overlay_id": 4 }` | Show or hide the current overlay inside the frontend application |
 
 ***
 
-# 4. Voice control system
+# 4. Extensions
+
+## 4.1. Voice control system
 
 The IVE was extended by **Nicholas Schiestel** <a href="https://github.com/nicho90" target="_blank" class="link"><i class="fa fa-github-alt" aria-hidden="true"></i></a> <a href="https://twitter.com/Nicho_S_90" target="_blank" class="link"><i class="fa fa-twitter" aria-hidden="true"></i></a> with a voice control system as part of his bachelor thesis.
 The following image shows the basic architecture of the implementation.

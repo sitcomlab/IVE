@@ -9,12 +9,15 @@ permalink: /import/
     2. [CSV files](#csv-files)
     3. [REST-API](#rest-api)
     4. [Cypher queries](#cypher-queries)
+
+<!--
 2. [Data structure](#data-structure)
     1. [Scenarios](#scenarios)
     2. [Locations](#locations)
     3. [Videos](#videos)
     4. [Overlays](#overlays)
     5. [Relationships](#relationships)
+-->
 
 ***
 
@@ -46,7 +49,7 @@ It is not recommended to use it in this way, because the IVE-Backend provides a 
 This option is on the database-level and a direct way to your data. It is also not recommended, because the IVE-Backend provides a much better user-interface, where you can easily create new entries or edit existing ones. But if you need to check your data, as well as the graph for validating, the built-in neo4j-shell is the best way to do this.
 
 
-# 2. Data structure
+<!--# 2. Data structure
 
 ## 2.1. Scenarios
 
@@ -134,7 +137,7 @@ Example:
 
 
 
-<!-- TODO:
+ TODO:
 	Ground floor (2nd atrium 2)	/media/videos/geo_1/geo1-erdgeschoss-zweites-atrium-2	Erdgeschoss (2. Atrium 2)	Ground floor (2nd atrium 2)		s_3
 
 	Ground floor (lecture room)	/media/videos/geo_1/geo1-erdgeschoss-hoersaal	Erdgeschoss (Hörsaal)	Ground floor (lecture room)		s_3
@@ -146,7 +149,6 @@ Example:
 	2nd floor (stairwell)	/media/videos/geo_1/geo1-zweiter-stock-treppe	2. Stock (Treppenhaus)	2nd floor (stairwell)		s_3
 
 	4th floor (stairwell)	/media/videos/geo_1/geo1-vierter-stock-treppe	4. Stock (Treppenhaus)	4th floor (stairwell)		s_3
--->
 
 ### API
 
@@ -184,4 +186,4 @@ Response `201`:
     "recorded": null,
     "s_id": "s_3"
 }
-```
+```-->

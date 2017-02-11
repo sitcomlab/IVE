@@ -9,7 +9,8 @@ permalink: /install/
     2. [Import an existing graph](#import-an-existing-graph)
         1. [Automatic import](#automatic-import-recommended)
         2. [Own import](#own-import-not-recommended)
-    3. [View your imported data](#view-your-imported-data)
+    3. [Graph style sheet](#graph-style-sheet)
+    4. [View your imported data](#view-your-imported-data)
 2. [IVE](#ive)
     1. [Git/GitHub](#gitgithub)
     2. [GitHub repository](#github-repository)
@@ -99,9 +100,37 @@ CREATE CONSTRAINT ON (overlay:Overlays) ASSERT overlay.o_id IS UNIQUE;
 
 * After this step, you are able to import the data from CSV files. You can run all Cypher commands (**one by one**) from the file `IVE/queries/setup/` folder. The setup-script contains all of those commands and can also do this job for you.
 
-#### 1.3. View your imported data
+#### 1.3. Graph style sheet
 
-* Check if your data has been imported with the Cypher query:
+With a **graph-style-sheet** for the Neo4j Browser, you can customize the highlighting of your nodes and relationships. Neo4j automatically visualizes the nodes with different colors for different labels, but if you want to use the same color coding as the IVE, you can find a `grass.css` file in the repository. Drag and drop it, like this:
+
+[<img src="{{ site.baseurl }}/images/grass_import.png" alt="GRASS" class="picture" />]({{ site.baseurl }}/)
+
+If you need more information, please checkout the Neo4j manual at  [https://neo4j.com/developer/guide-neo4j-browser/#_advanced_styling](https://neo4j.com/developer/guide-neo4j-browser/#_advanced_styling).
+
+(The following styles are for future implementations and currently not supported by the IVE or Neo4j [https://github.com/neo4j/neo4j-browser/issues/131](https://github.com/neo4j/neo4j-browser/issues/131))
+
+```css
+node.Users {
+  color: #FF8000;
+  border-color: #DE6F00;
+  text-color-internal: #FFFFFF;
+  caption: '{name}';
+  diameter: 80px;
+}
+
+node.Locations[location_type="abstract"] {
+  color: #32CD32;
+  border-color: #2CB32C;
+  text-color-internal: #FFFFFF;
+  caption: '{name}';
+  diameter: 80px;
+}
+```
+
+#### 1.4. View your imported data
+
+* Check if your data has been imported correctly with the following cypher query:
 
 ```
 MATCH (n) RETURN n;
