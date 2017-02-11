@@ -58,9 +58,9 @@ dbms.directories.import=/Users/sitcomlab/IVE/data/
 ```
 
 #### 1.2.1. Automatic import (RECOMMENDED)
-You can use a setup-script to prepare the database CONSTRAINTS and import all CSV-files automatically. If you want to do it manually, which is only necessary, if you need a clean installation without any imported data, then checkout the instructions of 1.2.2.
+You can use a setup-script to prepare the database CONSTRAINTS and import all CSV-files of the [four scenarios]({{ site.baseurl }}/data/#available-scenarios) automatically. If you want to do it manually - for example with your own CSV-files - then checkout the instructions of [1.2.2.](#own-import-not-recommended)
 
-* If you don't have Nodejs installed, please follow the instructions of 2.3 first.
+* If you don't have Nodejs installed, please follow the instructions of [2.3.](#nodejs) first.
 * Execute the setup-script with the following command (run the command with `sudo`, if you don't have permission):
 
 ```
@@ -98,7 +98,7 @@ CREATE CONSTRAINT ON (video:Videos) ASSERT video.v_id IS UNIQUE;
 CREATE CONSTRAINT ON (overlay:Overlays) ASSERT overlay.o_id IS UNIQUE;
 ```
 
-* After this step, you are able to import the data from CSV files. You can run all Cypher commands (**one by one**) from the file `IVE/queries/setup/` folder. The setup-script contains all of those commands and can also do this job for you.
+* After this step, you are able to import the data from CSV files. You can run all Cypher commands (**one by one**) from the file `IVE/queries/setup/` folder. But the setup-script contains all of those commands and can also do this job for you.
 
 #### 1.3. Graph style sheet
 
@@ -195,8 +195,10 @@ sudo bower install --allow-root
 @reboot         root    neo4j restart
 
 # Start IVE
-@reboot         root    cd /home/<username>/IVE && PORT=4000 USERNAME=<NEO4J> PW=<NEO4J> node server.js >> log.txt
+@reboot         root    cd /home/<username>/IVE && PORT=4000 DB_USER=<NEO4J> DB_PASSWORD=<NEO4J> node server.js >> log.txt
 ```
+
+* Add an optional `>> log.txt` to automatically log the output of the console to a text-file.
 
 ***
 

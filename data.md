@@ -165,22 +165,22 @@ This relationship is used to embed an overlay into a video. Its spatial orientat
 
 ###### PROPERTIES
 
-* `w` (Float):
-* `h` (Float):
-* `d` (Float):
-* `x` (Float):
-* `y` (Float):
-* `z` (Float):
-* `rx` (Float):
-* `ry` (Float):
-* `rz` (Float):
-* `display` (Boolean):
+* `w` (Float): width of the overlay
+* `h` (Float): height of the overlay
+* `d` (Float):  distortion of the overlay
+* `x` (Float): translation of the overlay on the x-axis
+* `y` (Float): translation of the overlay on the y-axis
+* `z` (Float): translation of the overlay on the z-axis
+* `rx` (Float): rotation of the overlay on the x-axis
+* `ry` (Float): rotationof the overlay on the y-axis
+* `rz` (Float): rotationof the overlay on the z-axis
+* `display` (Boolean): the default value is `true`. If you want to hide the overlay by default, set the value to `false`, so when you enter a location in the IVE the overlay is hidden and can be enabled manually.
 
 ***
 
 # 4. Available scenarios
 
-If you want to test the IVE and don't want to create own data, you can [import]({{ site.baseurl }}/import) the data of the following scenarios. All required data are stored in CSV files in the folder `data/*`. Use the [setup-script]({{ site.baseurl }}/install/#121-automatic-import-recommended) to automatically import all files. 
+If you want to test the IVE and don't want to create own data, you can [import]({{ site.baseurl }}/import/) the data of the following scenarios. All required data are stored in CSV files in the folder `data/*`. Use the [setup-script]({{ site.baseurl }}/install/#automatic-import-recommended) to automatically import all files.
 
 ## 4.1. First scenario
 
