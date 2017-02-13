@@ -81,7 +81,7 @@ In the folder `/rest/*` inside the repository, you can find two files, which can
 | **DELETE** | `/overlays/:overlay_id` | <i class="fa fa-lock" aria-hidden="true"></i> | |
 | **GET** | `/videos/:video_id/overlays` | | |
 | **GET** | `/scenarios/:scenario_id/overlays` | | |
-| **GET** | `/relationship/belongs_to/:labels` | | |
+| **GET** | `/relationship/belongs_to/:label` | | |
 | **GET** | `/relationship/connected_to` | | |
 | **GET** | `/relationship/embedded_in` | | |
 | **GET** | `/relationship/has_parent_location` | | |
