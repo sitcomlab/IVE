@@ -1,3 +1,3 @@
-<img src="https://sitcomlab.github.io/IVE/images/logo.png" alt="IVE logo" title="IVE" align="right" height="96" width="96"/>
+<img src="https://raw.githubusercontent.com/sitcomlab/IVE/master/public/backend/images/logo.svg" alt="IVE logo" title="IVE" align="right"/>
 
 # The Immersive Video Environment
