@@ -263,6 +263,13 @@ app.config(function($routeProvider, $locationProvider, config) {
                 factory: checkAuthentication
             }
         })
+        .when("/relationship/embedded_in/:relationship_id/preview", {
+            templateUrl: "js/templates/relationship/edit/embedded_in_preview.html",
+            controller: "embeddedInEditPreviewController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
         .when("/relationship/has_parent_location/:relationship_id/edit", {
             templateUrl: "js/templates/relationship/edit/has_parent_location.html",
             controller: "hasParentLocationEditController",
@@ -273,13 +280,6 @@ app.config(function($routeProvider, $locationProvider, config) {
         .when("/relationship/recorded_at/:relationship_id/edit", {
             templateUrl: "js/templates/relationship/edit/recorded_at.html",
             controller: "recordedAtEditController",
-            resolve: {
-                factory: checkAuthentication
-            }
-        })
-        .when("/relationship/embedded_in/:relationship_id/preview", {
-            templateUrl: "js/templates/relationship/embedded_in_preview.html",
-            controller: "embeddedInEditPreviewController",
             resolve: {
                 factory: checkAuthentication
             }

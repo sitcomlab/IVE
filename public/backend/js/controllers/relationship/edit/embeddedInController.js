@@ -23,6 +23,7 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
      */
     $scope.redirect = function(path){
         $location.url(path);
+        console.log($location.url(path));
     };
 
     /**
