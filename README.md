@@ -1,4 +1,7 @@
-# IVE
-The Immersive Video Environment
+<img src="https://raw.githubusercontent.com/sitcomlab/IVE/dev/images/logo.png" alt="IVE logo" title="IVE" align="right" height="100" width="268"/>
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/run-collection/:collection_id)
+# The Immersive Video Environment
+
+## License
+
+[MIT](LICENSE)

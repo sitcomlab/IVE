@@ -62,8 +62,7 @@ exports.request = function(req, res) {
 
             // TODO: Validate all attributes of req.body
             var params = {
-                relationship_id: req.params.relationship_id,
-                weight: req.body.relationship_weight
+                relationship_id: req.params.relationship_id
             };
 
             callback(null, params);

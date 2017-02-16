@@ -18,9 +18,9 @@
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
                 <div class="btn-group" role="group" aria-label="buttons">
-                    <a href="" class="btn btn-secondary" ng-click="redirect('/relationship/connected_to/' + relationship.relationship_id + '/edit')">
+                    <button type="button" class="btn btn-secondary" ng-click="redirect('/relationship/connected_to/' + relationship.relationship_id + '/edit')" disabled>
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT' | translate}}
-                    </a>
+                    </button>
                     <a href="" class="btn btn-danger" ng-click="redirect('/relationship/connected_to/' + relationship.relationship_id + '/delete')">
                         <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate}}
                     </a>
@@ -71,15 +71,6 @@
                             </th>
                             <td>
                                 <code>{{relationship.relationship_id}}</code>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ 'WEIGHT' | translate }}
-                            </th>
-                            <td>
-                                <kbd ng-if="relationship.relationship_weight!=null">{{relationship.relationship_weight}}</kbd>
-                                <span class="text-muted" ng-if="relationship.relationship_weight==null">-</span>
                             </td>
                         </tr>
                         <tr>

@@ -32,8 +32,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 case 'connected_to': {
                     new_object = {
                         start_location_id: null,
-                        end_location_id: null,
-                        weight: 1
+                        end_location_id: null
                     };
                     break;
                 }
