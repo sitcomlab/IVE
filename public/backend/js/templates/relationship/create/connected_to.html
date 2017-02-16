@@ -100,31 +100,6 @@
                             <br>
                         </div>
                     </div>
-
-                    <hr>
-                    <p class="text-muted middle">
-                        <b>{{ 'PROPERTIES' | translate }}</b>
-                    </p>
-                    <label>
-                        <b>{{ 'WEIGHT' | translate }}*</b>
-                    </label>
-                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.weight.$invalid && !createRelationshipForm.weight.$pristine}">
-                        <input
-                            type="number"
-                            class="form-control"
-                            ng-model="relationship.weight"
-                            name="weight"
-                            id="weight"
-                            placeholder="{{ 'WEIGHT' | translate }}*"
-                            aria-describedby="inputWeight"
-                            required>
-                        <span ng-show="createRelationshipForm.weight.$error.required && !createRelationshipForm.weight.$pristine" class="text-danger">
-                            <small>
-                                {{ 'REQUIRED' | translate }}
-                            </small>
-                        </span>
-                    </div>
-                    <br>
                 </div>
 
                 <div class="card-footer">

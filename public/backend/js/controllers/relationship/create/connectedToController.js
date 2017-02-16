@@ -35,7 +35,6 @@ app.controller("connectedToCreateController", function($scope, $rootScope, $rout
             // Update UI
             $scope.createRelationshipForm.start_location_id.$pristine = false;
             $scope.createRelationshipForm.end_location_id.$pristine = false;
-            $scope.createRelationshipForm.weight.$pristine = false;
         } else {
             $scope.changeTab(0);
             $relationshipService.create('connected_to', $scope.relationship)

@@ -1,0 +1,618 @@
+{
+	"variables": [],
+	"info": {
+		"name": "IVE (local)",
+		"_postman_id": "b932361e-e0e2-ab05-830e-592bae84c035",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Handlers",
+			"description": "",
+			"item": [
+				{
+					"name": "Set scenario",
+					"request": {
+						"url": "localhost:5000/api/handlers/set/scenario/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set location",
+					"request": {
+						"url": "localhost:5000/api/handlers/set/location/17",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set video (1)",
+					"request": {
+						"url": "localhost:5000/api/handlers/set/video/88",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set video (2)",
+					"request": {
+						"url": "localhost:5000/api/handlers/set/video/87",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"description": "",
+			"item": [
+				{
+					"name": "List locations",
+					"request": {
+						"url": "localhost:5000/api/locations",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List locations by scenario",
+					"request": {
+						"url": "localhost:5000/api/scenarios/1/locations",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List locations by location",
+					"request": {
+						"url": "localhost:5000/api/locations/1081/locations",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all locations",
+					"request": {
+						"url": "localhost:5000/api/locations",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"l_id\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create location",
+					"request": {
+						"url": "localhost:5000/api/locations/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"l_id\": \"test\",\n    \"name\": \"Test\",\n    \"description\": \"Test\",\n    \"lat\": 51.957,\n    \"lng\": 7.6330,\n    \"location_type\": \"indoor\"\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get location by id",
+					"request": {
+						"url": "localhost:5000/api/locations/1088",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Edit location",
+					"request": {
+						"url": "localhost:5000/api/locations/1212",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"l_id\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete location",
+					"request": {
+						"url": "localhost:5000/api/locations/1212",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"l_id\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Overlays",
+			"description": "",
+			"item": [
+				{
+					"name": "List overlays",
+					"request": {
+						"url": "localhost:5000/api/overlays",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List overlays by scenario",
+					"request": {
+						"url": "localhost:5000/api/scenarios/1065/overlays",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List overlays by video",
+					"request": {
+						"url": "localhost:5000/api/videos/1145/overlays",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create overlays",
+					"request": {
+						"url": "localhost:5000/api/overlays",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"o_id\": \"test\",\n    \"name\": \"Test\",\n    \"description\": \"Test\",\n    \"category\": null,\n    \"url\": \"http://example.org\"\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all overlays",
+					"request": {
+						"url": "localhost:5000/api/overlays",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get overlay by id",
+					"request": {
+						"url": "localhost:5000/api/overlays/1210",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Edit overlay",
+					"request": {
+						"url": "localhost:5000/api/overlays/1514",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test-2\",\n    \"description\": \"Test\",\n    \"category\": null,\n    \"url\": \"http://example.org\"\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete overlay",
+					"request": {
+						"url": "localhost:5000/api/overlays/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"o_id\": \"test\",\n    \"name\": \"Test\",\n    \"description\": \"Test\",\n    \"category\": null,\n    \"url\": \"http://example.org\"\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Relationships",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "Scenarios",
+			"description": "",
+			"item": [
+				{
+					"name": "List scenarios",
+					"request": {
+						"url": "localhost:5000/api/scenarios",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create scenario",
+					"request": {
+						"url": "localhost:5000/api/scenarios",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test-7\",\n    \"description\": \"Test-7\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all scenarios",
+					"request": {
+						"url": "localhost:5000/api/scenarios",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get scenario by id",
+					"request": {
+						"url": "localhost:5000/api/scenarios/1066",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Edit scenario",
+					"request": {
+						"url": "localhost:5000/api/scenarios/891",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenario_id\": 891,\n  \"created\": 1481908792639,\n  \"updated\": 1481908792639,\n  \"s_id\": \"test-1234567890\",\n  \"name\": \"test-1234567890\",\n  \"description\": \"test-1234567890\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete scenario",
+					"request": {
+						"url": "localhost:5000/api/scenarios/1362",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Videos",
+			"description": "",
+			"item": [
+				{
+					"name": "List videos",
+					"request": {
+						"url": "localhost:5000/api/videos",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List videos by scenario",
+					"request": {
+						"url": "localhost:5001/api/scenarios/1065/videos",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List videos by location",
+					"request": {
+						"url": "localhost:5000/api/scenarios/1065/videos",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create video",
+					"request": {
+						"url": "localhost:5000/api/videos",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test\",\n    \"description\": \"Test\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all videos",
+					"request": {
+						"url": "localhost:5000/api/videos/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"v_id\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get video by id",
+					"request": {
+						"url": "localhost:5000/api/videos/1139",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Edit video",
+					"request": {
+						"url": "localhost:5000/api/videos/1211",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"v_id\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete video",
+					"request": {
+						"url": "localhost:5000/api/videos/1211",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <TOKEN>",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"v_id\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"url": "localhost:5000/api/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+				},
+				"description": "Login to retrieve an access-token"
+			},
+			"response": []
+		}
+	]
+}

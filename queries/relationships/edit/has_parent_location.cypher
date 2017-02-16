@@ -1,9 +1,7 @@
-MATCH (child:Locations) WHERE ID(child) = toInt({child_location_id})
-MATCH (parent:Locations) WHERE ID(parent) = toInt({parent_scenario_id})
-CREATE (child)-[r:parent_location {
-    created: timestamp(),
-    updated: timestamp()
-}]->(parent)
+MATCH (child:Locations)-[r:has_parent_location]->(parent:Locations)
+WHERE ID(r)=toInt({relationship_id})
+SET
+    r.updated = timestamp()
 RETURN
     ID(child) AS child_location_id,
     child.created AS child_location_created,

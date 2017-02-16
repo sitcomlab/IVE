@@ -18,7 +18,7 @@
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
                 <div class="btn-group" role="group" aria-label="buttons">
-                    <a href="" class="btn btn-danger" ng-click="redirect('/relationship/parent_location/' + relationship.relationship_id + '/delete')">
+                    <a href="" class="btn btn-danger" ng-click="redirect('/relationship/has_parent_location/' + relationship.relationship_id + '/delete')">
                         <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate}}
                     </a>
                 </div>
@@ -45,7 +45,7 @@
                         </div>
                         <div>
                             <span class="badge badge-pill badge-default">
-                                &mdash;&nbsp;PARENT_LOCATION&nbsp;&mdash;&gt;
+                                &mdash;&nbsp;HAS_PARENT_LOCATION&nbsp;&mdash;&gt;
                             </span>
                         </div>
                         <div>
@@ -67,7 +67,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/parent_location/' + relationship.relationship_id)">
+                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/has_parent_location/' + relationship.relationship_id)">
                                 <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
                             </button>
                         </div>

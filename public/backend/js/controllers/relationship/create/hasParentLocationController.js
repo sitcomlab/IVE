@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Relationship parent_location create controller
-app.controller("parentLocationCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService) {
+// Relationship has_parent_location create controller
+app.controller("hasParentLocationCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService) {
 
     /*************************************************
         FUNCTIONS
@@ -34,13 +34,13 @@ app.controller("parentLocationCreateController", function($scope, $rootScope, $r
         if($scope.createRelationshipForm.$invalid) {
             // Update UI
             $scope.createRelationshipForm.child_location_id.$pristine = false;
-            $scope.createRelationshipForm.parent_location_id.$pristine = false;
+            $scope.createRelationshipForm.has_parent_location_id.$pristine = false;
         } else {
             $scope.changeTab(0);
-            $relationshipService.create('parent_location', $scope.relationship)
+            $relationshipService.create('has_parent_location', $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
-                $scope.redirect("/relationship/parent_location/" + $scope.relationship.relationship_id);
+                $scope.redirect("/relationship/has_parent_location/" + $scope.relationship.relationship_id);
             })
             .catch(function onError(response) {
                 $window.alert(response.data);
@@ -149,7 +149,7 @@ app.controller("parentLocationCreateController", function($scope, $rootScope, $r
         INIT
      *************************************************/
     $scope.changeTab(0);
-    $scope.relationship = $relationshipService.init('connected_to');
+    $scope.relationship = $relationshipService.init('has_parent_location');
 
     // Prepare dropdown
     $scope.childLocationDropdown = {

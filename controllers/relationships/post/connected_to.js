@@ -80,8 +80,7 @@ exports.request = function(req, res) {
             // TODO: Validate all attributes of req.body
             var params = {
                 start_location_id: req.body.start_location_id,
-                end_location_id: req.body.end_location_id,
-                weight: req.body.weight
+                end_location_id: req.body.end_location_id
             };
 
             callback(null, params);

@@ -1,5 +1,4 @@
-MATCH (child:Locations)-[r:parent_location]->(parent:Locations)
-WHERE ID(r)=toInt({relationship_id})
+MATCH (child:Locations)-[r:has_parent_location]->(parent:Locations)
 RETURN
     ID(child) AS child_location_id,
     child.created AS child_location_created,

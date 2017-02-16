@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Relationship parent_location list controller
-app.controller("parentLocationListController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+// Relationship has_parent_location list controller
+app.controller("hasParentLocationListController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
@@ -37,7 +37,7 @@ app.controller("parentLocationListController", function($scope, $rootScope, $rou
      *************************************************/
     $scope.changeTab(0);
     $scope.searchText = "";
-    $relationshipService.list_by_type('parent_location')
+    $relationshipService.list_by_type('has_parent_location')
     .then(function onSuccess(response) {
         $scope.relationships = response.data;
         $scope.changeTab(1);

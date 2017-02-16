@@ -86,7 +86,8 @@
                                 {{ 'LONGITUDE' | translate }}
                             </th>
                             <td>
-                                <kbd>{{location.lng}}</kbd>
+                                <kbd ng-if="location.lng!=null">{{location.lng}}</kbd>
+                                <span class="text-muted" ng-if="location.lng==null">-</span>
                             </td>
                         </tr>
                         <tr>
@@ -94,7 +95,8 @@
                                 {{ 'LATITUDE' | translate }}
                             </th>
                             <td>
-                                <kbd>{{location.lat}}</kbd>
+                                <kbd ng-if="location.lat!=null">{{location.lat}}</kbd>
+                                <span class="text-muted" ng-if="location.lat==null">-</span>
                             </td>
                         </tr>
                         <tr>

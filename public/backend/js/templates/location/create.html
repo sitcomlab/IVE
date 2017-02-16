@@ -92,7 +92,7 @@
                                     id="lng"
                                     placeholder="{{ 'LONGITUDE' | translate }}*"
                                     aria-describedby="inputLng"
-                                    required>
+                                    ng-required="location.location_type=='abstract' || location.location_type=='outdoor'">
                                 <span ng-show="createLocationForm.lng.$error.required && !createLocationForm.lng.$pristine" class="text-danger">
                                     <small>
                                         {{ 'REQUIRED' | translate }}
@@ -119,7 +119,7 @@
                                     id="lat"
                                     placeholder="{{ 'LATITUDE' | translate }}*"
                                     aria-describedby="inputLat"
-                                    required>
+                                    ng-required="location.location_type=='abstract' || location.location_type=='outdoor'">
                                 <span ng-show="createLocationForm.lat.$error.required && !createLocationForm.lat.$pristine" class="text-danger">
                                     <small>
                                         {{ 'REQUIRED' | translate }}

@@ -33,7 +33,6 @@ app.controller("connectedToEditController", function($scope, $rootScope, $routeP
         // Validate input
         if($scope.editRelationshipForm.$invalid) {
             // Update UI
-            $scope.editRelationshipForm.relationship_weight.$pristine = false;
         } else {
             $scope.changeTab(0);
             $relationshipService.edit('connected_to', $scope.relationship.relationship_id, $scope.relationship)

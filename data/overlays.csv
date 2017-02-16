@@ -1,4 +1,4 @@
-o_id,name,description,category,url,s_id
-o_01,Münster Marketing & Stadwerke,Brand advertisement,picture,/media/images/display1.gif,s_02
-o_02,Movie advertisement,Movie advertisement (Looper),picture,/media/images/display_looper.gif,s_02
-o_03,News,Uni Muenster Homepage,website,http://www.uni-muenster.de/de/,s_01
+o_id,name,description,category,url
+o_01,Münster Marketing & Stadwerke,Brand advertisement,picture,/media/images/display1.gif
+o_02,Movie advertisement,Movie advertisement (Looper),picture,/media/images/display_looper.gif
+o_03,News,Uni Muenster Homepage,website,http://www.uni-muenster.de/de/
