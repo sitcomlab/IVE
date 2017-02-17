@@ -268,5 +268,4 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         });
     });
 
-
 });
