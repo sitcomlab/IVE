@@ -44,7 +44,7 @@ session
     });
 
 
-// Load certificstes
+// Load certificates
 if (environment === "production") {
     var privateKey = fs.readFileSync('ssl/server.key', 'utf8');
     var certificate = fs.readFileSync('ssl/server.crt', 'utf8');
