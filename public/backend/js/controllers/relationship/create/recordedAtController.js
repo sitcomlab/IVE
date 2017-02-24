@@ -31,9 +31,9 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
      */
     $scope.send = function(){
         // Validate input
-        if($scope.editRelationshipForm.$invalid) {
+        if($scope.createRelationshipForm.$invalid) {
             // Update UI
-            $scope.editRelationshipForm.preferred.$pristine = false;
+            $scope.createRelationshipForm.preferred.$pristine = false;
         } else {
             $scope.changeTab(0);
             $relationshipService.create('recorded_at', $scope.relationship)

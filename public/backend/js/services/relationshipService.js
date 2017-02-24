@@ -103,13 +103,22 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 return $http.get(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id);
             }
         },
-        create: function(relationship_type, label, data) {
-            return $http.post(config.apiURL + "/relationship/" + relationship_type + "/" + label, data, {
-                headers: {
-                    'Authorization': 'Bearer ' + $authenticationService.getToken(),
-                    'Content-Type': 'application/json'
-                }
-            });
+        create: function(relationship_type, data, label) {
+            if(label){
+                return $http.post(config.apiURL + "/relationship/" + relationship_type + "/" + label, data, {
+                    headers: {
+                        'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } else {
+                return $http.post(config.apiURL + "/relationship/" + relationship_type, data, {
+                    headers: {
+                        'Authorization': 'Bearer ' + $authenticationService.getToken(),
+                        'Content-Type': 'application/json'
+                    }
+                });
+            }
         },
         edit: function(relationship_type, relationship_id, label, data) {
             return $http.put(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id + "/" + label, data, {
