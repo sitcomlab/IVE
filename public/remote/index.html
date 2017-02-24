@@ -54,24 +54,24 @@
     <body ng-app="ive">
 
         <!-- MAIN -->
-        <div class="container-fluid" ng-view></div>
+        <main ng-view></main>
 
-        <!-- FOOTER -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <span class="text-muted">
-                    <center>
-                        <small>
-                            &copy; {{config.appYear}}
-                            <a href="https://www.uni-muenster.de/Geoinformatics/en/index.html" target="_blank">Institute for Geoinformatics</a>
-                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <a href="/" target="_self" class="link">
-                                <i class="fa fa-home" aria-hidden="true"></i>
-                            </a>
-                        </small>
-                    </center>
-                </span>
+        <!-- Footer -->
+        <footer ng-controller="footerController">
+            <nav class="nav nav-pills flex-column navbar-inverse bg-inverse">
+                <ul class="nav nav-pills justify-content-between">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="" ng-click="toggleSettings()" style="cursor: pointer; background-color:#FFFFFF; border: 1px solid #CCCCCC; color: #292b2c;">
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div ng-show="settingsStatus" class="settings bg-inverse">
+                - {{ 'CURRENTLY' | translate }} {{ 'NO' | translate }} {{ 'SETTINGS' | translate }} -
             </div>
+
         </footer>
 
         <!-- App Config -->
@@ -93,6 +93,7 @@
 
         <!-- Main Controllers -->
         <script src="js/controllers/mainController.js"></script>
+        <script src="js/controllers/footerController.js"></script>
 
     </body>
 </html>

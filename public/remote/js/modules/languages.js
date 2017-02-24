@@ -31,7 +31,10 @@ app.config(function($translateProvider, config) {
         NO_LOCATIONS_FOUND: 'No locations found',
         NO_CONNECTED_LOCATIONS_FOUND: 'No connected locations found',
         NO_VIDEOS_FOUND: 'No videos found',
-        NO_OVERLAYS_FOUND: 'No overlays found'
+        NO_OVERLAYS_FOUND: 'No overlays found',
+
+        CURRENTLY: 'currently',
+        NO: 'no'
     });
 
 

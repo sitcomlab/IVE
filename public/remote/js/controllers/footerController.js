@@ -1,9 +1,16 @@
-var app = angular.module("hurryup");
+var app = angular.module("ive");
 
 
 /**
  * Footer Controller
  */
-app.controller("footerController", function($scope, $rootScope, config, $translate, $moment, $interval) {
+app.controller("footerController", function($scope, $rootScope, config, $translate, $window) {
     $scope.config = config;
+
+    $scope.settingsStatus = false;
+
+    $scope.toggleSettings = function(){
+        $scope.settingsStatus = !$scope.settingsStatus;
+    };
+
 });
