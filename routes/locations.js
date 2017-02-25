@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var isAuthenticated = require('../server.js').isAuthenticated;
 
 var list = require('../controllers/locations/list');
 var post = require('../controllers/locations/post');
@@ -18,20 +19,20 @@ var list_by_location = require('../controllers/locations/list_by_location');
 router.get('/locations', list.request);
 
 // POST
-router.post('/locations', post.request);
+router.post('/locations', isAuthenticated, post.request);
 
 // DELETE ALL
-router.delete('/locations', del_all.request);
+router.delete('/locations', isAuthenticated, del_all.request);
 
 
 // GET
 router.get('/locations/:location_id', get.request);
 
 // PUT
-router.put('/locations/:location_id', put.request);
+router.put('/locations/:location_id', isAuthenticated, put.request);
 
 // DELETE
-router.delete('/locations/:location_id', del.request);
+router.delete('/locations/:location_id', isAuthenticated, del.request);
 
 
 // LIST BY LOCATION

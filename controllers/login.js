@@ -4,7 +4,7 @@ var _ = require('underscore');
 var moment = require('moment');
 var jwt = require('jsonwebtoken');
 var jwtSecret = require('../server.js').jwtSecret;
-var backend_account = require('../server.js').backend_account;
+var account = require('../server.js').account;
 var server_url = require('../server.js').server_url;
 
 
@@ -12,16 +12,16 @@ var server_url = require('../server.js').server_url;
 exports.request = function(req, res) {
 
     // Authentication
-    if(backend_account.username === req.body.username && backend_account.password === req.body.password){
+    if(account.username === req.body.username && account.password === req.body.password){
         // Create payload
         payload = {
             iss: server_url,
-            username: backend_account.username,
+            username: account.username,
             exp: moment().add(1, 'days').valueOf()
         };
         // Create JWT
         var result = {
-            username: backend_account.username,
+            username: account.username,
             token: jwt.sign(payload, jwtSecret)
         };
         res.status(200).send(result);

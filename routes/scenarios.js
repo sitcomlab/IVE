@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var isAuthenticated = require('../server.js').isAuthenticated;
 
 var list = require('../controllers/scenarios/list');
 var post = require('../controllers/scenarios/post');
@@ -15,20 +16,20 @@ var del = require('../controllers/scenarios/delete');
 router.get('/scenarios', list.request);
 
 // POST
-router.post('/scenarios', post.request);
+router.post('/scenarios', isAuthenticated, post.request);
 
 // DELETE ALL
-router.delete('/scenarios', del_all.request);
+router.delete('/scenarios', isAuthenticated, del_all.request);
 
 
 // GET
 router.get('/scenarios/:scenario_id', get.request);
 
 // PUT
-router.put('/scenarios/:scenario_id', put.request);
+router.put('/scenarios/:scenario_id', isAuthenticated, put.request);
 
 // DELETE
-router.delete('/scenarios/:scenario_id', del.request);
+router.delete('/scenarios/:scenario_id', isAuthenticated, del.request);
 
 
 module.exports = router;

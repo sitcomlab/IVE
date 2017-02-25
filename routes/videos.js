@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var isAuthenticated = require('../server.js').isAuthenticated;
 
 var list = require('../controllers/videos/list');
 var post = require('../controllers/videos/post');
@@ -18,20 +19,20 @@ var list_by_location = require('../controllers/videos/list_by_location');
 router.get('/videos', list.request);
 
 // POST
-router.post('/videos', post.request);
+router.post('/videos', isAuthenticated, post.request);
 
 // DELETE
-router.delete('/videos', del_all.request);
+router.delete('/videos', isAuthenticated, del_all.request);
 
 
 // GET
 router.get('/videos/:video_id', get.request);
 
 // PUT
-router.put('/videos/:video_id', put.request);
+router.put('/videos/:video_id', isAuthenticated, put.request);
 
 // DELETE
-router.delete('/videos/:video_id', del.request);
+router.delete('/videos/:video_id', isAuthenticated, del.request);
 
 
 // LIST BY SCENARIO
