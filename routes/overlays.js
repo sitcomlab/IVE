@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var isAuthenticated = require('../server.js').isAuthenticated;
 
 var list = require('../controllers/overlays/list');
 var post = require('../controllers/overlays/post');
@@ -18,20 +19,20 @@ var list_by_video = require('../controllers/overlays/list_by_video');
 router.get('/overlays', list.request);
 
 // POST
-router.post('/overlays', post.request);
+router.post('/overlays', isAuthenticated, post.request);
 
 // DELETE ALL
-router.delete('/overlays', del_all.request);
+router.delete('/overlays', isAuthenticated, del_all.request);
 
 
 // GET
 router.get('/overlays/:overlay_id', get.request);
 
 // PUT
-router.put('/overlays/:overlay_id', put.request);
+router.put('/overlays/:overlay_id', isAuthenticated, put.request);
 
 // DELETE
-router.delete('/overlays/:overlay_id', del.request);
+router.delete('/overlays/:overlay_id', isAuthenticated, del.request);
 
 
 // LIST BY SCENARIO
