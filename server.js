@@ -38,7 +38,7 @@ session
     .run(query)
     .then(function(result) {
         session.close();
-        console.log(colors.green(new Date() + " Neo4j is running on Port 7474"));
+        console.log(colors.green(new Date() + " Neo4j is running on port " + neo4j_port));
     })
     .catch(function(err) {
         console.error(colors.red(new Date() + " Neo4j could not been accessed:\n" + JSON.stringify(err)));
@@ -139,4 +139,4 @@ if(environment === "production") {
 var io = require('socket.io')(httpServer);
 exports.io = io;
 var sockets = require('./controllers/sockets.js').sockets;
-console.log(colors.green(new Date() + " Websocket-Server is listening"));
+console.log(colors.green(new Date() + " Websocket-Server is listening at port " + httpPort));
