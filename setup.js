@@ -3,13 +3,13 @@ var async = require('async');
 var neo4j = require('neo4j-driver').v1;
 var fs = require('fs');
 
-var db_host = process.env.DB_HOST || '127.0.0.1';
-var db_port = process.env.DB_PORT || '7687';
-var db_user = process.env.DB_USER || 'neo4j';
-var db_password = process.env.DB_PASSWORD || '123456';
+var neo4j_host = process.env.NEO4J_HOST || '127.0.0.1';
+var neo4j_port = process.env.NEO4J_PORT || '7687';
+var neo4j_username = process.env.NEO4J_USERNAME || 'neo4j';
+var neo4j_password = process.env.NEO4J_PASSWORD || '123456';
 
 // Connect to Neo4j
-var driver = neo4j.driver("bolt://" + db_host + ":" + db_port, neo4j.auth.basic(db_user, db_password));
+var driver = neo4j.driver("bolt://" + neo4j_host + ":" + neo4j_port, neo4j.auth.basic(neo4j_username, neo4j_password));
 var session = driver.session();
 
 // Load files
