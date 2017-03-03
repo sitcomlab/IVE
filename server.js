@@ -13,14 +13,14 @@ var environment = process.env.NODE_ENV || 'development';
 var server_url = process.env.SERVER_URL || 'http://giv-sitcomdev.uni-muenster.de';
 var httpPort = process.env.HTTP_PORT || 5000;
 var httpsPort = process.env.HTTPS_PORT || (httpPort + 443);
-var db_host = process.env.DB_HOST || '127.0.0.1';
-var db_port = process.env.DB_PORT || '7687';
-var db_user = process.env.DB_USER || 'neo4j';
-var db_password = process.env.DB_PASSWORD || '123456';
+var neo4j_host = process.env.NEO4J_HOST || '127.0.0.1';
+var neo4j_port = process.env.NEO4J_PORT || '7687';
+var neo4j_username = process.env.NEO4J_USERNAME || 'neo4j';
+var neo4j_password = process.env.NEO4J_PASSWORD || '123456';
 var postgres_host = process.env.POSTGRES_HOST || 'localhost';
 var postgres_port = process.env.POSTGRES_PORT || 5432;
 var postgres_db_name = process.env.POSTGRES_DB_NAME || 'ive';
-var postgres_user = process.env.POSTGRES_USER || 'Nicho';
+var postgres_username = process.env.POSTGRES_USERNAME || 'Nicho';
 var postgres_password = process.env.POSTGRES_PASSWORD || undefined;
 var postgres_ssl = process.env.POSTGRES_DB_SSL || false;
 var backend_user = process.env.BACKEND_USER || 'admin';
@@ -33,7 +33,7 @@ exports.backend_account = {
     password: backend_password
 };
 var pool = new pg.Pool({
-    user: postgres_user,
+    user: postgres_username,
     password: postgres_password,
     host: postgres_host,
     port: postgres_port,
@@ -44,7 +44,7 @@ exports.pool = pool;
 
 
 // Connect to Neo4j
-var driver = neo4j.driver("bolt://" + db_host + ":" + db_port, neo4j.auth.basic(db_user, db_password));
+var driver = neo4j.driver("bolt://" + neo4j_host + ":" + neo4j_port, neo4j.auth.basic(neo4j_username, neo4j_password));
 exports.driver = driver;
 var session = driver.session();
 var query = "RETURN true;";
