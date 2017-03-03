@@ -52,7 +52,7 @@ session
     .run(query)
     .then(function(result) {
         session.close();
-        console.log(colors.blue(new Date() + " Neo4j is running on Port " + db_port));
+        console.log(colors.green(new Date() + " Neo4j is running on port " + neo4j_port));
     })
     .catch(function(err) {
         console.error(colors.red(new Date() + " Neo4j could not been accessed:\n" + JSON.stringify(err)));
@@ -70,7 +70,7 @@ pool.connect(function(err, client, done) {
             if (err) {
                 console.error(colors.red(JSON.stringify(err)));
             } else {
-                console.log(colors.blue(new Date() + " Postgres is running on Port " + postgres_port));
+                console.log(colors.green(new Date() + " Postgres is running on port " + postgres_port));
             }
         });
     }
@@ -135,12 +135,12 @@ app.get('/*', function(req, res, next) {
 // Start Webserver
 var httpServer = http.createServer(app);
 httpServer.listen(httpPort, function() {
-    console.log(colors.blue(new Date() + " HTTP-Server is listening at port " + httpPort));
+    console.log(colors.green(new Date() + " HTTP-Server is listening at port " + httpPort));
 });
 if(environment === "production") {
     var httpsServer = https.createServer(credentials, app);
     httpsServer.listen(httpsPort, function() {
-        console.log(colors.blue(new Date() + " HTTPS-Server is listening at port " + httpsPort));
+        console.log(colors.green(new Date() + " HTTPS-Server is listening at port " + httpsPort));
     });
 }
 
@@ -148,4 +148,4 @@ if(environment === "production") {
 var io = require('socket.io')(httpServer);
 exports.io = io;
 var sockets = require('./controllers/sockets.js').sockets;
-console.log(colors.blue(new Date() + " Websocket-Server is listening"));
+console.log(colors.green(new Date() + " Websocket-Server is listening at port " + httpPort));
