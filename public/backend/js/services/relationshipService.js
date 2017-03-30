@@ -103,7 +103,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 return $http.get(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id);
             }
         },
-        create: function(relationship_type, data, label) {
+        create: function(relationship_type, label, data) {
             if(label){
                 return $http.post(config.apiURL + "/relationship/" + relationship_type + "/" + label, data, {
                     headers: {

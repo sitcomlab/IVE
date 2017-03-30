@@ -14,10 +14,10 @@ var environment = process.env.NODE_ENV || 'development';
 var server_url = process.env.SERVER_URL || 'http://giv-sitcomdev.uni-muenster.de';
 var httpPort = process.env.HTTP_PORT || 5000;
 var httpsPort = process.env.HTTPS_PORT || (httpPort + 443);
-var db_host = process.env.DB_HOST || '127.0.0.1';
-var db_port = process.env.DB_PORT || '7687';
-var db_user = process.env.DB_USER || 'neo4j';
-var db_password = process.env.DB_PASSWORD || '123456';
+var neo4j_host = process.env.NEO4J_HOST || '127.0.0.1';
+var neo4j_port = process.env.NEO4J_PORT || '7687';
+var neo4j_username = process.env.NEO4J_USERNAME || 'neo4j';
+var neo4j_password = process.env.NEO4J_PASSWORD || '123456';
 var backend_username = process.env.BACKEND_USERNAME || 'admin';
 var backend_password = process.env.BACKEND_PASSWORD || 'admin';
 var jwtSecret = process.env.JWTSECRET || 'superSecretKey';
@@ -30,7 +30,7 @@ var account = {
 exports.account = account;
 
 // Connect to Neo4j
-var driver = neo4j.driver("bolt://" + db_host + ":" + db_port, neo4j.auth.basic(db_user, db_password));
+var driver = neo4j.driver("bolt://" + neo4j_host + ":" + neo4j_port, neo4j.auth.basic(neo4j_username, backend_password));
 exports.driver = driver;
 var session = driver.session();
 var query = "RETURN true;";
@@ -38,7 +38,7 @@ session
     .run(query)
     .then(function(result) {
         session.close();
-        console.log(colors.green(new Date() + " Neo4j is running on Port 7474"));
+        console.log(colors.green(new Date() + " Neo4j is running on port " + neo4j_port));
     })
     .catch(function(err) {
         console.error(colors.red(new Date() + " Neo4j could not been accessed:\n" + JSON.stringify(err)));
@@ -139,4 +139,4 @@ if(environment === "production") {
 var io = require('socket.io')(httpServer);
 exports.io = io;
 var sockets = require('./controllers/sockets.js').sockets;
-console.log(colors.green(new Date() + " Websocket-Server is listening"));
+console.log(colors.green(new Date() + " Websocket-Server is listening at port " + httpPort));
