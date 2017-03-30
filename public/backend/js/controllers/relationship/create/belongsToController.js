@@ -35,7 +35,7 @@ app.controller("belongsToCreateController", function($scope, $rootScope, $routeP
             // Update UI
         } else {
             $scope.changeTab(0);
-            $relationshipService.create('belongs_to', $scope.label, $scope.relationship)
+            $relationshipService.create('belongs_to', $scope.relationship, $scope.label)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
                 $scope.redirect("/relationship/belongs_to/" + $scope.label + '/' + $scope.relationship.relationship_id);
