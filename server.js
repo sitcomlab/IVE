@@ -30,7 +30,7 @@ var account = {
 exports.account = account;
 
 // Connect to Neo4j
-var driver = neo4j.driver("bolt://" + neo4j_host + ":" + neo4j_port, neo4j.auth.basic(neo4j_username, backend_password));
+var driver = neo4j.driver("bolt://" + neo4j_host + ":" + neo4j_port, neo4j.auth.basic(neo4j_username, neo4j_password));
 exports.driver = driver;
 var session = driver.session();
 var query = "RETURN true;";
