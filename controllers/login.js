@@ -1,28 +1,25 @@
-var async = require('async');
 var colors = require('colors');
-var _ = require('underscore');
 var moment = require('moment');
 var jwt = require('jsonwebtoken');
-var jwtSecret = require('../server.js').jwtSecret;
-var account = require('../server.js').account;
-var server_url = require('../server.js').server_url;
 
 
 // LOGIN
 exports.request = function(req, res) {
 
     // Authentication
-    if(account.username === req.body.username && account.password === req.body.password){
+    if(process.env.BACKEND_USERNAME === req.body.username && process.env.BACKEND_PASSWORD === req.body.password){
         // Create payload
         payload = {
-            iss: server_url,
-            username: account.username,
-            exp: moment().add(1, 'days').valueOf()
+            iss: process.env.SERVER_URL,
+            sub: 'Login by username and password',
+            username: process.env.BACKEND_USERNAME,
+            iat: moment().unix(),
+            exp: moment().add(1, 'days').unix()
         };
         // Create JWT
         var result = {
-            username: account.username,
-            token: jwt.sign(payload, jwtSecret)
+            username: process.env.BACKEND_USERNAME,
+            token: jwt.sign(payload, process.env.JWT_SECRET)
         };
         res.status(200).send(result);
     } else {

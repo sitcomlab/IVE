@@ -6,31 +6,16 @@ var fs = require('fs');
 var path = require('path');
 var neo4j = require('neo4j-driver').v1;
 var jwt = require('jsonwebtoken');
+var config = require('dotenv').config();
 
-
-// Create server
-var app = express();
-var environment = process.env.NODE_ENV || 'development';
-var server_url = process.env.SERVER_URL || 'http://giv-sitcomdev.uni-muenster.de';
-var httpPort = process.env.HTTP_PORT || 5000;
-var httpsPort = process.env.HTTPS_PORT || (httpPort + 443);
-var neo4j_host = process.env.NEO4J_HOST || '127.0.0.1';
-var neo4j_port = process.env.NEO4J_PORT || '7687';
-var neo4j_username = process.env.NEO4J_USERNAME || 'neo4j';
-var neo4j_password = process.env.NEO4J_PASSWORD || '123456';
-var backend_username = process.env.BACKEND_USERNAME || 'admin';
-var backend_password = process.env.BACKEND_PASSWORD || 'admin';
-var jwtSecret = process.env.JWTSECRET || 'superSecretKey';
-exports.server_url = server_url;
-exports.jwtSecret = jwtSecret;
-var account = {
-    username: backend_username,
-    password: backend_password
-};
-exports.account = account;
 
 // Connect to Neo4j
-var driver = neo4j.driver("bolt://" + neo4j_host + ":" + neo4j_port, neo4j.auth.basic(neo4j_username, neo4j_password));
+var driver = neo4j.driver(
+    "bolt://" + process.env.NEO4J_HOST + ":" + process.env.NEO4J_PORT,
+    neo4j.auth.basic(
+        process.env.NEO4J_USERNAME,
+        process.env.NEO4J_PASSWORD
+));
 exports.driver = driver;
 var session = driver.session();
 var query = "RETURN true;";
@@ -38,7 +23,7 @@ session
     .run(query)
     .then(function(result) {
         session.close();
-        console.log(colors.green(new Date() + " Neo4j is running on port " + neo4j_port));
+        console.log(colors.green(new Date() + " Neo4j is running on port " + process.env.NEO4J_PORT));
     })
     .catch(function(err) {
         console.error(colors.red(new Date() + " Neo4j could not been accessed:\n" + JSON.stringify(err)));
@@ -46,7 +31,7 @@ session
 
 
 // Load certificates
-if (environment === "production") {
+if (process.env.NODE_ENV === "production") {
     var privateKey = fs.readFileSync('ssl/server.key', 'utf8');
     var certificate = fs.readFileSync('ssl/server.crt', 'utf8');
 
@@ -58,6 +43,7 @@ if (environment === "production") {
 
 
 // Server settings
+var app = express();
 app.use(bodyParser.json({
     limit: 52428800 // 50MB
 }));
@@ -77,12 +63,12 @@ exports.isAuthenticated = function isAuthenticated(req, res, next) {
         var token = req.headers.authorization.substring(7);
 
         // Verify token
-        jwt.verify(token, jwtSecret, function(err, decoded) {
+        jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
             if(err){
                 res.status(401).send("Authentication failed!");
             } else {
                 // Authorization
-                if(decoded.username === account.username && decoded.iss === server_url){
+                if(decoded.username === process.env.BACKEND_USERNAME && decoded.iss === process.env.SERVER_URL){
                     return next();
                 } else {
                     res.status(401).send("Authentication failed!");
@@ -124,13 +110,13 @@ app.get('/remote/*', function(req, res, next) {
 
 // Start Webserver
 var httpServer = http.createServer(app);
-httpServer.listen(httpPort, function() {
-    console.log(colors.green(new Date() + " HTTP-Server is listening at port " + httpPort));
+httpServer.listen(Number(process.env.HTTP_PORT), function() {
+    console.log(colors.green(new Date() + " HTTP-Server is listening at port " + process.env.HTTP_PORT));
 });
-if(environment === "production") {
+if(process.env.NODE_ENV === "production") {
     var httpsServer = https.createServer(credentials, app);
-    httpsServer.listen(httpsPort, function() {
-        console.log(colors.green(new Date() + " HTTPS-Server is listening at port " + httpsPort));
+    httpsServer.listen(Number(process.env.HTTPS_PORT), function() {
+        console.log(colors.green(new Date() + " HTTPS-Server is listening at port " + process.env.HTTPS_PORT));
     });
 }
 
@@ -139,4 +125,4 @@ if(environment === "production") {
 var io = require('socket.io')(httpServer);
 exports.io = io;
 var sockets = require('./controllers/sockets.js').sockets;
-console.log(colors.green(new Date() + " Websocket-Server is listening at port " + httpPort));
+console.log(colors.green(new Date() + " Websocket-Server is listening at port " + process.env.HTTP_PORT));

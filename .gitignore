@@ -3,7 +3,7 @@ public/bower_components
 public/images/*
 public/videos/*
 .DS_Store
-yarn.lock
+.env
 _site
 .sass-cache
 log.txt
