@@ -5,7 +5,11 @@ var app = angular.module("config", []);
  */
 app.constant("config", {
     appName: "IVE",
-    appSubname: "Remote",
+    appSubnames: {
+        backend: "IVE-BACKEND",
+        frontend: "IVE-FRONTEND",
+        remote: "IVE-REMOTE"
+    },
     appDevelopers: [{
         name: "Nicholas Schiestel",
         github: "nicho90"

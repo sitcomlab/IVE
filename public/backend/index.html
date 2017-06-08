@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ive">
     <head>
         <base href="/backend/index.html"/>
         <meta charset="utf-8">
@@ -8,7 +8,8 @@
         <meta name="description" content="IVE">
         <meta name="author" content="Nicholas Schiestel">
 
-        <title>IVE - Backend</title>
+        <!-- Title -->
+        <title ng-bind="config.appSubnames.backend">IVE</title>
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
@@ -49,9 +50,13 @@
         <script src="../bower_components/angular-momentjs/angular-momentjs.js"></script>
         <script src="../bower_components/videogular/videogular.js"></script>
         <script src="../bower_components/videogular-controls/vg-controls.js"></script>
+        <script src="../bower_components/three.js/dist/three.min.js"></script>
+        <script src="../lib/Detector.js"></script>
+        <script src="../lib/CSS3DRenderer.js"></script>
+        <script src="../lib/TransformControls.js"></script>
 
     </head>
-    <body ng-app="ive">
+    <body>
 
         <!-- Header -->
         <header ng-controller="navController">
@@ -60,7 +65,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="/">
-                    <img src="images/logo.svg" height="30"> {{config.appName}}-{{config.appSubname}}
+                    <img src="images/logo.svg" height="30"> {{config.appSubnames.backend}}
                 </a>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                     <ul class="navbar-nav">
@@ -134,13 +139,17 @@
         </footer>
 
 
-        <!-- App Config -->
-        <script src="js/config.js"></script>
+        <!-- Translations -->
+        <script src="../translations/en_US.js"></script>
+        <script src="../translations/de_DE.js"></script>
 
-        <!-- App Modules -->
+        <!-- Config -->
+        <script src="../config.js"></script>
+
+        <!-- Modules -->
         <script src="js/modules/routes.js"></script>
-        <script src="js/modules/languages.js"></script>
         <script src="js/modules/filters.js"></script>
+        <script src="js/modules/tjsModelViewer.js"></script>
 
         <!-- Services -->
         <script src="js/services/authenticationService.js"></script>
@@ -150,7 +159,7 @@
         <script src="js/services/overlayService.js"></script>
         <script src="js/services/relationshipService.js"></script>
 
-        <!-- Main App -->
+        <!-- Main app -->
         <script src="js/app.js"></script>
 
         <!-- Main controllers -->

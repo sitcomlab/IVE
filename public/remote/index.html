@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ive">
     <head>
         <base href="/remote/index.html"/>
         <meta charset="utf-8">
@@ -8,7 +8,8 @@
         <meta name="description" content="IVE">
         <meta name="author" content="Nicholas Schiestel">
 
-        <title>IVE - Remote control</title>
+        <!-- Title -->
+        <title ng-bind="config.appSubnames.remote">IVE</title>
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
@@ -51,7 +52,7 @@
         <script src="../bower_components/angular-momentjs/angular-momentjs.js"></script>
 
     </head>
-    <body ng-app="ive">
+    <body>
 
         <!-- MAIN -->
         <main ng-view></main>
@@ -74,12 +75,16 @@
 
         </footer>
 
-        <!-- App Config -->
-        <script src="js/config.js"></script>
 
-        <!-- App Modules -->
+        <!-- Translations -->
+        <script src="../translations/en_US.js"></script>
+        <script src="../translations/de_DE.js"></script>
+
+        <!-- Config -->
+        <script src="../config.js"></script>
+
+        <!-- Modules -->
         <script src="js/modules/routes.js"></script>
-        <script src="js/modules/languages.js"></script>
         <script src="js/modules/sockets.js"></script>
 
         <!-- Services -->
@@ -88,10 +93,10 @@
         <script src="js/services/videoService.js"></script>
         <script src="js/services/overlayService.js"></script>
 
-        <!-- Main App -->
+        <!-- Main app -->
         <script src="js/app.js"></script>
 
-        <!-- Main Controllers -->
+        <!-- Main controllers -->
         <script src="js/controllers/mainController.js"></script>
         <script src="js/controllers/footerController.js"></script>
 
