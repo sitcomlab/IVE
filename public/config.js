@@ -6,9 +6,9 @@ var app = angular.module("config", []);
 app.constant("config", {
     appName: "IVE",
     appSubnames: {
-        backend: "IVE-BACKEND",
-        frontend: "IVE-FRONTEND",
-        remote: "IVE-REMOTE"
+        backend: "IVE | Backend",
+        frontend: "IVE | Frontend",
+        remote: "IVE | Remote control"
     },
     appDevelopers: [{
         name: "Nicholas Schiestel",
