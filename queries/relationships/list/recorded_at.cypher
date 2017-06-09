@@ -1,5 +1,8 @@
 MATCH (v:Videos)-[r:recorded_at]->(l:Locations)
+WITH count(r) AS full_count
+MATCH (v:Videos)-[r:recorded_at]->(l:Locations)
 RETURN
+    full_count,
     ID(v) AS video_id,
     v.created AS video_created,
     v.updated AS video_updated,
@@ -21,4 +24,6 @@ RETURN
     l.lat AS location_lat,
     l.lng AS location_lng,
     l.location_type AS location_type
-;
+ORDER BY v.name, l.name ASC
+SKIP toInt({skip})
+LIMIT toInt({limit});

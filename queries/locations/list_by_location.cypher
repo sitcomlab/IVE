@@ -1,14 +1,19 @@
-// DEPRECATED
-MATCH (start:Locations)-[r:connected_to]->(l:Locations)
+MATCH (start:Locations)-[r:connected_to]->(end:Locations)
+WHERE ID(start)= toInt({location_id})
+WITH count(*) AS full_count
+MATCH (start:Locations)-[r:connected_to]->(end:Locations)
 WHERE ID(start)= toInt({location_id})
 RETURN
-    ID(l) AS location_id,
-    l.created AS created,
-    l.updated AS updated,
-    l.l_id AS l_id,
-    l.name AS name,
-    l.description AS description,
-    l.lat AS lat,
-    l.lng AS lng,
-    l.location_type AS location_type
-ORDER BY l.name DESC;
+    full_count,
+    ID(end) AS location_id,
+    end.created AS created,
+    end.updated AS updated,
+    end.l_id AS l_id,
+    end.name AS name,
+    end.description AS description,
+    end.lat AS lat,
+    end.lng AS lng,
+    end.location_type AS location_type
+ORDER BY end.name ASC
+SKIP toInt({skip})
+LIMIT toInt({limit});

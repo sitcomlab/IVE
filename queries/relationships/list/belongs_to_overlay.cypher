@@ -1,5 +1,8 @@
 MATCH (o:Overlays)-[r:belongs_to]->(s:Scenarios)
+WITH count(r) AS full_count
+MATCH (o:Overlays)-[r:belongs_to]->(s:Scenarios)
 RETURN
+    full_count,
     ID(o) AS overlay_id,
     o.created AS overlay_created,
     o.updated AS overlay_updated,
@@ -17,4 +20,6 @@ RETURN
     s.s_id AS s_id,
     s.name AS scenario_name,
     s.description AS scenario_description
-;
+ORDER BY s.name, o.name ASC
+SKIP toInt({skip})
+LIMIT toInt({limit});

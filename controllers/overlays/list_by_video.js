@@ -36,7 +36,9 @@ exports.request = function(req, res) {
         function(callback) { // Find entries
             session
                 .run(query_list_overlays_by_video, {
-                    video_id: req.params.video_id
+                    video_id: req.params.video_id,
+                    skip: req.query.skip || 0,
+                    limit: req.query.limit || 9999999999
                 })
                 .then(function(result) {
                     callback(null, result);

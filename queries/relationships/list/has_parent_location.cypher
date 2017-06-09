@@ -1,5 +1,8 @@
 MATCH (child:Locations)-[r:has_parent_location]->(parent:Locations)
+WITH count(r) AS full_count
+MATCH (child:Locations)-[r:has_parent_location]->(parent:Locations)
 RETURN
+    full_count,
     ID(child) AS child_location_id,
     child.created AS child_location_created,
     child.updated AS child_location_updated,
@@ -21,4 +24,6 @@ RETURN
     parent.lat AS parent_location_lat,
     parent.lng AS parent_location_lng,
     parent.location_type AS parent_location_type
-;
+ORDER BY child.name, parent.name ASC
+SKIP toInt({skip})
+LIMIT toInt({limit});

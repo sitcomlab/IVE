@@ -17,7 +17,10 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback) { // Find entries
             session
-                .run(query_has_parent_location)
+                .run(query_has_parent_location, {
+                    skip: req.query.skip || 0,
+                    limit: req.query.limit || 9999999999
+                })
                 .then(function(result) {
                     callback(null, result);
                 })

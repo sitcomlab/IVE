@@ -1,5 +1,8 @@
 MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
+WITH count(r) AS full_count
+MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
 RETURN
+    full_count,
     ID(o) AS overlay_id,
     o.created AS overlay_created,
     o.updated AS overlay_updated,
@@ -29,4 +32,6 @@ RETURN
     v.description AS video_description,
     v.url AS video_url,
     v.recorded AS video_recorded
-;
+ORDER BY o.name, v.name ASC
+SKIP toInt({skip})
+LIMIT toInt({limit});

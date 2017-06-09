@@ -1,5 +1,8 @@
 MATCH (v:Videos)-[r:belongs_to]->(s:Scenarios)
+WITH count(r) AS full_count
+MATCH (v:Videos)-[r:belongs_to]->(s:Scenarios)
 RETURN
+    full_count,
     ID(v) AS video_id,
     v.created AS video_created,
     v.updated AS video_updated,
@@ -17,4 +20,6 @@ RETURN
     s.s_id AS s_id,
     s.name AS scenario_name,
     s.description AS scenario_description
-;
+ORDER BY s.name, v.name ASC
+SKIP toInt({skip})
+LIMIT toInt({limit});

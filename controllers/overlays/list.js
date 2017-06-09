@@ -17,7 +17,10 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback) { // Find entries
             session
-                .run(query_list_overlays)
+                .run(query_list_overlays, {
+                    skip: req.query.skip || 0,
+                    limit: req.query.limit || 9999999999
+                })
                 .then(function(result) {
                     callback(null, result);
                 })

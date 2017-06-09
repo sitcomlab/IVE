@@ -1,6 +1,10 @@
-MATCH (start:Locations)-[r:connected_to]->(l:Locations)
-WHERE ID(start)= toInt({location_id})
+MATCH (child:Locations)-[r:connected_to]->(parent:Locations)
+WHERE ID(child)= toInt({location_id})
+WITH count(*) AS full_count
+MATCH (child:Locations)-[r:connected_to]->(parent:Locations)
+WHERE ID(child)= toInt({location_id})
 RETURN
+    full_count,
     ID(child) AS location_id,
     child.created AS created,
     child.updated AS updated,
@@ -19,4 +23,6 @@ RETURN
     parent.lat AS parent_lat,
     parent.lng AS parent_lng,
     parent.location_type AS parent_location_type
-ORDER BY l.name DESC;
+ORDER BY l.name ASC
+SKIP toInt({skip})
+LIMIT toInt({limit});

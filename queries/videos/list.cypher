@@ -1,4 +1,6 @@
 MATCH (v:Videos)
+WITH count(*) AS full_count
+MATCH (v:Videos)
 RETURN
     ID(v) AS video_id,
     v.created AS created,
@@ -8,4 +10,6 @@ RETURN
     v.description AS description,
     v.url AS url,
     v.recorded AS recorded
-ORDER BY v.name DESC;
+ORDER BY v.name ASC
+SKIP toInt({skip})
+LIMIT toInt({limit});

@@ -36,7 +36,9 @@ exports.request = function(req, res) {
         function(callback) { // Find entries
             session
                 .run(query_list_overlays_by_scenario, {
-                    scenario_id: req.params.scenario_id
+                    scenario_id: req.params.scenario_id,
+                    skip: req.query.skip || 0,
+                    limit: req.query.limit || 9999999999
                 })
                 .then(function(result) {
                     callback(null, result);

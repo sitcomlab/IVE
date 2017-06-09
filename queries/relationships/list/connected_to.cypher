@@ -1,5 +1,8 @@
 MATCH (start:Locations)-[r:connected_to]->(end:Locations)
+WITH count(r) AS full_count
+MATCH (start:Locations)-[r:connected_to]->(end:Locations)
 RETURN
+    full_count,
     ID(start) AS start_location_id,
     start.created AS start_location_created,
     start.updated AS start_location_updated,
@@ -21,4 +24,6 @@ RETURN
     end.lat AS end_location_lat,
     end.lng AS end_location_lng,
     end.location_type AS end_location_type
-;
+ORDER BY start.name, end.name ASC
+SKIP toInt({skip})
+LIMIT toInt({limit});
