@@ -5,6 +5,18 @@ var app = angular.module("videoService", []);
  */
 app.factory('$videoService', function($http, config, $authenticationService) {
 
+    // Query cache
+    var cache = {
+        full_count: 0,
+        pagination: {
+            skip: 0,
+            limit: 50
+        },
+        filter: {
+            search_text: ""
+        }
+    };
+
     return {
         init: function() {
             return {
@@ -14,20 +26,191 @@ app.factory('$videoService', function($http, config, $authenticationService) {
                 recorded: ""
             };
         },
-        list: function() {
-            return $http.get(config.apiURL + "/videos");
+        getCount: function(){
+            return cache.full_count;
         },
-        list_by_scenario: function(scenario_id) {
-            return $http.get(config.apiURL + "/scenarios/" + scenario_id + "/videos");
+        getFilter: function(){
+            return cache.filter;
         },
-        list_by_location: function(location_id) {
-            return $http.get(config.apiURL + "/locations/" + location_id + "/videos");
+        getPagination: function(){
+            return cache.pagination;
+        },
+        setCount: function(data) {
+            cache.full_count = data;
+        },
+        setFilter: function(data) {
+            cache.filter = data;
+        },
+        setPagination: function(data) {
+            cache.pagination = data;
+        },
+        list: function(pagination, filter) {
+            // Initalize query
+            var query = "?";
+
+            // Add pagination to query
+            if(pagination){
+                if(pagination.skip && pagination.skip !== null){
+                    query = query + "skip=" + pagination.skip + "&";
+                }
+                if(pagination.limit && pagination.limit !== null){
+                    query = query + "limit=" + pagination.limit + "&";
+                }
+            }
+
+            // Add filters to query
+            if(filter){
+                if(filter.filterName && filter.filterName !== null){
+                    query = query + "filterName=" + filter.filterName + "&";
+                }
+            }
+
+            // Finalize query
+            query = query.slice(0, -1);
+
+            return $http.get(config.getApiEndpoint() + "/videos" + query);
+        },
+        search: function(pagination, filter) {
+            // Initalize query
+            var query = "?";
+
+            // Add pagination to query
+            if(pagination){
+                if(pagination.skip && pagination.skip !== null){
+                    query = query + "skip=" + pagination.skip + "&";
+                }
+                if(pagination.limit && pagination.limit !== null){
+                    query = query + "limit=" + pagination.limit + "&";
+                }
+            }
+
+            // Add filters to query
+            if(filter){
+                if(filter.filterName && filter.filterName !== null){
+                    query = query + "filterName=" + filter.filterName + "&";
+                }
+            }
+
+            // Finalize query
+            query = query.slice(0, -1);
+
+            return $http.post(config.getApiEndpoint() + "/search/videos" + query, {
+                search_text: filter.search_text
+            });
+        },
+        list_by_scenario: function(scenario_id, pagination, filter) {
+            // Initalize query
+            var query = "?";
+
+            // Add pagination to query
+            if(pagination){
+                if(pagination.skip && pagination.skip !== null){
+                    query = query + "skip=" + pagination.skip + "&";
+                }
+                if(pagination.limit && pagination.limit !== null){
+                    query = query + "limit=" + pagination.limit + "&";
+                }
+            }
+
+            // Add filters to query
+            if(filter){
+                if(filter.filterName && filter.filterName !== null){
+                    query = query + "filterName=" + filter.filterName + "&";
+                }
+            }
+
+            // Finalize query
+            query = query.slice(0, -1);
+
+            return $http.get(config.getApiEndpoint() + "/scenarios/" + scenario_id + "/videos" + query);
+        },
+        search_by_scenario: function(scenario_id, pagination, filter) {
+            // Initalize query
+            var query = "?";
+
+            // Add pagination to query
+            if(pagination){
+                if(pagination.skip && pagination.skip !== null){
+                    query = query + "skip=" + pagination.skip + "&";
+                }
+                if(pagination.limit && pagination.limit !== null){
+                    query = query + "limit=" + pagination.limit + "&";
+                }
+            }
+
+            // Add filters to query
+            if(filter){
+                if(filter.filterName && filter.filterName !== null){
+                    query = query + "filterName=" + filter.filterName + "&";
+                }
+            }
+
+            // Finalize query
+            query = query.slice(0, -1);
+
+            return $http.post(config.getApiEndpoint() + "/search/scenarios/" + scenario_id + "/videos" + query, {
+                search_text: filter.search_text
+            });
+        },
+        list_by_location: function(location_id, pagination, filter) {
+            // Initalize query
+            var query = "?";
+
+            // Add pagination to query
+            if(pagination){
+                if(pagination.skip && pagination.skip !== null){
+                    query = query + "skip=" + pagination.skip + "&";
+                }
+                if(pagination.limit && pagination.limit !== null){
+                    query = query + "limit=" + pagination.limit + "&";
+                }
+            }
+
+            // Add filters to query
+            if(filter){
+                if(filter.filterName && filter.filterName !== null){
+                    query = query + "filterName=" + filter.filterName + "&";
+                }
+            }
+
+            // Finalize query
+            query = query.slice(0, -1);
+
+            return $http.get(config.getApiEndpoint() + "/locations/" + location_id + "/videos" + query);
+        },
+        search_by_location: function(location_id, pagination, filter) {
+            // Initalize query
+            var query = "?";
+
+            // Add pagination to query
+            if(pagination){
+                if(pagination.skip && pagination.skip !== null){
+                    query = query + "skip=" + pagination.skip + "&";
+                }
+                if(pagination.limit && pagination.limit !== null){
+                    query = query + "limit=" + pagination.limit + "&";
+                }
+            }
+
+            // Add filters to query
+            if(filter){
+                if(filter.filterName && filter.filterName !== null){
+                    query = query + "filterName=" + filter.filterName + "&";
+                }
+            }
+
+            // Finalize query
+            query = query.slice(0, -1);
+
+            return $http.post(config.getApiEndpoint() + "/search/locations/" + location_id + "/videos" + query, {
+                search_text: filter.search_text
+            });
         },
         retrieve: function(video_id) {
-            return $http.get(config.apiURL + "/videos/" + video_id);
+            return $http.get(config.getApiEndpoint() + "/videos/" + video_id);
         },
         create: function(data) {
-            return $http.post(config.apiURL + "/videos", data, {
+            return $http.post(config.getApiEndpoint() + "/videos", data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
                     'Content-Type': 'application/json'
@@ -35,7 +218,7 @@ app.factory('$videoService', function($http, config, $authenticationService) {
             });
         },
         edit: function(video_id, data) {
-            return $http.put(config.apiURL + "/videos/" + video_id, data, {
+            return $http.put(config.getApiEndpoint() + "/videos/" + video_id, data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
                     'Content-Type': 'application/json'
@@ -43,7 +226,7 @@ app.factory('$videoService', function($http, config, $authenticationService) {
             });
         },
         remove: function(video_id) {
-            return $http.delete(config.apiURL + "/videos/" + video_id, {
+            return $http.delete(config.getApiEndpoint() + "/videos/" + video_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
                 }

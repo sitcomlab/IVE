@@ -41,7 +41,7 @@ app.factory('$authenticationService', function($http, $log, config) {
             }
         },
         authenticate: function(data) {
-            return $http.post(config.apiURL + "/login", data);
+            return $http.post(config.getApiEndpoint() + "/login", data);
         }
 
     };

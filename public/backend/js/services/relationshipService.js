@@ -5,15 +5,27 @@ var app = angular.module("relationshipService", []);
  */
 app.factory('$relationshipService', function($http, config, $authenticationService) {
 
+    // Query cache
+    var cache = {
+        full_count: 0,
+        pagination: {
+            skip: 0,
+            limit: 50
+        },
+        filter: {
+            search_text: ""
+        }
+    };
+
     return {
-        init: function(relationship_type, label){
+        init: function(relationship_label, relationship_type){
             var new_object;
-            switch (relationship_type){
+            switch (relationship_label){
                 case 'belongs_to': {
                     new_object = {
                         scenario_id: null
                     };
-                    switch (label){
+                    switch (relationship_type){
                         case 'location': {
                             new_object.location_id = null;
                             break;
@@ -86,33 +98,110 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 }
             ];
         },
+        getCount: function(){
+            return cache.full_count;
+        },
+        getFilter: function(){
+            return cache.filter;
+        },
+        getPagination: function(){
+            return cache.pagination;
+        },
+        setCount: function(data) {
+            cache.full_count = data;
+        },
+        setFilter: function(data) {
+            cache.filter = data;
+        },
+        setPagination: function(data) {
+            cache.pagination = data;
+        },
         list: function() {
-            return $http.get(config.apiURL + "/relationships");
+            return $http.get(config.getApiEndpoint() + "/relationships");
         },
-        list_by_type: function(relationship_type, label) {
-            if(label){
-                return $http.get(config.apiURL + "/relationship/" + relationship_type + "/" + label);
+        list_by_type: function(relationship_label, relationship_type, pagination, filter) {
+            // Initalize query
+            var query = "?";
+
+            // Add pagination to query
+            if(pagination){
+                if(pagination.skip && pagination.skip !== null){
+                    query = query + "skip=" + pagination.skip + "&";
+                }
+                if(pagination.limit && pagination.limit !== null){
+                    query = query + "limit=" + pagination.limit + "&";
+                }
+            }
+
+            // Add filters to query
+            if(filter){
+                if(filter.filterName && filter.filterName !== null){
+                    query = query + "filterName=" + filter.filterName + "&";
+                }
+            }
+
+            // Finalize query
+            query = query.slice(0, -1);
+
+            // Apply relationship-label (& optional relationship-type)
+            if(relationship_type){
+                return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_type + query);
             } else {
-                return $http.get(config.apiURL + "/relationship/" + relationship_type);
+                return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + query);
             }
         },
-        retrieve_by_id: function(relationship_type, relationship_id, label) {
-            if(label){
-                return $http.get(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id + "/" + label);
+        search_by_type: function(relationship_label, relationship_type, pagination, filter) {
+            // Initalize query
+            var query = "?";
+
+            // Add pagination to query
+            if(pagination){
+                if(pagination.skip && pagination.skip !== null){
+                    query = query + "skip=" + pagination.skip + "&";
+                }
+                if(pagination.limit && pagination.limit !== null){
+                    query = query + "limit=" + pagination.limit + "&";
+                }
+            }
+
+            // Add filters to query
+            if(filter){
+                if(filter.filterName && filter.filterName !== null){
+                    query = query + "filterName=" + filter.filterName + "&";
+                }
+            }
+
+            // Finalize query
+            query = query.slice(0, -1);
+
+            // Apply relationship-label (& optional relationship-type)
+            if(relationship_type){
+                return $http.post(config.getApiEndpoint() + "/search/relationship/" + relationship_label + "/" + relationship_type + query, {
+                    search_text: filter.search_text
+                });
             } else {
-                return $http.get(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id);
+                return $http.post(config.getApiEndpoint() + "/search/relationship/" + relationship_label + "/" + query, {
+                    search_text: filter.search_text
+                });
             }
         },
-        create: function(relationship_type, data, label) {
+        retrieve_by_id: function(relationship_label, relationship_id, relationship_type) {
             if(label){
-                return $http.post(config.apiURL + "/relationship/" + relationship_type + "/" + label, data, {
+                return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_id + "/" + relationship_type);
+            } else {
+                return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_id);
+            }
+        },
+        create: function(relationship_label, data, relationship_type) {
+            if(relationship_type){
+                return $http.post(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_type, data, {
                     headers: {
                         'Authorization': 'Bearer ' + $authenticationService.getToken(),
                         'Content-Type': 'application/json'
                     }
                 });
             } else {
-                return $http.post(config.apiURL + "/relationship/" + relationship_type, data, {
+                return $http.post(config.getApiEndpoint() + "/relationship/" + relationship_label, data, {
                     headers: {
                         'Authorization': 'Bearer ' + $authenticationService.getToken(),
                         'Content-Type': 'application/json'
@@ -120,8 +209,8 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 });
             }
         },
-        edit: function(relationship_type, relationship_id, label, data) {
-            return $http.put(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id + "/" + label, data, {
+        edit: function(relationship_label, relationship_id, relationship_type, data) {
+            return $http.put(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_id + "/" + relationship_type, data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
                     'Content-Type': 'application/json'
@@ -129,7 +218,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
             });
         },
         remove: function(relationship_id) {
-            return $http.delete(config.apiURL + "/relationships/" + relationship_id, {
+            return $http.delete(config.getApiEndpoint() + "/relationships/" + relationship_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
                 }

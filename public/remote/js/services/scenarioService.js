@@ -8,10 +8,10 @@ app.factory('$scenarioService', function($http, config) {
     return {
 
         list: function() {
-            return $http.get(config.apiURL + "/scenarios");
+            return $http.get(config.getApiEndpoint() + "/scenarios");
         },
         retrieve: function(scenario_id) {
-            return $http.get(config.apiURL + "/scenarios/" + scenario_id);
+            return $http.get(config.getApiEndpoint() + "/scenarios/" + scenario_id);
         }
 
     };
