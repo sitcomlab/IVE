@@ -91,6 +91,7 @@ app.use(prefix, require('./routes/locations'));
 app.use(prefix, require('./routes/videos'));
 app.use(prefix, require('./routes/overlays'));
 app.use(prefix, require('./routes/relationships'));
+app.use(prefix, require('./routes/search'));
 app.use(prefix, require('./routes/handlers'));
 
 // Resolve path after refreshing inside app

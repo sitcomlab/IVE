@@ -11,7 +11,7 @@ RETURN
     o.o_id AS o_id,
     o.name AS name,
     o.description AS description,
-    o.type AS type,
+    o.category AS category,
     o.url AS url
 ORDER BY o.name ASC
 SKIP toInt({skip})

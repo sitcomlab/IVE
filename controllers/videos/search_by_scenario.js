@@ -5,26 +5,34 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
-var query_get_location = fs.readFileSync(__dirname + '/../../queries/locations/get.cypher', 'utf8').toString();
-var query_list_locations_by_location = fs.readFileSync(__dirname + '/../../queries/locations/list_by_location.cypher', 'utf8').toString();
+var query_get_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
+var query_search_videos_by_scenario = fs.readFileSync(__dirname + '/../../queries/videos/search_by_scenario.cypher', 'utf8').toString();
 
 
-// LIST BY LOCATION
+// SEARCH BY SCENARIO
 exports.request = function(req, res) {
 
     // Start session
     var session = driver.session();
 
     async.waterfall([
+        function(callback) {
+            // Check search term
+            if(!req.body.search_term || req.body.search_term === ''){
+                callback(new Error("No search term found!"), 400);
+            } else {
+                callback(null);
+            }
+        },
         function(callback) { // Find entry by Id
             session
-                .run(query_get_location, {
-                    location_id: req.params.location_id
+                .run(query_get_scenario, {
+                    scenario_id: req.params.scenario_id
                 })
                 .then(function(result) {
-                    // Check if Location exists
+                    // Check if Scenario exists
                     if (result.records.length===0) {
-                        callback(new Error("Location with id '" + req.params.location_id + "' not found!"), 404);
+                        callback(new Error("Scenario with id '" + req.params.scenario_id + "' not found!"), 404);
                     } else {
                         callback(null);
                     }
@@ -35,10 +43,11 @@ exports.request = function(req, res) {
         },
         function(callback) { // Find entries
             session
-                .run(query_list_locations_by_location, {
-                    location_id: req.params.location_id,
+                .run(query_search_videos_by_scenario, {
+                    scenario_id: req.params.scenario_id,
                     skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999
+                    limit: req.query.limit || 9999999999,
+                    search_term: req.body.search_term
                 })
                 .then(function(result) {
                     callback(null, result);
