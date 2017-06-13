@@ -186,7 +186,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
             }
         },
         retrieve_by_id: function(relationship_label, relationship_id, relationship_type) {
-            if(label){
+            if(relationship_type){
                 return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_id + "/" + relationship_type);
             } else {
                 return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_id);
