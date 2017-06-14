@@ -8,15 +8,6 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
      *************************************************/
 
     /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
-
-    /**
      * [redirect description]
      * @param  {[type]} path [description]
      * @return {[type]}      [description]
@@ -30,7 +21,8 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
      * @return {[type]} [description]
      */
     $scope.delete = function(){
-        $scope.changeTab(0);
+        $scope.$parent.loading = { status: true, message: "DELETING_SCENARIO" };
+
         $scenarioService.remove($scope.scenario.scenario_id)
         .then(function onSuccess(response) {
             $scope.redirect("/scenarios");
@@ -43,14 +35,14 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: "LOADING_SCENARIO" };
     $scope.input = "";
 
     // Load scenario
     $scenarioService.retrieve($routeParams.scenario_id)
     .then(function onSuccess(response) {
         $scope.scenario = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

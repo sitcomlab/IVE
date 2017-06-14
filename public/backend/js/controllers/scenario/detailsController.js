@@ -8,15 +8,6 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
      *************************************************/
 
     /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
-
-    /**
      * [redirect description]
      * @param  {[type]} path [description]
      * @return {[type]}      [description]
@@ -50,7 +41,8 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: "LOADING_SCENARIO" };
+
     $scope.relatedLocations = false;
     $scope.relatedVideos = false;
     $scope.relatedOverlays = false;
@@ -59,7 +51,7 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
     $scenarioService.retrieve($routeParams.scenario_id)
     .then(function onSuccess(response) {
         $scope.scenario = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
 
         // Load related locations
         $locationService.list_by_scenario($scope.scenario.scenario_id)

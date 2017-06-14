@@ -1,95 +1,57 @@
 <!DOCTYPE html>
-<!-- LOADING -->
-<div class="loading" ng-show="tab==0">
-    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-</div>
-
-<!-- MAIN -->
-<div class="row" ng-show="tab>0">
-    <!-- Left padding -->
-    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
-
-    <!-- Content -->
-    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8">
-        <br>
-
-        <!-- BUTTONS -->
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
-                <div class="btn-group" role="group" aria-label="buttons">
-                    <a href="" class="btn btn-danger" ng-click="redirect('/scenarios/' + scenario.scenario_id + '/delete')">
-                        <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate}}
-                    </a>
+<div class="card">
+    <form class="form-horizontal" name="editScenarioForm" ng-submit="send()">
+        <div class="card-header" style="font-size: 20pt;">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                    <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT' | translate }} {{scenario.name}}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                    <button class="btn btn-secondary" role="button" ng-click="redirect('/scenarios/' + scenario.scenario_id)">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        <br>
+        <div class="card-block">
+            <label>
+                <b>{{ 'NAME' | translate }}*</b>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': editScenarioForm.name.$invalid && !editScenarioForm.name.$pristine}">
+                <input
+                    type="text"
+                    class="form-control"
+                    ng-model="scenario.name"
+                    name="name"
+                    id="name"
+                    placeholder="{{ 'NAME' | translate }}*"
+                    aria-describedby="inputName"
+                    autofocus
+                    required>
+                <span ng-show="editScenarioForm.name.$error.required && !editScenarioForm.name.$pristine" class="text-danger">
+                    <small>
+                        {{ 'REQUIRED' | translate }}
+                    </small>
+                </span>
+            </div>
+            <br>
 
-        <!-- MAIN -->
-        <div class="card" ng-show="tab==1">
-            <form class="form-horizontal" name="editScenarioForm" ng-submit="send()">
-                <div class="card-header middle" style="font-size: 20pt;">
-                    <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT' | translate }} {{ 'SCENARIO' | translate }}
-                </div>
-                <div class="card-block">
-                    <br>
-                    <label>
-                        <b>{{ 'NAME' | translate }}*</b>
-                    </label>
-                    <div class="form-group" ng-class="{'has-danger': editScenarioForm.name.$invalid && !editScenarioForm.name.$pristine}">
-                        <input
-                            type="text"
-                            class="form-control"
-                            ng-model="scenario.name"
-                            name="name"
-                            id="name"
-                            placeholder="{{ 'NAME' | translate }}*"
-                            aria-describedby="inputName"
-                            autofocus
-                            required>
-                        <span ng-show="editScenarioForm.name.$error.required && !editScenarioForm.name.$pristine" class="text-danger">
-                            <small>
-                                {{ 'REQUIRED' | translate }}
-                            </small>
-                        </span>
-                    </div>
-                    <br>
-
-
-                    <label>
-                        <b>{{ 'DESCRIPTION' | translate }}</b>
-                    </label>
-                    <div class="form-group" ng-class="{'has-danger': editScenarioForm.description.$invalid && !editScenarioForm.description.$pristine }">
-                        <textarea
-                            class="form-control"
-                            rows="5"
-                            placeholder="{{ 'DESCRIPTION' | translate }}" ng-model="scenario.description"
-                            name="description"
-                            id="description"></textarea>
-                    </div>
-                    <br>
-
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col">
-                            <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/scenarios/' + scenario.scenario_id)">
-                                <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-success btn-block" role="submit">
-                                <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SAVE' | translate }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <label>
+                <b>{{ 'DESCRIPTION' | translate }}</b>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': editScenarioForm.description.$invalid && !editScenarioForm.description.$pristine }">
+                <textarea
+                    class="form-control"
+                    rows="5"
+                    placeholder="{{ 'DESCRIPTION' | translate }}" ng-model="scenario.description"
+                    name="description"
+                    id="description"></textarea>
+            </div>
         </div>
-        <br>
-    </div>
-
-    <!-- Right padding -->
-    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+        <div class="card-footer right">
+            <button class="btn btn-success" role="submit">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SAVE' | translate }}
+            </button>
+        </div>
+    </form>
 </div>

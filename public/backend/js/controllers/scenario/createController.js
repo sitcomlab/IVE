@@ -8,15 +8,6 @@ app.controller("scenarioCreateController", function($scope, $rootScope, $routePa
      *************************************************/
 
     /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
-
-    /**
      * [redirect description]
      * @param  {[type]} path [description]
      * @return {[type]}      [description]
@@ -36,7 +27,8 @@ app.controller("scenarioCreateController", function($scope, $rootScope, $routePa
             $scope.createScenarioForm.name.$pristine = false;
             $scope.createScenarioForm.description.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: "CREATING_SCENARIO" };
+
             $scenarioService.create($scope.scenario)
             .then(function onSuccess(response) {
                 var new_scenario = response.data;
@@ -52,8 +44,7 @@ app.controller("scenarioCreateController", function($scope, $rootScope, $routePa
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
     $scope.scenario = $scenarioService.init();
-    $scope.changeTab(1);
+    $scope.$parent.loading = { status: false, message: "" };
 
 });
