@@ -40,7 +40,7 @@ app.factory('$authenticationService', function($http, $log, config) {
                 return undefined;
             }
         },
-        authenticate: function(data) {
+        login: function(data) {
             return $http.post(config.getApiEndpoint() + "/login", data);
         }
 

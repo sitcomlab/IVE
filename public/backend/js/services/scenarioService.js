@@ -9,11 +9,12 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
     var cache = {
         full_count: 0,
         pagination: {
-            skip: 0,
-            limit: 50
+            offset: 0,
+            limit: config.limit
         },
         filter: {
-            search_text: ""
+            orderby: "name.asc",
+            search_term: ""
         }
     };
 
@@ -33,6 +34,19 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
         getPagination: function(){
             return cache.pagination;
         },
+        resetCache: function() {
+            cache = {
+                full_count: 0,
+                pagination: {
+                    offset: 0,
+                    limit: config.limit
+                },
+                filter: {
+                    orderby: "name.asc",
+                    search_term: ""
+                }
+            };
+        },
         setCount: function(data) {
             cache.full_count = data;
         },
@@ -48,8 +62,8 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
 
             // Add pagination to query
             if(pagination){
-                if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -58,8 +72,8 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
 
             // Add filters to query
             if(filter){
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
                 }
             }
 
@@ -68,14 +82,14 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
 
             return $http.get(config.getApiEndpoint() + "/scenarios" + query);
         },
-        search_by_scenario: function(pagination, filter) {
+        search: function(pagination, filter) {
             // Initalize query
             var query = "?";
 
             // Add pagination to query
             if(pagination){
-                if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -84,8 +98,8 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
 
             // Add filters to query
             if(filter){
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
                 }
             }
 
@@ -93,7 +107,7 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
             query = query.slice(0, -1);
 
             return $http.post(config.getApiEndpoint() + "/search/scenarios" + query, {
-                search_text: filter.search_text
+                search_term: filter.search_term
             });
         },
         retrieve: function(scenario_id) {

@@ -9,11 +9,12 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
     var cache = {
         full_count: 0,
         pagination: {
-            skip: 0,
-            limit: 50
+            offset: 0,
+            limit: config.limit
         },
         filter: {
-            search_text: ""
+            orderby: "name.asc",
+            search_term: ""
         }
     };
 
@@ -107,6 +108,19 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
         getPagination: function(){
             return cache.pagination;
         },
+        resetCache: function() {
+            cache = {
+                full_count: 0,
+                pagination: {
+                    offset: 0,
+                    limit: config.limit
+                },
+                filter: {
+                    orderby: "name.asc",
+                    search_term: ""
+                }
+            };
+        },
         setCount: function(data) {
             cache.full_count = data;
         },
@@ -119,14 +133,14 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
         list: function() {
             return $http.get(config.getApiEndpoint() + "/relationships");
         },
-        list_by_type: function(relationship_label, relationship_type, pagination, filter) {
+        list_by_label: function(relationship_label, relationship_type, pagination, filter) {
             // Initalize query
             var query = "?";
 
             // Add pagination to query
             if(pagination){
-                if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -135,6 +149,9 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
 
             // Add filters to query
             if(filter){
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
+                }
                 if(filter.filterName && filter.filterName !== null){
                     query = query + "filterName=" + filter.filterName + "&";
                 }
@@ -150,14 +167,14 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + query);
             }
         },
-        search_by_type: function(relationship_label, relationship_type, pagination, filter) {
+        search_by_label: function(relationship_label, relationship_type, pagination, filter) {
             // Initalize query
             var query = "?";
 
             // Add pagination to query
             if(pagination){
-                if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -166,6 +183,9 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
 
             // Add filters to query
             if(filter){
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
+                }
                 if(filter.filterName && filter.filterName !== null){
                     query = query + "filterName=" + filter.filterName + "&";
                 }
@@ -177,11 +197,11 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
             // Apply relationship-label (& optional relationship-type)
             if(relationship_type){
                 return $http.post(config.getApiEndpoint() + "/search/relationship/" + relationship_label + "/" + relationship_type + query, {
-                    search_text: filter.search_text
+                    search_term: filter.search_term
                 });
             } else {
                 return $http.post(config.getApiEndpoint() + "/search/relationship/" + relationship_label + "/" + query, {
-                    search_text: filter.search_text
+                    search_term: filter.search_term
                 });
             }
         },

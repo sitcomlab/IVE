@@ -9,11 +9,13 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
     var cache = {
         full_count: 0,
         pagination: {
-            skip: 0,
-            limit: 50
+            offset: 0,
+            limit: config.limit
         },
         filter: {
-            search_text: ""
+            orderby: "name.asc",
+            category: null,
+            search_term: ""
         }
     };
 
@@ -35,6 +37,20 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
         getPagination: function(){
             return cache.pagination;
         },
+        resetCache: function() {
+            cache = {
+                full_count: 0,
+                pagination: {
+                    offset: 0,
+                    limit: config.limit
+                },
+                filter: {
+                    orderby: "name.asc",
+                    category: null,
+                    search_term: ""
+                }
+            };
+        },
         setCount: function(data) {
             cache.full_count = data;
         },
@@ -50,8 +66,8 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add pagination to query
             if(pagination){
-                    if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                    if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -60,8 +76,11 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add filters to query
             if(filter){
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
+                }
+                if(filter.category && filter.category !== null){
+                    query = query + "category=" + filter.category + "&";
                 }
             }
 
@@ -76,8 +95,8 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add pagination to query
             if(pagination){
-                if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -86,8 +105,11 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add filters to query
             if(filter){
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
+                }
+                if(filter.category && filter.category !== null){
+                    query = query + "category=" + filter.category + "&";
                 }
             }
 
@@ -95,7 +117,7 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
             query = query.slice(0, -1);
 
             return $http.post(config.getApiEndpoint() + "/search/overlays" + query, {
-                search_text: filter.search_text
+                search_term: filter.search_term
             });
         },
         list_by_scenario: function(scenario_id, pagination, filter) {
@@ -104,8 +126,8 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add pagination to query
             if(pagination){
-                if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -114,8 +136,11 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add filters to query
             if(filter){
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
+                }
+                if(filter.category && filter.category !== null){
+                    query = query + "category=" + filter.category + "&";
                 }
             }
 
@@ -130,8 +155,8 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add pagination to query
             if(pagination){
-                if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -140,8 +165,11 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add filters to query
             if(filter){
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
+                }
+                if(filter.category && filter.category !== null){
+                    query = query + "category=" + filter.category + "&";
                 }
             }
 
@@ -149,7 +177,7 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
             query = query.slice(0, -1);
 
             return $http.post(config.getApiEndpoint() + "/search/scenarios/" + scenario_id + "/overlays" + query, {
-                search_text: filter.search_text
+                search_term: filter.search_term
             });
         },
         list_by_video: function(video_id, pagination, filter) {
@@ -158,8 +186,8 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add pagination to query
             if(pagination){
-                if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -168,8 +196,11 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add filters to query
             if(filter){
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
+                }
+                if(filter.category && filter.category !== null){
+                    query = query + "category=" + filter.category + "&";
                 }
             }
 
@@ -184,8 +215,8 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add pagination to query
             if(pagination){
-                if(pagination.skip && pagination.skip !== null){
-                    query = query + "skip=" + pagination.skip + "&";
+                if(pagination.offset && pagination.offset !== null){
+                    query = query + "skip=" + pagination.offset + "&";
                 }
                 if(pagination.limit && pagination.limit !== null){
                     query = query + "limit=" + pagination.limit + "&";
@@ -194,8 +225,11 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
 
             // Add filters to query
             if(filter){
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.orderby && filter.orderby !== null){
+                    query = query + "orderby=" + filter.orderby + "&";
+                }
+                if(filter.category && filter.category !== null){
+                    query = query + "category=" + filter.category + "&";
                 }
             }
 
@@ -203,7 +237,7 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
             query = query.slice(0, -1);
 
             return $http.post(config.getApiEndpoint() + "/search/videos/" + video_id + "/overlays" + query, {
-                search_text: filter.search_text
+                search_term: filter.search_term
             });
         },
         retrieve: function(overlay_id) {
