@@ -1,23 +1,11 @@
 var app = angular.module("ive");
 
-
-/**
- * Login Controller
- */
-app.controller("loginController", function($scope, $rootScope, config, $location, $window, $authenticationService) {
+// Login controller
+app.controller("loginController", function($scope, $rootScope, $filter, $translate, $location, config, $authenticationService, $window) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -39,37 +27,42 @@ app.controller("loginController", function($scope, $rootScope, config, $location
             $scope.loginForm.username.$pristine = false;
             $scope.loginForm.password.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('LOGGING_IN') };
 
-            $authenticationService.authenticate($scope.login)
+            $authenticationService.login($scope.login)
             .then(function onSuccess(response) {
                 $authenticationService.set(response.data);
 
-                // Update navbar
-                $rootScope.$broadcast('updateNavbar');
+                // Reset navbar
+                $scope.$parent.authenticated_user = $authenticationService.get();
+                $scope.$parent.loading = { status: false, message: "" };
 
-                $scope.redirect("/scenarios");
+                // Redirect
+                $location.url("/scenarios");
             })
             .catch(function onError(response) {
                 $window.alert(response.data);
-            });
 
+                // Reset
+                $scope.login.password = "";
+                $scope.$parent.loading = { status: false, message: "" };
+            });
         }
     };
-
 
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_APPLICATION') };
 
     // Reset all services
     $authenticationService.set();
 
     // Reset navbar
-    $rootScope.$broadcast('resetNavbar');
+    $scope.$parent.authenticated_user = $authenticationService.get();
 
     // Reset login
     $scope.login = $authenticationService.init();
-    $scope.changeTab(1);
+    $scope.$parent.loading = { status: false, message: "" };
+
 });

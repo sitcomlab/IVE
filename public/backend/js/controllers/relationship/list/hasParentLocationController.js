@@ -37,7 +37,7 @@ app.controller("hasParentLocationListController", function($scope, $rootScope, $
      *************************************************/
     $scope.changeTab(0);
     $scope.searchText = "";
-    $relationshipService.list_by_type('has_parent_location')
+    $relationshipService.list_by_label('has_parent_location')
     .then(function onSuccess(response) {
         $scope.relationships = response.data;
         $scope.changeTab(1);

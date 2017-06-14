@@ -1,20 +1,12 @@
 var app = angular.module("ive");
 
+
 // Relationship list controller
-app.controller("relationshipListController", function($scope, $rootScope, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+app.controller("relationshipListController", function($scope, $rootScope, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -26,17 +18,31 @@ app.controller("relationshipListController", function($scope, $rootScope, $trans
     };
 
     /**
-     * [reset description]
+     * [description]
+     * @return {[type]} [description]
      */
-    $scope.resetSearch = function(){
-        $scope.searchText = "";
+    $scope.load = function(){
+        // Load relationships
+        $scope.relationships = $relationshipService.get_types()
+        $scope.pages = [{
+            offset: 0
+        }];
+        $scope.pagination = {
+            offset: 0,
+            limit: 50
+        }
+        $scope.$parent.loading = { status: false, message: "" };
     };
+
 
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(1);
-    $scope.searchText = "";
-    $scope.relationship_types = $relationshipService.get_types();
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIPS') };
+    $scope.filter = {
+        orderby: "name",
+        search_term: ""
+    };
+    $scope.load();
 
 });

@@ -1,28 +1,22 @@
-html, body {
-    height: 100vh;
-    min-height: 100vh;
+html {
+    position: relative;
+    min-height: 100%;
 }
-
 body {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 60px;
 }
 
-header, footer {
-    flex: 0 0 auto;
-}
-
-main {
-    flex: 1 1 auto;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    padding-left: 5px;
-    padding-right: 5px;
+.content {
+    margin-top: 60px;
 }
 
 footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
     line-height: 60px;
-    border-top: 1px solid #f5f5f5;
+    background-color: #f5f5f5;
 }
 
 
@@ -34,4 +28,58 @@ footer {
 }
 .right {
     text-align: right;
+}
+.justified {
+    text-align: justify;
+}
+
+
+.link:hover {
+    text-decoration: none;
+}
+
+
+.card-footer > .btn-block-xs-only, .btn-block-xs-only {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+/* Boostrap fix */
+.bs-fix > .list-group > .list-group-item {
+    background-color: #f7f7f9;
+}
+
+/* https://github.com/twbs/bootstrap/issues/21610 */
+.bs-fix > .list-group, .list-group-item {
+    display: block;
+}
+
+/* Boostrap fix for pagination */
+#pagination > ul {
+    margin-bottom: 0;
+}
+
+
+/* http://stackoverflow.com/questions/28191573/change-buttons-to-btn-block-on-mobile-screen-size */
+@media (max-width: 575px) {
+    .btn-block-xs-only {
+        display: block;
+        width: 100%;
+    }
+
+    #pagination > .pagination .page-link {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+    .btn-block-sm-only {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* https://docs.angularjs.org/api/ng/directive/ngCloak */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }

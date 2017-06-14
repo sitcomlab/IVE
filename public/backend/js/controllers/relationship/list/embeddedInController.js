@@ -37,7 +37,7 @@ app.controller("embeddedInListController", function($scope, $rootScope, $routePa
      *************************************************/
     $scope.changeTab(0);
     $scope.searchText = "";
-    $relationshipService.list_by_type('embedded_in')
+    $relationshipService.list_by_label('embedded_in')
     .then(function onSuccess(response) {
         $scope.relationships = response.data;
         $scope.changeTab(1);

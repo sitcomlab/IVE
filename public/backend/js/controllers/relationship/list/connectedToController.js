@@ -56,7 +56,7 @@ app.controller("connectedToListController", function($scope, $rootScope, $routeP
     $scope.relationship_id = "";
     $scope.relationshipStatus = false;
 
-    $relationshipService.list_by_type('connected_to')
+    $relationshipService.list_by_label('connected_to')
     .then(function onSuccess(response) {
         $scope.relationships = response.data;
         $scope.changeTab(1);

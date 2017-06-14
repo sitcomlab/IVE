@@ -20,6 +20,7 @@ app.constant("config", {
     appYear: moment().format("YYYY"),
     debugMode: false,
     html5Mode: true,
+    limit: 7,
     serverMode: 'development',
     serverSettings: {
         development: {

@@ -37,7 +37,7 @@ app.controller("recordedAtListController", function($scope, $rootScope, $routePa
      *************************************************/
     $scope.changeTab(0);
     $scope.searchText = "";
-    $relationshipService.list_by_type('recorded_at')
+    $relationshipService.list_by_label('recorded_at')
     .then(function onSuccess(response) {
         $scope.relationships = response.data;
         $scope.changeTab(1);

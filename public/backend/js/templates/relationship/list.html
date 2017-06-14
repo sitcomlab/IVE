@@ -1,53 +1,158 @@
 <!DOCTYPE html>
-<!-- LOADING -->
-<div class="loading" ng-show="tab==0">
-    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-</div>
-
-<!-- MAIN -->
-<div class="row" ng-show="tab>0">
-    <!-- Left padding -->
-    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
-
-    <!-- Content -->
-    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8" ng-show="tab==1">
-        <br>
-
-        <!-- SEARCH -->
+<div class="card">
+    <div class="card-header" style="font-size: 20pt;">
         <div class="row">
-            <div class="col">
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">{{ '_RELATIONSHIPS' | translate }}</div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                <button class="btn btn-primary" role="button" ng-click="redirect('/new/relationship')">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <!-- SEARCH -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9">
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </span>
-                    <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}" ng-model="searchText">
-                    <span class="input-group-btn" ng-if="searchText">
+                    <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}" ng-model="filter.search_term">
+                    <span class="input-group-btn" ng-if="filter.search_term">
                         <a href="" class="btn btn-secondary" ng-click="resetSearch()">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </a>
                     </span>
                 </div>
-                <small class="form-text text-muted">{{ 'SEARCH_FOR' | translate }} {{ 'RELATIONSHIPS' | translate }}</small>
+                <small class="form-text text-muted">{{ 'SEARCH_FOR_NAMES' | translate }}</small>
+                <br>
             </div>
-            <div class="col-12 col-md-auto">
-                <a href="" class="btn btn-secondary" ng-click="redirect('/new/relationship')">
-                    <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE' | translate }}
-                </a>
+            <!-- ORDER SCENARIOS BY ATTRIBUTE -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+                <div class="input-group">
+                    <span class="input-group-addon" style="background-color: #ffffff;">
+                        <i class="fa fa-sort-alpha-asc" aria-hidden="true" ng-if="filter.orderby == 'name'"></i>
+                        <i class="fa fa-sort-alpha-desc" aria-hidden="true" ng-if="filter.orderby == '-name'"></i>
+                    </span>
+                    <select class="form-control custom-select" ng-model="filter.orderby">
+                        <option value="name">{{ 'NAME_ASC' | translate }} [{{ 'DEFAULT' | translate }}]</option>
+                        <option value="-name">{{ 'NAME_DESC' | translate }}</option>
+                    </select>
+                </div>
+                <small class="form-text text-muted">{{ 'SORT_BY' | translate }}</small>
+                <br>
             </div>
         </div>
-        <br>
 
-        <div class="list-group">
-            <a href="" ng-click="redirect('/relationship/' + relationship_type.name)" class="list-group-item list-group-item-action" ng-repeat="relationship_type in relationship_types | orderBy: ['name'] | filter: searchText">
-                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;
-                <span class="badge badge-pill badge-default">
-                    {{relationship_type.name | uppercase }}
-                </span>
+        <div class="list-group" ng-if="relationships && relationships.length>0">
+            <a href="" ng-click="redirect('/relationship/' + relationship.name)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="relationship in relationships | orderBy: filter.orderby | filter: filter.search_term">
+                <div class="d-flex w-100 justify-content-between">
+                    <div>
+                        <i class="fa fa-share-alt" aria-hidden="true"></i>
+                        &nbsp;&nbsp;
+                        <span class="badge badge-pill badge-default">
+                            {{relationship.name | uppercase }}
+                        </span>
+                    </div>
+                </div>
             </a>
         </div>
+        <div class="list-group" ng-if="!relationships || relationships.length==0">
+            <div class="list-group-item middle">
+                - {{ 'NONE' | translate }} -
+            </div>
+        </div>
+
     </div>
 
-    <!-- Right padding -->
-    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-2"></div>
+    <div class="card-footer">
+
+        <!-- Pagination -->
+        <nav aria-label="pagination" id="pagination" class="d-flex w-100 justify-content-between">
+            <ul class="pagination" ng-if="relationships.length > 0">
+                <li class="page-item" ng-class="{ 'disabled': pagination.offset - pagination.limit < 0 }">
+                    <a href="" class="page-link" ng-click="changeOffset(0)" ng-style="pagination.offset - pagination.limit < 0 && {'background-color':'#f7f7f9'}">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="page-item" ng-class="{ 'disabled': pagination.offset - pagination.limit < 0 }">
+                    <a href="" class="page-link" ng-click="changeOffset(pagination.offset - pagination.limit)" ng-style="pagination.offset - pagination.limit < 0 && {'background-color':'#f7f7f9'}">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="pagination" ng-if="relationships.length > 0">
+                <li
+                    class="page-item disabled"
+                    ng-if="pagination.offset >= (3 * pagination.limit)">
+                    <a href="" class="page-link">...</a>
+                </li>
+                <li
+                    class="page-item"
+                    ng-class="{'active': pagination.offset == page.offset}"
+                    ng-repeat="page in pages">
+                    <a
+                        href=""
+                        class="page-link"
+                        ng-if="
+                            (page.offset >= pagination.offset - (2 * pagination.limit)) &&
+                            (page.offset <= pagination.offset + (2 * pagination.limit))"
+                        ng-click="changeOffset(page.offset)"
+                    >
+                        {{$index+1}}
+                    </a>
+                </li>
+                <li
+                    class="page-item disabled"
+                    ng-if="pagination.offset <= ((pages.length-3) * pagination.limit)">
+                    <a href="" class="page-link">...</a>
+                </li>
+            </ul>
+            <ul class="pagination" ng-if="relationships.length > 0">
+                <li class="page-item" ng-class="{ 'disabled': pagination.offset + pagination.limit >= pages[pages.length - 1].offset + pagination.limit }">
+                    <a href="" class="page-link" ng-click="changeOffset(pagination.offset + pagination.limit)" ng-style="pagination.offset + pagination.limit >= pages[pages.length - 1].offset + pagination.limit && {'background-color':'#f7f7f9'}">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="page-item" ng-class="{ 'disabled': pagination.offset + pagination.limit >= pages[pages.length - 1].offset + pagination.limit }">
+                    <a href="" class="page-link" ng-click="changeOffset(pages[pages.length - 1].offset)" ng-style="pagination.offset + pagination.limit >= pages[pages.length - 1].offset + pagination.limit && {'background-color':'#f7f7f9'}">
+                        <b><i class="fa fa-angle-double-right" aria-hidden="true"></i></b>
+                    </a>
+                </li>
+            </ul>
+            <ul class="pagination" ng-if="relationships.length == 0">
+                <li class="page-item disabled">
+                    <div class="page-link" style="background-color: #f7f7f9;">
+                        <b><i class="fa fa-angle-left" aria-hidden="true"></i></b>
+                    </div>
+                </li>
+                <li class="page-item disabled">
+                    <div class="page-link" style="background-color: #f7f7f9;">
+                        <b><i class="fa fa-angle-double-left" aria-hidden="true"></i></b>
+                    </div>
+                </li>
+            </ul>
+            <ul class="pagination" ng-if="relationships.length == 0">
+                <li class="page-item disabled">
+                    <div class="page-link" style="background-color: #f7f7f9;">
+                        0
+                    </div>
+                </li>
+            </ul>
+            <ul class="pagination" ng-if="relationships.length == 0">
+                <li class="page-item disabled">
+                    <div class="page-link" style="background-color: #f7f7f9;">
+                        <b><i class="fa fa-angle-right" aria-hidden="true"></i></b>
+                    </div>
+                </li>
+                <li class="page-item disabled">
+                    <div class="page-link" style="background-color: #f7f7f9;">
+                        <b><i class="fa fa-angle-double-right" aria-hidden="true"></i></b>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
 </div>
-<br>
