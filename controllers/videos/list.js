@@ -19,7 +19,8 @@ exports.request = function(req, res) {
             session
                 .run(query_list_videos, {
                     skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999
+                    limit: req.query.limit || 9999999999,
+                    orderby: req.query.orderby || 'name.asc'
                 })
                 .then(function(result) {
                     callback(null, result);

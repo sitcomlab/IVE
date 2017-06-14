@@ -7,6 +7,7 @@ var driver = require('../../server.js').driver;
 var fs = require("fs");
 var query_get_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
 var query_search_overlays_by_scenario = fs.readFileSync(__dirname + '/../../queries/overlays/search_by_scenario.cypher', 'utf8').toString();
+var query_search_overlays_by_scenario_filtered_by_category = fs.readFileSync(__dirname + '/../../queries/overlays/search_by_scenario_filtered_by_category.cypher', 'utf8').toString();
 
 
 // SEARCH BY SCENARIO
@@ -24,7 +25,7 @@ exports.request = function(req, res) {
                 callback(null);
             }
         },
-        function(callback) { // Find entry by Id
+        function(query, params, callback) { // Find entry by Id
             session
                 .run(query_get_scenario, {
                     scenario_id: req.params.scenario_id
@@ -41,14 +42,27 @@ exports.request = function(req, res) {
                     callback(err, 500);
                 });
         },
+        function(callback){ // Prepare query and parameters
+            var query = query_search_overlays_by_scenario;
+            var params = {
+                scenario_id: req.params.scenario_id,
+                skip: req.query.skip || 0,
+                limit: req.query.limit || 9999999999,
+                orderby: req.query.orderby || 'name.asc',
+                search_term: req.body.search_term
+            }
+
+            // Check for filter
+            if(req.query.category){
+                query = query_search_overlays_by_scenario_filtered_by_category;
+                params.category = req.query.category;
+            }
+
+            callback(null, query, params);
+        },
         function(callback) { // Find entries
             session
-                .run(query_search_overlays_by_scenario, {
-                    scenario_id: req.params.scenario_id,
-                    skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999,
-                    search_term: req.body.search_term
-                })
+                .run(query, params)
                 .then(function(result) {
                     callback(null, result);
                 })

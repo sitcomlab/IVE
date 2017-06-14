@@ -6,6 +6,7 @@ var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
 var query_search_overlays = fs.readFileSync(__dirname + '/../../queries/overlays/search.cypher', 'utf8').toString();
+var query_search_overlays_filtered_by_category = fs.readFileSync(__dirname + '/../../queries/overlays/search_filtered_by_category.cypher', 'utf8').toString();
 
 
 // SEARCH
@@ -23,13 +24,26 @@ exports.request = function(req, res) {
                 callback(null);
             }
         },
-        function(callback) { // Find entries
+        function(callback){ // Prepare query and parameters
+            var query = query_search_overlays;
+            var params = {
+                skip: req.query.skip || 0,
+                limit: req.query.limit || 9999999999,
+                orderby: req.query.orderby || 'name.asc',
+                search_term: req.body.search_term
+            }
+
+            // Check for filter
+            if(req.query.category){
+                query = query_search_overlays_filtered_by_category;
+                params.category = req.query.category;
+            }
+
+            callback(null, query, params);
+        },
+        function(query, params, callback) { // Find entries
             session
-                .run(query_search_overlays, {
-                    skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999,
-                    search_term: req.body.search_term
-                })
+                .run(query, params)
                 .then(function(result) {
                     callback(null, result);
                 })

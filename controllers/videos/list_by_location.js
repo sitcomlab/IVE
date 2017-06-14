@@ -38,7 +38,8 @@ exports.request = function(req, res) {
                 .run(query_list_videos_by_location, {
                     location_id: req.params.location_id,
                     skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999
+                    limit: req.query.limit || 9999999999,
+                    orderby: req.query.orderby || 'name.asc'
                 })
                 .then(function(result) {
                     callback(null, result);

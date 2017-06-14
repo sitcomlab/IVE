@@ -24,6 +24,12 @@ RETURN
     parent.lat AS parent_location_lat,
     parent.lng AS parent_location_lng,
     parent.location_type AS parent_location_type
-ORDER BY child.name, parent.name ASC
+ORDER BY
+    CASE WHEN {orderby} = 'created.asc' THEN r.created END ASC,
+    CASE WHEN {orderby} = 'created.desc' THEN r.created END DESC,
+    CASE WHEN {orderby} = 'updated.asc' THEN r.updated END ASC,
+    CASE WHEN {orderby} = 'updated.desc' THEN r.updated END DESC,
+    CASE WHEN {orderby} = 'name.asc' THEN child.name END ASC,
+    CASE WHEN {orderby} = 'name.desc' THEN child.name END DESC
 SKIP toInt({skip})
 LIMIT toInt({limit});

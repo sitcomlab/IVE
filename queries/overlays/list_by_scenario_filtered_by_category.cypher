@@ -1,16 +1,14 @@
-MATCH (o:Overlays)
+MATCH (o:Overlays)-[r:belongs_to]->(s:Scenarios)
 WHERE
-    toLower(o.o_id) CONTAINS toLower({search_term}) OR
-    toLower(o.name) CONTAINS toLower({search_term}) OR
-    toLower(o.description) CONTAINS toLower({search_term}) OR
-    toLower(o.url) CONTAINS toLower({search_term})
+        o.category = {category}
+    AND
+        ID(s)= toInt({scenario_id})
 WITH count(*) AS full_count
-MATCH (o:Overlays)
+MATCH (o:Overlays)-[r:belongs_to]->(s:Scenarios)
 WHERE
-    toLower(o.o_id) CONTAINS toLower({search_term}) OR
-    toLower(o.name) CONTAINS toLower({search_term}) OR
-    toLower(o.description) CONTAINS toLower({search_term}) OR
-    toLower(o.url) CONTAINS toLower({search_term})
+        o.category = {category}
+    AND
+        ID(s)= toInt({scenario_id})
 RETURN
     full_count,
     ID(o) AS overlay_id,

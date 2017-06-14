@@ -28,6 +28,7 @@ exports.request = function(req, res) {
                 .run(query_search_scenarios, {
                     skip: req.query.skip || 0,
                     limit: req.query.limit || 9999999999,
+                    orderby: req.query.orderby || 'name.asc',
                     search_term: req.body.search_term
                 })
                 .then(function(result) {

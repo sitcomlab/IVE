@@ -8,7 +8,7 @@ var fs = require("fs");
 var query_has_parent_location = fs.readFileSync(__dirname + '/../../../queries/relationships/list/has_parent_location.cypher', 'utf8').toString();
 
 
-// LIST BY REALTIONSHIP-TYPE (:connected_to)
+// LIST BY REALTIONSHIP-LABEL (:has_parent_location)
 exports.request = function(req, res) {
 
     // Start session
@@ -19,7 +19,8 @@ exports.request = function(req, res) {
             session
                 .run(query_has_parent_location, {
                     skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999
+                    limit: req.query.limit || 9999999999,
+                    orderby: req.query.orderby || 'name.asc'
                 })
                 .then(function(result) {
                     callback(null, result);

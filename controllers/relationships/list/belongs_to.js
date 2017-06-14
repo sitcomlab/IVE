@@ -10,14 +10,14 @@ var query_belongs_to_video = fs.readFileSync(__dirname + '/../../../queries/rela
 var query_belongs_to_overlay = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_overlay.cypher', 'utf8').toString();
 
 
-// LIST BY REALTIONSHIP-TYPE (:belongs_to)
+// LIST BY REALTIONSHIP-LABEL (:belongs_to)
 exports.request = function(req, res) {
 
     // Start session
     var session = driver.session();
 
     var query;
-    switch (req.params.label) {
+    switch (req.params.relationship_type) {
         case 'location': {
             query = query_belongs_to_location;
             break;
@@ -39,7 +39,8 @@ exports.request = function(req, res) {
             session
                 .run(query, {
                     skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999
+                    limit: req.query.limit || 9999999999,
+                    orderby: req.query.orderby || 'name.asc'
                 })
                 .then(function(result) {
                     callback(null, result);

@@ -8,7 +8,7 @@ var fs = require("fs");
 var query_connected_to = fs.readFileSync(__dirname + '/../../../queries/relationships/list/connected_to.cypher', 'utf8').toString();
 
 
-// LIST BY REALTIONSHIP-TYPE (:connected_to)
+// LIST BY REALTIONSHIP-LABEL (:connected_to)
 exports.request = function(req, res) {
 
     // Start session
@@ -19,7 +19,8 @@ exports.request = function(req, res) {
             session
                 .run(query_connected_to, {
                     skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999
+                    limit: req.query.limit || 9999999999,
+                    orderby: req.query.orderby || 'name.asc'
                 })
                 .then(function(result) {
                     callback(null, result);

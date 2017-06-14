@@ -24,6 +24,12 @@ RETURN
     l.lat AS location_lat,
     l.lng AS location_lng,
     l.location_type AS location_type
-ORDER BY v.name, l.name ASC
+ORDER BY
+    CASE WHEN {orderby} = 'created.asc' THEN r.created END ASC,
+    CASE WHEN {orderby} = 'created.desc' THEN r.created END DESC,
+    CASE WHEN {orderby} = 'updated.asc' THEN r.updated END ASC,
+    CASE WHEN {orderby} = 'updated.desc' THEN r.updated END DESC,
+    CASE WHEN {orderby} = 'name.asc' THEN v.name END ASC,
+    CASE WHEN {orderby} = 'name.desc' THEN v.name END DESC
 SKIP toInt({skip})
 LIMIT toInt({limit});

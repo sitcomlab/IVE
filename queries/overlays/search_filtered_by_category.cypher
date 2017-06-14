@@ -1,16 +1,22 @@
 MATCH (o:Overlays)
 WHERE
-    toLower(o.o_id) CONTAINS toLower({search_term}) OR
-    toLower(o.name) CONTAINS toLower({search_term}) OR
-    toLower(o.description) CONTAINS toLower({search_term}) OR
-    toLower(o.url) CONTAINS toLower({search_term})
+        o.category = {category}
+    AND (
+        toLower(o.o_id) CONTAINS toLower({search_term}) OR
+        toLower(o.name) CONTAINS toLower({search_term}) OR
+        toLower(o.description) CONTAINS toLower({search_term}) OR
+        toLower(o.url) CONTAINS toLower({search_term})
+    )
 WITH count(*) AS full_count
 MATCH (o:Overlays)
 WHERE
-    toLower(o.o_id) CONTAINS toLower({search_term}) OR
-    toLower(o.name) CONTAINS toLower({search_term}) OR
-    toLower(o.description) CONTAINS toLower({search_term}) OR
-    toLower(o.url) CONTAINS toLower({search_term})
+        o.category = {category}
+    AND (
+        toLower(o.o_id) CONTAINS toLower({search_term}) OR
+        toLower(o.name) CONTAINS toLower({search_term}) OR
+        toLower(o.description) CONTAINS toLower({search_term}) OR
+        toLower(o.url) CONTAINS toLower({search_term})
+    )
 RETURN
     full_count,
     ID(o) AS overlay_id,

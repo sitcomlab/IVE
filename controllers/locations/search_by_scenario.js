@@ -7,6 +7,7 @@ var driver = require('../../server.js').driver;
 var fs = require("fs");
 var query_get_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
 var query_search_locations_by_scenario = fs.readFileSync(__dirname + '/../../queries/locations/search_by_scenario.cypher', 'utf8').toString();
+var query_search_locations_by_scenario_filtered_by_location_type = fs.readFileSync(__dirname + '/../../queries/locations/search_by_scenario_filtered_by_location_type.cypher', 'utf8').toString();
 
 
 // SEARCH BY SCENARIO
@@ -41,14 +42,27 @@ exports.request = function(req, res) {
                     callback(err, 500);
                 });
         },
-        function(callback) { // Find entries
+        function(callback){ // Prepare query and parameters
+            var query = query_search_locations_by_scenario;
+            var params = {
+                scenario_id: req.params.scenario_id,
+                skip: req.query.skip || 0,
+                limit: req.query.limit || 9999999999,
+                orderby: req.query.orderby || 'name.asc',
+                search_term: req.body.search_term
+            }
+
+            // Check for filter
+            if(req.query.location_type){
+                query = query_search_locations_by_scenario_filtered_by_location_type;
+                params.location_type = req.query.location_type;
+            }
+
+            callback(null, query, params);
+        },
+        function(query, params, callback) { // Find entries
             session
-                .run(query_search_locations_by_scenario, {
-                    scenario_id: req.params.scenario_id,
-                    skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999,
-                    search_term: req.body.search_term
-                })
+                .run(query, params)
                 .then(function(result) {
                     callback(null, result);
                 })

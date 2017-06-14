@@ -32,6 +32,12 @@ RETURN
     v.description AS video_description,
     v.url AS video_url,
     v.recorded AS video_recorded
-ORDER BY o.name, v.name ASC
+ORDER BY
+    CASE WHEN {orderby} = 'created.asc' THEN r.created END ASC,
+    CASE WHEN {orderby} = 'created.desc' THEN r.created END DESC,
+    CASE WHEN {orderby} = 'updated.asc' THEN r.updated END ASC,
+    CASE WHEN {orderby} = 'updated.desc' THEN r.updated END DESC,
+    CASE WHEN {orderby} = 'name.asc' THEN o.name END ASC,
+    CASE WHEN {orderby} = 'name.desc' THEN o.name END DESC
 SKIP toInt({skip})
 LIMIT toInt({limit});

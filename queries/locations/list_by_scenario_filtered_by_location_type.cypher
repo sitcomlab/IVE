@@ -1,8 +1,14 @@
 MATCH (l:Locations)-[r:belongs_to]->(s:Scenarios)
-WHERE ID(s)= toInt({scenario_id})
+WHERE
+        l.location_type = {location_type}
+    AND
+        ID(s)= toInt({scenario_id})
 WITH count(*) AS full_count
 MATCH (l:Locations)-[r:belongs_to]->(s:Scenarios)
-WHERE ID(s)= toInt({scenario_id})
+WHERE
+        l.location_type = {location_type}
+    AND
+        ID(s)= toInt({scenario_id})
 RETURN
     full_count,
     ID(l) AS location_id,

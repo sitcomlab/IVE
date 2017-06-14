@@ -1,6 +1,8 @@
-MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
+MATCH (o:Overlays)-[r:belongs_to]->(s:Scenarios)
 WHERE
-        ID(v)= toInt({video_id})
+        o.category = {category}
+    AND
+        ID(s)= toInt({scenario_id})
     AND (
         toLower(o.o_id) CONTAINS toLower({search_term}) OR
         toLower(o.name) CONTAINS toLower({search_term}) OR
@@ -8,9 +10,11 @@ WHERE
         toLower(o.url) CONTAINS toLower({search_term})
     )
 WITH count(*) AS full_count
-MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
+MATCH (o:Overlays)-[r:belongs_to]->(s:Scenarios)
 WHERE
-        ID(v)= toInt({video_id})
+        o.category = {category}
+    AND
+        ID(s)= toInt({scenario_id})
     AND (
         toLower(o.o_id) CONTAINS toLower({search_term}) OR
         toLower(o.name) CONTAINS toLower({search_term}) OR
@@ -26,8 +30,7 @@ RETURN
     o.name AS name,
     o.description AS description,
     o.category AS category,
-    o.url AS url,
-    r.display AS display
+    o.url AS url
 ORDER BY
     CASE WHEN {orderby} = 'created.asc' THEN o.created END ASC,
     CASE WHEN {orderby} = 'created.desc' THEN o.created END DESC,

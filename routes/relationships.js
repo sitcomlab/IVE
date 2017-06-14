@@ -30,29 +30,29 @@ var del = require('../controllers/relationships/delete');
 
 
 
-// LIST BY RELATIONSHIP-TYPE
-router.get('/relationship/belongs_to/:label', list_belongs_to.request);
+// LIST BY RELATIONSHIP-LABEL
+router.get('/relationship/belongs_to/:relationship_type', list_belongs_to.request);
 router.get('/relationship/connected_to', list_connected_to.request);
 router.get('/relationship/embedded_in', list_embedded_in.request);
 router.get('/relationship/has_parent_location', list_has_parent_location.request);
 router.get('/relationship/recorded_at', list_recorded_at.request);
 
-// POST BY RELATIONSHIP-TYPE
-router.post('/relationship/belongs_to/:label', isAuthenticated, post_belongs_to.request);
+// POST BY RELATIONSHIP-LABEL
+router.post('/relationship/belongs_to/:relationship_type', isAuthenticated, post_belongs_to.request);
 router.post('/relationship/connected_to', isAuthenticated, post_connected_to.request);
 router.post('/relationship/embedded_in', isAuthenticated, post_embedded_in.request);
 router.post('/relationship/has_parent_location', isAuthenticated, post_has_parent_location.request);
 router.post('/relationship/recorded_at', isAuthenticated, post_recorded_at.request);
 
 // GET BY ID
-router.get('/relationship/belongs_to/:relationship_id/:label', get_belongs_to.request);
+router.get('/relationship/belongs_to/:relationship_id/:relationship_type', get_belongs_to.request);
 router.get('/relationship/connected_to/:relationship_id', get_connected_to.request);
 router.get('/relationship/embedded_in/:relationship_id', get_embedded_in.request);
 router.get('/relationship/has_parent_location/:relationship_id', get_has_parent_location.request);
 router.get('/relationship/recorded_at/:relationship_id', get_recorded_at.request);
 
 // EDIT BY ID
-router.put('/relationship/belongs_to/:relationship_id/:label', isAuthenticated, edit_belongs_to.request);
+router.put('/relationship/belongs_to/:relationship_id/:relationship_type', isAuthenticated, edit_belongs_to.request);
 router.put('/relationship/connected_to/:relationship_id', isAuthenticated, edit_connected_to.request);
 router.put('/relationship/embedded_in/:relationship_id', isAuthenticated, edit_embedded_in.request);
 router.put('/relationship/has_parent_location/:relationship_id', isAuthenticated, edit_has_parent_location.request);

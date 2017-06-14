@@ -1,10 +1,26 @@
-MATCH (l:Locations)-[r:belongs_to]->(s:Scenarios)
-WHERE ID(s)= toInt({scenario_id})
+MATCH (l:Locations)
+WHERE
+		l.location_type = {location_type}
+	AND (
+		toLower(l.l_id) CONTAINS toLower({search_term}) OR
+		toLower(l.name) CONTAINS toLower({search_term}) OR
+		toLower(l.description) CONTAINS toLower({search_term}) OR
+		l.lat CONTAINS toLower({search_term}) OR
+		l.lng CONTAINS toLower({search_term})
+	)
 WITH count(*) AS full_count
-MATCH (l:Locations)-[r:belongs_to]->(s:Scenarios)
-WHERE ID(s)= toInt({scenario_id})
+MATCH (l:Locations)
+WHERE
+		l.location_type = {location_type}
+	AND (
+		toLower(l.l_id) CONTAINS toLower({search_term}) OR
+		toLower(l.name) CONTAINS toLower({search_term}) OR
+		toLower(l.description) CONTAINS toLower({search_term}) OR
+		l.lat CONTAINS toLower({search_term}) OR
+		l.lng CONTAINS toLower({search_term})
+	)
 RETURN
-    full_count,
+	full_count,
     ID(l) AS location_id,
     l.created AS created,
     l.updated AS updated,

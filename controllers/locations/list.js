@@ -6,6 +6,7 @@ var moment = require('moment');
 var driver = require('../../server.js').driver;
 var fs = require("fs");
 var query_list_locations = fs.readFileSync(__dirname + '/../../queries/locations/list.cypher', 'utf8').toString();
+var query_list_locations_filtered_by_location_type = fs.readFileSync(__dirname + '/../../queries/locations/list_filtered_by_location_type.cypher', 'utf8').toString();
 
 
 // LIST
@@ -15,12 +16,25 @@ exports.request = function(req, res) {
     var session = driver.session();
 
     async.waterfall([
-        function(callback) { // Find entries
+        function(callback){ // Prepare query and parameters
+            var query = query_list_locations;
+            var params = {
+                skip: req.query.skip || 0,
+                limit: req.query.limit || 9999999999,
+                orderby: req.query.orderby || 'name.asc'
+            }
+
+            // Check for filter
+            if(req.query.location_type){
+                query = query_list_locations_filtered_by_location_type;
+                params.location_type = req.query.location_type;
+            }
+
+            callback(null, query, params);
+        },
+        function(query, params, callback) { // Find entries
             session
-                .run(query_list_locations, {
-                    skip: req.query.skip || 0,
-                    limit: req.query.limit || 9999999999
-                })
+                .run(query, params)
                 .then(function(result) {
                     callback(null, result);
                 })

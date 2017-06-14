@@ -1,5 +1,7 @@
 MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
 WHERE
+        o.category = {category}
+    AND
         ID(v)= toInt({video_id})
     AND (
         toLower(o.o_id) CONTAINS toLower({search_term}) OR
@@ -10,6 +12,8 @@ WHERE
 WITH count(*) AS full_count
 MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
 WHERE
+        o.category = {category}
+    AND
         ID(v)= toInt({video_id})
     AND (
         toLower(o.o_id) CONTAINS toLower({search_term}) OR
