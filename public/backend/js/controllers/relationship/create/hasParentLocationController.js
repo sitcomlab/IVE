@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship has_parent_location create controller
-app.controller("hasParentLocationCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService) {
+app.controller("hasParentLocationCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -36,7 +27,8 @@ app.controller("hasParentLocationCreateController", function($scope, $rootScope,
             $scope.createRelationshipForm.child_location_id.$pristine = false;
             $scope.createRelationshipForm.has_parent_location_id.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_RELATIONSHIP') };
+
             $relationshipService.create('has_parent_location', $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
@@ -52,9 +44,9 @@ app.controller("hasParentLocationCreateController", function($scope, $rootScope,
      * [updateDropdown description]
      * @return {[type]} [description]
      */
-    $scope.updateDropdown = function(label){
+    $scope.updateDropdown = function(relationship_label){
 
-        switch (label) {
+        switch (relationship_label) {
             case 'child_locations': {
                 if($scope.childLocationDropdown.scenario_id !== ""){
                     $locationService.list_by_scenario($scope.childLocationDropdown.scenario_id)
@@ -70,7 +62,7 @@ app.controller("hasParentLocationCreateController", function($scope, $rootScope,
 
                         // Update UI
                         $scope.childLocationDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -89,7 +81,7 @@ app.controller("hasParentLocationCreateController", function($scope, $rootScope,
 
                         // Update UI
                         $scope.childLocationDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -113,7 +105,7 @@ app.controller("hasParentLocationCreateController", function($scope, $rootScope,
 
                         // Update UI
                         $scope.parentLocationDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -132,7 +124,7 @@ app.controller("hasParentLocationCreateController", function($scope, $rootScope,
 
                         // Update UI
                         $scope.parentLocationDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -148,8 +140,8 @@ app.controller("hasParentLocationCreateController", function($scope, $rootScope,
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
     $scope.relationship = $relationshipService.init('has_parent_location');
+    $scope.$parent.loading = { status: false, message: "" };
 
     // Prepare dropdown
     $scope.childLocationDropdown = {

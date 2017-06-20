@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Scenario create controller
-app.controller("scenarioCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+app.controller("scenarioCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
 
     /*************************************************
         FUNCTIONS
@@ -27,7 +27,7 @@ app.controller("scenarioCreateController", function($scope, $rootScope, $routePa
             $scope.createScenarioForm.name.$pristine = false;
             $scope.createScenarioForm.description.$pristine = false;
         } else {
-            $scope.$parent.loading = { status: true, message: "CREATING_SCENARIO" };
+            $scope.$parent.loading = { status: true, message:  $filter('translate')('CREATING_SCENARIO') };
 
             $scenarioService.create($scope.scenario)
             .then(function onSuccess(response) {

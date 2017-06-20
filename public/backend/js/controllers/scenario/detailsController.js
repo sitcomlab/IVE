@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Scenario details controller
-app.controller("scenarioDetailsController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $scenarioService, $locationService, $videoService, $overlayService) {
+app.controller("scenarioDetailsController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService, $locationService, $videoService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
@@ -41,7 +41,7 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
     /*************************************************
         INIT
      *************************************************/
-    $scope.$parent.loading = { status: true, message: "LOADING_SCENARIO" };
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_SCENARIO') };
 
     $scope.relatedLocations = false;
     $scope.relatedVideos = false;

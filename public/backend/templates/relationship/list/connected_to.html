@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<br>
+
+<!-- SEARCH -->
+<div class="row">
+    <div class="col">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}" ng-model="searchText">
+            <span class="input-group-btn" ng-if="searchText">
+                <a href="" class="btn btn-secondary" ng-click="resetSearch()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </a>
+            </span>
+        </div>
+        <small class="form-text text-muted">{{ 'SEARCH_FOR' | translate }} {{ 'RELATIONSHIPS' | translate }}</small>
+    </div>
+    <div class="col-12 col-md-auto">
+        <a href="" class="btn btn-secondary" ng-click="redirect('/new/connected_to/relationship')">
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE' | translate }}
+        </a>
+    </div>
+</div>
+<br>
+
+<div class="middle" ng-if="!relationships">
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+</div>
+<div class="middle" ng-if="relationships && relationships.length==0">
+    - {{ 'NO' | translate }} {{ 'RELATIONSHIPS' | translate }} {{ 'FOUND' | translate }} -
+</div>
+<div class="list-group" ng-if="relationships && relationships.length>0">
+    <a href="" ng-click="redirect('/relationship/connected_to/' + relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="relationship in relationships | orderBy: ['start_location_name'] | filter: searchText">
+        <div>
+            <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.start_location_name}}
+            <span class="badge" ng-class="{
+                'badge-primary': relationship.start_location_type=='outdoor',
+                'badge-default': relationship.start_location_type=='indoor',
+                'badge-success': relationship.start_location_type=='abstract'
+            }">{{relationship.start_location_type}}</span>
+        </div>
+        <div>
+            <span class="badge badge-pill badge-default">
+                &mdash;&nbsp;CONNECTED_TO&nbsp;&mdash;&gt;
+            </span>
+        </div>
+        <div>
+            <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.end_location_name}}
+            <span class="badge" ng-class="{
+                'badge-primary': relationship.end_location_type=='outdoor',
+                'badge-default': relationship.end_location_type=='indoor',
+                'badge-success': relationship.end_location_type=='abstract'
+            }">{{relationship.end_location_type}}</span>
+        </div>
+    </a>
+</div>

@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Scenario edit controller
-app.controller("scenarioEditController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+app.controller("scenarioEditController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
 
     /*************************************************
         FUNCTIONS
@@ -27,7 +27,7 @@ app.controller("scenarioEditController", function($scope, $rootScope, $routePara
             $scope.editScenarioForm.name.$pristine = false;
             $scope.editScenarioForm.description.$pristine = false;
         } else {
-            $scope.$parent.loading = { status: true, message: "SAVING_SCENARIO" };
+            $scope.$parent.loading = { status: true, message: $filter('translate')('SAVING_SCENARIO') };
 
             $scenarioService.edit($scope.scenario.scenario_id, $scope.scenario)
             .then(function onSuccess(response) {
@@ -44,7 +44,7 @@ app.controller("scenarioEditController", function($scope, $rootScope, $routePara
     /*************************************************
         INIT
      *************************************************/
-    $scope.$parent.loading = { status: true, message: "LOADING_SCENARIO" };
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_SCENARIO') };
 
     // Load scenario
     $scenarioService.retrieve($routeParams.scenario_id)

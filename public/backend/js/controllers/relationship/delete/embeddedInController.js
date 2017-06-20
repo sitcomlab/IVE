@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship embedded_in delete controller
-app.controller("embeddedInDeleteController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+app.controller("embeddedInDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -30,7 +21,8 @@ app.controller("embeddedInDeleteController", function($scope, $rootScope, $route
      * @return {[type]} [description]
      */
     $scope.delete = function(){
-        $scope.changeTab(0);
+        $scope.$parent.loading = { status: true, message: $filter('translate')('DELETING_RELATIONSHIP') };
+
         $relationshipService.remove($scope.relationship.relationship_id)
         .then(function onSuccess(response) {
             $scope.redirect("/relationship/embedded_in");
@@ -44,14 +36,14 @@ app.controller("embeddedInDeleteController", function($scope, $rootScope, $route
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
     $scope.input = "";
     $scope.relationship_type = "EMBEDDED_IN";
 
     $relationshipService.retrieve_by_id('embedded_in', $routeParams.relationship_id)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

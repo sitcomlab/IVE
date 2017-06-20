@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<div class="card">
+
+    <form class="form-horizontal" name="createRelationshipForm" ng-submit="send()">
+
+        <div class="card-header middle" style="font-size: 20pt;">
+            <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE_NEW' | translate }} {{ 'RELATIONSHIP' | translate }}
+        </div>
+        <div class="card-block">
+            <br>
+
+            <div class="row">
+
+                <!-- (Location) -->
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-if="label=='location'">
+                    <label>
+                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_LOCATION' | translate }}*</b>
+                    </label>
+                    <br>
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.location_id.$invalid && !createRelationshipForm.location_id.$pristine}">
+                        <select
+                            class="custom-select form-control"
+                            id="location_id"
+                            name="location_id"
+                            ng-model="relationship.location_id"
+                            ng-options="location.location_id as location.name group by location.location_type for location in locations | orderBy:['name']"
+                            required>
+                        </select>
+                        <span ng-show="createRelationshipForm.location_id.$error.required && !createRelationshipForm.location_id.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <br>
+                </div>
+
+                <!-- (Video) -->
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-if="label=='video'">
+                    <label>
+                        <b><i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}*</b>
+                    </label>
+                    <br>
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.video_id.$invalid && !createRelationshipForm.video_id.$pristine}">
+                        <select
+                            class="custom-select form-control"
+                            id="video_id"
+                            name="video_id"
+                            ng-model="relationship.video_id"
+                            ng-options="video.video_id as video.name for video in videos | orderBy:['name']"
+                            required>
+                        </select>
+                        <span ng-show="createRelationshipForm.video_id.$error.required && !createRelationshipForm.video_id.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <br>
+                </div>
+
+                <!-- (Overlay) -->
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-if="label=='overlay'">
+                    <label>
+                        <b><i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_OVERLAY' | translate }}*</b>
+                    </label>
+                    <br>
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.overlay_id.$invalid && !createRelationshipForm.overlay_id.$pristine}">
+                        <select
+                            class="custom-select form-control"
+                            id="overlay_id"
+                            name="overlay_id"
+                            ng-model="relationship.overlay_id"
+                            ng-options="overlay.overlay_id as overlay.name for overlay in overlays | orderBy:['name']"
+                            required>
+                        </select>
+                        <span ng-show="createRelationshipForm.overlay_id.$error.required && !createRelationshipForm.overlay_id.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <br>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 middle">
+                    <span class="badge badge-pill badge-default">
+                        &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                    </span>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label>
+                        <b><i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_SCENARIO' | translate }}*</b>
+                    </label>
+                    <br>
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.scenario_id.$invalid && !createRelationshipForm.scenario_id.$pristine}">
+                        <select
+                            class="custom-select form-control"
+                            id="scenario_id"
+                            name="scenario_id"
+                            ng-model="relationship.scenario_id"
+                            ng-options="scenario.scenario_id as scenario.name for scenario in scenarios | orderBy:['name']"
+                            required>
+                        </select>
+                        <span ng-show="createRelationshipForm.scenario_id.$error.required && !createRelationshipForm.scenario_id.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <br>
+
+        </div>
+
+        <div class="card-footer">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/belongs_to')">
+                        <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
+                    </button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success btn-block" role="submit">
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

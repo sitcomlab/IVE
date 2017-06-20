@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<br>
+
+<!-- Overlay -->
+<tjs-model-viewer assimp-url="assimpModelUrl"></tjs-model-viewer>
+
+<br>
+<br>
+
+<!-- Video container -->
+<div class="videogular-container">
+
+    <!-- Video player -->
+    <videogular vg-theme="videoConfig.theme" vg-auto-play="videoConfig.autoPlay">
+
+        <!-- Video files -->
+        <vg-media vg-src="sources" vg-loop="videoConfig.loop"></vg-media>
+
+        <!-- Video player controls -->
+        <vg-controls vg-autohide="videoConfig.autoHide" vg-autohide-time="videoConfig.autoHideTime">
+            <vg-play-pause-button></vg-play-pause-button>
+            <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+            <vg-scrub-bar>
+                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            </vg-scrub-bar>
+            <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+            <vg-volume>
+                <vg-mute-button></vg-mute-button>
+                <vg-volume-bar></vg-volume-bar>
+            </vg-volume>
+            <vg-fullscreen-button></vg-fullscreen-button>
+        </vg-controls>
+    </videogular>
+</div>
+<br>
+
+<div class="row">
+    <div class="col">
+        <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/embedded_in/' + relationship.relationship_id) + '/edit'">
+            <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
+        </button>
+    </div>
+    <div class="col">
+        <button class="btn btn-success btn-block" role="submit">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SAVE' | translate }}
+        </button>
+    </div>
+</div>

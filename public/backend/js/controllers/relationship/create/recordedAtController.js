@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship recorded_at create controller
-app.controller("recordedAtCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService, $videoService) {
+app.controller("recordedAtCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService, $videoService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -35,7 +26,8 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
             // Update UI
             $scope.createRelationshipForm.preferred.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_RELATIONSHIP') };
+
             $relationshipService.create('recorded_at', $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
@@ -51,9 +43,9 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
      * [updateDropdown description]
      * @return {[type]} [description]
      */
-    $scope.updateDropdown = function(label){
+    $scope.updateDropdown = function(relationship_label){
 
-        switch (label) {
+        switch (relationship_label) {
             case 'videos': {
                 if($scope.videoDropdown.scenario_id !== ""){
                     $videoService.list_by_scenario($scope.videoDropdown.scenario_id)
@@ -69,7 +61,7 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.videoDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -88,7 +80,7 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.videoDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -111,7 +103,7 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.locationDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -130,7 +122,7 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.locationDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -146,8 +138,8 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
     $scope.relationship = $relationshipService.init('recorded_at');
+    $scope.$parent.loading = { status: false, message: "" };
 
     // Prepare dropdowns
     $scope.videoDropdown = {

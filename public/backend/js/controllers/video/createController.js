@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Video create controller
-app.controller("videoCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $videoService) {
+app.controller("videoCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $videoService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -38,7 +29,8 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
             $scope.createVideoForm.url.$pristine = false;
             $scope.createVideoForm.recorded.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_VIDEO') };
+
             $videoService.create($scope.video)
             .then(function onSuccess(response) {
                 var new_video = response.data;
@@ -54,8 +46,7 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
     $scope.video = $videoService.init();
-    $scope.changeTab(1);
+    $scope.$parent.loading = { status: false, message: "" };
 
 });

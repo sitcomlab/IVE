@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship connected_to create controller
-app.controller("connectedToCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService) {
+app.controller("connectedToCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -36,7 +27,8 @@ app.controller("connectedToCreateController", function($scope, $rootScope, $rout
             $scope.createRelationshipForm.start_location_id.$pristine = false;
             $scope.createRelationshipForm.end_location_id.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_RELATIONSHIP') };
+
             $relationshipService.create('connected_to', $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
@@ -52,9 +44,9 @@ app.controller("connectedToCreateController", function($scope, $rootScope, $rout
      * [updateDropdown description]
      * @return {[type]} [description]
      */
-    $scope.updateDropdown = function(label){
+    $scope.updateDropdown = function(relationship_label){
 
-        switch (label) {
+        switch (relationship_label) {
             case 'locations': {
                 if($scope.locationDropdown.scenario_id !== ""){
                     $locationService.list_by_scenario($scope.locationDropdown.scenario_id)
@@ -69,7 +61,7 @@ app.controller("connectedToCreateController", function($scope, $rootScope, $rout
                         $scope.relationship.end_location_id = first_location;
 
                         $scope.locationDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -87,7 +79,7 @@ app.controller("connectedToCreateController", function($scope, $rootScope, $rout
                         $scope.relationship.end_location_id = first_location;
 
                         $scope.locationDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -103,8 +95,8 @@ app.controller("connectedToCreateController", function($scope, $rootScope, $rout
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
     $scope.relationship = $relationshipService.init('connected_to');
+    $scope.$parent.loading = { status: false, message: "" };
 
     // Prepare dropdown
     $scope.locationDropdown = {

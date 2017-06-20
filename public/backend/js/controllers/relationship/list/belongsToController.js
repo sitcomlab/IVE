@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship belongs_to list controller
-app.controller("belongsToListController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+app.controller("belongsToListController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -57,7 +48,7 @@ app.controller("belongsToListController", function($scope, $rootScope, $routePar
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIPS') };
     $scope.searchText = "";
     $scope.relatedLocations = false;
     $scope.relatedVideos = false;
@@ -74,7 +65,7 @@ app.controller("belongsToListController", function($scope, $rootScope, $routePar
             $relationshipService.list_by_label('belongs_to', 'overlay')
             .then(function onSuccess(response) {
                 $scope.overlay_relationships = response.data;
-                $scope.changeTab(1);
+                $scope.$parent.loading = { status: false, message: "" };
             })
             .catch(function onError(response) {
                 $window.alert(response.data);

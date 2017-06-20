@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<div class="card">
+    <div class="card-header" style="font-size: 20pt;">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }} {{overlay.name}}
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                <button class="btn btn-secondary" role="button" ng-click="redirect('/overlays/' + overlay.overlay_id)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+        <h5>
+            {{ 'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS' | translate }} {{ 'OVERLAY' | translate }}?
+        </h5>
+        <br>
+        <label>
+            <b>{{ 'NAME' | translate }}</b>
+        </label>
+        <input type="text" class="form-control" ng-model="input" id="name" placeholder="{{ 'NAME' | translate }}" autofocus>
+        <small class="form-text text-muted">
+            {{ 'PLEASE_TYPE_IN_THE_NAME_OF_THE' | translate }} {{ 'OVERLAY' | translate }} {{ 'TO_CONFIRM' | translate }}
+        </small>
+        <br>
+    </div>
+    <div class="card-footer right">
+        <button class="btn btn-danger" role="button" ng-click="delete()" ng-disabled="input != overlay.name">
+            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
+        </button>
+    </div>
+</div>

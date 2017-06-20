@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Location details controller
-app.controller("locationDetailsController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $locationService, $videoService, $overlayService) {
+app.controller("locationDetailsController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $locationService, $videoService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -29,7 +20,7 @@ app.controller("locationDetailsController", function($scope, $rootScope, $routeP
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_LOCATION') };
     $scope.connectedLocations = true;
 
 
@@ -37,7 +28,7 @@ app.controller("locationDetailsController", function($scope, $rootScope, $routeP
     $locationService.retrieve($routeParams.location_id)
     .then(function onSuccess(response) {
         $scope.location = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
 
         // Load connected locations
         $locationService.list_by_location($scope.location.location_id)

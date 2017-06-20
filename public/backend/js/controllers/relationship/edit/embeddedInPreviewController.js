@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship embedded_in edit in preview mode controller
-app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $sce, $authenticationService, $relationshipService, $videoService, tjsModelViewer) {
+app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $sce, $authenticationService, $relationshipService, $videoService, tjsModelViewer) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -30,7 +21,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
      * @return {[type]} [description]
      */
     $scope.send = function(){
-        $scope.changeTab(0);
+        $scope.$parent.loading = { status: true, message: $filter('translate')('') };
         $relationshipService.edit('embedded_in', $scope.relationship.relationship_id, $scope.relationship)
         .then(function onSuccess(response) {
             $scope.relationship = response.data;
@@ -70,7 +61,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
 
     // Videoplayer
     $scope.videoConfig = {
@@ -90,14 +81,13 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
         $scope.changeSource($scope.relationship.video_url);
 
-        $scope.changeTab(1);
-
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);
     });
 
-    
+
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );

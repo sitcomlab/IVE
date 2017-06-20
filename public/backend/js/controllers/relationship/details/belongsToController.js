@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship belongs_to details controller
-app.controller("belongsToDetailsController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+app.controller("belongsToDetailsController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -29,13 +20,13 @@ app.controller("belongsToDetailsController", function($scope, $rootScope, $route
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
     $scope.label = $routeParams.label;
 
     $relationshipService.retrieve_by_id('belongs_to', $routeParams.relationship_id, $scope.label)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

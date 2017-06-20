@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship connected_to list controller
-app.controller("connectedToListController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+app.controller("connectedToListController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -51,7 +42,7 @@ app.controller("connectedToListController", function($scope, $rootScope, $routeP
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIPS') };
     $scope.searchText = "";
     $scope.relationship_id = "";
     $scope.relationshipStatus = false;
@@ -59,7 +50,7 @@ app.controller("connectedToListController", function($scope, $rootScope, $routeP
     $relationshipService.list_by_label('connected_to')
     .then(function onSuccess(response) {
         $scope.relationships = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

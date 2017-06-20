@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship embedded_in create controller
-app.controller("embeddedInCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $videoService, $overlayService) {
+app.controller("embeddedInCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $videoService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -44,7 +35,7 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
             $scope.createRelationshipForm.rz.$pristine = false;
             $scope.createRelationshipForm.display.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_RELATIONSHIP') };
 
             $relationshipService.create('embedded_in', $scope.relationship)
             .then(function onSuccess(response) {
@@ -61,9 +52,9 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
      * [updateDropdown description]
      * @return {[type]} [description]
      */
-    $scope.updateDropdown = function(label){
+    $scope.updateDropdown = function(relationship_label){
 
-        switch (label) {
+        switch (relationship_label) {
             case 'overlays': {
                 if($scope.overlayDropdown.scenario_id !== ""){
                     $overlayService.list_by_scenario($scope.overlayDropdown.scenario_id)
@@ -79,7 +70,7 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.overlayDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -98,7 +89,7 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.overlayDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -121,7 +112,7 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.videoDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -140,7 +131,7 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.videoDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -155,8 +146,8 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
     $scope.relationship = $relationshipService.init('embedded_in');
+    $scope.$parent.loading = { status: false, message: "" };
 
     // Prepare dropdowns
     $scope.overlayDropdown = {

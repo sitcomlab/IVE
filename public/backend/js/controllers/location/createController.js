@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Location create controller
-app.controller("locationCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $locationService) {
+app.controller("locationCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $locationService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -39,7 +30,8 @@ app.controller("locationCreateController", function($scope, $rootScope, $routePa
             $scope.createLocationForm.lng.$pristine = false;
             $scope.createLocationForm.lat.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_LOCATION') };
+
             $locationService.create($scope.location)
             .then(function onSuccess(response) {
                 var new_location = response.data;
@@ -55,8 +47,7 @@ app.controller("locationCreateController", function($scope, $rootScope, $routePa
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
     $scope.location = $locationService.init();
-    $scope.changeTab(1);
+    $scope.$parent.loading = { status: false, message: "" };
 
 });

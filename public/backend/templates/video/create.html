@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<div class="card">
+    <form class="form-horizontal" name="createVideoForm" ng-submit="send()">
+        <div class="card-header" style="font-size: 20pt;">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                    <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'NEW_VIDEO' | translate }}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                    <button class="btn btn-secondary" role="button" ng-click="redirect('/videos')">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-block">
+            <label>
+                <b>{{ 'NAME' | translate }}*</b>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createVideoForm.name.$invalid && !createVideoForm.name.$pristine}">
+                <input
+                    type="text"
+                    class="form-control"
+                    ng-model="video.name"
+                    name="name"
+                    id="name"
+                    placeholder="{{ 'NAME' | translate }}*"
+                    aria-describedby="inputName"
+                    autofocus
+                    required>
+                <span ng-show="createVideoForm.name.$error.required && !createVideoForm.name.$pristine" class="text-danger">
+                    <small>
+                        {{ 'REQUIRED' | translate }}
+                    </small>
+                </span>
+            </div>
+            <br>
+
+            <label>
+                <b>{{ 'DESCRIPTION' | translate }}</b>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createVideoForm.description.$invalid && !createVideoForm.description.$pristine }">
+                <textarea
+                    class="form-control"
+                    rows="5"
+                    placeholder="{{ 'DESCRIPTION' | translate }}" ng-model="video.description"
+                    name="description"
+                    id="description"></textarea>
+            </div>
+            <br>
+
+            <label>
+                <b>{{ 'URL' | translate }}*</b>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createVideoForm.url.$invalid && !createVideoForm.url.$pristine}">
+                <input
+                    type="url"
+                    class="form-control"
+                    ng-model="video.url"
+                    name="url"
+                    id="url"
+                    placeholder="{{ 'URL' | translate }}*"
+                    aria-describedby="inputUrl"
+                    required>
+                <span ng-show="createVideoForm.url.$error.required && !createVideoForm.url.$pristine" class="text-danger">
+                    <small>
+                        {{ 'REQUIRED' | translate }}
+                    </small>
+                </span>
+            </div>
+            <br>
+
+            <label>
+                <b>{{ 'RECORDED' | translate }}</b>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createVideoForm.recorded.$invalid && !createVideoForm.recorded.$pristine}">
+                <input
+                    type="datetime"
+                    class="form-control"
+                    ng-model="video.recorded"
+                    name="recorded"
+                    id="recorded"
+                    placeholder="{{ 'RECORDED' | translate }}"
+                    aria-describedby="inputRecorded"
+                    >
+            </div>
+
+        </div>
+        <div class="card-footer right">
+            <button class="btn btn-success" role="submit">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
+            </button>
+        </div>
+    </form>
+</div>

@@ -2,7 +2,7 @@ var app = angular.module("ive");
 
 
 // Scenario list controller
-app.controller("scenarioListController", function($scope, $rootScope, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+app.controller("scenarioListController", function($scope, $rootScope, $filter, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
 
     /*************************************************
         FUNCTIONS
@@ -122,7 +122,7 @@ app.controller("scenarioListController", function($scope, $rootScope, $filter, $
     /*************************************************
         INIT
      *************************************************/
-    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_scenarios') };
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_SCENARIOS') };
 
     // Load scenarios
     $scope.pagination = $scenarioService.getPagination();

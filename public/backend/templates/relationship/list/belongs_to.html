@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<br>
+
+<!-- SEARCH -->
+<div class="row">
+    <div class="col">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}" ng-model="searchText">
+            <span class="input-group-btn" ng-if="searchText">
+                <a href="" class="btn btn-secondary" ng-click="resetSearch()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </a>
+            </span>
+        </div>
+        <small class="form-text text-muted">{{ 'SEARCH_FOR' | translate }} {{ 'RELATIONSHIPS' | translate }}</small>
+    </div>
+    <div class="col-12 col-md-auto">
+        <a href="" class="btn btn-secondary" ng-click="redirect('/new/belongs_to/relationship')">
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE' | translate }}
+        </a>
+    </div>
+</div>
+<br>
+
+<!-- Related locations -->
+<div class="card">
+    <div class="list-group list-group-flush" ng-if="location_relationships.length==0">
+        <div class="list-group-item">
+            - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS'  | translate }} -
+        </div>
+    </div>
+    <div class="list-group list-group-flush" ng-if="location_relationships.length>0">
+        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedLocations')">
+            <span ng-if="!relatedLocations">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'SHOW' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+            </span>
+            <span ng-if="relatedLocations">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'HIDE' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+            </span>
+            <span class="badge badge-default badge-pill">
+                {{location_relationships.length}}
+            </span>
+        </a>
+    </div>
+    <div class="list-group list-group-flush" ng-if="relatedLocations && location_relationships.length>0">
+        <a href="" ng-click="redirect('/relationship/belongs_to/location/' + location_relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="location_relationship in location_relationships | orderBy: ['scenario_name', 'location_type', 'location_name'] | filter: searchText">
+            <div>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location_relationship.location_name}}
+                <span class="badge" ng-class="{
+                    'badge-primary': location_relationship.location_type=='outdoor',
+                    'badge-default': location_relationship.location_type=='indoor',
+                    'badge-success': location_relationship.location_type=='abstract'
+                }">{{location_relationship.location_type}}</span>
+            </div>
+            <div>
+                <span class="badge badge-pill badge-default">
+                    &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                </span>
+            </div>
+            <div>
+                <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{location_relationship.scenario_name}}
+            </div>
+        </a>
+    </div>
+</div>
+<br>
+
+<!-- Related videos -->
+<div class="card">
+    <div class="list-group list-group-flush" ng-if="video_relationships.length==0">
+        <div class="list-group-item">
+            - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS'  | translate }} -
+        </div>
+    </div>
+    <div class="list-group list-group-flush" ng-if="video_relationships.length>0">
+        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedVideos')">
+            <span ng-if="!relatedVideos">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'SHOW' | translate }} {{ 'RELATED' | translate }} {{ 'VIDEOS' | translate }}</b>
+            </span>
+            <span ng-if="relatedVideos">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'HIDE' | translate }} {{ 'RELATED' | translate }} {{ 'VIDEOS' | translate }}</b>
+            </span>
+            <span class="badge badge-default badge-pill">
+                {{video_relationships.length}}
+            </span>
+        </a>
+    </div>
+    <div class="list-group list-group-flush" ng-if="relatedVideos && video_relationships.length>0">
+        <a href="" ng-click="redirect('/relationship/belongs_to/video/' + video_relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="video_relationship in video_relationships | orderBy: ['scenario_name', 'video_name'] | filter: searchText">
+            <div>
+                <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{video_relationship.video_name}}
+            </div>
+            <div>
+                <span class="badge badge-pill badge-default">
+                    &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                </span>
+            </div>
+            <div>
+                <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{video_relationship.scenario_name}}
+            </div>
+        </a>
+    </div>
+</div>
+<br>
+
+<!-- Related overlays -->
+<div class="card">
+    <div class="list-group list-group-flush" ng-if="overlay_relationships.length==0">
+        <div class="list-group-item">
+            - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS'  | translate }} -
+        </div>
+    </div>
+    <div class="list-group list-group-flush" ng-if="overlay_relationships.length>0">
+        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedOverlays')">
+            <span ng-if="!relatedOverlays">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'SHOW' | translate }} {{ 'RELATED' | translate }} {{ 'OVERLAYS' | translate }}</b>
+            </span>
+            <span ng-if="relatedOverlays">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'HIDE' | translate }} {{ 'RELATED' | translate }} {{ 'OVERLAYS' | translate }}</b>
+            </span>
+            <span class="badge badge-default badge-pill">
+                {{overlay_relationships.length}}
+            </span>
+        </a>
+    </div>
+    <div class="list-group list-group-flush" ng-if="relatedOverlays && overlay_relationships.length>0">
+        <a href="" ng-click="redirect('/relationship/belongs_to/overlay/' + overlay_relationship.relationship_id)" class="list-group-item list-group-item-action justify-content-between" ng-repeat="overlay_relationship in overlay_relationships | orderBy: ['scenario_name', 'overlay_name'] | filter: searchText">
+            <div>
+                <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{overlay_relationship.overlay_name}}
+            </div>
+            <div>
+                <span class="badge badge-pill badge-default">
+                    &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                </span>
+            </div>
+            <div>
+                <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{overlay_relationship.scenario_name}}
+            </div>
+        </a>
+    </div>
+</div>

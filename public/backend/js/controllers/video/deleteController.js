@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Video delete controller
-app.controller("videoDeleteController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $videoService) {
+app.controller("videoDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $videoService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -30,7 +21,8 @@ app.controller("videoDeleteController", function($scope, $rootScope, $routeParam
      * @return {[type]} [description]
      */
     $scope.delete = function(){
-        $scope.changeTab(0);
+        $scope.$parent.loading = { status: true, message: $filter('translate')('DELETING_VIDEO') };
+
         $videoService.remove($scope.video.video_id)
         .then(function onSuccess(response) {
             $scope.redirect("/videos");
@@ -44,14 +36,14 @@ app.controller("videoDeleteController", function($scope, $rootScope, $routeParam
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_VIDEO') };
     $scope.input = "";
 
     // Load video
     $videoService.retrieve($routeParams.video_id)
     .then(function onSuccess(response) {
         $scope.video = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<br>
+
+<!-- BUTTONS -->
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+        <div class="btn-group" role="group" aria-label="buttons">
+            <a href="" class="btn btn-secondary" ng-click="redirect('/relationship/recorded_at/' + relationship.relationship_id + '/edit')">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT' | translate}}
+            </a>
+            <a href="" class="btn btn-danger" ng-click="redirect('/relationship/recorded_at/' + relationship.relationship_id + '/delete')">
+                <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate}}
+            </a>
+        </div>
+    </div>
+</div>
+<br>
+
+<!-- MAIN -->
+<div class="card">
+    <div class="card-header middle" style="font-size: 20pt;">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_RELATIONSHIP' | translate }}
+    </div>
+    <br>
+    <div class="list-group list-group-flush">
+        <div class="list-group-item justify-content-between">
+            <div>
+                <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+            </div>
+            <div>
+                <span class="badge badge-pill badge-default">
+                    &mdash;&nbsp;RECORDED_AT&nbsp;&mdash;&gt;
+                </span>
+            </div>
+            <div>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
+                <span class="badge" ng-class="{
+                    'badge-primary': relationship.location_type=='outdoor',
+                    'badge-default': relationship.location_type=='indoor',
+                    'badge-success': relationship.location_type=='abstract'
+                }">{{relationship.location_type}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+        <br>
+        <h6>{{ 'PROPERTIES' | translate }}</h6>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>
+                        {{ 'ID' | translate }}
+                    </th>
+                    <td>
+                        <code>{{relationship.relationship_id}}</code>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'PREFERRED' | translate }}
+                    </th>
+                    <td>
+                        <kbd>{{relationship.relationship_preferred}}</kbd>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'CREATED' | translate }}
+                    </th>
+                    <td>
+                        <kbd>{{relationship.relationship_created | timestamp }}</kbd>
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eceeef">
+                    <th>
+                        {{ 'LAST_UPDATED' | translate }}
+                    </th>
+                    <td>
+                        <kbd>{{relationship.relationship_updated | timestamp }}</kbd>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-footer">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-block btn-primary" role="button" ng-click="redirect('/relationship/recorded_at')">
+                    {{ 'CLOSE' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

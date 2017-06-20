@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Scenario delete controller
-app.controller("scenarioDeleteController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+app.controller("scenarioDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
 
     /*************************************************
         FUNCTIONS
@@ -21,7 +21,7 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
      * @return {[type]} [description]
      */
     $scope.delete = function(){
-        $scope.$parent.loading = { status: true, message: "DELETING_SCENARIO" };
+        $scope.$parent.loading = { status: true, message: $filter('translate')('DELETING_SCENARIO') };
 
         $scenarioService.remove($scope.scenario.scenario_id)
         .then(function onSuccess(response) {
@@ -35,7 +35,7 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
     /*************************************************
         INIT
      *************************************************/
-    $scope.$parent.loading = { status: true, message: "LOADING_SCENARIO" };
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_SCENARIO') };
     $scope.input = "";
 
     // Load scenario
