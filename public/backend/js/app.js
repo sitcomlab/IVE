@@ -17,9 +17,9 @@ var app = angular.module("ive", [
 	//"com.2fdevs.videogular.plugins.overlayplay",
 	//"com.2fdevs.videogular.plugins.poster",
 
-    // Import own modules
+    // Import routes
     "routes",
-    "filters",
+
     // "tjsModelViewer",
 
     // Import services

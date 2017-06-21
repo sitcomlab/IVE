@@ -14,6 +14,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
         },
         filter: {
             orderby: "name.asc",
+            relationship_type: null,
             search_term: ""
         }
     };
@@ -84,7 +85,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
             }
             return new_object;
         },
-        get_types: function() {
+        get_labels: function() {
             return [
                 {
                     name: "belongs_to"
@@ -117,6 +118,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 },
                 filter: {
                     orderby: "name.asc",
+                    relationship_type: null,
                     search_term: ""
                 }
             };
@@ -130,10 +132,10 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
         setPagination: function(data) {
             cache.pagination = data;
         },
-        list: function() {
+        /*list: function() {
             return $http.get(config.getApiEndpoint() + "/relationships");
-        },
-        list_by_label: function(relationship_label, relationship_type, pagination, filter) {
+        },*/
+        list_by_label: function(relationship_label, pagination, filter) {
             // Initalize query
             var query = "?";
 
@@ -152,22 +154,17 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 if(filter.orderby && filter.orderby !== null){
                     query = query + "orderby=" + filter.orderby + "&";
                 }
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.relationship_type && filter.relationship_type !== null){
+                    query = query + "relationship_type=" + filter.relationship_type + "&";
                 }
             }
 
             // Finalize query
             query = query.slice(0, -1);
 
-            // Apply relationship-label (& optional relationship-type)
-            if(relationship_type){
-                return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_type + query);
-            } else {
-                return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + query);
-            }
+            return $http.get(config.getApiEndpoint() + "/relationship/" + relationship_label + query);
         },
-        search_by_label: function(relationship_label, relationship_type, pagination, filter) {
+        search_by_label: function(relationship_label, pagination, filter) {
             // Initalize query
             var query = "?";
 
@@ -186,24 +183,17 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 if(filter.orderby && filter.orderby !== null){
                     query = query + "orderby=" + filter.orderby + "&";
                 }
-                if(filter.filterName && filter.filterName !== null){
-                    query = query + "filterName=" + filter.filterName + "&";
+                if(filter.relationship_type && filter.relationship_type !== null){
+                    query = query + "relationship_type=" + filter.relationship_type + "&";
                 }
             }
 
             // Finalize query
             query = query.slice(0, -1);
 
-            // Apply relationship-label (& optional relationship-type)
-            if(relationship_type){
-                return $http.post(config.getApiEndpoint() + "/search/relationship/" + relationship_label + "/" + relationship_type + query, {
-                    search_term: filter.search_term
-                });
-            } else {
-                return $http.post(config.getApiEndpoint() + "/search/relationship/" + relationship_label + "/" + query, {
-                    search_term: filter.search_term
-                });
-            }
+            return $http.post(config.getApiEndpoint() + "/search/relationship/" + relationship_label + query, {
+                search_term: filter.search_term
+            });
         },
         retrieve_by_id: function(relationship_label, relationship_id, relationship_type) {
             if(relationship_type){

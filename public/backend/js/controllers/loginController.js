@@ -38,7 +38,7 @@ app.controller("loginController", function($scope, $rootScope, $filter, $transla
                 $scope.$parent.loading = { status: false, message: "" };
 
                 // Redirect
-                $location.url("/scenarios");
+                $location.url("/map");
             })
             .catch(function onError(response) {
                 $window.alert(response.data);

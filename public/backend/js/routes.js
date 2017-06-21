@@ -16,6 +16,15 @@ app.config(function($routeProvider, $locationProvider, config) {
             controller: "helpController"
         })
 
+        // Map
+        .when("/map", {
+            templateUrl: "templates/map.html",
+            controller: "mapController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+
         // Scenarios
         .when("/scenarios", {
             templateUrl: "templates/scenario/list.html",
@@ -166,48 +175,27 @@ app.config(function($routeProvider, $locationProvider, config) {
 
         // Relationships
         .when("/relationships", {
+            templateUrl: "templates/relationship/select.html",
+            controller: "relationshipSelectController",
+            resolve: {
+                factory: checkAuthentication
+            }
+        })
+        .when("/relationships/:relationship_label", {
             templateUrl: "templates/relationship/list.html",
             controller: "relationshipListController",
             resolve: {
                 factory: checkAuthentication
             }
         })
-        .when("/relationship/belongs_to", {
-            templateUrl: "templates/relationship/list/belongs_to.html",
-            controller: "belongsToListController",
+        .when("/relationships/:relationship_label/:relationship_id", {
+            templateUrl: "templates/relationship/list.html",
+            controller: "relationshipListController",
             resolve: {
                 factory: checkAuthentication
             }
         })
-        .when("/relationship/connected_to", {
-            templateUrl: "templates/relationship/list/connected_to.html",
-            controller: "connectedToListController",
-            resolve: {
-                factory: checkAuthentication
-            }
-        })
-        .when("/relationship/embedded_in", {
-            templateUrl: "templates/relationship/list/embedded_in.html",
-            controller: "embeddedInListController",
-            resolve: {
-                factory: checkAuthentication
-            }
-        })
-        .when("/relationship/has_parent_location", {
-            templateUrl: "templates/relationship/list/has_parent_location.html",
-            controller: "hasParentLocationListController",
-            resolve: {
-                factory: checkAuthentication
-            }
-        })
-        .when("/relationship/recorded_at", {
-            templateUrl: "templates/relationship/list/recorded_at.html",
-            controller: "recordedAtListController",
-            resolve: {
-                factory: checkAuthentication
-            }
-        })
-        .when("/relationship/belongs_to/:relationship_type/:relationship_id", {
+        .when("/relationship/belongs_to/:relationship_id/:relationship_type", {
             templateUrl: "templates/relationship/details/belongs_to.html",
             controller: "belongsToDetailsController",
             resolve: {

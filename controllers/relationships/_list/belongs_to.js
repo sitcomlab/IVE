@@ -5,64 +5,64 @@ var _ = require('underscore');
 var moment = require('moment');
 var driver = require('../../../server.js').driver;
 var fs = require("fs");
-var query_get_relationship_locatio = fs.readFileSync(__dirname + '/../../../queries/relationships/get.cypher', 'utf8').toString();
-var query_edit_relationship_location = fs.readFileSync(__dirname + '/../../../queries/relationships/edit/belongs_to_location.cypher', 'utf8').toString();
-var query_edit_relationship_video = fs.readFileSync(__dirname + '/../../../queries/relationships/edit/belongs_to_location.cypher', 'utf8').toString();
-var query_edit_relationship_overlay = fs.readFileSync(__dirname + '/../../../queries/relationships/edit/belongs_to_location.cypher', 'utf8').toString();
+var query_belongs_to_location = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_location.cypher', 'utf8').toString();
+var query_belongs_to_video = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_video.cypher', 'utf8').toString();
+var query_belongs_to_overlay = fs.readFileSync(__dirname + '/../../../queries/relationships/list/belongs_to_overlay.cypher', 'utf8').toString();
 
 
-// PUT (:connected_to)
+// LIST BY REALTIONSHIP-LABEL (:belongs_to)
 exports.request = function(req, res) {
 
     // Start session
     var session = driver.session();
 
     var query;
-    switch (req.params.relationship_type) {
-        case 'location': {
-            query = query_edit_relationship_location;
-            break;
+    switch (req.params.relationship_label) {
+        case 'belongs_to': {
+            switch (req.query.relationship_type) {
+                case 'location': {
+                    query = query_belongs_to_location;
+                    break;
+                }
+                case 'video': {
+                    query = query_belongs_to_video;
+                    break;
+                }
+                case 'overlay': {
+                    query = query_belongs_to_overlay;
+                    break;
+                }
+            }
         }
-        case 'video': {
-            query = query_edit_relationship_video;
-            break;
+        case 'connected_to': {
+
         }
-        case 'overlay': {
-            query = query_edit_relationship_overlay;
-            break;
+        case 'has_parent_station': {
+
         }
-        default:
-            query = "";
+        case 'recorded_at': {
+
+        }
+        case 'embedded_in': {
+
+        }
     }
 
+
+    // Prepare params
+    var params = {
+        skip: req.query.skip || 0,
+        limit: req.query.limit || 9999999999,
+        orderby: req.query.orderby || 'scenario_name.asc'
+    };
+
+    console.log(req.query);
+    console.log(req.params);
+    console.log(query);
+    console.log(params);
+
     async.waterfall([
-        function(callback) { // Find entry
-            session
-                .run(query_get_relationship, {
-                    relationship_id: req.params.relationship_id
-                })
-                .then(function(result) {
-                    // Check if Relationship exists
-                    if (result.records.length===0) {
-                        callback(new Error("Relationship with id '" + req.params.relationship_id + "' not found!"), 404);
-                    } else {
-                        callback(null);
-                    }
-                })
-                .catch(function(err) {
-                    callback(err, 500);
-                });
-        },
-        function(callback){ // Parameter validation
-
-            // TODO: Validate all attributes of req.body
-            var params = {
-                relationship_id: req.params.relationship_id
-            };
-
-            callback(null, params);
-        },
-        function(params, callback) { // Update entry
+        function(callback) { // Find entries
             session
                 .run(query, params)
                 .then(function(result) {
@@ -98,7 +98,7 @@ exports.request = function(req, res) {
                 });
 
             }, function() {
-                callback(null, 200, results[0]);
+                callback(null, 200, results);
             });
         }
     ], function(err, code, result){

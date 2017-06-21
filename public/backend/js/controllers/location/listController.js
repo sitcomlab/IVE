@@ -28,6 +28,7 @@ app.controller("locationListController", function($scope, $rootScope, $filter, $
             $locationService.search($scope.pagination, $scope.filter)
             .then(function onSuccess(response) {
                 $scope.locations = response.data;
+                $scope.pages = [];
 
                 // Prepare pagination
                 if($scope.locations.length > 0){
@@ -38,12 +39,10 @@ app.controller("locationListController", function($scope, $rootScope, $filter, $
                     $locationService.setCount(0);
 
                     // Reset pagination
-                    $scope.pages = [];
                     $scope.pagination.offset = 0;
                 }
 
                 // Set pagination
-                $scope.pages = [];
                 for(var i=0; i<Math.ceil($locationService.getCount() / $scope.pagination.limit); i++){
                     $scope.pages.push({
                         offset: i * $scope.pagination.limit
@@ -60,6 +59,7 @@ app.controller("locationListController", function($scope, $rootScope, $filter, $
             $locationService.list($scope.pagination, $scope.filter)
             .then(function onSuccess(response) {
                 $scope.locations = response.data;
+                $scope.pages = [];
 
                 // Prepare pagination
                 if($scope.locations.length > 0){
@@ -70,12 +70,10 @@ app.controller("locationListController", function($scope, $rootScope, $filter, $
                     $locationService.setCount(0);
 
                     // Reset pagination
-                    $scope.pages = [];
                     $scope.pagination.offset = 0;
                 }
 
                 // Set pagination
-                $scope.pages = [];
                 for(var i=0; i<Math.ceil($locationService.getCount() / $scope.pagination.limit); i++){
                     $scope.pages.push({
                         offset: i * $scope.pagination.limit

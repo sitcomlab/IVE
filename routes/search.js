@@ -11,6 +11,7 @@ var search_videos_by_location = require('../controllers/videos/search_by_locatio
 var search_overlays = require('../controllers/overlays/search');
 var search_overlays_by_scenario = require('../controllers/overlays/search_by_scenario');
 var search_overlays_by_video = require('../controllers/overlays/search_by_video');
+var search_relationships_by_label = require('../controllers/relationships/search_by_label');
 
 
 // SEARCH SCENARIOS
@@ -45,6 +46,10 @@ router.post('/search/scenarios/:scenario_id/overlays', search_overlays_by_scenar
 
 // SEARCH OVERLAYS BY VIDEO
 router.post('/search/videos/:video_id/overlays', search_overlays_by_video.request);
+
+
+// SEARCH RELATIONSHIPS BY LABEL
+router.post('/search/relationship/:relationship_label', search_relationships_by_label.request);
 
 
 module.exports = router;

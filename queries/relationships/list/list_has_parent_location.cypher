@@ -25,11 +25,13 @@ RETURN
     parent.lng AS parent_location_lng,
     parent.location_type AS parent_location_type
 ORDER BY
-    CASE WHEN {orderby} = 'created.asc' THEN r.created END ASC,
-    CASE WHEN {orderby} = 'created.desc' THEN r.created END DESC,
-    CASE WHEN {orderby} = 'updated.asc' THEN r.updated END ASC,
-    CASE WHEN {orderby} = 'updated.desc' THEN r.updated END DESC,
-    CASE WHEN {orderby} = 'name.asc' THEN child.name END ASC,
-    CASE WHEN {orderby} = 'name.desc' THEN child.name END DESC
+    CASE WHEN {orderby} = 'created.asc'                 THEN r.created END ASC,
+    CASE WHEN {orderby} = 'created.desc'                THEN r.created END DESC,
+    CASE WHEN {orderby} = 'updated.asc'                 THEN r.updated END ASC,
+    CASE WHEN {orderby} = 'updated.desc'                THEN r.updated END DESC,
+    CASE WHEN {orderby} = 'child_location_name.asc'     THEN child.name END ASC,
+    CASE WHEN {orderby} = 'child_location_name.desc'    THEN child.name END DESC,
+    CASE WHEN {orderby} = 'parent_location_name.asc'    THEN parent.name END ASC, child.name ASC,
+    CASE WHEN {orderby} = 'parent_location_name.desc'   THEN parent.name END DESC, child.name ASC
 SKIP toInt({skip})
 LIMIT toInt({limit});

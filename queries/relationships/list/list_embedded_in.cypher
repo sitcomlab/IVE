@@ -33,11 +33,13 @@ RETURN
     v.url AS video_url,
     v.recorded AS video_recorded
 ORDER BY
-    CASE WHEN {orderby} = 'created.asc' THEN r.created END ASC,
-    CASE WHEN {orderby} = 'created.desc' THEN r.created END DESC,
-    CASE WHEN {orderby} = 'updated.asc' THEN r.updated END ASC,
-    CASE WHEN {orderby} = 'updated.desc' THEN r.updated END DESC,
-    CASE WHEN {orderby} = 'name.asc' THEN o.name END ASC,
-    CASE WHEN {orderby} = 'name.desc' THEN o.name END DESC
+    CASE WHEN {orderby} = 'created.asc'         THEN r.created END ASC,
+    CASE WHEN {orderby} = 'created.desc'        THEN r.created END DESC,
+    CASE WHEN {orderby} = 'updated.asc'         THEN r.updated END ASC,
+    CASE WHEN {orderby} = 'updated.desc'        THEN r.updated END DESC,
+    CASE WHEN {orderby} = 'overlay_name.asc'    THEN o.name END ASC,
+    CASE WHEN {orderby} = 'overlay_name.desc'   THEN o.name END DESC,
+    CASE WHEN {orderby} = 'video_name.asc'      THEN v.name END ASC, o.name ASC,
+    CASE WHEN {orderby} = 'video_name.desc'     THEN v.name END DESC, o.name ASC
 SKIP toInt({skip})
 LIMIT toInt({limit});

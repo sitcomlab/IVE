@@ -21,9 +21,10 @@ app.controller("belongsToDetailsController", function($scope, $rootScope, $route
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
-    $scope.label = $routeParams.label;
+    // TODO: $scope.relationship_label = $routeParams.label;
+    $scope.relationship_label = 'belongs_to';
 
-    $relationshipService.retrieve_by_id('belongs_to', $routeParams.relationship_id, $scope.label)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id, $routeParams.relationship_type)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };
