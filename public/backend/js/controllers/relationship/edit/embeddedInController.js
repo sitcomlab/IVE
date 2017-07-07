@@ -36,7 +36,7 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
             $scope.editRelationshipForm.display.$pristine = false;
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('') };
-            $relationshipService.edit('embedded_in', $scope.relationship.relationship_id, $scope.relationship)
+            $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
                 $scope.redirect("/relationship/embedded_in/" + $scope.relationship.relationship_id);
@@ -52,8 +52,10 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
+    // TODO: $scope.relationship_label = $routeParams.relationship_label;
+    $scope.relationship_label = 'embedded_in';
 
-    $relationshipService.retrieve_by_id('embedded_in', $routeParams.relationship_id)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };

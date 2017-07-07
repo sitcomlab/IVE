@@ -26,7 +26,7 @@ app.controller("belongsToEditController", function($scope, $rootScope, $routePar
             // Update UI
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('') };
-            $relationshipService.edit('belongs_to', $scope.relationship.relationship_id, $scope.relationship_type, $scope.relationship)
+            $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship_type, $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
                 $scope.redirect("/relationship/belongs_to/" + $scope.label + "/" + $scope.relationship.relationship_id);
@@ -42,9 +42,10 @@ app.controller("belongsToEditController", function($scope, $rootScope, $routePar
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
-    $scope.relationship_type = $routeParams.relationship_type;
+    // TODO: $scope.relationship_label = $routeParams.relationship_label;
+    $scope.relationship_label = 'belongs_to';
 
-    $relationshipService.retrieve_by_id('belongs_to', $routeParams.relationship_id, $scope.relationship_type)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id, $scope.relationship_type)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };

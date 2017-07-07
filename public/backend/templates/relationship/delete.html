@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<div class="card">
+    <div class="card-header" style="font-size: 20pt;">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE_RELATIONSHIP' | translate }}
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                <button class="btn btn-secondary" role="button" ng-click="redirect('/relationships/' + relationship_label + '/' + relationship.relationship_id + ('/' + relationship_type || '') )">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+
+        <div class="list-group">
+            <div class="list-group-item flex-column align-items-start">
+
+                <!-- belongs_to -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'belongs_to' ">
+                    <!-- location -->
+                    <div ng-if="relationship_type == 'location' ">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.location_type=='outdoor',
+                            'badge-default': relationship.location_type=='indoor',
+                            'badge-success': relationship.location_type=='abstract'
+                        }">{{relationship.location_type}}</span>
+                    </div>
+                    <!-- video -->
+                    <div ng-if="relationship_type == 'video' ">
+                        <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                    </div>
+                    <!-- overlay -->
+                    <div ng-if="relationship_type == 'overlay' ">
+                        <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
+                    </div>
+                    <div style="padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <div>
+                        <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.scenario_name}}
+                    </div>
+                </div>
+
+                <!-- connected_to -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'connected_to' ">
+                    <div>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.start_location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.start_location_type=='outdoor',
+                            'badge-default': relationship.start_location_type=='indoor',
+                            'badge-success': relationship.start_location_type=='abstract'
+                        }">{{relationship.start_location_type}}</span>
+                    </div>
+                    <div style="padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;CONNECTED_TO&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <span>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.end_location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.end_location_type=='outdoor',
+                            'badge-default': relationship.end_location_type=='indoor',
+                            'badge-success': relationship.end_location_type=='abstract'
+                        }">{{relationship.end_location_type}}</span>
+                    </span>
+                </div>
+
+                <!-- embedded_in -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'embedded_in' ">
+                    <div>
+                        <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
+                    </div>
+                    <div style="padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;EMBEDDED_IN&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <span>
+                        <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                    </span>
+                </div>
+
+                <!-- has_parent_location -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'has_parent_location' ">
+                    <div>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.child_location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.child_location_type=='outdoor',
+                            'badge-default': relationship.child_location_type=='indoor',
+                            'badge-success': relationship.child_location_type=='abstract'
+                        }">{{relationship.child_location_type}}</span>
+                    </div>
+                    <div style="padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;HAS_PARENT_LOCATION&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <span>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.parent_location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.parent_location_type=='outdoor',
+                            'badge-default': relationship.parent_location_type=='indoor',
+                            'badge-success': relationship.parent_location_type=='abstract'
+                        }">{{relationship.parent_location_type}}</span>
+                    </span>
+                </div>
+
+                <!-- recorded_at -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'recorded_at' ">
+                    <div>
+                        <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                    </div>
+                    <div style="padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;RECORDED_AT&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <span>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.location_type=='outdoor',
+                            'badge-default': relationship.location_type=='indoor',
+                            'badge-success': relationship.location_type=='abstract'
+                        }">{{relationship.location_type}}</span>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+        <br>
+        <h5>
+            {{ 'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_RELATIONSHIP' | translate }}?
+        </h5>
+        <br>
+        <label>
+            <b>{{ 'TYPE' | translate }}</b> <small>({{ 'EXAMPLE' | translate }}: <code>RELATED_TO</code>)</small>
+        </label>
+        <input type="text" class="form-control" ng-model="input" id="name" placeholder="{{ 'RELATIONSHIP_LABEL' | translate }}" autofocus>
+        <small class="form-text text-muted">
+            {{ 'PLEASE_TYPE_IN_THE_LABEL_OF_THIS_RELATIONSHIP_TO_CONFIRM' | translate }}
+        </small>
+        <br>
+    </div>
+    <div class="card-footer right">
+        <button class="btn btn-danger" role="button" ng-click="delete()" ng-disabled="(input | lowercase) != relationship_label">
+            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
+        </button>
+    </div>
+
+</div>

@@ -26,7 +26,7 @@ app.controller("connectedToEditController", function($scope, $rootScope, $routeP
             // Update UI
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('') };
-            $relationshipService.edit('connected_to', $scope.relationship.relationship_id, $scope.relationship)
+            $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
                 $scope.redirect("/relationship/connected_to/" + $scope.relationship.relationship_id);
@@ -42,8 +42,10 @@ app.controller("connectedToEditController", function($scope, $rootScope, $routeP
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
+    // TODO: $scope.relationship_label = $routeParams.relationship_label;
+    $scope.relationship_label = 'connected_to';
 
-    $relationshipService.retrieve_by_id('connected_to', $routeParams.relationship_id)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };

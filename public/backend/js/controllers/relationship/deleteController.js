@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Relationship embedded_in delete controller
-app.controller("embeddedInDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+// Relationship delete controller
+app.controller("relationshipDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
@@ -25,22 +25,22 @@ app.controller("embeddedInDeleteController", function($scope, $rootScope, $route
 
         $relationshipService.remove($scope.relationship.relationship_id)
         .then(function onSuccess(response) {
-            $scope.redirect("/relationship/embedded_in");
+            $scope.redirect("/relationship/" + $scope.relationship_label);
         })
         .catch(function onError(response) {
             $window.alert(response.data);
         });
     };
 
-
     /*************************************************
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
+    $scope.relationship_label = $routeParams.relationship_label;
+    $scope.relationship_type = $routeParams.relationship_type;
     $scope.input = "";
-    $scope.relationship_type = "EMBEDDED_IN";
 
-    $relationshipService.retrieve_by_id('embedded_in', $routeParams.relationship_id)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id, $routeParams.relationship_type)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };

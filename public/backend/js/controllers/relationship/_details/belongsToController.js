@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Relationship connected_to details controller
-app.controller("connectedToDetailsController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+// Relationship belongs_to details controller
+app.controller("belongsToDetailsController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
@@ -21,8 +21,10 @@ app.controller("connectedToDetailsController", function($scope, $rootScope, $rou
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
+    // TODO: $scope.relationship_label = $routeParams.relationship_label;
+    $scope.relationship_label = 'belongs_to';
 
-    $relationshipService.retrieve_by_id('connected_to', $routeParams.relationship_id)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id, $routeParams.relationship_type)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };

@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Relationship has_parent_location edit controller
-app.controller("hasParentLocationEditController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+// Relationship has_parent_location delete controller
+app.controller("hasParentLocationDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
@@ -17,24 +17,19 @@ app.controller("hasParentLocationEditController", function($scope, $rootScope, $
     };
 
     /**
-     * [send description]
+     * [delete description]
      * @return {[type]} [description]
      */
-    $scope.send = function(){
-        // Validate input
-        if($scope.editRelationshipForm.$invalid) {
-            // Update UI
-        } else {
-            $scope.$parent.loading = { status: true, message: $filter('translate')('') };
-            $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
-            .then(function onSuccess(response) {
-                $scope.relationship = response.data;
-                $scope.redirect("/relationship/has_parent_location/" + $scope.relationship.relationship_id);
-            })
-            .catch(function onError(response) {
-                $window.alert(response.data);
-            });
-        }
+    $scope.delete = function(){
+        $scope.$parent.loading = { status: true, message: $filter('translate')('DELETING_RELATIONSHIP') };
+
+        $relationshipService.remove($scope.relationship.relationship_id)
+        .then(function onSuccess(response) {
+            $scope.redirect("/relationship/" + $scope.relationship_label);
+        })
+        .catch(function onError(response) {
+            $window.alert(response.data);
+        });
     };
 
 
@@ -44,6 +39,7 @@ app.controller("hasParentLocationEditController", function($scope, $rootScope, $
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
     // TODO: $scope.relationship_label = $routeParams.relationship_label;
     $scope.relationship_label = 'has_parent_location';
+    $scope.input = "";
 
     $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id)
     .then(function onSuccess(response) {

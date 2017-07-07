@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <div class="card">
     <form class="form-horizontal" name="createRelationshipForm" ng-submit="send()">
-        <div class="card-header middle" style="font-size: 20pt;">
-            <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE_NEW' | translate }} {{ 'RELATIONSHIP' | translate }}
+        <div class="card-header" style="font-size: 20pt;">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE_NEW_RELATIONSHIP' | translate }}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                    <button class="btn btn-secondary" role="button" ng-click="redirect('/new/relationship')">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="card-block">
-            <br>
-
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <label>
@@ -310,26 +317,16 @@
                                 </label>
                             </div>
                         </div>
-                        <br>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <div class="card-footer">
-            <div class="row">
-                <div class="col">
-                    <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/embedded_in')">
-                        <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
-                    </button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-success btn-block" role="submit">
-                        <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
-                    </button>
-                </div>
-            </div>
+        <div class="card-footer right">
+            <button class="btn btn-success" role="submit">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
+            </button>
         </div>
     </form>
 </div>

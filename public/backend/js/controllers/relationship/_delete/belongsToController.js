@@ -25,7 +25,7 @@ app.controller("belongsToDeleteController", function($scope, $rootScope, $routeP
 
         $relationshipService.remove($scope.relationship.relationship_id)
         .then(function onSuccess(response) {
-            $scope.redirect("/relationship/belongs_to");
+            $scope.redirect("/relationship/" + $scope.relationship_label);
         })
         .catch(function onError(response) {
             $window.alert(response.data);
@@ -36,11 +36,13 @@ app.controller("belongsToDeleteController", function($scope, $rootScope, $routeP
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
+    // TODO: $scope.relationship_label = $routeParams.relationship_label;
+    $scope.relationship_label = 'belongs_to';
     $scope.relationship_type = $routeParams.relationship_type;
     $scope.input = "";
     //$scope.relationship_type = "BELONGS_TO";
 
-    $relationshipService.retrieve_by_id('belongs_to', $routeParams.relationship_id, $scope.relationship_type)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id, $scope.relationship_type)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };

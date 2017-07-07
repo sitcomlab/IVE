@@ -27,7 +27,7 @@ app.controller("recordedAtEditController", function($scope, $rootScope, $routePa
             $scope.editRelationshipForm.relationship_preferred.$pristine = false;
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('') };
-            $relationshipService.edit('recorded_at', $scope.relationship.relationship_id, $scope.relationship)
+            $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
                 $scope.redirect("/relationship/recorded_at/" + $scope.relationship.relationship_id);
@@ -43,8 +43,10 @@ app.controller("recordedAtEditController", function($scope, $rootScope, $routePa
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
+    // TODO: $scope.relationship_label = $routeParams.relationship_label;
+    $scope.relationship_label = 'recorded_at';
 
-    $relationshipService.retrieve_by_id('recorded_at', $routeParams.relationship_id)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };

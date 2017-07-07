@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Relationship has_parent_location details controller
-app.controller("hasParentLocationDetailsController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+// Relationship details controller
+app.controller("relationshipDetailsController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
@@ -21,8 +21,10 @@ app.controller("hasParentLocationDetailsController", function($scope, $rootScope
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
+    $scope.relationship_label = $routeParams.relationship_label;
+    $scope.relationship_type = $routeParams.relationship_type || undefined;
 
-    $relationshipService.retrieve_by_id('has_parent_location', $routeParams.relationship_id)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id, $scope.relationship_type)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };

@@ -173,14 +173,15 @@
                 <br>
             </div>
         </div>
-        <br>
 
         <!-- BELONGS_TO relationships -->
-        <div class="list-group" ng-if="relationship_label == 'belongs_to' && relationships.length > 0">
-            <a href="" ng-click="redirect('/relationship/' + relationship_label + '/' + relationship.relationship_id + '/' + filter.relationship_type)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="relationship in relationships">
-                <!-- Related locations -->
-                <div class="d-flex w-100 justify-content-between" ng-if="filter.relationship_type == 'location' ">
-                    <div>
+        <div class="list-group" ng-if="relationships.length > 0">
+            <a href="" ng-click="redirect('/relationships/' + relationship_label + '/' + relationship.relationship_id + '/' + (filter.relationship_type || '') )" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="relationship in relationships">
+
+                <!-- belongs_to -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'belongs_to' ">
+                    <!-- locations -->
+                    <div ng-if="filter.relationship_type == 'location'">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
                         <span class="badge" ng-class="{
                             'badge-primary': relationship.location_type=='outdoor',
@@ -188,34 +189,12 @@
                             'badge-success': relationship.location_type=='abstract'
                         }">{{relationship.location_type}}</span>
                     </div>
-                    <div style="padding-left: 5px; padding-right: 5px;">
-                        <span class="badge badge-pill badge-default">
-                            &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
-                        </span>
-                    </div>
-                    <span>
-                        <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.scenario_name}}
-                    </span>
-                </div>
-
-                <!-- Related videos -->
-                <div class="d-flex w-100 justify-content-between" ng-if="filter.relationship_type == 'video' ">
-                    <div>
+                    <!-- videos -->
+                    <div ng-if="filter.relationship_type == 'video' ">
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
                     </div>
-                    <div style="padding-left: 5px; padding-right: 5px;">
-                        <span class="badge badge-pill badge-default">
-                            &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
-                        </span>
-                    </div>
-                    <span>
-                        <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.scenario_name}}
-                    </span>
-                </div>
-
-                <!-- Related overlays -->
-                <div class="d-flex w-100 justify-content-between" ng-if="filter.relationship_type == 'overlay' ">
-                    <div>
+                    <!-- overlays -->
+                    <div ng-if="filter.relationship_type == 'overlay' ">
                         <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
                     </div>
                     <div style="padding-left: 5px; padding-right: 5px;">
@@ -227,19 +206,9 @@
                         <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.scenario_name}}
                     </span>
                 </div>
-            </a>
-        </div>
-        <div class="list-group" ng-if="relationship_label == 'belongs_to' && (!relationships || relationships.length == 0)">
-            <div class="list-group-item middle">
-                - {{ 'NONE' | translate }} -
-            </div>
-        </div>
 
-
-        <!-- CONNECTED_TO relationships -->
-        <div class="list-group" ng-if="relationship_label == 'connected_to' && relationships.length > 0">
-            <a href="" ng-click="redirect('/relationship/' + relationship_label + '/' + relationship.relationship_id)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="relationship in relationships">
-                <div class="d-flex w-100 justify-content-between">
+                <!-- connected_to -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'connected_to' ">
                     <div>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.start_location_name}}
                         <span class="badge" ng-class="{
@@ -262,18 +231,9 @@
                         }">{{relationship.end_location_type}}</span>
                     </div>
                 </div>
-            </a>
-        </div>
-        <div class="list-group" ng-if="relationship_label == 'connected_to' && (!relationships || relationships.length == 0)">
-            <div class="list-group-item middle">
-                - {{ 'NONE' | translate }} -
-            </div>
-        </div>
 
-        <!-- HAS_PARENT_LOCATION relationships -->
-        <div class="list-group" ng-if="relationship_label == 'has_parent_location' && relationships.length > 0">
-            <a href="" ng-click="redirect('/relationship/' + relationship_label + '/' + relationship.relationship_id)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="relationship in relationships">
-                <div class="d-flex w-100 justify-content-between">
+                <!-- has_parent_location -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'has_parent_location' ">
                     <div>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.child_location_name}}
                         <span class="badge" ng-class="{
@@ -296,18 +256,9 @@
                         }">{{relationship.parent_location_type}}</span>
                     </div>
                 </div>
-            </a>
-        </div>
-        <div class="list-group" ng-if="relationship_label == 'has_parent_location' && (!relationships || relationships.length == 0)">
-            <div class="list-group-item middle">
-                - {{ 'NONE' | translate }} -
-            </div>
-        </div>
 
-        <!-- RECORDED_AT relationships -->
-        <div class="list-group" ng-if="relationship_label == 'recorded_at' && relationships.length > 0">
-            <a href="" ng-click="redirect('/relationship/' + relationship_label + '/' + relationship.relationship_id)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="relationship in relationships">
-                <div class="d-flex w-100 justify-content-between">
+                <!-- recorded_at -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'recorded_at' ">
                     <div>
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
                     </div>
@@ -325,18 +276,9 @@
                         }">{{relationship.location_type}}</span>
                     </div>
                 </div>
-            </a>
-        </div>
-        <div class="list-group" ng-if="relationship_label == 'recorded_at' && (!relationships || relationships.length == 0)">
-            <div class="list-group-item middle">
-                - {{ 'NONE' | translate }} -
-            </div>
-        </div>
 
-        <!-- EMBEDDED_IN relationships -->
-        <div class="list-group" ng-if="relationship_label == 'embedded_in' && relationships.length > 0">
-            <a href="" ng-click="redirect('/relationship/' + relationship_label + '/' + relationship.relationship_id)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="relationship in relationships">
-                <div class="d-flex w-100 justify-content-between">
+                <!-- embedded_in -->
+                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'embedded_in' ">
                     <div>
                         <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
                     </div>
@@ -351,7 +293,9 @@
                 </div>
             </a>
         </div>
-        <div class="list-group" ng-if="relationship_label == 'embedded_in' && (!relationships || relationships.length == 0)">
+
+
+        <div class="list-group" ng-if="!relationships || relationships.length == 0">
             <div class="list-group-item middle">
                 - {{ 'NONE' | translate }} -
             </div>

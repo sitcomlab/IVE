@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
-// Relationship has_parent_location delete controller
-app.controller("hasParentLocationDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+// Relationship recorded_at delete controller
+app.controller("recordedAtDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
@@ -25,7 +25,7 @@ app.controller("hasParentLocationDeleteController", function($scope, $rootScope,
 
         $relationshipService.remove($scope.relationship.relationship_id)
         .then(function onSuccess(response) {
-            $scope.redirect("/relationship/has_parent_location");
+            $scope.redirect("/relationship/" + $scope.relationship_label);
         })
         .catch(function onError(response) {
             $window.alert(response.data);
@@ -37,10 +37,11 @@ app.controller("hasParentLocationDeleteController", function($scope, $rootScope,
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_RELATIONSHIP') };
+    // TODO: $scope.relationship_label = $routeParams.relationship_label;
+    $scope.relationship_label = 'recorded_at';
     $scope.input = "";
-    $scope.relationship_type = "HAS_PARENT_LOCATION";
 
-    $relationshipService.retrieve_by_id('has_parent_location', $routeParams.relationship_id)
+    $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
         $scope.$parent.loading = { status: false, message: "" };
