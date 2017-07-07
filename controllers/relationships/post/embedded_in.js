@@ -57,6 +57,7 @@ exports.request = function(req, res) {
             var params = {
                 overlay_id: req.body.overlay_id,
                 video_id: req.body.video_id,
+                description: req.body.description,
                 w: req.body.w,
                 h: req.body.h,
                 d: req.body.d,

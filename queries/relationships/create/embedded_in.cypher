@@ -3,6 +3,7 @@ MATCH (v:Videos) WHERE ID(v) = toInt({video_id})
 CREATE (o)-[r:embedded_in {
     created: timestamp(),
     updated: timestamp(),
+    description: {description},
     w: {w},
     h: {h},
     d: {d},
@@ -26,6 +27,7 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
+    r.description AS relationship_description,
     r.w AS relationship_w,
     r.h AS relationship_h,
     r.d AS relationship_d,

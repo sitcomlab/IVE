@@ -2,6 +2,7 @@ MATCH (v:Videos)-[r:recorded_at]->(l:Locations)
 WHERE ID(r)=toInt({relationship_id})
 SET
     r.updated = timestamp(),
+    r.description = {description}
     r.preferred = {preferred}
 RETURN
     ID(v) AS video_id,
@@ -15,6 +16,7 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
+    r.description AS relationship_description,
     r.preferred AS relationship_preferred,
     ID(l) AS location_id,
     l.created AS location_created,

@@ -161,6 +161,15 @@
                 <!-- only embedded_in attributes -->
                 <tr ng-if="relationship_label == 'embedded_in' ">
                     <th>
+                        {{ 'DESCRIPTION' | translate }}
+                    </th>
+                    <td>
+                        <kbd ng-if="relationship.relationship_description.relationship.relationship_description!=null">{{relationship.relationship_description.relationship.relationship_description}}</kbd>
+                        <span class="text-muted" ng-if="relationship.relationship_description.relationship.relationship_description==null">-</span>
+                    </td>
+                </tr>
+                <tr ng-if="relationship_label == 'embedded_in' ">
+                    <th>
                         {{ 'WIDTH' | translate }}
                     </th>
                     <td>
@@ -241,6 +250,15 @@
                 </tr>
 
                 <!-- only recorded_at attribute -->
+                <tr ng-if="relationship_label == 'recorded_at' ">
+                    <th>
+                        {{ 'DESCRIPTION' | translate }}
+                    </th>
+                    <td>
+                        <kbd ng-if="relationship.relationship_description.relationship.relationship_description!=null">{{relationship.relationship_description.relationship.relationship_description}}</kbd>
+                        <span class="text-muted" ng-if="relationship.relationship_description.relationship.relationship_description==null">-</span>
+                    </td>
+                </tr>
                 <tr ng-if="relationship_label == 'recorded_at' ">
                     <th>
                         {{ 'PREFERRED' | translate }}

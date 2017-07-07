@@ -7,5 +7,6 @@ MATCH (video:Videos) WHERE video.v_id = line.`v_id`
 CREATE (video)-[:recorded_at {
     created: timestamp(),
     updated: timestamp(),
+    description: (line.`description`),
     preferred: (CASE toInt(line.`preferred`) WHEN 1 THEN true ELSE false END)
 }]->(location);

@@ -1,5 +1,7 @@
 MATCH (v:Videos)-[r:recorded_at]->(l:Locations)
 WHERE
+    // Relationship
+    toLower(r.description) CONTAINS toLower({search_term}) OR
     // Videos
     toLower(v.v_id) CONTAINS toLower({search_term}) OR
     toLower(v.name) CONTAINS toLower({search_term}) OR
@@ -15,6 +17,8 @@ WHERE
 WITH count(r) AS full_count
 MATCH (v:Videos)-[r:recorded_at]->(l:Locations)
 WHERE
+    // Relationship
+    toLower(r.description) CONTAINS toLower({search_term}) OR
     // Videos
     toLower(v.v_id) CONTAINS toLower({search_term}) OR
     toLower(v.name) CONTAINS toLower({search_term}) OR
@@ -40,6 +44,7 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
+    r.description AS relationship_description,
     r.preferred AS relationship_preferred,
     ID(l) AS location_id,
     l.created AS location_created,

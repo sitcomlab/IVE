@@ -1,5 +1,7 @@
 MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
 WHERE
+    // Relationship
+    toLower(r.description) CONTAINS toLower({search_term}) OR
     // Overlays
     toLower(o.o_id) CONTAINS toLower({search_term}) OR
     toLower(o.name) CONTAINS toLower({search_term}) OR
@@ -14,6 +16,8 @@ WHERE
 WITH count(r) AS full_count
 MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
 WHERE
+    // Relationship
+    toLower(r.description) CONTAINS toLower({search_term}) OR
     // Overlays
     toLower(o.o_id) CONTAINS toLower({search_term}) OR
     toLower(o.name) CONTAINS toLower({search_term}) OR
@@ -38,6 +42,7 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
+    r.description AS relationship_description,
     r.w AS relationship_w,
     r.h AS relationship_h,
     r.d AS relationship_d,

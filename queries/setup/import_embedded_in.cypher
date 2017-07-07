@@ -7,6 +7,7 @@ MATCH (video:Videos) WHERE video.v_id = line.`v_id`
 CREATE (overlay)-[:embedded_in {
     created: timestamp(),
     updated: timestamp(),
+    description: (line.`description`),
     w: toFloat(line.`w`),
     h: toFloat(line.`h`),
     x: toFloat(line.`x`),

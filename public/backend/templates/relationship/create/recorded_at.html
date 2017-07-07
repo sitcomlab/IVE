@@ -7,7 +7,7 @@
                     <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE_NEW_RELATIONSHIP' | translate }}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                    <button class="btn btn-secondary" role="button" ng-click="redirect('/new/relationship')">
+                    <button class="btn btn-secondary" role="button" ng-click="redirect('/create/relationship')">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -117,6 +117,20 @@
             <p class="text-muted middle">
                 <b>{{ 'PROPERTIES' | translate }}</b>
             </p>
+
+            <label>
+                <b>{{ 'DESCRIPTION' | translate }}</b>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createRelationshipForm.description.$invalid && !createRelationshipForm.description.$pristine }">
+                <textarea
+                    class="form-control"
+                    rows="3"
+                    placeholder="{{ 'DESCRIPTION' | translate }}"
+                    ng-model="relationship.description"
+                    name="description"
+                    id="description"></textarea>
+            </div>
+            <br>
             <label>
                 <b>{{ 'PREFERRED' | translate }}</b>
             </label>
@@ -156,7 +170,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="card-footer right">

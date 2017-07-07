@@ -2,6 +2,7 @@ MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
 WHERE ID(r)=toInt({relationship_id})
 SET
     r.updated = timestamp(),
+    r.description = {description},
     r.w = {w},
     r.h = {h},
     r.d = {d},
@@ -24,6 +25,7 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
+    r.description AS relationship_description,
     r.w AS relationship_w,
     r.h AS relationship_h,
     r.d AS relationship_d,
