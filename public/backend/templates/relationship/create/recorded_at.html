@@ -109,7 +109,10 @@
                             </small>
                         </span>
                     </div>
-                    <br>
+                    <div ng-if="(relationship.location_id|findLocationById:locations).lat !== null && (relationship.location_id|findLocationById:locations).lng !== null">
+                        <img class="previewMap" ng-src="{{ relationship.location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.location_id|findLocationById:locations).name}}" style="width: 100%; height: auto;">
+                        <br>
+                    </div>
                 </div>
             </div>
 

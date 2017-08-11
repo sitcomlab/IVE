@@ -14,8 +14,10 @@
     </div>
     <div class="card-block">
         <h5>
-            {{ 'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS' | translate }} {{ 'LOCATION' | translate }}?
+            {{ 'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS' | translate }} {{ 'LOCATION' | translate }}: <code>{{location.name}}</code> ?
         </h5>
+        <img class="previewMap" ng-src="{{ location | previewMapRequest }}" alt="{{location.name}}" style="width: 25%; height: auto;" ng-if="location.lat !== null && location.lng !== null">
+        <br>
         <br>
         <label>
             <b>{{ 'NAME' | translate }}</b>

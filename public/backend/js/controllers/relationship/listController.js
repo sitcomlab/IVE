@@ -141,6 +141,33 @@ app.controller("relationshipListController", function($scope, $rootScope, $route
     };
 
 
+    /**
+     * [description]
+     * @param  {[type]} relationship_label [description]
+     * @param  {[type]} relationship       [description]
+     * @return {[type]}                    [description]
+     */
+    $scope.itemTracker = function(relationship_label, relationship){
+        switch (relationship_label) {
+            case 'belongs_to': {
+                return relationship.location_id + "-" + relationship.scenario_id;
+            }
+            case 'connected_to': {
+                return relationship.start_location_id + "-" + relationship.end_location_id;
+            }
+            case 'has_parent_location': {
+                return relationship.child_location_id + "-" + relationship.parent_location_id;
+            }
+            case 'recorded_at': {
+                return relationship.video_id + "-" + relationship.location_id;
+            }
+            case 'embedded_in': {
+                return relationship.overlay_id + "-" + relationship.video_id;
+            }
+        }
+    };
+
+
     /*************************************************
         INIT
      *************************************************/

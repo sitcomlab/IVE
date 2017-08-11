@@ -21,6 +21,8 @@ app.constant("config", {
     debugMode: false,
     html5Mode: true,
     limit: 7,
+    mapboxStaticAPI: 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/',
+    mapboxAccessToken: 'pk.eyJ1Ijoic2l0Y29tbGFiIiwiYSI6ImNqNjd4a3pkdTA5ZmkyemxzNjBvZWQ0ZGcifQ.ctIXrv-GP4kWn7uMdt4yPQ',
     serverMode: 'development',
     serverSettings: {
         development: {

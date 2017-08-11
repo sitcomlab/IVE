@@ -15,24 +15,26 @@
         </div>
         <div class="card-block">
             <div class="list-group">
-                <div class="list-group-item flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div>
+                <div class="list-group-item">
+                    <div style="width: 100%;">
+                        <div style="width: 33.33333333%; float: left;">
                             <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
                         </div>
-                        <div style="padding-left: 5px; padding-right: 5px;">
+                        <div class="middle" style="width: 33.33333333%; float: left; padding-left: 5px; padding-right: 5px;">
                             <span class="badge badge-pill badge-default">
                                 &mdash;&nbsp;RECORDED_AT&nbsp;&mdash;&gt;
                             </span>
                         </div>
-                        <span>
+                        <div class="right" style="width: 33.33333333%; float: left;">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
                             <span class="badge" ng-class="{
                                 'badge-primary': relationship.location_type=='outdoor',
                                 'badge-default': relationship.location_type=='indoor',
                                 'badge-success': relationship.location_type=='abstract'
                             }">{{relationship.location_type}}</span>
-                        </span>
+                            <br>
+                            <img class="previewMap" ng-src="{{ relationship | previewMapRequest:'recorded_at' }}" alt="{{relationship.location_name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="relationship.location_lat !== null && relationship.location_lng !== null">
+                        </div>
                     </div>
                 </div>
             </div>

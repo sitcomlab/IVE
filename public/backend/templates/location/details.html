@@ -31,85 +31,92 @@
     </div>
     <div class="card-block">
         <h6>{{ 'PROPERTIES' | translate }}</h6>
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <th>
-                        {{ 'ID' | translate }}
-                    </th>
-                    <td>
-                        <code>{{location.location_id}}</code>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        {{ 'EXPORT_ID' | translate }}
-                    </th>
-                    <td>
-                        <kbd>{{location.l_id}}</kbd>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        {{ 'NAME' | translate }}
-                    </th>
-                    <td>
-                        <kbd>{{location.name}}</kbd>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        {{ 'DESCRIPTION' | translate }}
-                    </th>
-                    <td>
-                        <kbd ng-if="location.description!=null">{{location.description}}</kbd>
-                        <span class="text-muted" ng-if="location.description==null">-</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        {{ 'LONGITUDE' | translate }}
-                    </th>
-                    <td>
-                        <kbd ng-if="location.lng!=null">{{location.lng}}</kbd>
-                        <span class="text-muted" ng-if="location.lng==null">-</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        {{ 'LATITUDE' | translate }}
-                    </th>
-                    <td>
-                        <kbd ng-if="location.lat!=null">{{location.lat}}</kbd>
-                        <span class="text-muted" ng-if="location.lat==null">-</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        {{ 'LOCATION_TYPE' | translate }}
-                    </th>
-                    <td>
-                        <kbd>{{location.location_type}}</kbd>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        {{ 'CREATED' | translate }}
-                    </th>
-                    <td>
-                        <kbd>{{location.created | timestamp }}</kbd>
-                    </td>
-                </tr>
-                <tr style="border-bottom: 1px solid #eceeef">
-                    <th>
-                        {{ 'LAST_UPDATED' | translate }}
-                    </th>
-                    <td>
-                        <kbd>{{location.updated | timestamp }}</kbd>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div ng-class="(location.lat !== null && location.lng !== null) ? 'col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>
+                                {{ 'ID' | translate }}
+                            </th>
+                            <td>
+                                <code>{{location.location_id}}</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'EXPORT_ID' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.l_id}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'NAME' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.name}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'DESCRIPTION' | translate }}
+                            </th>
+                            <td>
+                                <kbd ng-if="location.description!=null">{{location.description}}</kbd>
+                                <span class="text-muted" ng-if="location.description==null">-</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'LONGITUDE' | translate }}
+                            </th>
+                            <td>
+                                <kbd ng-if="location.lng!=null">{{location.lng}}</kbd>
+                                <span class="text-muted" ng-if="location.lng==null">-</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'LATITUDE' | translate }}
+                            </th>
+                            <td>
+                                <kbd ng-if="location.lat!=null">{{location.lat}}</kbd>
+                                <span class="text-muted" ng-if="location.lat==null">-</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'LOCATION_TYPE' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.location_type}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'CREATED' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.created | timestamp }}</kbd>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eceeef">
+                            <th>
+                                {{ 'LAST_UPDATED' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.updated | timestamp }}</kbd>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-if="location.lat !== null && location.lng !== null" class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 right">
+                <img class="previewMap" ng-src="{{ location | previewMapRequest }}" alt="{{location.name}}" style="max-width: 100%; height: auto;" ng-if="location.lat !== null && location.lng !== null">
+            </div>
+        </div>
     </div>
 
     <!-- connectedTo-relationship -->
@@ -135,17 +142,24 @@
     </div>
     <div class="list-group list-group-flush" ng-if="location.connected_locations.length>0 && connectedLocations">
         <a href="" class="list-group-item list-group-item-action" ng-repeat="connected_location in location.connected_locations" ng-click="redirect('/locations/' + connected_location.location_id)">
-            <i class="fa fa-map-marker" aria-hidden="true"></i>
-            &nbsp;&nbsp;
-            {{connected_location.name}}
-            &nbsp;
-            <span class="badge" ng-class="{
-                'badge-primary': connected_location.location_type=='outdoor',
-                'badge-default': connected_location.location_type=='indoor',
-                'badge-success': connected_location.location_type=='abstract'
-            }">
-                {{connected_location.location_type}}
-            </span>
+            <div style="width: 100%;">
+                <div style="width: 50%; float: left;">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    <b>{{connected_location.name}}</b>
+                    <br>
+                    <img class="previewMap" ng-src="{{ connected_location | previewMapRequest }}" alt="{{connected_location.name}}" style="width: 50%; height: auto; margin-top 5px;" ng-if="connected_location.lat !== null && connected_location.lng !== null">
+                </div>
+                <div class="right" style="width: 50%; float: left;">
+                    <span class="badge" ng-class="{
+                        'badge-primary': connected_location.location_type=='outdoor',
+                        'badge-default': connected_location.location_type=='indoor',
+                        'badge-success': connected_location.location_type=='abstract'
+                    }">
+                        {{connected_location.location_type}}
+                    </span>
+                </div>
+            </div>
         </a>
     </div>
     <br>

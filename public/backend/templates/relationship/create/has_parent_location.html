@@ -81,6 +81,11 @@
                             </small>
                         </span>
                     </div>
+                    <div ng-if="(relationship.child_location_id|findLocationById:child_locations).lat !== null && (relationship.child_location_id|findLocationById:child_locations).lng !== null">
+                        <img class="previewMap" ng-src="{{ relationship.child_location_id | findLocationById:child_locations | previewMapRequest }}" alt="{{(relationship.child_location_id|findLocationById:child_locations).name}}" style="width: 100%; height: auto;">
+                        <br>
+                    </div>
+                    <br>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 middle">
                     <span class="badge badge-pill badge-default">
@@ -109,6 +114,10 @@
                                 {{ 'REQUIRED' | translate }}
                             </small>
                         </span>
+                    </div>
+                    <div ng-if="(relationship.parent_location_id|findLocationById:parent_locations).lat !== null && (relationship.parent_location_id|findLocationById:parent_locations).lng !== null">
+                        <img class="previewMap" ng-src="{{ relationship.parent_location_id | findLocationById:parent_locations | previewMapRequest }}" alt="{{(relationship.parent_location_id|findLocationById:parent_locations).name}}" style="width: 100%; height: auto;">
+                        <br>
                     </div>
                 </div>
             </div>

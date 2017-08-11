@@ -106,15 +106,21 @@
         </a>
     </div>
     <div class="list-group list-group-flush" ng-if="scenario.locations.length>0 && relatedLocations">
-        <a href="" class="list-group-item list-group-item-action justify-content-between" ng-repeat="location in scenario.locations | orderBy: ['location_type','name']" ng-click="redirect('/locations/' + location.location_id)">
-            <span>
-                <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
-            </span>
-            <span class="badge" ng-class="{
-                'badge-primary': location.location_type=='outdoor',
-                'badge-default': location.location_type=='indoor',
-                'badge-success': location.location_type=='abstract'
-            }">{{location.location_type}}</span>
+        <a href="" class="list-group-item list-group-item-action" ng-repeat="location in scenario.locations | orderBy: ['location_type','name']" ng-click="redirect('/locations/' + location.location_id)">
+            <div style="width: 100%;">
+                <div style="width: 50%; float: left;">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
+                    <br>
+                    <img class="previewMap" ng-src="{{ location | previewMapRequest }}" alt="{{location.name}}" style="margin-top: 5px; width: 50%; height: auto;" ng-if="location.lat !== null && location.lng !== null">
+                </div>
+                <div class="right" style="width: 50%; float: left;">
+                    <span class="badge" ng-class="{
+                        'badge-primary': location.location_type=='outdoor',
+                        'badge-default': location.location_type=='indoor',
+                        'badge-success': location.location_type=='abstract'
+                    }">{{location.location_type}}</span>
+                </div>
+            </div>
         </a>
     </div>
     <br>

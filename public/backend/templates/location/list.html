@@ -68,14 +68,16 @@
         </div>
 
         <div class="list-group" ng-if="locations && locations.length>0">
-            <a href="" ng-click="redirect('/locations/' + location.location_id)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="location in locations">
-                <div class="d-flex w-100 justify-content-between">
-                    <div>
+            <a href="" ng-click="redirect('/locations/' + location.location_id)" class="list-group-item list-group-item-action" ng-repeat="location in locations">
+                <div style="width: 100%;">
+                    <div style="width: 50%; float: left;">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                         &nbsp;&nbsp;
                         <b>{{location.name}}</b>
+                        <br>
+                        <img class="previewMap" ng-src="{{ location | previewMapRequest }}" alt="{{location.name}}" style="width: 50%; height: auto; margin-top: 5px;" ng-if="location.lat !== null && location.lng !== null">
                     </div>
-                    <div>
+                    <div class="right" style="width: 50%; float: left;">
                         <span class="badge" ng-class="{
                             'badge-primary': location.location_type=='outdoor',
                             'badge-default': location.location_type=='indoor',
@@ -96,7 +98,7 @@
     </div>
 
     <div class="card-footer">
-        
+
         <!-- Pagination -->
         <nav aria-label="pagination" id="pagination" class="d-flex w-100 justify-content-between">
             <ul class="pagination" ng-if="locations.length > 0">
