@@ -28,6 +28,7 @@ app.controller("videoEditController", function($scope, $rootScope, $routeParams,
             $scope.editVideoForm.description.$pristine = false;
             $scope.editVideoForm.url.$pristine = false;
             $scope.editVideoForm.recorded.$pristine = false;
+            $scope.editVideoForm.thumbnails.$pristine = false;
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('SAVING_VIDEO') };
 

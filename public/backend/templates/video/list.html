@@ -58,6 +58,23 @@
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>
                         &nbsp;&nbsp;
                         <b>{{video.name}}</b>
+                        <br>
+                        <div
+                            ng-if="video.thumbnails > 0"
+                            style="
+                                margin-top: 5px;
+                                width: 100%;
+                                height: auto;"
+                            ng-mouseover="startPreview(video)"
+                            ng-mouseout="stopPreview(video)"
+                        >
+                            <img ng-init="video.thumbnail = (video | thumbnail:1)" ng-src="{{video.thumbnail}}" class="previewVideo"
+                            style="
+                                max-width: 480px;
+                                width: 100%;
+                                max-height: 90px;
+                                height: auto;">
+                        </div>
                     </div>
                 </div>
             </a>

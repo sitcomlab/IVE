@@ -43,6 +43,9 @@ footer {
     border-radius: 3px;
     border: 1px solid rgba(0, 0, 0, .125);
 }
+.previewVideo {
+    border: 1px solid rgba(0, 0, 0, .125);
+}
 
 
 .card-footer > .btn-block-xs-only, .btn-block-xs-only {

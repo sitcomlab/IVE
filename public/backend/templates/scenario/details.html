@@ -105,25 +105,28 @@
             </span>
         </a>
     </div>
-    <div class="list-group list-group-flush" ng-if="scenario.locations.length>0 && relatedLocations">
-        <a href="" class="list-group-item list-group-item-action" ng-repeat="location in scenario.locations | orderBy: ['location_type','name']" ng-click="redirect('/locations/' + location.location_id)">
-            <div style="width: 100%;">
-                <div style="width: 50%; float: left;">
-                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
-                    <br>
-                    <img class="previewMap" ng-src="{{ location | previewMapRequest }}" alt="{{location.name}}" style="margin-top: 5px; width: 50%; height: auto;" ng-if="location.lat !== null && location.lng !== null">
-                </div>
-                <div class="right" style="width: 50%; float: left;">
+    <div class="card-columns" ng-if="scenario.locations.length>0 && relatedLocations" style="padding: 20px;">
+        <a href="" ng-repeat="location in scenario.locations | orderBy: ['location_type','name']" ng-click="redirect('/locations/' + location.location_id)">
+            <div class="card">
+                <img class="card-img-top img-fluid" ng-src="{{ location | previewMapRequest }}" alt="{{location.name}}" style="height: auto;" ng-if="location.lat !== null && location.lng !== null">
+                <div class="card-block">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    &nbsp;
+                    <b>{{location.name}}</b>
+                    &nbsp;
                     <span class="badge" ng-class="{
                         'badge-primary': location.location_type=='outdoor',
                         'badge-default': location.location_type=='indoor',
                         'badge-success': location.location_type=='abstract'
-                    }">{{location.location_type}}</span>
+                    }">
+                        {{location.location_type}}
+                    </span>
                 </div>
             </div>
         </a>
     </div>
     <br>
+
 
     <!-- Related Videos -->
     <div class="list-group list-group-flush" ng-if="scenario.videos.length==0">
@@ -153,9 +156,24 @@
             </span>
         </a>
     </div>
-    <div class="list-group list-group-flush" ng-if="scenario.videos.length>0 && relatedVideos">
-        <a href="" class="list-group-item list-group-item-action" ng-repeat="video in scenario.videos" ng-click="redirect('/videos/' + video.video_id)">
-            <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{video.name}}
+    <div class="card-columns" ng-if="scenario.videos.length>0 && relatedVideos" style="padding: 20px;">
+        <a href="" ng-repeat="video in scenario.videos" ng-click="redirect('/videos/' + video.video_id)">
+            <div class="card">
+                <img
+                    class="card-img-top img-fluid"
+                    ng-init="video.thumbnail = (video | thumbnail:1)"
+                    ng-src="{{video.thumbnail}}"
+                    ng-mouseover="startPreview(video)"
+                    ng-mouseout="stopPreview(video)"
+                    alt="{{video.name}}"
+                    style="height: auto;"
+                    ng-if="video.thumbnails > 0">
+                <div class="card-block">
+                    <i class="fa fa-file-video-o" aria-hidden="true"></i>
+                    &nbsp;
+                    <b>{{video.name}}</b>
+                </div>
+            </div>
         </a>
     </div>
     <br>

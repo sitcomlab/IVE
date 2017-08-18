@@ -40,9 +40,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
      * @return {[type]}      [description]
      */
     $scope.changeSource = function(path) {
-        console.log($window.location.origin);
-        console.log(path);
-        path = $window.location.origin + path;
+        path = $window.location.origin + config.videoFolder + path;
         $scope.sources = [];
         $scope.sources.push({
             src: $sce.trustAsResourceUrl(path + ".mp4"),

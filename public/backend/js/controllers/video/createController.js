@@ -28,6 +28,7 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
             $scope.createVideoForm.description.$pristine = false;
             $scope.createVideoForm.url.$pristine = false;
             $scope.createVideoForm.recorded.$pristine = false;
+            $scope.createVideoForm.thumbnails.$pristine = false;
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_VIDEO') };
 

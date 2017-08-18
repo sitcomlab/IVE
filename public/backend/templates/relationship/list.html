@@ -194,6 +194,23 @@
                     <!-- videos -->
                     <div style="width: 33.33333333%; float: left;" ng-if="filter.relationship_type == 'video' ">
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                        <br>
+                        <div
+                            ng-if="relationship.thumbnails > 0"
+                            style="
+                                margin-top: 5px;
+                                width: 100%;
+                                height: auto;"
+                            ng-mouseover="startPreview(relationship)"
+                            ng-mouseout="stopPreview(relationship)"
+                        >
+                            <img ng-init="relationship.thumbnail = (relationship | thumbnail:1)" ng-src="{{relationship.thumbnail}}" class="previewVideo"
+                            style="
+                                max-width: 480px;
+                                width: 100%;
+                                max-height: 90px;
+                                height: auto;">
+                        </div>
                     </div>
                     <!-- overlays -->
                     <div style="width: 33.33333333%; float: left;" ng-if="filter.relationship_type == 'overlay' ">
@@ -271,6 +288,23 @@
                 <div style="width: 100%;" ng-if="relationship_label == 'recorded_at' ">
                     <div style="width: 33.33333333%; float: left;">
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                        <br>
+                        <div
+                            ng-if="relationship.thumbnails > 0"
+                            style="
+                                margin-top: 5px;
+                                width: 100%;
+                                height: auto;"
+                            ng-mouseover="startPreview(relationship)"
+                            ng-mouseout="stopPreview(relationship)"
+                        >
+                            <img ng-init="relationship.thumbnail = (relationship | thumbnail:1)" ng-src="{{relationship.thumbnail}}" class="previewVideo"
+                            style="
+                                max-width: 480px;
+                                width: 100%;
+                                max-height: 90px;
+                                height: auto;">
+                        </div>
                     </div>
                     <div class="middle" style="width: 33.33333333%; float: left;">
                         <span class="badge badge-pill badge-default">
@@ -301,6 +335,23 @@
                     </div>
                     <div>
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                        <br>
+                        <div
+                            ng-if="relationship.thumbnails > 0"
+                            style="
+                                margin-top: 5px;
+                                width: 100%;
+                                height: auto;"
+                            ng-mouseover="startPreview(relationship)"
+                            ng-mouseout="stopPreview(relationship)"
+                        >
+                            <img ng-init="relationship.thumbnail = (relationship | thumbnail:1)" ng-src="{{relationship.thumbnail}}" class="previewVideo"
+                            style="
+                                max-width: 480px;
+                                width: 100%;
+                                max-height: 90px;
+                                height: auto;">
+                        </div>
                     </div>
                 </div>
             </a>

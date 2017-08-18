@@ -24,7 +24,8 @@ app.factory('$videoService', function($http, config, $authenticationService) {
                 name: "",
                 description: "",
                 url: "",
-                recorded: ""
+                recorded: "",
+                thumbnails: 0
             };
         },
         getCount: function(){

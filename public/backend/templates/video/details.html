@@ -21,6 +21,13 @@
         </div>
     </div>
     <div class="card-block">
+        <div ng-if="video.thumbnails > 0">
+            <h6>{{ 'PREVIEW' | translate }}</h6>
+            <img class="previewVideo" ng-src="{{ video | previewVideo }}" alt="{{video.name}}" style="max-width: 100%; height: auto;">
+            <br>
+            <br>
+        </div>
+
         <h6>{{ 'PROPERTIES' | translate }}</h6>
         <table class="table table-bordered">
             <tbody>
@@ -121,5 +128,5 @@
             <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
         </a>
     </div>
-    
+
 </div>

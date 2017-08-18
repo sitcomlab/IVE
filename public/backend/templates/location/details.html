@@ -125,32 +125,30 @@
             - {{ 'NO' | translate }} {{ 'CONNECTED' | translate }} {{ 'LOCATIONS'  | translate }} -
         </div>
     </div>
-    <div class="list-group list-group-flush" ng-if="location.connected_locations.length>0">
-        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('connectedLocations')">
-            <span ng-if="!connectedLocations">
+    <div class="list-group list-group-flush" ng-if="location.videos.length>0">
+        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedLocations')">
+            <span ng-if="!relatedLocations">
                 <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;
-                <b>{{ 'SHOW' | translate }} {{ 'CONNECTED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+                <b>{{ 'SHOW_CONNECTED_LOCATIONS' | translate }}</b>
             </span>
-            <span ng-if="connectedLocations">
+            <span ng-if="relatedLocations">
                 <i class="fa fa-caret-up" aria-hidden="true"></i>&nbsp;&nbsp;
-                <b>{{ 'HIDE' | translate }} {{ 'CONNECTED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+                <b>{{ 'HIDE_CONNECTED_LOCATIONS' | translate }}</b>
             </span>
             <span class="badge badge-default badge-pill">
-                {{location.connected_locations.length}}
+                {{location.videos.length}}
             </span>
         </a>
     </div>
-    <div class="list-group list-group-flush" ng-if="location.connected_locations.length>0 && connectedLocations">
-        <a href="" class="list-group-item list-group-item-action" ng-repeat="connected_location in location.connected_locations" ng-click="redirect('/locations/' + connected_location.location_id)">
-            <div style="width: 100%;">
-                <div style="width: 50%; float: left;">
+    <div class="card-columns" ng-if="location.connected_locations.length>0 && relatedLocations" style="padding: 20px;">
+        <a href="" ng-repeat="connected_location in location.connected_locations | orderBy: ['location_type','name']" ng-click="redirect('/locations/' + connected_location.location_id)">
+            <div class="card">
+                <img class="card-img-top img-fluid" ng-src="{{ connected_location | previewMapRequest }}" alt="{{connected_location.name}}" style="height: auto;" ng-if="connected_location.lat !== null && connected_location.lng !== null">
+                <div class="card-block">
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    &nbsp;&nbsp;
+                    &nbsp;
                     <b>{{connected_location.name}}</b>
-                    <br>
-                    <img class="previewMap" ng-src="{{ connected_location | previewMapRequest }}" alt="{{connected_location.name}}" style="width: 50%; height: auto; margin-top 5px;" ng-if="connected_location.lat !== null && connected_location.lng !== null">
-                </div>
-                <div class="right" style="width: 50%; float: left;">
+                    &nbsp;
                     <span class="badge" ng-class="{
                         'badge-primary': connected_location.location_type=='outdoor',
                         'badge-default': connected_location.location_type=='indoor',
@@ -165,30 +163,44 @@
     <br>
 
     <!-- recordedAt-relationship -->
-    <div class="list-group list-group-flush" ng-if="location.locations.length==0">
+    <div class="list-group list-group-flush" ng-if="location.videos.length==0">
         <div class="list-group-item">
-            - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS'  | translate }} -
+            - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'VIDEOS'  | translate }} -
         </div>
     </div>
-    <div class="list-group list-group-flush" ng-if="location.locations.length>0">
-        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedLocations')">
-            <span ng-if="!relatedLocations">
-                <b>{{ 'SHOW' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+    <div class="list-group list-group-flush" ng-if="location.videos.length>0">
+        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedVideos')">
+            <span ng-if="!relatedVideos">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'SHOW_RELATED_VIDEOS' | translate }}</b>
             </span>
-            <span ng-if="!relatedLocations">
-                <i class="fa fa-caret-down" aria-hidden="true"></i>
+            <span ng-if="relatedVideos">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'HIDE_RELATED_VIDEOS' | translate }}</b>
             </span>
-            <span ng-if="relatedLocations">
-                <b>{{ 'HIDE' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}</b>
-            </span>
-            <span ng-if="relatedLocations">
-                <i class="fa fa-caret-up" aria-hidden="true"></i>
+            <span class="badge badge-default badge-pill">
+                {{location.videos.length}}
             </span>
         </a>
     </div>
-    <div class="list-group list-group-flush" ng-if="scenario.locations.length>0 && relatedLocations">
-        <a href="" class="list-group-item list-group-item-action" ng-repeat="location in scenario.locations" ng-click="redirect('/locations/' + location.location_id)">
-            <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
+    <div class="card-columns" ng-if="location.videos.length>0 && relatedVideos" style="padding: 20px;">
+        <a href="" ng-repeat="video in location.videos" ng-click="redirect('/videos/' + video.video_id)">
+            <div class="card">
+                <img
+                    class="card-img-top img-fluid"
+                    ng-init="video.thumbnail = (video | thumbnail:1)"
+                    ng-src="{{video.thumbnail}}"
+                    ng-mouseover="startPreview(video)"
+                    ng-mouseout="stopPreview(video)"
+                    alt="{{video.name}}"
+                    style="height: auto;"
+                    ng-if="video.thumbnails > 0">
+                <div class="card-block">
+                    <i class="fa fa-file-video-o" aria-hidden="true"></i>
+                    &nbsp;
+                    <b>{{video.name}}</b>
+                </div>
+            </div>
         </a>
     </div>
 
