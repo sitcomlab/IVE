@@ -12,7 +12,8 @@ RETURN
     v.name AS name,
     v.description AS description,
     v.url AS url,
-    v.recorded AS recorded
+    v.recorded AS recorded,
+    v.thumbnails AS thumbnails
 ORDER BY
     CASE WHEN {orderby} = 'created.asc' THEN v.created END ASC,
     CASE WHEN {orderby} = 'created.desc' THEN v.created END DESC,

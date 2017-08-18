@@ -5,7 +5,8 @@ CREATE (v:Videos {
     name: {name},
     description: {description},
     url: {url},
-    recorded: {recorded}
+    recorded: {recorded},
+    thumbnails: {thumbnails}
 }) RETURN
     ID(v) AS video_id,
     v.created AS created,
@@ -15,4 +16,5 @@ CREATE (v:Videos {
     v.description AS description,
     v.url AS url,
     v.recorded AS recorded
+    v.thumbnails AS thumbnails
 ;

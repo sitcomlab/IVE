@@ -51,7 +51,8 @@ exports.request = function(req, res) {
                 name: req.body.name,
                 description: req.body.description,
                 url: req.body.url,
-                recorded: req.body.recorded
+                recorded: req.body.recorded,
+                thumbnails: req.body.thumbnails || 0
             };
 
             callback(null, params);

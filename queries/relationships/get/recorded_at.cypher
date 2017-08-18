@@ -9,6 +9,7 @@ RETURN
     v.description AS video_description,
     v.url AS video_url,
     v.recorded AS video_recorded,
+    v.thumbnails AS thumbnails,
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,

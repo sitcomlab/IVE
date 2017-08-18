@@ -60,7 +60,8 @@ RETURN
     v.name AS video_name,
     v.description AS video_description,
     v.url AS video_url,
-    v.recorded AS video_recorded
+    v.recorded AS video_recorded,
+    v.thumbnails AS thumbnails
 ORDER BY
     CASE WHEN {orderby} = 'created.asc'         THEN r.created END ASC,
     CASE WHEN {orderby} = 'created.desc'        THEN r.created END DESC,

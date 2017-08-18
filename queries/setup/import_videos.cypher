@@ -7,6 +7,7 @@ CREATE (video:Videos {
     description: line.`description`,
     url: line.`url`,
     recorded: line.`recorded`,
+    thumbnails: line.`thumbnails`,
     created: timestamp(),
     updated: timestamp()
 });
