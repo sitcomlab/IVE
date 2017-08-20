@@ -1,4 +1,4 @@
-l_id,name,lat,lng,description,location_type
+location_uuid,name,lat,lng,description,location_type
 l_01,Schlossplatz,51.96344,7.617753,The Schlossplatz is a large place in the front of the castle,outdoor
 l_02,Frauenstraße [1],51.963453,7.618718,A little street in the direct environment of the castle,outdoor
 l_03,Frauenstraße [2],51.963572,7.620655,Intersection of Frauenstraße and Krummer Timpen overlooking the ULB,outdoor

@@ -8,7 +8,7 @@ RETURN
     ID(end) AS location_id,
     end.created AS created,
     end.updated AS updated,
-    end.l_id AS l_id,
+    end.location_uuid AS location_uuid,
     end.name AS name,
     end.description AS description,
     end.lat AS lat,

@@ -4,7 +4,7 @@ WHERE
     AND
         ID(s)= toInt({scenario_id})
     AND (
-        toLower(o.o_id) CONTAINS toLower({search_term}) OR
+        toLower(o.overlay_uuid) CONTAINS toLower({search_term}) OR
         toLower(o.name) CONTAINS toLower({search_term}) OR
         toLower(o.description) CONTAINS toLower({search_term}) OR
         toLower(o.url) CONTAINS toLower({search_term})
@@ -16,7 +16,7 @@ WHERE
     AND
         ID(s)= toInt({scenario_id})
     AND (
-        toLower(o.o_id) CONTAINS toLower({search_term}) OR
+        toLower(o.overlay_uuid) CONTAINS toLower({search_term}) OR
         toLower(o.name) CONTAINS toLower({search_term}) OR
         toLower(o.description) CONTAINS toLower({search_term}) OR
         toLower(o.url) CONTAINS toLower({search_term})
@@ -26,7 +26,7 @@ RETURN
     ID(o) AS overlay_id,
     o.created AS created,
     o.updated AS updated,
-    o.o_id AS o_id,
+    o.overlay_uuid AS overlay_uuid,
     o.name AS name,
     o.description AS description,
     o.category AS category,

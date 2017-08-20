@@ -1,4 +1,4 @@
-v_id,l_id,description,preferred
+video_uuid,location_uuid,description,preferred
 v_01,l_01,,1
 v_02,l_02,,1
 v_03,l_03,,1

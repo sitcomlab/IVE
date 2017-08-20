@@ -2,7 +2,7 @@
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'file:///videos.csv' AS line FIELDTERMINATOR ','
 CREATE (video:Videos {
-    v_id: line.`v_id`,
+    video_uuid: line.`video_uuid`,
     name: line.`name`,
     description: line.`description`,
     url: line.`url`,

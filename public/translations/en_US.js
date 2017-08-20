@@ -169,6 +169,15 @@ app.constant("en_US", {
 
     FILTER_LOCATIONS_BY_SCENARIO: 'Filter locations by scenario',
     FILTER_VIDEOS_BY_SCENARIO: 'Filter videos by scenario',
-    FILTER_OVERLAYS_BY_SCENARIO: 'Filter overlays by scenario'
+    FILTER_OVERLAYS_BY_SCENARIO: 'Filter overlays by scenario',
+
+    NO_FILENAME_EXTENSION_REQUIRED: 'no filename extension required',
+    EXAMPLE: 'Example',
+    FOR_THE_FILES: 'for the files',
+    AND: 'and',
+    AMOUNT_OF_THUMBNAILS: 'amount of thumbnails',
+    FOR_LAST_ITEM_IN_THE_FOLDER: 'for last item in the folder',
+    YOU_WILL_RECEIVE_A_NEW_UUID: 'You will receive a new UUID, which has to be used as the folder name for the related video thumbnails. Please copy and paste your created thumbnails inside this folder.',
+    PLEASE_USE_THE_UUID_FOR_THE_THUMBNAILS: 'Please use the automatically UUID as the folder name for the related video thumbnails. Please copy and paste your created thumbnails inside this folder.'
 
 });

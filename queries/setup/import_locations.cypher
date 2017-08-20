@@ -2,7 +2,7 @@
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'file:///locations.csv' AS line FIELDTERMINATOR ','
 CREATE (location:Locations {
-    l_id: line.`l_id`,
+    location_uuid: line.`location_uuid`,
     name: line.`name`,
     description: line.`description`,
     lat: toFloat(line.`lat`),

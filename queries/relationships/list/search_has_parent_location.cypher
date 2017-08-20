@@ -1,13 +1,13 @@
 MATCH (child:Locations)-[r:has_parent_location]->(parent:Locations)
 WHERE
     // Child locations
-    toLower(child.l_id) CONTAINS toLower({search_term}) OR
+    toLower(child.location_uuid) CONTAINS toLower({search_term}) OR
 	toLower(child.name) CONTAINS toLower({search_term}) OR
 	toLower(child.description) CONTAINS toLower({search_term}) OR
 	child.lat CONTAINS toLower({search_term}) OR
 	child.lng CONTAINS toLower({search_term}) OR
     // Parent locations
-    toLower(parent.l_id) CONTAINS toLower({search_term}) OR
+    toLower(parent.location_uuid) CONTAINS toLower({search_term}) OR
 	toLower(parent.name) CONTAINS toLower({search_term}) OR
 	toLower(parent.description) CONTAINS toLower({search_term}) OR
 	parent.lat CONTAINS toLower({search_term}) OR
@@ -16,13 +16,13 @@ WITH count(r) AS full_count
 MATCH (child:Locations)-[r:has_parent_location]->(parent:Locations)
 WHERE
     // Child locations
-    toLower(child.l_id) CONTAINS toLower({search_term}) OR
+    toLower(child.location_uuid) CONTAINS toLower({search_term}) OR
     toLower(child.name) CONTAINS toLower({search_term}) OR
     toLower(child.description) CONTAINS toLower({search_term}) OR
     child.lat CONTAINS toLower({search_term}) OR
     child.lng CONTAINS toLower({search_term}) OR
     // Parent locations
-    toLower(parent.l_id) CONTAINS toLower({search_term}) OR
+    toLower(parent.location_uuid) CONTAINS toLower({search_term}) OR
     toLower(parent.name) CONTAINS toLower({search_term}) OR
     toLower(parent.description) CONTAINS toLower({search_term}) OR
     parent.lat CONTAINS toLower({search_term}) OR
@@ -32,7 +32,7 @@ RETURN
     ID(child) AS child_location_id,
     child.created AS child_location_created,
     child.updated AS child_location_updated,
-    child.l_id AS child_l_id,
+    child.location_uuid AS child_location_uuid,
     child.name AS child_location_name,
     child.description AS child_location_description,
     child.lat AS child_location_lat,
@@ -44,7 +44,7 @@ RETURN
     ID(parent) AS parent_location_id,
     parent.created AS parent_location_created,
     parent.updated AS parent_location_updated,
-    parent.l_id AS parent_l_id,
+    parent.location_uuid AS parent_location_uuid,
     parent.name AS parent_location_name,
     parent.description AS parent_location_description,
     parent.lat AS parent_location_lat,

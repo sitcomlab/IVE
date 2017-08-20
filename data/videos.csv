@@ -1,4 +1,4 @@
-v_id,name,url,description,description_german,recorded,thumbnails
+video_uuid,name,url,description,description_german,recorded,thumbnails
 v_01,Schlossplatz,/muenster-city-center/task01,Schlossplatz,Schlossplatz,2014-04-03 11:56:00,312
 v_02,Frauenstraße [1],/muenster-city-center/task02,Frauenstraße [1],Frauenstraße [1],2014-04-03 12:43:00,294
 v_03,Frauenstraße [2],/muenster-city-center/task03,Frauenstraße [2],Frauenstraße [2],2014-04-03 13:25:00,307

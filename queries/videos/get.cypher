@@ -4,7 +4,7 @@ RETURN
     ID(v) AS video_id,
     v.created AS created,
     v.updated AS updated,
-    v.v_id AS v_id,
+    v.video_uuid AS video_uuid,
     v.name AS name,
     v.description AS description,
     v.url AS url,

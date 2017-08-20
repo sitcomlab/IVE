@@ -1,4 +1,4 @@
-o_id,s_id
+overlay_uuid,scenario_uuid
 o_01,s_02
 o_02,s_02
 o_03,s_01

@@ -1,12 +1,12 @@
 MATCH (s:Scenarios)
 WHERE
-    toLower(s.s_id) CONTAINS toLower({search_term}) OR
+    toLower(s.scenario_uuid) CONTAINS toLower({search_term}) OR
     toLower(s.name) CONTAINS toLower({search_term}) OR
     toLower(s.description) CONTAINS toLower({search_term})
 WITH count(*) AS full_count
 MATCH (s:Scenarios)
 WHERE
-    toLower(s.s_id) CONTAINS toLower({search_term}) OR
+    toLower(s.scenario_uuid) CONTAINS toLower({search_term}) OR
     toLower(s.name) CONTAINS toLower({search_term}) OR
     toLower(s.description) CONTAINS toLower({search_term})
 RETURN
@@ -14,7 +14,7 @@ RETURN
     ID(s) AS scenario_id,
     s.created AS created,
     s.updated AS updated,
-    s.s_id AS s_id,
+    s.scenario_uuid AS scenario_uuid,
     s.name AS name,
     s.description AS description
 ORDER BY

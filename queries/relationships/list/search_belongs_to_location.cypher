@@ -1,26 +1,26 @@
 MATCH (l:Locations)-[r:belongs_to]->(s:Scenarios)
 WHERE
     // Locations
-	toLower(l.l_id) CONTAINS toLower({search_term}) OR
+	toLower(l.location_uuid) CONTAINS toLower({search_term}) OR
 	toLower(l.name) CONTAINS toLower({search_term}) OR
 	toLower(l.description) CONTAINS toLower({search_term}) OR
 	l.lat CONTAINS toLower({search_term}) OR
 	l.lng CONTAINS toLower({search_term}) OR
     // Scenarios
-    toLower(s.s_id) CONTAINS toLower({search_term}) OR
+    toLower(s.scenario_uuid) CONTAINS toLower({search_term}) OR
     toLower(s.name) CONTAINS toLower({search_term}) OR
     toLower(s.description) CONTAINS toLower({search_term})
 WITH count(r) AS full_count
 MATCH (l:Locations)-[r:belongs_to]->(s:Scenarios)
 WHERE
     // Locations
-	toLower(l.l_id) CONTAINS toLower({search_term}) OR
+	toLower(l.location_uuid) CONTAINS toLower({search_term}) OR
 	toLower(l.name) CONTAINS toLower({search_term}) OR
 	toLower(l.description) CONTAINS toLower({search_term}) OR
 	l.lat CONTAINS toLower({search_term}) OR
 	l.lng CONTAINS toLower({search_term}) OR
     // Scenarios
-    toLower(s.s_id) CONTAINS toLower({search_term}) OR
+    toLower(s.scenario_uuid) CONTAINS toLower({search_term}) OR
     toLower(s.name) CONTAINS toLower({search_term}) OR
     toLower(s.description) CONTAINS toLower({search_term})
 RETURN
@@ -28,7 +28,7 @@ RETURN
     ID(l) AS location_id,
     l.created AS location_created,
     l.updated AS location_updated,
-    l.l_id AS l_id,
+    l.location_uuid AS location_uuid,
     l.name AS location_name,
     l.description AS location_description,
     l.lat AS location_lat,
@@ -40,7 +40,7 @@ RETURN
     ID(s) AS scenario_id,
     s.created AS scenario_created,
     s.updated AS scenario_updated,
-    s.s_id AS s_id,
+    s.scenario_uuid AS scenario_uuid,
     s.name AS scenario_name,
     s.description AS scenario_description
 ORDER BY

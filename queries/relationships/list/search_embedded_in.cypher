@@ -3,12 +3,12 @@ WHERE
     // Relationship
     toLower(r.description) CONTAINS toLower({search_term}) OR
     // Overlays
-    toLower(o.o_id) CONTAINS toLower({search_term}) OR
+    toLower(o.overlay_uuid) CONTAINS toLower({search_term}) OR
     toLower(o.name) CONTAINS toLower({search_term}) OR
     toLower(o.description) CONTAINS toLower({search_term}) OR
     toLower(o.url) CONTAINS toLower({search_term}) OR
     // Videos
-    toLower(v.v_id) CONTAINS toLower({search_term}) OR
+    toLower(v.video_uuid) CONTAINS toLower({search_term}) OR
     toLower(v.name) CONTAINS toLower({search_term}) OR
     toLower(v.description) CONTAINS toLower({search_term}) OR
     toLower(v.url) CONTAINS toLower({search_term}) OR
@@ -19,12 +19,12 @@ WHERE
     // Relationship
     toLower(r.description) CONTAINS toLower({search_term}) OR
     // Overlays
-    toLower(o.o_id) CONTAINS toLower({search_term}) OR
+    toLower(o.overlay_uuid) CONTAINS toLower({search_term}) OR
     toLower(o.name) CONTAINS toLower({search_term}) OR
     toLower(o.description) CONTAINS toLower({search_term}) OR
     toLower(o.url) CONTAINS toLower({search_term}) OR
     // Videos
-    toLower(v.v_id) CONTAINS toLower({search_term}) OR
+    toLower(v.video_uuid) CONTAINS toLower({search_term}) OR
     toLower(v.name) CONTAINS toLower({search_term}) OR
     toLower(v.description) CONTAINS toLower({search_term}) OR
     toLower(v.url) CONTAINS toLower({search_term}) OR
@@ -34,7 +34,7 @@ RETURN
     ID(o) AS overlay_id,
     o.created AS overlay_created,
     o.updated AS overlay_updated,
-    o.o_id AS o_id,
+    o.overlay_uuid AS overlay_uuid,
     o.name AS overlay_name,
     o.description AS overlay_description,
     o.category AS overlay_category,
@@ -56,7 +56,7 @@ RETURN
     ID(v) AS video_id,
     v.created AS video_created,
     v.updated AS video_updated,
-    v.v_id AS v_id,
+    v.video_uuid AS video_uuid,
     v.name AS video_name,
     v.description AS video_description,
     v.url AS video_url,

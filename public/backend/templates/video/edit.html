@@ -51,6 +51,7 @@
 
             <label>
                 <b>{{ 'URL' | translate }}</b> <sup class="text-danger">*</sup>
+                <small>({{ 'NO_FILENAME_EXTENSION_REQUIRED' | translate }})</small>
             </label>
             <div class="form-group" ng-class="{'has-danger': editVideoForm.url.$invalid && !editVideoForm.url.$pristine}">
                 <div class="input-group">
@@ -67,9 +68,12 @@
                         aria-describedby="inputUrl"
                         required>
                     <div class="input-group-addon">
-                        .mp4
+                        .mp4 / .ogg
                     </div>
                 </div>
+                <small class="form-text text-muted">
+                    <b>{{ 'EXAMPLE' | translate }}</b>: <code>/geo1</code> {{ 'FOR_THE_FILES' | translate }} <code>geo1.mp4</code> {{ 'AND' | translate }} <code>geo1.ogg</code>
+                </small>
                 <span ng-show="editVideoForm.url.$error.required && !editVideoForm.url.$pristine" class="text-danger">
                     <small>
                         {{ 'REQUIRED' | translate }}
@@ -80,6 +84,7 @@
 
             <label>
                 <b>{{ 'THUMBNAILS' | translate }}</b> <sup class="text-danger">*</sup>
+                <small>({{ 'AMOUNT_OF_THUMBNAILS' | translate }})</small>
             </label>
             <div class="form-group" ng-class="{'has-danger': editVideoForm.thumbnails.$invalid && !editVideoForm.thumbnails.$pristine}">
                 <div class="input-group">
@@ -98,6 +103,12 @@
                         aria-describedby="inputThumbnails"
                         required>
                 </div>
+                <small class="form-text text-muted">
+                    <b>{{ 'EXAMPLE' | translate }}</b>: <code>42</code> {{ 'FOR_LAST_ITEM_IN_THE_FOLDER' | translate }} <code>{{config.thumbnailFolder}}/video_uuid/42.jpg</code>
+                </small>
+                <small class="form-text text-muted">
+                    <b>{{ 'ATTENTION' | translate }}</b>: {{ 'USE_THE_UUID_FOR_THE_THUMBNAILS' | translate }}
+                </small>
                 <span ng-show="editVideoForm.thumbnails.$error.required && !editVideoForm.thumbnails.$pristine" class="text-danger">
                     <small>
                         {{ 'REQUIRED' | translate }}

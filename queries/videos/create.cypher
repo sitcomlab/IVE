@@ -1,7 +1,7 @@
 CREATE (v:Videos {
     created: timestamp(),
     updated: timestamp(),
-    v_id: {v_id},
+    video_uuid: {video_uuid},
     name: {name},
     description: {description},
     url: {url},
@@ -11,7 +11,7 @@ CREATE (v:Videos {
     ID(v) AS video_id,
     v.created AS created,
     v.updated AS updated,
-    v.v_id AS v_id,
+    v.video_uuid AS video_uuid,
     v.name AS name,
     v.description AS description,
     v.url AS url,

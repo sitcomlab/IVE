@@ -44,8 +44,8 @@
                         {{ 'UUID' | translate }}
                     </th>
                     <td>
-                        <code class="uuid" ngclipboard data-clipboard-text="{{video.v_id}}">
-                            {{video.v_id}}
+                        <code class="uuid" ngclipboard data-clipboard-text="{{video.video_uuid}}">
+                            {{video.video_uuid}}
                         </code>
                     </td>
                 </tr>
@@ -71,7 +71,7 @@
                         {{ 'URL' | translate }}
                     </th>
                     <td>
-                        <kbd>{{video.url}}</kbd>
+                        <kbd>{{video.url}}</kbd> <kbd>.mp4 | .ogg</kbd>
                     </td>
                 </tr>
                 <tr>

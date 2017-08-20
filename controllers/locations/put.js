@@ -36,17 +36,17 @@ exports.request = function(req, res) {
         },
         function(callback){ // Parameter validation
 
-            // Check l_id
-            var l_id = uuid.v1();
-            if(req.body.l_id && req.body.l_id !== ""){
-                l_id = req.body.l_id;
+            // Check location_uuid
+            var location_uuid = uuid.v1();
+            if(req.body.location_uuid && req.body.location_uuid !== ""){
+                location_uuid = req.body.location_uuid;
             }
 
             // TODO: Validate all attributes of req.body
 
             var params = {
                 location_id: req.params.location_id,
-                l_id: l_id,
+                location_uuid: location_uuid,
                 name: req.body.name,
                 description: req.body.description,
                 lat: req.body.lat,
