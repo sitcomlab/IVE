@@ -15,6 +15,6 @@ CREATE (v:Videos {
     v.name AS name,
     v.description AS description,
     v.url AS url,
-    v.recorded AS recorded
+    v.recorded AS recorded,
     v.thumbnails AS thumbnails
 ;

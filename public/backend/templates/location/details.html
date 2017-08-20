@@ -16,14 +16,14 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
                 <div class="btn-group">
-                    <button class="btn btn-info" role="button" ng-click="redirect('/locations/' + location.location_id + '/edit')">
+                    <button class="btn btn-info" type="button" ng-click="redirect('/locations/' + location.location_id + '/edit')">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-danger" role="button" ng-click="redirect('/locations/' + location.location_id + '/delete')">
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/locations/' + location.location_id + '/delete')">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </div>
-                <button class="btn btn-secondary" role="button" ng-click="redirect('/locations')">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/locations')">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -40,15 +40,17 @@
                                 {{ 'ID' | translate }}
                             </th>
                             <td>
-                                <code>{{location.location_id}}</code>
+                                <kbd>{{location.location_id}}</kbd>
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                {{ 'EXPORT_ID' | translate }}
+                                {{ 'UUID' | translate }}
                             </th>
                             <td>
-                                <kbd>{{location.l_id}}</kbd>
+                                <code class="uuid" ngclipboard data-clipboard-text="{{location.l_id}}">
+                                    {{location.l_id}}
+                                </code>
                             </td>
                         </tr>
                         <tr>
@@ -64,8 +66,8 @@
                                 {{ 'DESCRIPTION' | translate }}
                             </th>
                             <td>
-                                <kbd ng-if="location.description!=null">{{location.description}}</kbd>
-                                <span class="text-muted" ng-if="location.description==null">-</span>
+                                <kbd ng-if="location.description != null && location.description != '' ">{{location.description}}</kbd>
+                                <span class="text-muted" ng-if="location.description == null || location.description == '' ">-</span>
                             </td>
                         </tr>
                         <tr>
@@ -73,8 +75,8 @@
                                 {{ 'LONGITUDE' | translate }}
                             </th>
                             <td>
-                                <kbd ng-if="location.lng!=null">{{location.lng}}</kbd>
-                                <span class="text-muted" ng-if="location.lng==null">-</span>
+                                <kbd ng-if="location.lng != null && location.lng != '' ">{{location.lng}}</kbd>
+                                <span class="text-muted" ng-if="location.lng == null || location.lng == '' ">-</span>
                             </td>
                         </tr>
                         <tr>
@@ -82,8 +84,8 @@
                                 {{ 'LATITUDE' | translate }}
                             </th>
                             <td>
-                                <kbd ng-if="location.lat!=null">{{location.lat}}</kbd>
-                                <span class="text-muted" ng-if="location.lat==null">-</span>
+                                <kbd ng-if="location.lat != null && location.lat != '' ">{{location.lat}}</kbd>
+                                <span class="text-muted" ng-if="location.lat == null || location.lat == '' ">-</span>
                             </td>
                         </tr>
                         <tr>

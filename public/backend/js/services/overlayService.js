@@ -23,7 +23,7 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
         init: function() {
             return {
                 name: "",
-                description: "",
+                description: null,
                 category: "website",
                 url: ""
             };

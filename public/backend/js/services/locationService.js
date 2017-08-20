@@ -23,7 +23,7 @@ app.factory('$locationService', function($http, config, $authenticationService) 
         init: function() {
             return {
                 name: "",
-                description: "",
+                description: null,
                 location_type: "outdoor",
                 lng: null,
                 lat: null

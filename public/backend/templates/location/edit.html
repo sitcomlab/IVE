@@ -7,7 +7,7 @@
                     <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT' | translate }} {{location.name}}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                    <button class="btn btn-secondary" role="button" ng-click="redirect('/locations/' + location.location_id)">
+                    <button class="btn btn-secondary" type="button" ng-click="redirect('/locations/' + location.location_id)">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -15,7 +15,7 @@
         </div>
         <div class="card-block">
             <label>
-                <b>{{ 'NAME' | translate }}*</b>
+                <b>{{ 'NAME' | translate }}</b> <sup class="text-danger">*</sup>
             </label>
             <div class="form-group" ng-class="{'has-danger': editLocationForm.name.$invalid && !editLocationForm.name.$pristine}">
                 <input
@@ -24,7 +24,7 @@
                     ng-model="location.name"
                     name="name"
                     id="name"
-                    placeholder="{{ 'NAME' | translate }}*"
+                    placeholder="{{ 'NAME' | translate }}"
                     aria-describedby="inputName"
                     autofocus
                     required>
@@ -51,19 +51,24 @@
             <br>
 
             <label>
-                <b>{{ 'LOCATION_TYPE' | translate }}*</b>
+                <b>{{ 'LOCATION_TYPE' | translate }}</b> <sup class="text-danger">*</sup>
             </label>
             <div class="form-group" ng-class="{'has-danger': editLocationForm.location_type.$invalid && !editLocationForm.location_type.$pristine }">
-                <select
-                    class="form-control custom-select"
-                    ng-model="location.location_type"
-                    name="location_type"
-                    id="location_type"
-                    required>
-                    <option value="abstract">{{ 'ABSTRACT' | translate}}</option>
-                    <option value="indoor">{{ 'INDOOR' | translate}}</option>
-                    <option value="outdoor">{{ 'OUTDOOR' | translate}}</option>
-                </select>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-sitemap" aria-hidden="true"></i>
+                    </div>
+                    <select
+                        class="form-control custom-select"
+                        ng-model="location.location_type"
+                        name="location_type"
+                        id="location_type"
+                        required>
+                        <option value="abstract">{{ '_ABSTRACT' | translate}}</option>
+                        <option value="indoor">{{ '_INDOOR' | translate}}</option>
+                        <option value="outdoor">{{ '_OUTDOOR' | translate}}</option>
+                    </select>
+                </div>
                 <span ng-show="editLocationForm.location_type.$error.required && !editLocationForm.location_type.$pristine" class="text-danger">
                     <small>
                         {{ 'REQUIRED' | translate }}
@@ -75,7 +80,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <label>
-                        <b>{{ 'LONGITUDE' | translate }}*</b>
+                        <b>{{ 'LONGITUDE' | translate }}</b> <sup class="text-danger">*</sup>
                     </label>
                     <div class="form-group" ng-class="{'has-danger': editLocationForm.lng.$invalid && !editLocationForm.lng.$pristine}">
                         <input
@@ -84,7 +89,7 @@
                             ng-model="location.lng"
                             name="lng"
                             id="lng"
-                            placeholder="{{ 'LONGITUDE' | translate }}*"
+                            placeholder="{{ 'LONGITUDE' | translate }}"
                             aria-describedby="inputLng"
                             ng-required="location.location_type=='abstract' || location.location_type=='outdoor'">
                         <span ng-show="editLocationForm.lng.$error.required && !editLocationForm.lng.$pristine" class="text-danger">
@@ -102,7 +107,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <label>
-                        <b>{{ 'LATITUDE' | translate }}*</b>
+                        <b>{{ 'LATITUDE' | translate }}</b> <sup class="text-danger">*</sup>
                     </label>
                     <div class="form-group" ng-class="{'has-danger': editLocationForm.lat.$invalid && !editLocationForm.lat.$pristine}">
                         <input
@@ -111,7 +116,7 @@
                             ng-model="location.lat"
                             name="lat"
                             id="lat"
-                            placeholder="{{ 'LATITUDE' | translate }}*"
+                            placeholder="{{ 'LATITUDE' | translate }}"
                             aria-describedby="inputLat"
                             ng-required="location.location_type=='abstract' || location.location_type=='outdoor'">
                         <span ng-show="editLocationForm.lat.$error.required && !editLocationForm.lat.$pristine" class="text-danger">
@@ -131,7 +136,7 @@
 
         </div>
         <div class="card-footer right">
-            <button class="btn btn-success" role="submit">
+            <button class="btn btn-success" type="submit">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SAVE' | translate }}
             </button>
         </div>

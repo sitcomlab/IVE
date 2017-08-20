@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">{{ '_LOCATIONS' | translate }}</div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                <button class="btn btn-primary" role="button" ng-click="redirect('/create/location')">
+                <button class="btn btn-primary" type="button" ng-click="redirect('/create/location')">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </button>
             </div>
@@ -36,9 +36,9 @@
                     </span>
                     <select class="form-control custom-select" ng-model="filter.location_type" ng-change="applyFilter()">
                         <option value="">{{ 'NO_FILTER' | translate }} [{{ 'DEFAULT' | translate }}]</option>
-                        <option value="outdoor">{{ 'OUTDOOR' | translate }}</option>
-                        <option value="indoor">{{ 'INDOOR' | translate }}</option>
-                        <option value="abstract">{{ 'ABSTRACT' | translate }}</option>
+                        <option value="outdoor">{{ '_OUTDOOR' | translate }}</option>
+                        <option value="indoor">{{ '_INDOOR' | translate }}</option>
+                        <option value="abstract">{{ '_ABSTRACT' | translate }}</option>
                     </select>
                 </div>
                 <small class="form-text text-muted">{{ 'FILTER_BY' | translate }}</small>

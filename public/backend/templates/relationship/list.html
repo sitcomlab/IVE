@@ -8,10 +8,10 @@
                 </span>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 right">
-                <button class="btn btn-primary" role="button" ng-click="redirect('/create/' + relationship_label + '/relationship')">
+                <button class="btn btn-primary" type="button" ng-click="redirect('/create/' + relationship_label + '/relationship')">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </button>
-                <button class="btn btn-secondary" role="button" ng-click="redirect('/relationships')">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/relationships')">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -88,7 +88,7 @@
 
                         <!-- :belongs_to options -->
                         <option value="scenario_name.asc" ng-if="relationship_label == 'belongs_to' ">
-                            {{ 'SCENRIO_NAME_ASC' | translate }}
+                            {{ 'SCENARIO_NAME_ASC' | translate }}
                         </option>
                         <option value="scenario_name.desc" ng-if="relationship_label == 'belongs_to' ">
                             {{ 'SCENARIO_NAME_DESC' | translate }}
@@ -324,16 +324,16 @@
                 </div>
 
                 <!-- embedded_in -->
-                <div class="d-flex w-100 justify-content-between" ng-if="relationship_label == 'embedded_in' ">
-                    <div>
+                <div style="width: 100%;" ng-if="relationship_label == 'embedded_in' ">
+                    <div style="width: 33.33333333%; float: left;">
                         <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
                     </div>
-                    <div>
+                    <div class="middle" style="width: 33.33333333%; float: left;">
                         <span class="badge badge-pill badge-default">
                             &mdash;&nbsp;EMBEDDED_IN&nbsp;&mdash;&gt;
                         </span>
                     </div>
-                    <div>
+                    <div class="right" style="width: 33.33333333%; float: left;">
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
                         <br>
                         <div

@@ -7,14 +7,14 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
                 <div class="btn-group">
-                    <button class="btn btn-info" role="button" ng-click="redirect('/videos/' + video.video_id + '/edit')">
+                    <button class="btn btn-info" type="button" ng-click="redirect('/videos/' + video.video_id + '/edit')">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-danger" role="button" ng-click="redirect('/videos/' + video.video_id + '/delete')">
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/videos/' + video.video_id + '/delete')">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </div>
-                <button class="btn btn-secondary" role="button" ng-click="redirect('/videos')">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/videos')">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -36,15 +36,17 @@
                         {{ 'ID' | translate }}
                     </th>
                     <td>
-                        <code>{{video.video_id}}</code>
+                        <kbd>{{video.video_id}}</kbd>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        {{ 'EXPORT_ID' | translate }}
+                        {{ 'UUID' | translate }}
                     </th>
                     <td>
-                        <kbd>{{video.v_id}}</kbd>
+                        <code class="uuid" ngclipboard data-clipboard-text="{{video.v_id}}">
+                            {{video.v_id}}
+                        </code>
                     </td>
                 </tr>
                 <tr>
@@ -60,8 +62,8 @@
                         {{ 'DESCRIPTION' | translate }}
                     </th>
                     <td>
-                        <kbd ng-if="video.description!=null">{{video.description}}</kbd>
-                        <span class="text-muted" ng-if="video.description==null">-</span>
+                        <kbd ng-if="video.description != null && video.description != '' ">{{video.description}}</kbd>
+                        <span class="text-muted" ng-if="video.description == null || video.description == '' ">-</span>
                     </td>
                 </tr>
                 <tr>
@@ -77,8 +79,8 @@
                         {{ 'RECORDED' | translate }}
                     </th>
                     <td>
-                        <kbd ng-if="video.recorded!=null">{{video.recorded}}</kbd>
-                        <span class="text-muted" ng-if="video.description==null">-</span>
+                        <kbd ng-if="video.recorded != null && video.recorded != '' ">{{video.recorded}}</kbd>
+                        <span class="text-muted" ng-if="video.recorded == null || video.recorded == '' ">-</span>
                     </td>
                 </tr>
                 <tr>

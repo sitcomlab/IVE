@@ -6,10 +6,10 @@
         <div class="card-header" style="font-size: 20pt;">
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
-                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE_NEW_RELATIONSHIP' | translate }}
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'NEW_RELATIONSHIP' | translate }}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                    <button class="btn btn-secondary" role="button" ng-click="redirect('/create/belongs_to/relationship')">
+                    <button class="btn btn-secondary" type="button" ng-click="redirect('/create/belongs_to/relationship')">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -21,7 +21,7 @@
                 <!-- (Location) -->
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-if="relationship_type=='location'">
                     <label>
-                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_LOCATION' | translate }}*</b>
+                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_LOCATION' | translate }}</b> <sup class="text-danger">*</sup>
                     </label>
                     <br>
                     <div class="form-group" ng-class="{'has-danger': createRelationshipForm.location_id.$invalid && !createRelationshipForm.location_id.$pristine}">
@@ -49,7 +49,7 @@
                 <!-- (Video) -->
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-if="relationship_type=='video'">
                     <label>
-                        <b><i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}*</b>
+                        <b><i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}</b> <sup class="text-danger">*</sup>
                     </label>
                     <br>
                     <div class="form-group" ng-class="{'has-danger': createRelationshipForm.video_id.$invalid && !createRelationshipForm.video_id.$pristine}">
@@ -72,7 +72,7 @@
                 <!-- (Overlay) -->
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-if="relationship_type=='overlay'">
                     <label>
-                        <b><i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_OVERLAY' | translate }}*</b>
+                        <b><i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_OVERLAY' | translate }}</b> <sup class="text-danger">*</sup>
                     </label>
                     <br>
                     <div class="form-group" ng-class="{'has-danger': createRelationshipForm.overlay_id.$invalid && !createRelationshipForm.overlay_id.$pristine}">
@@ -101,7 +101,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <label>
-                        <b><i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_SCENARIO' | translate }}*</b>
+                        <b><i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_SCENARIO' | translate }}</b> <sup class="text-danger">*</sup>
                     </label>
                     <br>
                     <div class="form-group" ng-class="{'has-danger': createRelationshipForm.scenario_id.$invalid && !createRelationshipForm.scenario_id.$pristine}">
@@ -125,7 +125,7 @@
         </div>
 
         <div class="card-footer right">
-            <button class="btn btn-success" role="submit">
+            <button class="btn btn-success" type="submit">
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
             </button>
         </div>

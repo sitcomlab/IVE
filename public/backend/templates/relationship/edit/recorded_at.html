@@ -7,7 +7,7 @@
                     <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT_RELATIONSHIP' | translate }}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                    <button class="btn btn-secondary" role="button" ng-click="redirect('/relationships/' + relationship_label + '/' + relationship.relationship_id)">
+                    <button class="btn btn-secondary" type="button" ng-click="redirect('/relationships/' + relationship_label + '/' + relationship.relationship_id)">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -19,6 +19,23 @@
                     <div style="width: 100%;">
                         <div style="width: 33.33333333%; float: left;">
                             <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                            <br>
+                            <div
+                                ng-if="relationship.thumbnails > 0"
+                                style="
+                                    margin-top: 5px;
+                                    width: 100%;
+                                    height: auto;"
+                                ng-mouseover="startPreview(relationship)"
+                                ng-mouseout="stopPreview(relationship)"
+                            >
+                                <img ng-init="relationship.thumbnail = (relationship | thumbnail:1)" ng-src="{{relationship.thumbnail}}" class="previewVideo"
+                                style="
+                                    max-width: 480px;
+                                    width: 100%;
+                                    max-height: 90px;
+                                    height: auto;">
+                            </div>
                         </div>
                         <div class="middle" style="width: 33.33333333%; float: left; padding-left: 5px; padding-right: 5px;">
                             <span class="badge badge-pill badge-default">
@@ -54,7 +71,7 @@
             </div>
             <br>
             <label>
-                <b>{{ 'PREFERRED' | translate }}</b>
+                <b>{{ 'PREFERRED' | translate }}</b> <sup class="text-danger">*</sup>
             </label>
             <div class="form-group" ng-class="{'has-danger': editRelationshipForm.preferred.$invalid && !editRelationshipForm.preferred.$pristine}">
                 <div class="row">
@@ -96,7 +113,7 @@
         </div>
 
         <div class="card-footer right">
-            <button class="btn btn-success" role="submit">
+            <button class="btn btn-success" type="submit">
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
             </button>
         </div>

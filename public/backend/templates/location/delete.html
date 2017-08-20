@@ -6,7 +6,7 @@
                 <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }} {{location.name}}
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                <button class="btn btn-secondary" role="button" ng-click="redirect('/locations/' + location.location_id)">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/locations/' + location.location_id)">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -29,7 +29,7 @@
         <br>
     </div>
     <div class="card-footer right">
-        <button class="btn btn-danger" role="button" ng-click="delete()" ng-disabled="input != location.name">
+        <button class="btn btn-danger" type="button" ng-click="delete()" ng-disabled="input != location.name">
             <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
         </button>
     </div>

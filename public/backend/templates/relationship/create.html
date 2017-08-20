@@ -6,7 +6,7 @@
                 <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SELECT_AND_CREATE_NEW_RELATIONSHIP' | translate }}
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                <button class="btn btn-secondary" role="button" ng-click="redirect('/relationships')">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/relationships')">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -105,7 +105,7 @@
         <a href="" ng-click="redirect('/create/has_parent_location/relationship')" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <div>
-                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'START_LOCATION' | translate }}
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_START_LOCATION' | translate }}
                 </div>
                 <div style="padding-left: 5px; padding-right: 5px;">
                     <span class="badge badge-pill badge-default">

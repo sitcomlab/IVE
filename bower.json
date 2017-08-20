@@ -1,35 +1,36 @@
 {
-    "name": "ive",
-    "homepage": "https://github.com/sitcomlab/IVE",
-    "authors": [
-        "Nicholas Schiestel <n.schiestel@uni-muenster.de>"
-    ],
-    "description": "",
-    "main": "",
-    "license": "MIT",
-    "private": true,
-    "dependencies": {
-        "angular": "^1.6.4",
-        "jquery": "^3.1.0",
-        "angular-route": "^1.6.4",
-        "angular-translate": "^2.11.1",
-        "font-awesome": "^4.6.3",
-        "bootstrap": "v4.0.0-alpha.6",
-        "angular-socket-io": "^0.7.0",
-        "socket.io-client": "^1.5.0",
-        "angular-sanitize": "^1.6.4",
-        "videogular": "^1.4.4",
-        "videogular-themes-default": "^1.4.4",
-        "videogular-controls": "^1.4.4",
-        "underscore": "^1.8.3",
-        "angular-underscore-module": "^1.0.3",
-        "moment": "^2.17.1",
-        "angular-momentjs": "^0.2.2",
-        "three.js": "threejs#*",
-        "components-threejs": "^0.0.79"
-    },
-    "resolutions": {
-        "angular": "1.6.4",
-        "bootstrap": "v4.0.0-alpha.6"
-    }
+  "name": "ive",
+  "homepage": "https://github.com/sitcomlab/IVE",
+  "authors": [
+    "Nicholas Schiestel <n.schiestel@uni-muenster.de>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.6.4",
+    "jquery": "^3.1.0",
+    "angular-route": "^1.6.4",
+    "angular-translate": "^2.11.1",
+    "font-awesome": "^4.6.3",
+    "bootstrap": "v4.0.0-alpha.6",
+    "angular-socket-io": "^0.7.0",
+    "socket.io-client": "^1.5.0",
+    "angular-sanitize": "^1.6.4",
+    "videogular": "^1.4.4",
+    "videogular-themes-default": "^1.4.4",
+    "videogular-controls": "^1.4.4",
+    "underscore": "^1.8.3",
+    "angular-underscore-module": "^1.0.3",
+    "moment": "^2.17.1",
+    "angular-momentjs": "^0.2.2",
+    "three.js": "threejs#*",
+    "components-threejs": "^0.0.79",
+    "ngclipboard": "^1.1.1"
+  },
+  "resolutions": {
+    "angular": "1.6.4",
+    "bootstrap": "v4.0.0-alpha.6"
+  }
 }

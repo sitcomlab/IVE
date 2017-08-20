@@ -7,14 +7,14 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
                 <div class="btn-group">
-                    <button class="btn btn-info" role="button" ng-click="redirect('/scenarios/' + scenario.scenario_id + '/edit')">
+                    <button class="btn btn-info" type="button" ng-click="redirect('/scenarios/' + scenario.scenario_id + '/edit')">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-danger" role="button" ng-click="redirect('/scenarios/' + scenario.scenario_id + '/delete')">
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/scenarios/' + scenario.scenario_id + '/delete')">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </div>
-                <button class="btn btn-secondary" role="button" ng-click="redirect('/scenarios')">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/scenarios')">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -29,15 +29,17 @@
                         {{ 'ID' | translate }}
                     </th>
                     <td>
-                        <code>{{scenario.scenario_id}}</code>
+                        <kbd>{{scenario.scenario_id}}</kbd>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        {{ 'EXPORT_ID' | translate }}
+                        {{ 'UUID' | translate }}
                     </th>
                     <td>
-                        <kbd>{{scenario.s_id}}</kbd>
+                        <code class="uuid" ngclipboard data-clipboard-text="{{scenario.s_id}}">
+                            {{scenario.s_id}}
+                        </code>
                     </td>
                 </tr>
                 <tr>
@@ -53,8 +55,8 @@
                         {{ 'DESCRIPTION' | translate }}
                     </th>
                     <td>
-                        <kbd ng-if="scenario.description!=null">{{scenario.description}}</kbd>
-                        <span class="text-muted" ng-if="scenario.description==null">-</span>
+                        <kbd ng-if="scenario.description != null && scenario.description != '' ">{{scenario.description}}</kbd>
+                        <span class="text-muted" ng-if="scenario.description == null || scenario.description == '' ">-</span>
                     </td>
                 </tr>
                 <tr>

@@ -47,6 +47,9 @@ footer {
     border: 1px solid rgba(0, 0, 0, .125);
 }
 
+.uuid {
+    cursor: pointer;
+}
 
 .card-footer > .btn-block-xs-only, .btn-block-xs-only {
     margin-top: 1px;

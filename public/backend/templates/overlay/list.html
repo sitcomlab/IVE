@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">{{ '_OVERLAYS' | translate }}</div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                <button class="btn btn-primary" role="button" ng-click="redirect('/create/overlay')">
+                <button class="btn btn-primary" type="button" ng-click="redirect('/create/overlay')">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </button>
             </div>
@@ -36,9 +36,9 @@
                     </span>
                     <select class="form-control custom-select" ng-model="filter.category" ng-change="applyFilter()">
                         <option value="">{{ 'NO_FILTER' | translate }} [{{ 'DEFAULT' | translate }}]</option>
-                        <option value="picture">{{ 'PICTURE' | translate }}</option>
-                        <option value="video">{{ 'VIDEO' | translate }}</option>
-                        <option value="website">{{ 'WEBSITE' | translate }}</option>
+                        <option value="picture">{{ '_PICTURE' | translate }}</option>
+                        <option value="video">{{ '_VIDEO' | translate }}</option>
+                        <option value="website">{{ '_WEBSITE' | translate }}</option>
                     </select>
                 </div>
                 <small class="form-text text-muted">{{ 'FILTER_BY' | translate }}</small>

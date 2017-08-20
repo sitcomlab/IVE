@@ -7,17 +7,17 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
                 <div class="btn-group">
-                    <button class="btn btn-info" role="button" ng-click="redirect('/edit/relationships/' + relationship_label + '/' + relationship.relationship_id + ('/' + relationship_type || '') )" ng-disabled="
+                    <button class="btn btn-info" type="button" ng-click="redirect('/edit/relationships/' + relationship_label + '/' + relationship.relationship_id + ('/' + relationship_type || '') )" ng-disabled="
                         relationship_label == 'belongs_to' ||
                         relationship_label == 'connected_to' ||
                         relationship_label == 'has_parent_location' ">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-danger" role="button" ng-click="redirect('/delete/relationships/' + relationship_label + '/' + relationship.relationship_id + ('/' + relationship_type || '') )">
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/delete/relationships/' + relationship_label + '/' + relationship.relationship_id + ('/' + relationship_type || '') )">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </div>
-                <button class="btn btn-secondary" role="button" ng-click="redirect('/relationships/' + relationship_label )">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/relationships/' + relationship_label )">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -107,7 +107,7 @@
 
                 <!-- embedded_in -->
                 <div style="width: 100%;" ng-if="relationship_label == 'embedded_in' ">
-                    <div>
+                    <div style="width: 33.33333333%; float: left;">
                         <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
                     </div>
                     <div class="middle" style="width: 33.33333333%; float: left; padding-left: 5px; padding-right: 5px;">
@@ -115,7 +115,7 @@
                             &mdash;&nbsp;EMBEDDED_IN&nbsp;&mdash;&gt;
                         </span>
                     </div>
-                    <div class="right">
+                    <div class="right" style="width: 33.33333333%; float: left;">
                         <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
                         <br>
                         <div
@@ -217,7 +217,7 @@
                         {{ 'ID' | translate }}
                     </th>
                     <td>
-                        <code>{{relationship.relationship_id}}</code>
+                        <kbd>{{relationship.relationship_id}}</kbd>
                     </td>
                 </tr>
 

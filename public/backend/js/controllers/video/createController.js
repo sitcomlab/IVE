@@ -34,8 +34,9 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
 
             $videoService.create($scope.video)
             .then(function onSuccess(response) {
-                var new_video = response.data;
-                $scope.redirect("/videos/" + new_video.video_id);
+                $scope.video = response.data;
+                $window.prompt($filter('translate')('NEW_VIDEO_CREATED'), $scope.video.v_id);
+                $scope.redirect("/videos/" + $scope.video.video_id);
             })
             .catch(function onError(response) {
                 $window.alert(response.data);
