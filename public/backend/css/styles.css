@@ -10,6 +10,15 @@ body {
     margin-top: 60px;
 }
 
+.navbar {
+    height: 60px;
+}
+
+.view {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
 footer {
     position: absolute;
     bottom: 0;
@@ -39,6 +48,13 @@ footer {
 }
 
 
+#map {
+    width: 100%;
+    top: 60px;
+    position: absolute;
+}
+
+
 .previewMap {
     border-radius: 3px;
     border: 1px solid rgba(0, 0, 0, .125);
@@ -47,9 +63,11 @@ footer {
     border: 1px solid rgba(0, 0, 0, .125);
 }
 
+
 .uuid {
     cursor: pointer;
 }
+
 
 .card-footer > .btn-block-xs-only, .btn-block-xs-only {
     margin-top: 1px;

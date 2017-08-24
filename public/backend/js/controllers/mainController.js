@@ -24,6 +24,21 @@ app.controller("mainController", function($scope, $rootScope, $filter, $translat
         }
     };
 
+
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
+    $scope.isNotMapRoute = function(){
+        var path = $location.path();
+        if(path === '/map'){
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+
     /**
      * [redirect description]
      * @param  {[type]} path [description]

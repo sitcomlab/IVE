@@ -52,17 +52,23 @@
         <script src="../bower_components/ngclipboard/dist/ngclipboard.min.js"></script>
         <script src="../bower_components/videogular/videogular.js"></script>
         <script src="../bower_components/videogular-controls/vg-controls.js"></script>
+
+        <!-- Three.js -->
         <script src="../bower_components/three.js/dist/three.min.js"></script>
         <script src="../lib/Detector.js"></script>
         <script src="../lib/CSS3DRenderer.js"></script>
         <script src="../lib/TransformControls.js"></script>
+
+        <!-- Mapbox GL -->
+        <link href="../bower_components/mapbox-gl-js/mapbox-gl.css" rel="stylesheet"/>
+        <script src="../bower_components/mapbox-gl-js/mapbox-gl.js"></script>
 
     </head>
     <body>
 
 
         <!-- Main -->
-        <main ng-controller="mainController">
+        <main ng-controller="mainController" class="ng-cloak">
 
             <!-- Header -->
             <header>
@@ -131,8 +137,7 @@
             </header>
 
             <!-- Content -->
-            <div class="content container">
-                <br>
+            <div ng-class="{ 'content container': isNotMapRoute() }">
 
                 <!-- Loading screen -->
                 <div class="loading middle" ng-show="loading.status">
@@ -147,9 +152,7 @@
                 </div>
 
                 <!-- Main view -->
-                <div ng-view ng-show="!loading.status"></div>
-
-                <br>
+                <div class="view" ng-view ng-show="!loading.status"></div>
             </div>
 
             <!-- Footer -->
@@ -203,6 +206,7 @@
         <script src="js/filters/previewVideo.js"></script>
         <script src="js/filters/previewMapRequest.js"></script>
         <script src="js/filters/findLocationById.js"></script>
+        <script src="js/filters/toGeoJSON.js"></script>
 
         <!-- CONTROLLERS -->
         <script src="js/controllers/mainController.js"></script>
