@@ -7,7 +7,6 @@ var driver = require('../../server.js').driver;
 var fs = require("fs");
 var query_get_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
 var io = require("socket.io-client");
-var httpPort = require('../../server.js').httpPort;
 
 
 // SET SCENARIO
@@ -36,7 +35,7 @@ exports.request = function(req, res) {
                 });
         },
         function(result, callback){ // Send Websocket-Message
-            var client = io.connect("http://localhost:" + httpPort);
+            var client = io.connect("http://localhost:" + process.env.HTTP_PORT);
             client.on('connect',function() {
                 client.emit('/set/location', {
                     scenario_id: req.params.scenario_id

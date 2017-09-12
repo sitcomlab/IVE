@@ -3,6 +3,7 @@ MATCH (v:Videos) WHERE ID(v) = toInt({video_id})
 CREATE (o)-[r:embedded_in {
     created: timestamp(),
     updated: timestamp(),
+    description: {description},
     w: {w},
     h: {h},
     d: {d},
@@ -18,7 +19,7 @@ RETURN
     ID(o) AS overlay_id,
     o.created AS overlay_created,
     o.updated AS overlay_updated,
-    o.o_id AS o_id,
+    o.overlay_uuid AS overlay_uuid,
     o.name AS overlay_name,
     o.description AS overlay_description,
     o.category AS overlay_category,
@@ -26,6 +27,7 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
+    r.description AS relationship_description,
     r.w AS relationship_w,
     r.h AS relationship_h,
     r.d AS relationship_d,
@@ -39,9 +41,10 @@ RETURN
     ID(v) AS video_id,
     v.created AS video_created,
     v.updated AS video_updated,
-    v.v_id AS v_id,
+    v.video_uuid AS video_uuid,
     v.name AS video_name,
     v.description AS video_description,
     v.url AS video_url,
-    v.recorded AS video_recorded
+    v.recorded AS video_recorded,
+    v.thumbnails AS thumbnails
 ;

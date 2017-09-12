@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ive">
     <head>
         <base href="/backend/index.html"/>
         <meta charset="utf-8">
@@ -8,7 +8,8 @@
         <meta name="description" content="IVE">
         <meta name="author" content="Nicholas Schiestel">
 
-        <title>IVE - Backend</title>
+        <!-- Title -->
+        <title ng-bind="config.appSubnames.backend">IVE</title>
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
@@ -47,77 +48,115 @@
         <script src="../bower_components/angular-translate/angular-translate.min.js"></script>
         <script src="../bower_components/angular-underscore-module/angular-underscore-module.js"></script>
         <script src="../bower_components/angular-momentjs/angular-momentjs.js"></script>
+        <script src="../bower_components/clipboard/dist/clipboard.min.js"></script>
+        <script src="../bower_components/ngclipboard/dist/ngclipboard.min.js"></script>
         <script src="../bower_components/videogular/videogular.js"></script>
         <script src="../bower_components/videogular-controls/vg-controls.js"></script>
 
-    </head>
-    <body ng-app="ive">
+        <!-- Three.js -->
+        <script src="../bower_components/three.js/dist/three.min.js"></script>
+        <script src="../lib/Detector.js"></script>
+        <script src="../lib/CSS3DRenderer.js"></script>
+        <script src="../lib/TransformControls.js"></script>
 
-        <!-- Header -->
-        <header ng-controller="navController">
-            <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="/">
-                    <img src="images/logo.svg" height="30"> {{config.appName}}-{{config.appSubname}}
-                </a>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item" ng-class="{ active: isActive('/scenarios') }" ng-if="authenticated_user">
-                            <a class="nav-link" href="" ng-click="redirect('/scenarios')">
-                                {{ '_SCENARIOS' | translate }}
-                            </a>
-                        </li>
-                        <li class="nav-item" ng-class="{ active: isActive('/locations') }" ng-if="authenticated_user">
-                            <a class="nav-link" href="" ng-click="redirect('/locations')">
-                                {{ '_LOCATIONS' | translate }}
-                            </a>
-                        </li>
-                        <li class="nav-item" ng-class="{ active: isActive('/videos') }" ng-if="authenticated_user">
-                            <a class="nav-link" href="" ng-click="redirect('/videos')">
-                                {{ '_VIDEOS' | translate }}
-                            </a>
-                        </li>
-                        <li class="nav-item" ng-class="{ active: isActive('/overlays') }" ng-if="authenticated_user">
-                            <a class="nav-link" href="" ng-click="redirect('/overlays')">
-                                {{ '_OVERLAYS' | translate }}
-                            </a>
-                        </li>
-                        <li class="nav-item" ng-class="{ active: isActive('/relationships') || isActive('/relationship') }" ng-if="authenticated_user">
-                            <a class="nav-link" href="" ng-click="redirect('/relationships')">
-                                {{ '_RELATIONSHIPS' | translate }}
-                            </a>
-                        </li>
-                        <li class="nav-item" ng-class="{ active: isActive('/help') }">
-                            <a class="nav-link" href="" ng-click="redirect('/help')">
-                                {{ 'HELP' | translate }}
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav nav-pills" ng-if="authenticated_user">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link active user-pill dropdown-toggle" href="" id="user_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer; background-color:#FFFFFF; border: 1px solid #CCCCCC; color: #292b2c;">
-                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;{{authenticated_user.username}}
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user_dropdown">
-                                <a class="dropdown-item" href="" ng-click="logout()">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'LOGOUT' | translate }}
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
+        <!-- Mapbox GL -->
+        <link href="../bower_components/mapbox-gl-js/mapbox-gl.css" rel="stylesheet"/>
+        <script src="../bower_components/mapbox-gl-js/mapbox-gl.js"></script>
+
+    </head>
+    <body>
+
+
+        <!-- Main -->
+        <main ng-controller="mainController" class="ng-cloak">
+
+            <!-- Header -->
+            <header>
+                <nav class="navbar navbar-toggleable-md bg-inverse navbar-inverse fixed-top">
+                    <div class="container">
+                        <button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarContent">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">
+                            <img src="images/logo.svg" height="30"> {{config.appSubnames.backend}}
+                        </a>
+                        <div class="collapse navbar-collapse" id="navbarContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link" ng-class="{ 'active': isActive('/map') }" ng-click="redirect('/map')" ng-if="authenticated_user && !loading.status">
+                                        {{ '_MAP' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link" ng-class="{ 'active': isActive('/scenarios') }" ng-click="redirect('/scenarios')" ng-if="authenticated_user && !loading.status">
+                                        {{ '_SCENARIOS' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link" ng-class="{ 'active': isActive('/locations') }" ng-click="redirect('/locations')" ng-if="authenticated_user && !loading.status">
+                                        {{ '_LOCATIONS' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link" ng-class="{ 'active': isActive('/videos') }" ng-click="redirect('/videos')" ng-if="authenticated_user && !loading.status">
+                                        {{ '_VIDEOS' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link" ng-class="{ 'active': isActive('/overlays') }" ng-click="redirect('/overlays')" ng-if="authenticated_user && !loading.status">
+                                        {{ '_OVERLAYS' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link" ng-class="{ 'active': isActive('/relationships') }" ng-click="redirect('/relationships')" ng-if="authenticated_user && !loading.status">
+                                        {{ '_RELATIONSHIPS' | translate }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link" ng-class="{ 'active': isActive('/help') }" ng-click="redirect('/help')" ng-if="!loading.status">
+                                        {{ 'HELP' | translate }}
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav nav-pills">
+
+                                <li class="nav-item dropdown" ng-if="authenticated_user && !loading.status">
+                                    <a class="nav-link active user-pill dropdown-toggle" href="" id="user_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer; background-color:#FFFFFF; border: 1px solid #CCCCCC; color: #292b2c;" ng-if="!loading.status">
+                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;{{authenticated_user.username}}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user_dropdown">
+                                        <a class="dropdown-item" href="" ng-click="redirect('/')">
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'LOGOUT' | translate }}
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Content -->
+            <div ng-class="{ 'content container': isNotMapRoute() }">
+
+                <!-- Loading screen -->
+                <div class="loading middle" ng-show="loading.status">
+                    <br>
+                    <br>
+                    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i><br>
+                    <span class="text-muted" style="font-size:8pt;">
+                        {{loading.message}}
+                    </span>
+                    <br>
+                    <br>
                 </div>
 
-            </nav>
-        </header>
+                <!-- Main view -->
+                <div class="view" ng-view ng-show="!loading.status"></div>
+            </div>
 
-        <!-- Content -->
-        <main ng-view></main>
-
-        <!-- Footer -->
-        <footer ng-controller="footerController">  <!-- class="fixed-bottom" -->
-            <nav class="bg-inverse middle">
+            <!-- Footer -->
+            <footer class="bg-inverse middle">
                 <small class="text-muted">
                     &copy; {{config.appYear}}
                     <a href="https://www.uni-muenster.de/Geoinformatics/en/index.html" target="_blank">Institute for Geoinformatics</a>
@@ -130,19 +169,25 @@
                         <i class="fa fa-github" aria-hidden="true"></i>
                     </a>
                 </small>
-            </nav>
-        </footer>
+            </footer>
+
+        </main>
 
 
-        <!-- App Config -->
-        <script src="js/config.js"></script>
+        <!-- TRANSLATIONS -->
+        <script src="../translations/en_US.js"></script>
+        <script src="../translations/de_DE.js"></script>
 
-        <!-- App Modules -->
-        <script src="js/modules/routes.js"></script>
-        <script src="js/modules/languages.js"></script>
-        <script src="js/modules/filters.js"></script>
+        <!-- CONFIG -->
+        <script src="../config.js"></script>
 
-        <!-- Services -->
+        <!-- ROUTES -->
+        <script src="js/routes.js"></script>
+
+        <!-- MODULES -->
+        <script src="js/modules/tjsModelViewer.js"></script>
+
+        <!-- SERVICES -->
         <script src="js/services/authenticationService.js"></script>
         <script src="js/services/scenarioService.js"></script>
         <script src="js/services/locationService.js"></script>
@@ -150,61 +195,61 @@
         <script src="js/services/overlayService.js"></script>
         <script src="js/services/relationshipService.js"></script>
 
-        <!-- Main App -->
+        <!-- APPLICATION -->
         <script src="js/app.js"></script>
 
-        <!-- Main controllers -->
-        <script src="js/controllers/navController.js"></script>
-        <script src="js/controllers/footerController.js"></script>
+        <!-- FILTERS -->
+        <script src="js/filters/timestamp.js"></script>
+        <script src="js/filters/uppercase.js"></script>
+        <script src="js/filters/lowercase.js"></script>
+        <script src="js/filters/thumbnail.js"></script>
+        <script src="js/filters/previewVideo.js"></script>
+        <script src="js/filters/previewMapRequest.js"></script>
+        <script src="js/filters/findLocationById.js"></script>
+        <script src="js/filters/toGeoJSON.js"></script>
+
+        <!-- CONTROLLERS -->
+        <script src="js/controllers/mainController.js"></script>
         <script src="js/controllers/loginController.js"></script>
+        <script src="js/controllers/mapController.js"></script>
         <script src="js/controllers/helpController.js"></script>
-        <!-- Scenario controllers -->
+
+        <!-- Scenario -->
         <script src="js/controllers/scenario/listController.js"></script>
         <script src="js/controllers/scenario/detailsController.js"></script>
         <script src="js/controllers/scenario/editController.js"></script>
         <script src="js/controllers/scenario/deleteController.js"></script>
         <script src="js/controllers/scenario/createController.js"></script>
-        <!-- Location controllers -->
+
+        <!-- Location -->
         <script src="js/controllers/location/listController.js"></script>
         <script src="js/controllers/location/detailsController.js"></script>
         <script src="js/controllers/location/editController.js"></script>
         <script src="js/controllers/location/deleteController.js"></script>
         <script src="js/controllers/location/createController.js"></script>
-        <!-- Video controllers -->
+
+        <!-- Video -->
         <script src="js/controllers/video/listController.js"></script>
         <script src="js/controllers/video/detailsController.js"></script>
         <script src="js/controllers/video/editController.js"></script>
         <script src="js/controllers/video/deleteController.js"></script>
         <script src="js/controllers/video/createController.js"></script>
-        <!-- Overlay controllers -->
+
+        <!-- Overlay -->
         <script src="js/controllers/overlay/listController.js"></script>
         <script src="js/controllers/overlay/detailsController.js"></script>
         <script src="js/controllers/overlay/editController.js"></script>
         <script src="js/controllers/overlay/deleteController.js"></script>
         <script src="js/controllers/overlay/createController.js"></script>
-        <!-- Relationship controllers -->
+
+        <!-- Relationship -->
+        <script src="js/controllers/relationship/selectController.js"></script>
         <script src="js/controllers/relationship/listController.js"></script>
-        <script src="js/controllers/relationship/list/belongsToController.js"></script>
-        <script src="js/controllers/relationship/list/connectedToController.js"></script>
-        <script src="js/controllers/relationship/list/embeddedInController.js"></script>
-        <script src="js/controllers/relationship/list/hasParentLocationController.js"></script>
-        <script src="js/controllers/relationship/list/recordedAtController.js"></script>
-        <script src="js/controllers/relationship/details/belongsToController.js"></script>
-        <script src="js/controllers/relationship/details/connectedToController.js"></script>
-        <script src="js/controllers/relationship/details/embeddedInController.js"></script>
-        <script src="js/controllers/relationship/details/hasParentLocationController.js"></script>
-        <script src="js/controllers/relationship/details/recordedAtController.js"></script>
-        <script src="js/controllers/relationship/edit/belongsToController.js"></script>
-        <script src="js/controllers/relationship/edit/connectedToController.js"></script>
+        <script src="js/controllers/relationship/detailsController.js"></script>
         <script src="js/controllers/relationship/edit/embeddedInController.js"></script>
-        <script src="js/controllers/relationship/edit/hasParentLocationController.js"></script>
-        <script src="js/controllers/relationship/edit/recordedAtController.js"></script>
         <script src="js/controllers/relationship/edit/embeddedInPreviewController.js"></script>
-        <script src="js/controllers/relationship/delete/belongsToController.js"></script>
-        <script src="js/controllers/relationship/delete/connectedToController.js"></script>
-        <script src="js/controllers/relationship/delete/embeddedInController.js"></script>
-        <script src="js/controllers/relationship/delete/hasParentLocationController.js"></script>
-        <script src="js/controllers/relationship/delete/recordedAtController.js"></script>
+        <script src="js/controllers/relationship/edit/recordedAtController.js"></script>
+        <script src="js/controllers/relationship/deleteController.js"></script>
         <script src="js/controllers/relationship/createController.js"></script>
         <script src="js/controllers/relationship/create/belongsToController.js"></script>
         <script src="js/controllers/relationship/create/connectedToController.js"></script>

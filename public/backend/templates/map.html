@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<div id="map">
+    <!--
+        TODO: Add layers
+        TODO: Add legend
+        <div class="legend"></div>
+    -->
+</div>
+
+
+<!-- Map resizer -->
+<script>
+    var header = 60;
+    var footer = 60;
+    var distances = header + footer;
+
+    /**
+     * [resize description]
+     * @return {[type]} [description]
+     */
+    function resize(){
+        $('#map').css("height", ($(window).height() - distances));
+        $('#map').css("width", ($(window).width()));
+    }
+
+    resize();
+
+    // Listener
+    $(window).on("resize", resize);
+
+</script>

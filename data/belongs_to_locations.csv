@@ -1,4 +1,4 @@
-l_id,s_id
+location_uuid,scenario_uuid
 l_01,s_01
 l_02,s_01
 l_03,s_01

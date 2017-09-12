@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Overlay edit controller
-app.controller("overlayEditController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $overlayService) {
+app.controller("overlayEditController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -38,7 +29,8 @@ app.controller("overlayEditController", function($scope, $rootScope, $routeParam
             $scope.editOverlayForm.category.$pristine = false;
             $scope.editOverlayForm.url.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('SAVING_OVERLAY') };
+
             $overlayService.edit($scope.overlay.overlay_id, $scope.overlay)
             .then(function onSuccess(response) {
                 $scope.overlay = response.data;
@@ -54,13 +46,13 @@ app.controller("overlayEditController", function($scope, $rootScope, $routeParam
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_OVERLAY') };
 
     // Load overlay
     $overlayService.retrieve($routeParams.overlay_id)
     .then(function onSuccess(response) {
         $scope.overlay = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

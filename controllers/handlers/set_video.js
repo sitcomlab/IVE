@@ -7,7 +7,6 @@ var driver = require('../../server.js').driver;
 var fs = require("fs");
 var query_get_video = fs.readFileSync(__dirname + '/../../queries/videos/get.cypher', 'utf8').toString();
 var io = require("socket.io-client");
-var httpPort = require('../../server.js').httpPort;
 
 
 // SET VIDEO
@@ -36,7 +35,7 @@ exports.request = function(req, res) {
                 });
         },
         function(result, callback){ // Send Websocket-Message
-            var client = io.connect("http://localhost:" + httpPort);
+            var client = io.connect("http://localhost:" + process.env.HTTP_PORT);
             client.on('connect',function() {
                 client.emit('/set/location', {
                     video_id: req.params.video_id

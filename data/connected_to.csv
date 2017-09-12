@@ -1,4 +1,4 @@
-start_id,end_id
+start_location_uuid,end_location_uuid
 l_01,l_02
 l_01,l_04
 l_02,l_01

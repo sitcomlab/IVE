@@ -2,7 +2,7 @@ MATCH (l:Locations)
 WHERE ID(l) = toInt({location_id})
 SET
     l.updated = timestamp(),
-    l.l_id = {l_id},
+    l.location_uuid = {location_uuid},
     l.name = {name},
     l.description = {description},
     l.lat = {lat},
@@ -12,7 +12,7 @@ RETURN
     ID(l) AS location_id,
     l.created AS created,
     l.updated AS updated,
-    l.l_id AS l_id,
+    l.location_uuid AS location_uuid,
     l.name AS name,
     l.description AS description,
     l.lat AS lat,

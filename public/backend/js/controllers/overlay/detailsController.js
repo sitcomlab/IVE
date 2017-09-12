@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Overlay details controller
-app.controller("overlayDetailsController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $overlayService) {
+app.controller("overlayDetailsController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -29,13 +20,14 @@ app.controller("overlayDetailsController", function($scope, $rootScope, $routePa
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_OVERLAY') };
+
 
     // Load video
     $overlayService.retrieve($routeParams.overlay_id)
     .then(function onSuccess(response) {
         $scope.overlay = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

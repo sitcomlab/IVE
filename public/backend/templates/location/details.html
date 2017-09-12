@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<div class="card">
+    <div class="card-header" style="font-size: 20pt;">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
+                <small>
+                    <span class="badge" ng-class="{
+                        'badge-primary': location.location_type=='outdoor',
+                        'badge-default': location.location_type=='indoor',
+                        'badge-success': location.location_type=='abstract'
+                    }">
+                        {{location.location_type}}
+                    </span>
+                </small>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                <div class="btn-group">
+                    <button class="btn btn-info" type="button" ng-click="redirect('/locations/' + location.location_id + '/edit')">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/locations/' + location.location_id + '/delete')">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/locations')">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+        <h6>{{ 'PROPERTIES' | translate }}</h6>
+        <div class="row">
+            <div ng-class="(location.lat !== null && location.lng !== null) ? 'col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>
+                                {{ 'ID' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.location_id}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'UUID' | translate }}
+                            </th>
+                            <td>
+                                <code class="uuid" ngclipboard data-clipboard-text="{{location.location_uuid}}">
+                                    {{location.location_uuid}}
+                                </code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'NAME' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.name}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'DESCRIPTION' | translate }}
+                            </th>
+                            <td>
+                                <kbd ng-if="location.description != null && location.description != '' ">{{location.description}}</kbd>
+                                <span class="text-muted" ng-if="location.description == null || location.description == '' ">-</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'LONGITUDE' | translate }}
+                            </th>
+                            <td>
+                                <kbd ng-if="location.lng != null && location.lng != '' ">{{location.lng}}</kbd>
+                                <span class="text-muted" ng-if="location.lng == null || location.lng == '' ">-</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'LATITUDE' | translate }}
+                            </th>
+                            <td>
+                                <kbd ng-if="location.lat != null && location.lat != '' ">{{location.lat}}</kbd>
+                                <span class="text-muted" ng-if="location.lat == null || location.lat == '' ">-</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'LOCATION_TYPE' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.location_type}}</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'CREATED' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.created | timestamp }}</kbd>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eceeef">
+                            <th>
+                                {{ 'LAST_UPDATED' | translate }}
+                            </th>
+                            <td>
+                                <kbd>{{location.updated | timestamp }}</kbd>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-if="location.lat !== null && location.lng !== null" class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 right">
+                <img class="previewMap" ng-src="{{ location | previewMapRequest }}" alt="{{location.name}}" style="max-width: 100%; height: auto;" ng-if="location.lat !== null && location.lng !== null">
+            </div>
+        </div>
+    </div>
+
+    <!-- connectedTo-relationship -->
+    <div class="list-group list-group-flush" ng-if="location.connected_locations.length==0">
+        <div class="list-group-item">
+            - {{ 'NO' | translate }} {{ 'CONNECTED' | translate }} {{ 'LOCATIONS'  | translate }} -
+        </div>
+    </div>
+    <div class="list-group list-group-flush" ng-if="location.videos.length>0">
+        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedLocations')">
+            <span ng-if="!relatedLocations">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'SHOW_CONNECTED_LOCATIONS' | translate }}</b>
+            </span>
+            <span ng-if="relatedLocations">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'HIDE_CONNECTED_LOCATIONS' | translate }}</b>
+            </span>
+            <span class="badge badge-default badge-pill">
+                {{location.videos.length}}
+            </span>
+        </a>
+    </div>
+    <div class="card-columns" ng-if="location.connected_locations.length>0 && relatedLocations" style="padding: 20px;">
+        <a href="" ng-repeat="connected_location in location.connected_locations | orderBy: ['location_type','name']" ng-click="redirect('/locations/' + connected_location.location_id)">
+            <div class="card">
+                <img class="card-img-top img-fluid" ng-src="{{ connected_location | previewMapRequest }}" alt="{{connected_location.name}}" style="height: auto;" ng-if="connected_location.lat !== null && connected_location.lng !== null">
+                <div class="card-block">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    &nbsp;
+                    <b>{{connected_location.name}}</b>
+                    &nbsp;
+                    <span class="badge" ng-class="{
+                        'badge-primary': connected_location.location_type=='outdoor',
+                        'badge-default': connected_location.location_type=='indoor',
+                        'badge-success': connected_location.location_type=='abstract'
+                    }">
+                        {{connected_location.location_type}}
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+    <br>
+
+    <!-- recordedAt-relationship -->
+    <div class="list-group list-group-flush" ng-if="location.videos.length==0">
+        <div class="list-group-item">
+            - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'VIDEOS'  | translate }} -
+        </div>
+    </div>
+    <div class="list-group list-group-flush" ng-if="location.videos.length>0">
+        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedVideos')">
+            <span ng-if="!relatedVideos">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'SHOW_RELATED_VIDEOS' | translate }}</b>
+            </span>
+            <span ng-if="relatedVideos">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>&nbsp;&nbsp;
+                <b>{{ 'HIDE_RELATED_VIDEOS' | translate }}</b>
+            </span>
+            <span class="badge badge-default badge-pill">
+                {{location.videos.length}}
+            </span>
+        </a>
+    </div>
+    <div class="card-columns" ng-if="location.videos.length>0 && relatedVideos" style="padding: 20px;">
+        <a href="" ng-repeat="video in location.videos" ng-click="redirect('/videos/' + video.video_id)">
+            <div class="card">
+                <img
+                    class="card-img-top img-fluid"
+                    ng-init="video.thumbnail = (video | thumbnail:1)"
+                    ng-src="{{video.thumbnail}}"
+                    ng-mouseover="startPreview(video)"
+                    ng-mouseout="stopPreview(video)"
+                    alt="{{video.name}}"
+                    style="height: auto;"
+                    ng-if="video.thumbnails > 0">
+                <div class="card-block">
+                    <i class="fa fa-file-video-o" aria-hidden="true"></i>
+                    &nbsp;
+                    <b>{{video.name}}</b>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>

@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship embedded_in create controller
-app.controller("embeddedInCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $videoService, $overlayService) {
+app.controller("embeddedInCreateController", function($scope, $rootScope, $routeParams, $interval, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $videoService, $overlayService, _) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -44,7 +35,7 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
             $scope.createRelationshipForm.rz.$pristine = false;
             $scope.createRelationshipForm.display.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_RELATIONSHIP') };
 
             $relationshipService.create('embedded_in', $scope.relationship)
             .then(function onSuccess(response) {
@@ -61,9 +52,9 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
      * [updateDropdown description]
      * @return {[type]} [description]
      */
-    $scope.updateDropdown = function(label){
+    $scope.updateDropdown = function(relationship_label){
 
-        switch (label) {
+        switch (relationship_label) {
             case 'overlays': {
                 if($scope.overlayDropdown.scenario_id !== ""){
                     $overlayService.list_by_scenario($scope.overlayDropdown.scenario_id)
@@ -79,7 +70,7 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.overlayDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -98,7 +89,7 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
 
                         // Update UI
                         $scope.overlayDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -118,10 +109,11 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
                             first_video = $scope.videos[0].video_id;
                         }
                         $scope.relationship.video_id = first_video;
+                        $scope.findVideo();
 
                         // Update UI
                         $scope.videoDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -137,10 +129,11 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
                             first_video = $scope.videos[0].video_id;
                         }
                         $scope.relationship.video_id = first_video;
+                        $scope.findVideo();
 
                         // Update UI
                         $scope.videoDropdown.status = false;
-                        $scope.changeTab(1);
+                        $scope.$parent.loading = { status: false, message: "" };
                     })
                     .catch(function onError(response) {
                         $window.alert(response.data);
@@ -149,14 +142,73 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
                 break;
             }
         }
-     };
+    };
+
+
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
+    $scope.findVideo = function(){
+        if($scope.relationship.video_id !== null){
+            $scope.selectedVideo = _.findWhere($scope.videos, { video_id: $scope.relationship.video_id });
+            $scope.selectedVideo.thumbnail = $filter('thumbnail')($scope.selectedVideo, 1);
+        } else {
+            $scope.selectedVideo;
+        }
+    };
+
+
+    /**
+     * [startPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.startPreview = function(video) {
+        // store the interval promise
+        $scope.currentPreview = 1;
+        $scope.maxPreview = video.thumbnails;
+
+        // stops any running interval to avoid two intervals running at the same time
+        $interval.cancel(promise);
+
+        // store the interval promise
+        promise = $interval(function() {
+            if($scope.selectedVideo.thumbnails > 1){
+                if($scope.currentPreview >= $scope.maxPreview){
+                    $scope.currentPreview = 1;
+                }
+                $scope.selectedVideo.thumbnail = $filter('thumbnail')($scope.selectedVideo, $scope.currentPreview);
+            }
+            $scope.currentPreview++;
+        }, config.thumbnailSpeed);
+    };
+
+    /**
+     * [stopPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.stopPreview = function(video) {
+        $interval.cancel(promise);
+    };
+
+
+    /*************************************************
+        LISTENERS
+     *************************************************/
+    $scope.$on('$destroy', function() {
+        $interval.cancel(promise);
+    });
 
 
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
     $scope.relationship = $relationshipService.init('embedded_in');
+    $scope.selectedVideo;
+    $scope.$parent.loading = { status: false, message: "" };
+    var promise;
 
     // Prepare dropdowns
     $scope.overlayDropdown = {

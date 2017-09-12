@@ -40,6 +40,7 @@ exports.request = function(req, res) {
                 relationship_id: req.params.relationship_id,
                 overlay_id: req.body.overlay_id,
                 video_id: req.body.video_id,
+                description: req.body.description,
                 w: req.body.relationship_w,
                 h: req.body.relationship_h,
                 d: req.body.relationship_d,

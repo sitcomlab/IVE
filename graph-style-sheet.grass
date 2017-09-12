@@ -1,0 +1,108 @@
+node {
+  diameter: 50px;
+  color: #A5ABB6;
+  border-color: #9AA1AC;
+  border-width: 2px;
+  text-color-internal: #FFFFFF;
+  font-size: 10px;
+}
+
+relationship {
+  color: #A5ABB6;
+  shaft-width: 1px;
+  font-size: 8px;
+  padding: 3px;
+  text-color-external: #000000;
+  text-color-internal: #FFFFFF;
+  caption: '<type>';
+}
+
+relationship.belongs_to {
+  color: #A5ABB6;
+  shaft-width: 1px;
+  font-size: 8px;
+  padding: 3px;
+  text-color-external: #000000;
+  text-color-internal: #FFFFFF;
+  caption: '<type>';
+}
+
+relationship.connected_to {
+  color: #0066CC;
+  shaft-width: 5px;
+  font-size: 8px;
+  padding: 5px;
+  text-color-external: #000000;
+  text-color-internal: #FFFFFF;
+  caption: '<type>';
+}
+
+relationship.has_parent_location {
+  color: #238F23;
+  shaft-width: 3px;
+  font-size: 8px;
+  padding: 3px;
+  text-color-external: #000000;
+  text-color-internal: #FFFFFF;
+  caption: '<type>';
+}
+
+relationship.recorded_at {
+  color: #B51031;
+  shaft-width: 3px;
+  font-size: 8px;
+  padding: 3px;
+  text-color-external: #000000;
+  text-color-internal: #FFFFFF;
+  caption: '<type>';
+}
+
+relationship.embedded_in {
+  color: #CCAC00;
+  shaft-width: 3px;
+  font-size: 8px;
+  padding: 3px;
+  text-color-external: #000000;
+  text-color-internal: #FFFFFF;
+  caption: '<type>';
+}
+
+node.Scenarios {
+  color: #9932CC;
+  border-color: #882DB5;
+  text-color-internal: #FFFFFF;
+  caption: '{name}';
+  diameter: 80px;
+}
+
+node.Locations {
+  color: #007FFF;
+  border-color: #0066CC;
+  text-color-internal: #FFFFFF;
+  caption: '{name}';
+  diameter: 80px;
+}
+
+node.abstractLocations {
+  color: #32CD32;
+  border-color: #2CB32C;
+  text-color-internal: #FFFFFF;
+  caption: '{name}';
+  diameter: 80px;
+}
+
+node.Videos {
+  color: #DC143C;
+  border-color: #C71236;
+  text-color-internal: #FFFFFF;
+  caption: '{name}';
+  diameter: 80px;
+}
+
+node.Overlays {
+  color: #FFD700;
+  border-color: #E0BD00;
+  text-color-internal: #333333;
+  caption: '{name}';
+  diameter: 80px;
+}

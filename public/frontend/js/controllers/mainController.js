@@ -29,7 +29,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * @return {[type]}      [description]
      */
     $scope.changeSource = function(path) {
-        path = $window.location.origin + path;
+        path = $window.location.origin + config.videoFolder + path;
         $scope.sources = [];
         $scope.sources.push({
             src: $sce.trustAsResourceUrl(path + ".mp4"),

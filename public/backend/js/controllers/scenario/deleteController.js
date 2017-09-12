@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Scenario delete controller
-app.controller("scenarioDeleteController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+app.controller("scenarioDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -30,7 +21,8 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
      * @return {[type]} [description]
      */
     $scope.delete = function(){
-        $scope.changeTab(0);
+        $scope.$parent.loading = { status: true, message: $filter('translate')('DELETING_SCENARIO') };
+
         $scenarioService.remove($scope.scenario.scenario_id)
         .then(function onSuccess(response) {
             $scope.redirect("/scenarios");
@@ -43,14 +35,14 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_SCENARIO') };
     $scope.input = "";
 
     // Load scenario
     $scenarioService.retrieve($routeParams.scenario_id)
     .then(function onSuccess(response) {
         $scope.scenario = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

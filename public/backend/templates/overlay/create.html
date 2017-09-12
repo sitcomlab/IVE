@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<div class="card">
+    <form class="form-horizontal" name="createOverlayForm" ng-submit="send()">
+        <div class="card-header" style="font-size: 20pt;">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                    <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'NEW_OVERLAY' | translate }}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                    <button class="btn btn-secondary" type="button" ng-click="redirect('/overlays')">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-block">
+            <label>
+                <b>{{ 'NAME' | translate }}</b> <sup class="text-danger">*</sup>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createOverlayForm.name.$invalid && !createOverlayForm.name.$pristine}">
+                <input
+                    type="text"
+                    class="form-control"
+                    ng-model="overlay.name"
+                    name="name"
+                    id="name"
+                    placeholder="{{ 'NAME' | translate }}"
+                    aria-describedby="inputName"
+                    autofocus
+                    required>
+                <span ng-show="createOverlayForm.name.$error.required && !createOverlayForm.name.$pristine" class="text-danger">
+                    <small>
+                        {{ 'REQUIRED' | translate }}
+                    </small>
+                </span>
+            </div>
+            <br>
+
+            <label>
+                <b>{{ 'DESCRIPTION' | translate }}</b>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createOverlayForm.description.$invalid && !createOverlayForm.description.$pristine }">
+                <textarea
+                    class="form-control"
+                    rows="5"
+                    placeholder="{{ 'DESCRIPTION' | translate }}" ng-model="overlay.description"
+                    name="description"
+                    id="description"></textarea>
+            </div>
+            <br>
+
+            <label>
+                <b>{{ 'CATEGORY' | translate }}</b> <sup class="text-danger">*</sup>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createOverlayForm.category.$invalid && !createOverlayForm.category.$pristine }">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-sitemap" aria-hidden="true"></i>
+                    </div>
+                    <select
+                        class="form-control custom-select"
+                        ng-model="overlay.category"
+                        name="category"
+                        id="category"
+                        required>
+                        <option value="website">{{ '_WEBSITE' | translate}}</option>
+                        <option value="picture">{{ '_PICTURE' | translate}}</option>
+                        <option value="video">{{ '_VIDEO' | translate}}</option>
+                    </select>
+                </div>
+                <span ng-show="createOverlayForm.category.$error.required && !createOverlayForm.category.$pristine" class="text-danger">
+                    <small>
+                        {{ 'REQUIRED' | translate }}
+                    </small>
+                </span>
+            </div>
+            <br>
+
+            <label>
+                <b>{{ 'URL' | translate }}</b> <sup class="text-danger">*</sup>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createOverlayForm.url.$invalid && !createOverlayForm.url.$pristine}">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-file-image-o" aria-hidden="true" ng-if="overlay.category == 'picture'"></i>
+                        <i class="fa fa-file-video-o" aria-hidden="true" ng-if="overlay.category == 'video'"></i>
+                        <i class="fa fa-external-link" aria-hidden="true" ng-if="overlay.category == 'website'"></i>
+                    </div>
+                    <input
+                        type="url"
+                        class="form-control"
+                        ng-model="overlay.url"
+                        name="url"
+                        id="url"
+                        placeholder="{{ 'URL' | translate }}"
+                        aria-describedby="inputUrl"
+                        required>
+                </div>
+                <span ng-show="createOverlayForm.url.$error.required && !createOverlayForm.url.$pristine" class="text-danger">
+                    <small>
+                        {{ 'REQUIRED' | translate }}
+                    </small>
+                </span>
+            </div>
+
+        </div>
+        <div class="card-footer right">
+            <button class="btn btn-success" type="submit">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
+            </button>
+        </div>
+    </form>
+</div>

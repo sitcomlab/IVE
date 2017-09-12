@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<div class="card">
+    <form class="form-horizontal" name="createRelationshipForm" ng-submit="send()">
+        <div class="card-header" style="font-size: 20pt;">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'NEW_RELATIONSHIP' | translate }}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                    <button class="btn btn-secondary" type="button" ng-click="redirect('/create/relationship')">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label>
+                        <b>{{ 'FILTER_LOCATIONS_BY_SCENARIO' | translate }}</b>
+                    </label>
+                    <br>
+                    <select class="custom-select form-control" ng-change="updateDropdown('child_locations')" ng-model="childLocationDropdown.scenario_id" autofocus>
+                        <optgroup label="{{ 'DEFAULT' | translate }}">
+                            <option value="" selected>
+                                {{ 'ALL' | translate }}
+                            </option>
+                        </optgroup>
+                        <optgroup label="{{ '_SCENARIOS' | translate }}">
+                            <option ng-repeat="scenario in scenarios | orderBy: ['name']" value="{{scenario.scenario_id}}">
+                                {{ scenario.name }}
+                            </option>
+                        </optgroup>
+                    </select>
+                    <br>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label>
+                        <b>{{ 'FILTER_LOCATIONS_BY_SCENARIO' | translate }}</b>
+                    </label>
+                    <br>
+                    <select class="custom-select form-control" ng-change="updateDropdown('parent_locations')" ng-model="parentLocationDropdown.scenario_id">
+                        <optgroup label="{{ 'DEFAULT' | translate }}">
+                            <option value="" selected>
+                                {{ 'ALL' | translate }}
+                            </option>
+                        </optgroup>
+                        <optgroup label="{{ '_SCENARIOS' | translate }}">
+                            <option ng-repeat="scenario in scenarios | orderBy: ['name']" value="{{scenario.scenario_id}}">
+                                {{ scenario.name }}
+                            </option>
+                        </optgroup>
+                    </select>
+                    <br>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label>
+                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CHILD_LOCATION' | translate }}</b> <sup class="text-danger">*</sup>
+                    </label>
+                    <br>
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.child_location_id.$invalid && !createRelationshipForm.child_location_id.$pristine}">
+                        <select
+                            class="custom-select form-control"
+                            id="child_location_id"
+                            name="child_location_id"
+                            ng-model="relationship.child_location_id"
+                            ng-disabled="childLocationDropdown.status"
+                            ng-options="location.location_id as location.name group by location.location_type for location in child_locations | orderBy:['name']"
+                            required>
+                        </select>
+                        <span ng-show="createRelationshipForm.child_location_id.$error.required && !createRelationshipForm.child_location_id.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <div ng-if="(relationship.child_location_id|findLocationById:child_locations).lat !== null && (relationship.child_location_id|findLocationById:child_locations).lng !== null">
+                        <img class="previewMap" ng-src="{{ relationship.child_location_id | findLocationById:child_locations | previewMapRequest }}" alt="{{(relationship.child_location_id|findLocationById:child_locations).name}}" style="width: 100%; height: auto;">
+                        <br>
+                    </div>
+                    <br>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 middle">
+                    <span class="badge badge-pill badge-default">
+                        &mdash;&nbsp;HAS_PARENT_LOCATION&nbsp;&mdash;&gt;
+                    </span>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label>
+                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'PARENT_LOCATION' | translate }}</b> <sup class="text-danger">*</sup>
+                    </label>
+                    <br>
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.parent_location_id.$invalid && !createRelationshipForm.parent_location_id.$pristine}">
+                        <select
+                            class="custom-select form-control"
+                            id="parent_location_id"
+                            name="parent_location_id"
+                            ng-disabled="parentLocationDropdown.status"
+                            ng-model="relationship.parent_location_id"
+                            ng-options="location.location_id as location.name group by location.location_type for location in parent_locations | orderBy:['name']"
+                            required>
+                        </select>
+                        <span ng-show="createRelationshipForm.parent_location_id.$error.required && !createRelationshipForm.parent_location_id.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <div ng-if="(relationship.parent_location_id|findLocationById:parent_locations).lat !== null && (relationship.parent_location_id|findLocationById:parent_locations).lng !== null">
+                        <img class="previewMap" ng-src="{{ relationship.parent_location_id | findLocationById:parent_locations | previewMapRequest }}" alt="{{(relationship.parent_location_id|findLocationById:parent_locations).name}}" style="width: 100%; height: auto;">
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer right">
+            <button class="btn btn-success" type="submit">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
+            </button>
+        </div>
+    </form>
+</div>

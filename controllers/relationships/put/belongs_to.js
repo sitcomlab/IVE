@@ -18,7 +18,7 @@ exports.request = function(req, res) {
     var session = driver.session();
 
     var query;
-    switch (req.params.label) {
+    switch (req.params.relationship_type) {
         case 'location': {
             query = query_edit_relationship_location;
             break;

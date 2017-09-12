@@ -19,20 +19,21 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback){ // Parameter validation
 
-            // Check v_id
-            var v_id = uuid.v1();
-            if(req.body.v_id && req.body.v_id !== ""){
-                v_id = req.body.v_id;
+            // Check video_uuid
+            var video_uuid = uuid.v1();
+            if(req.body.video_uuid && req.body.video_uuid !== ""){
+                video_uuid = req.body.video_uuid;
             }
 
             // TODO: Validate all attributes of req.body
 
             var params = {
-                v_id: v_id,
+                video_uuid: video_uuid,
                 name: req.body.name,
                 description: req.body.description,
                 url: req.body.url,
-                recorded: req.body.recorded
+                recorded: req.body.recorded,
+                thumbnails: req.body.thumbnails || 0
             };
 
             callback(null, params);

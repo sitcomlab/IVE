@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Video edit controller
-app.controller("videoEditController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $videoService) {
+app.controller("videoEditController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $videoService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -24,7 +15,7 @@ app.controller("videoEditController", function($scope, $rootScope, $routeParams,
     $scope.redirect = function(path){
         $location.url(path);
     };
-    
+
     /**
      * [send description]
      * @return {[type]} [description]
@@ -37,8 +28,10 @@ app.controller("videoEditController", function($scope, $rootScope, $routeParams,
             $scope.editVideoForm.description.$pristine = false;
             $scope.editVideoForm.url.$pristine = false;
             $scope.editVideoForm.recorded.$pristine = false;
+            $scope.editVideoForm.thumbnails.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('SAVING_VIDEO') };
+
             $videoService.edit($scope.video.video_id, $scope.video)
             .then(function onSuccess(response) {
                 $scope.video = response.data;
@@ -54,13 +47,13 @@ app.controller("videoEditController", function($scope, $rootScope, $routeParams,
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_VIDEO') };
 
     // Load video
     $videoService.retrieve($routeParams.video_id)
     .then(function onSuccess(response) {
         $scope.video = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

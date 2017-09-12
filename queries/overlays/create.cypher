@@ -1,7 +1,7 @@
 CREATE (o:Overlays {
     created: timestamp(),
     updated: timestamp(),
-    o_id: {o_id},
+    overlay_uuid: {overlay_uuid},
     name: {name},
     description: {description},
     category: {category},
@@ -10,7 +10,7 @@ CREATE (o:Overlays {
     ID(o) AS overlay_id,
     o.created AS created,
     o.updated AS updated,
-    o.o_id AS o_id,
+    o.overlay_uuid AS overlay_uuid,
     o.name AS name,
     o.description AS description,
     o.category AS category,

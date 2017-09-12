@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Overlay create controller
-app.controller("overlayCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $overlayService) {
+app.controller("overlayCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -38,7 +29,8 @@ app.controller("overlayCreateController", function($scope, $rootScope, $routePar
             $scope.createOverlayForm.category.$pristine = false;
             $scope.createOverlayForm.url.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_OVERLAY') };
+
             $overlayService.create($scope.overlay)
             .then(function onSuccess(response) {
                 var new_overlay = response.data;
@@ -54,8 +46,7 @@ app.controller("overlayCreateController", function($scope, $rootScope, $routePar
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
     $scope.overlay = $overlayService.init();
-    $scope.changeTab(1);
+    $scope.$parent.loading = { status: false, message: "" };
 
 });

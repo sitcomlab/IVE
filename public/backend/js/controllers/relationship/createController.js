@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship create controller
-app.controller("relationshipCreateController", function($scope, $rootScope, $translate, $location, config, $window) {
+app.controller("relationshipCreateController", function($scope, $rootScope, $filter, $translate, $location, config, $window) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -29,7 +20,7 @@ app.controller("relationshipCreateController", function($scope, $rootScope, $tra
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(1);
+    $scope.$parent.loading = { status: false, message: "" };
 
 
 });

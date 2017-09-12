@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Location delete controller
-app.controller("locationDeleteController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $locationService) {
+app.controller("locationDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $locationService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -30,7 +21,8 @@ app.controller("locationDeleteController", function($scope, $rootScope, $routePa
      * @return {[type]} [description]
      */
     $scope.delete = function(){
-        $scope.changeTab(0);
+        $scope.$parent.loading = { status: true, message: $filter('translate')('DELETING_LOCATION') };
+
         $locationService.remove($scope.location.location_id)
         .then(function onSuccess(response) {
             $scope.redirect("/locations");
@@ -43,14 +35,14 @@ app.controller("locationDeleteController", function($scope, $rootScope, $routePa
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_LOCATION') };
     $scope.input = "";
 
     // Load location
     $locationService.retrieve($routeParams.location_id)
     .then(function onSuccess(response) {
         $scope.location = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

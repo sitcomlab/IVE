@@ -108,7 +108,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"l_id\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
+							"raw": "{\n\"location_uuid\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
 						},
 						"description": ""
 					},
@@ -133,7 +133,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"l_id\": \"test\",\n    \"name\": \"Test\",\n    \"description\": \"Test\",\n    \"lat\": 51.957,\n    \"lng\": 7.6330,\n    \"location_type\": \"indoor\"\n  }"
+							"raw": "{\n    \"location_uuid\": \"test\",\n    \"name\": \"Test\",\n    \"description\": \"Test\",\n    \"lat\": 51.957,\n    \"lng\": 7.6330,\n    \"location_type\": \"indoor\"\n  }"
 						},
 						"description": ""
 					},
@@ -169,7 +169,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"l_id\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
+							"raw": "{\n\"location_uuid\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
 						},
 						"description": ""
 					},
@@ -189,7 +189,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"l_id\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
+							"raw": "{\n\"location_uuid\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
 						},
 						"description": ""
 					},
@@ -429,7 +429,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"scenario_id\": 891,\n  \"created\": 1481908792639,\n  \"updated\": 1481908792639,\n  \"s_id\": \"test-1234567890\",\n  \"name\": \"test-1234567890\",\n  \"description\": \"test-1234567890\"\n}"
+							"raw": "{\n  \"scenario_id\": 891,\n  \"created\": 1481908792639,\n  \"updated\": 1481908792639,\n  \"scenario_uuid\": \"test-1234567890\",\n  \"name\": \"test-1234567890\",\n  \"description\": \"test-1234567890\"\n}"
 						},
 						"description": ""
 					},
@@ -530,7 +530,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"v_id\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+							"raw": "{\n\t\"video_uuid\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
 						},
 						"description": ""
 					},
@@ -566,7 +566,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"v_id\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+							"raw": "{\n\t\"video_uuid\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
 						},
 						"description": ""
 					},
@@ -586,7 +586,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"v_id\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+							"raw": "{\n\t\"video_uuid\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
 						},
 						"description": ""
 					},

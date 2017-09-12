@@ -5,7 +5,6 @@ public/videos/*
 public/thumbnails/*
 .DS_Store
 .env
-yarn.lock
 _site
 .sass-cache
 log.txt

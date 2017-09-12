@@ -2,7 +2,7 @@ MATCH (o:Overlays)
 WHERE ID(o) = toInt({overlay_id})
 SET
     o.updated = timestamp(),
-    o.o_id = {o_id},
+    o.overlay_uuid = {overlay_uuid},
     o.name = {name},
     o.description = {description},
     o.category = {category},
@@ -11,7 +11,7 @@ RETURN
     ID(o) AS overlay_id,
     o.created AS created,
     o.updated AS updated,
-    o.o_id AS o_id,
+    o.overlay_uuid AS overlay_uuid,
     o.name AS name,
     o.description AS description,
     o.category AS category,

@@ -2,14 +2,17 @@ var colors = require('colors');
 var async = require('async');
 var neo4j = require('neo4j-driver').v1;
 var fs = require('fs');
+var config = require('dotenv').config();
 
-var neo4j_host = process.env.NEO4J_HOST || '127.0.0.1';
-var neo4j_port = process.env.NEO4J_PORT || '7687';
-var neo4j_username = process.env.NEO4J_USERNAME || 'neo4j';
-var neo4j_password = process.env.NEO4J_PASSWORD || '123456';
 
 // Connect to Neo4j
-var driver = neo4j.driver("bolt://" + neo4j_host + ":" + neo4j_port, neo4j.auth.basic(neo4j_username, neo4j_password));
+var driver = neo4j.driver(
+    "bolt://" + process.env.NEO4J_HOST + ":" + process.env.NEO4J_PORT,
+    neo4j.auth.basic(
+        process.env.NEO4J_USERNAME,
+        process.env.NEO4J_PASSWORD
+    )
+);
 var session = driver.session();
 
 // Load files
@@ -38,6 +41,9 @@ queries.push(fs.readFileSync(__dirname + dir + 'import_connected_to.cypher', 'ut
 queries.push(fs.readFileSync(__dirname + dir + 'import_recorded_at.cypher', 'utf8').toString());
 queries.push(fs.readFileSync(__dirname + dir + 'import_embedded_in.cypher', 'utf8').toString());
 
+// Set new label
+queries.push(fs.readFileSync(__dirname + dir + 'create_abstract_locations_label.cypher', 'utf8').toString());
+
 
 async.forEachOf(queries, function (query, key, callback) {
     // Run query
@@ -59,5 +65,6 @@ async.forEachOf(queries, function (query, key, callback) {
         console.error(colors.red(JSON.stringify(err)));
     } else {
         console.log(colors.green("Setup successfully done!"));
+        process.exit();
     }
 });

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<div class="middle">
+    <br>
+    <h1 class="display-3">
+        {{ 'WELCOME' | translate }}
+    </h1>
+    <br>
+    <p class="lead">
+        {{ 'WELCOME_MESSAGE' | translate }} <br>
+    </p>
+    <br>
+</div>
+<div class="card" style="padding: 30px 10px 20px 10px; background-color: #f7f7f9;">
+    <form class="form-horizontal" autocomplete="on" name="loginForm" ng-submit="send()">
+        <div class="card-block">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-5">
+                    <label>
+                        <b>{{ 'USERNAME' | translate }}</b> <sup class="text-danger">*</sup>
+                    </label>
+                    <div class="form-group" ng-class="{'has-danger': loginForm.username.$invalid && !loginForm.username.$pristine}">
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                class="form-control form-control-lg"
+                                ng-model="login.username"
+                                name="username"
+                                id="username"
+                                placeholder="{{ 'USERNAME' | translate }}"
+                                aria-describedby="inputUsername"
+                                required
+                                autofocus>
+                        </div>
+                        <span ng-show="loginForm.username.$error.required && !loginForm.username.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-5">
+                    <label>
+                        <b>{{ 'PASSWORD' | translate }}</b> <sup class="text-danger">*</sup>
+                    </label>
+                    <div class="form-group" ng-class="{'has-danger': loginForm.password.$invalid && !loginForm.password.$pristine}">
+                        <div class="input-group">
+                            <input
+                                type="password"
+                                class="form-control form-control-lg"
+                                ng-model="login.password"
+                                name="password"
+                                id="password"
+                                placeholder="{{ 'PASSWORD' | translate }}"
+                                aria-describedby="inputPassword"
+                                required
+                                autocomplete="password">
+                        </div>
+                        <span ng-show="loginForm.password.$error.required && !loginForm.password.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+                    <label>&nbsp;</label>
+                    <button class="form-control btn btn-lg btn-success" type="submit">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'LOGIN' | translate }}
+                    </button>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+
+
+<!--<!DOCTYPE html>
+<h1 class="display-3 middle">
+    {{ 'WELCOME' | translate }}
+</h1>
+<br>
+<p class="lead middle">
+    {{ 'WELCOME_MESSAGE' | translate }}
+</p>
+<br>
+<div class="card middle" style="padding: 30px 10px 20px 10px;">
+    <div class="card-block">
+        <form name="loginForm" ng-submit="send()">
+            <div class="form-group row" ng-class="{'has-danger': loginForm.username.$invalid && !loginForm.username.$pristine}">
+                <label class="col-sm-2 col-form-label left" for="inputUsername">
+                    <b>{{ 'USERNAME' | translate }}*</b>
+                </label>
+                <div class="col-sm-10 left">
+                    <input
+                        type="text"
+                        class="form-control"
+                        ng-model="login.username"
+                        name="username"
+                        id="username"
+                        placeholder="{{ 'USERNAME' | translate }}*"
+                        aria-describedby="inputUsername"
+                        required
+                        autofocus
+                        autocomplete="on">
+                    <span ng-show="loginForm.username.$error.required && !loginForm.username.$pristine" class="text-danger">
+                        <small>
+                            {{ 'REQUIRED' | translate }}
+                        </small>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row" ng-class="{'has-danger': loginForm.password.$invalid && !loginForm.password.$pristine}">
+                <label class="col-sm-2 col-form-label left" for="inputPassword">
+                    <b>{{ 'PASSWORD' | translate }}*</b>
+                </label>
+                <div class="col-sm-10 left">
+                    <input
+                        type="password"
+                        class="form-control"
+                        ng-model="login.password"
+                        name="password"
+                        id="password"
+                        placeholder="{{ 'PASSWORD' | translate }}*"
+                        aria-describedby="inputPassword"
+                        required
+                        autocomplete="on">
+                    <span ng-show="loginForm.password.$error.required && !loginForm.password.$pristine" class="text-danger">
+                        <small>
+                            {{ 'REQUIRED' | translate }}
+                        </small>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'LOGIN' | translate }}
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+-->

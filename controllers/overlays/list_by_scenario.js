@@ -7,6 +7,7 @@ var driver = require('../../server.js').driver;
 var fs = require("fs");
 var query_get_scenario = fs.readFileSync(__dirname + '/../../queries/scenarios/get.cypher', 'utf8').toString();
 var query_list_overlays_by_scenario = fs.readFileSync(__dirname + '/../../queries/overlays/list_by_scenario.cypher', 'utf8').toString();
+var query_list_overlays_by_scenario_filtered_by_category = fs.readFileSync(__dirname + '/../../queries/overlays/list_by_scenario_filtered_by_category.cypher', 'utf8').toString();
 
 
 // LIST BY SCENARIO
@@ -33,11 +34,26 @@ exports.request = function(req, res) {
                     callback(err, 500);
                 });
         },
-        function(callback) { // Find entries
+        function(callback){ // Prepare query and parameters
+            var query = query_list_overlays_by_scenario;
+            var params = {
+                scenario_id: req.params.scenario_id,
+                skip: req.query.skip || 0,
+                limit: req.query.limit || 9999999999,
+                orderby: req.query.orderby || 'name.asc'
+            }
+
+            // Check for filter
+            if(req.query.category){
+                query = query_list_overlays_by_scenario_filtered_by_category;
+                params.category = req.query.category;
+            }
+
+            callback(null, query, params);
+        },
+        function(query, params, callback) { // Find entries
             session
-                .run(query_list_overlays_by_scenario, {
-                    scenario_id: req.params.scenario_id
-                })
+                .run(query, params)
                 .then(function(result) {
                     callback(null, result);
                 })

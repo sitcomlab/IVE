@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Location edit controller
-app.controller("locationEditController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $locationService) {
+app.controller("locationEditController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $locationService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -39,7 +30,8 @@ app.controller("locationEditController", function($scope, $rootScope, $routePara
             $scope.editLocationForm.lng.$pristine = false;
             $scope.editLocationForm.lat.$pristine = false;
         } else {
-            $scope.changeTab(0);
+            $scope.$parent.loading = { status: true, message: $filter('translate')('SAVING_LOCATION') };
+
             $locationService.edit($scope.location.location_id, $scope.location)
             .then(function onSuccess(response) {
                 $scope.location = response.data;
@@ -54,13 +46,13 @@ app.controller("locationEditController", function($scope, $rootScope, $routePara
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
+    $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_LOCATION') };
 
     // Load location
     $locationService.retrieve($routeParams.location_id)
     .then(function onSuccess(response) {
         $scope.location = response.data;
-        $scope.changeTab(1);
+        $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {
         $window.alert(response.data);

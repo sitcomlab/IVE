@@ -1,20 +1,11 @@
 var app = angular.module("ive");
 
 // Relationship belongs_to create controller
-app.controller("belongsToCreateController", function($scope, $rootScope, $routeParams, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService, $videoService, $overlayService) {
+app.controller("belongsToCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService, $videoService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
      *************************************************/
-
-    /**
-     * [changeTab description]
-     * @param  {[type]} tab [description]
-     * @return {[type]}     [description]
-     */
-    $scope.changeTab = function(tab){
-        $scope.tab = tab;
-    };
 
     /**
      * [redirect description]
@@ -34,8 +25,9 @@ app.controller("belongsToCreateController", function($scope, $rootScope, $routeP
         if($scope.createRelationshipForm.$invalid) {
             // Update UI
         } else {
-            $scope.changeTab(0);
-            $relationshipService.create('belongs_to', $scope.label, $scope.relationship)
+            $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_RELATIONSHIP') };
+
+            $relationshipService.create('belongs_to', $scope.relationship, $scope.label)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
                 $scope.redirect("/relationship/belongs_to/" + $scope.label + '/' + $scope.relationship.relationship_id);
@@ -50,10 +42,9 @@ app.controller("belongsToCreateController", function($scope, $rootScope, $routeP
     /*************************************************
         INIT
      *************************************************/
-    $scope.changeTab(0);
-    $scope.label = $routeParams.label;
-    $scope.relationship = $relationshipService.init('belongs_to', $scope.label);
-    $scope.changeTab(1);
+    $scope.relationship_type = $routeParams.relationship_type;
+    $scope.relationship = $relationshipService.init('belongs_to', $scope.relationship_type);
+    $scope.$parent.loading = { status: false, message: "" };
 
     // Load scenarios
     $scenarioService.list()
@@ -81,7 +72,7 @@ app.controller("belongsToCreateController", function($scope, $rootScope, $routeP
                     $scope.overlays = response.data;
 
                     // Select first element in dropdown
-                    switch ($scope.label) {
+                    switch ($scope.relationship_type) {
                         case 'location': {
                             if($scope.locations.length > 0){
                                 $scope.relationship.location_id = $scope.locations[0].location_id;

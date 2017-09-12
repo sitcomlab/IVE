@@ -1,4 +1,4 @@
-l_id,name,lat,lng,description,location_type
+location_uuid,name,lat,lng,description,location_type
 l_01,Schlossplatz,51.96344,7.617753,The Schlossplatz is a large place in the front of the castle,outdoor
 l_02,Frauenstraße [1],51.963453,7.618718,A little street in the direct environment of the castle,outdoor
 l_03,Frauenstraße [2],51.963572,7.620655,Intersection of Frauenstraße and Krummer Timpen overlooking the ULB,outdoor
@@ -11,8 +11,8 @@ l_09,Domplatz,51.962012,7.626121,The Domplatz is the place in front of the huge 
 l_10,Main station,51.956485,7.636367,The main station,abstract
 l_10_01,Main station (inside),,,The main tunnel of the main station,indoor
 l_11,Main station (side entrance),51.95752,7.634613,The side entrance of the main station,outdoor
-l_12,Main station (pedestrian area),7.634173,51.956826,Infront of the main station; pedestrian traffic lights towards city center,outdoor
-l_13,Main station (pedestrian crossing),7.633958,51.956872,Infront of the main station; pedestrian traffic lights towards main station entrance,outdoor
+l_12,Main station (pedestrian area),51.956826,7.634173,Infront of the main station; pedestrian traffic lights towards city center,outdoor
+l_13,Main station (pedestrian crossing),51.956872,7.633958,Infront of the main station; pedestrian traffic lights towards main station entrance,outdoor
 l_14,Bahnhofsstraße,51.955731,7.632623,The street where the main station is located,outdoor
 l_15,Berliner Platz,51.956231,7.633873,A small square next to the main station,outdoor
 l_16,Bremer Platz [1],51.956422,7.63707,The back of the main station,outdoor

@@ -1,4 +1,4 @@
-s_id,name,description
+scenario_uuid,name,description
 s_01,Münster (city center),City center
 s_02,Münster (main station),Main station
 s_03,GEO-1,Nichos thesis

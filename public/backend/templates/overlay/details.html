@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<div class="card">
+    <div class="card-header" style="font-size: 20pt;">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{overlay.name}}
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                <div class="btn-group">
+                    <button class="btn btn-info" type="button" ng-click="redirect('/overlays/' + overlay.overlay_id + '/edit')">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/overlays/' + overlay.overlay_id + '/delete')">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/overlays')">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+        <h6>{{ 'PROPERTIES' | translate }}</h6>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>
+                        {{ 'ID' | translate }}
+                    </th>
+                    <td>
+                        <kbd>{{overlay.overlay_id}}</kbd>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'UUID' | translate }}
+                    </th>
+                    <td>
+                        <code class="uuid" ngclipboard data-clipboard-text="{{overlay.overlay_uuid}}">
+                            {{overlay.overlay_uuid}}
+                        </code>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'NAME' | translate }}
+                    </th>
+                    <td>
+                        <kbd>{{overlay.name}}</kbd>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'DESCRIPTION' | translate }}
+                    </th>
+                    <td>
+                        <kbd ng-if="overlay.description != null && overlay.description != '' ">{{overlay.description}}</kbd>
+                        <span class="text-muted" ng-if="overlay.description == null || overlay.description == '' ">-</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'CATEGORY' | translate }}
+                    </th>
+                    <td>
+                        <kbd>{{overlay.category}}</kbd>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'URL' | translate }}
+                    </th>
+                    <td>
+                        <kbd>{{overlay.url}}</kbd>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ 'CREATED' | translate }}
+                    </th>
+                    <td>
+                        <kbd>{{overlay.created | timestamp }}</kbd>
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eceeef">
+                    <th>
+                        {{ 'LAST_UPDATED' | translate }}
+                    </th>
+                    <td>
+                        <kbd>{{overlay.updated | timestamp }}</kbd>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- recordedAt-Locationship -->
+    <div class="list-group list-group-flush" ng-if="overlay.locations.length==0">
+        <div class="list-group-item">
+            - {{ 'NO' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS'  | translate }} -
+        </div>
+    </div>
+    <div class="list-group list-group-flush" ng-if="overlay.locations.length>0">
+        <a href="" class="list-group-item list-group-item-action d-flex justify-content-between" ng-click="toggle('relatedLocations')">
+            <span ng-if="!relatedLocations">
+                <b>{{ 'SHOW' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+            </span>
+            <span ng-if="!relatedLocations">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </span>
+            <span ng-if="relatedLocations">
+                <b>{{ 'HIDE' | translate }} {{ 'RELATED' | translate }} {{ 'LOCATIONS' | translate }}</b>
+            </span>
+            <span ng-if="relatedLocations">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>
+            </span>
+        </a>
+    </div>
+    <div class="list-group list-group-flush" ng-if="overlay.locations.length>0 && relatedLocations">
+        <a href="" class="list-group-item list-group-item-action" ng-repeat="location in overlay.locations" ng-click="redirect('/locations/' + location.location_id)">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
+        </a>
+    </div>
+</div>

@@ -36,17 +36,17 @@ exports.request = function(req, res) {
         },
         function(callback){ // Parameter validation
 
-            // Check o_id
-            var o_id = uuid.v1();
-            if(req.body.o_id && req.body.o_id !== ""){
-                o_id = req.body.o_id;
+            // Check overlay_uuid
+            var overlay_uuid = uuid.v1();
+            if(req.body.overlay_uuid && req.body.overlay_uuid !== ""){
+                overlay_uuid = req.body.overlay_uuid;
             }
 
             // TODO: Validate all attributes of req.body
 
             var params = {
                 overlay_id: req.params.overlay_id,
-                o_id: o_id,
+                overlay_uuid: overlay_uuid,
                 name: req.body.name,
                 description: req.body.description,
                 category: req.body.category,

@@ -1,11 +1,6 @@
 var app = angular.module("ive");
 
-
-/**
- * Help Controller
- */
+// Help controller
 app.controller("helpController", function($scope, config) {
-
-    $scope.tab = 1;
-
+    $scope.$parent.loading = { status: false, message: "" };
 });

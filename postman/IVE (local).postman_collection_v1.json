@@ -114,7 +114,7 @@
 			"description": "",
 			"collectionId": "b932361e-e0e2-ab05-830e-592bae84c035",
 			"responses": [],
-			"rawModeData": "{\n\"l_id\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
+			"rawModeData": "{\n\"location_uuid\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
 		},
 		{
 			"id": "0dbaec6a-e426-6d38-4aa8-5487ec786951",
@@ -285,7 +285,7 @@
 			"description": "",
 			"collectionId": "b932361e-e0e2-ab05-830e-592bae84c035",
 			"responses": [],
-			"rawModeData": "{\n  \"scenario_id\": 891,\n  \"created\": 1481908792639,\n  \"updated\": 1481908792639,\n  \"s_id\": \"test-1234567890\",\n  \"name\": \"test-1234567890\",\n  \"description\": \"test-1234567890\"\n}"
+			"rawModeData": "{\n  \"scenario_id\": 891,\n  \"created\": 1481908792639,\n  \"updated\": 1481908792639,\n  \"scenario_uuid\": \"test-1234567890\",\n  \"name\": \"test-1234567890\",\n  \"description\": \"test-1234567890\"\n}"
 		},
 		{
 			"id": "446cdb32-1e8b-71ed-2f3c-fa64b62bdca0",
@@ -343,7 +343,7 @@
 			"description": "",
 			"collectionId": "b932361e-e0e2-ab05-830e-592bae84c035",
 			"responses": [],
-			"rawModeData": "{\n\t\"v_id\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+			"rawModeData": "{\n\t\"video_uuid\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
 		},
 		{
 			"id": "6481842e-0f96-83cd-70a8-925fafaa8dcc",
@@ -384,7 +384,7 @@
 			"description": "",
 			"collectionId": "b932361e-e0e2-ab05-830e-592bae84c035",
 			"responses": [],
-			"rawModeData": "{\n\t\"v_id\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+			"rawModeData": "{\n\t\"video_uuid\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
 		},
 		{
 			"id": "67ec0746-3657-0c92-3891-9c02381c1901",
@@ -502,7 +502,7 @@
 			"description": "",
 			"collectionId": "b932361e-e0e2-ab05-830e-592bae84c035",
 			"responses": [],
-			"rawModeData": "{\n\"l_id\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
+			"rawModeData": "{\n\"location_uuid\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
 		},
 		{
 			"id": "8408d073-0a28-666c-95cf-b762b73af9d6",
@@ -734,7 +734,7 @@
 			"description": "",
 			"collectionId": "b932361e-e0e2-ab05-830e-592bae84c035",
 			"responses": [],
-			"rawModeData": "{\n\t\"v_id\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
+			"rawModeData": "{\n\t\"video_uuid\": \"test\",\n    \"name\": \"Test-2\",\n    \"description\": \"Test-2\",\n    \"url\": \"http://example.org\",\n    \"recorded\": null\n}\n"
 		},
 		{
 			"id": "f372c0f6-65ae-61ed-15e4-fda45c918a7f",
@@ -754,7 +754,7 @@
 			"description": "",
 			"collectionId": "b932361e-e0e2-ab05-830e-592bae84c035",
 			"responses": [],
-			"rawModeData": "{\n\"l_id\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
+			"rawModeData": "{\n\"location_uuid\": \"test\",\n  \"name\": \"Test\",\n  \"description\": \"Test\",\n  \"lat\": 51.957,\n  \"lng\": 7.633,\n  \"location_type\": \"indoor\"\n}"
 		},
 		{
 			"id": "f4ce63c4-531d-e172-1a8a-468a86068704",
@@ -773,7 +773,7 @@
 			"description": "",
 			"collectionId": "b932361e-e0e2-ab05-830e-592bae84c035",
 			"responses": [],
-			"rawModeData": "{\n    \"l_id\": \"test\",\n    \"name\": \"Test\",\n    \"description\": \"Test\",\n    \"lat\": 51.957,\n    \"lng\": 7.6330,\n    \"location_type\": \"indoor\"\n  }"
+			"rawModeData": "{\n    \"location_uuid\": \"test\",\n    \"name\": \"Test\",\n    \"description\": \"Test\",\n    \"lat\": 51.957,\n    \"lng\": 7.6330,\n    \"location_type\": \"indoor\"\n  }"
 		}
 	]
 }
