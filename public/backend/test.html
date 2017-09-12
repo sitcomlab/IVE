@@ -1,157 +1,165 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>My first three.js app</title>
-		<style>
-			body {
-				margin: 0;
-			}
+<head>
+	<title>My first three.js app</title>
+	<style>
+		body {
+			margin: 0;
+		}
 
-			canvas {}
+		canvas {}
 
-			#video-container {
-				z-index: 0;
-				text-align: center;
-				position: absolute;
-				width: 100%;
-			}
+		#video-container {
+			z-index: 0;
+			text-align: center;
+			position: absolute;
+			width: 100%;
+		}
 
-			#overlay-container {
-				z-index: 1;
-				position: absolute;
-			}
-		</style>
-	</head>
-	<body>
+		#overlay-container {
+			z-index: 1;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
 
-		<div id="video-container">
-			<video id="video" width="100%" loop muted autoplay preload="none">
-			  	<source src="../videos/geo-1/geo1-main-entrance.mp4" type="video/mp4" />
-				<source src="../videos/geo-1/geo1-main-entrance.ogv" type="video/ogg; codecs=theora, vorbis" />
-			</video>
-		</div>
+<div id="video-container">
+	<video id="video" width="100%" loop muted autoplay preload="none">
+		<source src="../videos/geo-1/geo1-main-entrance.mp4" type="video/mp4" />
+		<source src="../videos/geo-1/geo1-main-entrance.ogv" type="video/ogg; codecs=theora, vorbis" />
+	</video>
+</div>
 
-		<div id="overlay-container"></div>
+<div id="overlay-container"></div>
 
-		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="../bower_components/three.js/build/three.min.js"></script>
-		<script src="../bower_components/three.js/examples/js/controls/TransformControls.js"></script>
-		<script>
-		// Start new scence
-		var scene = new THREE.Scene();
-        scene.add( new THREE.GridHelper( 1000, 10 ) );
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/three.js/build/three.min.js"></script>
+<script src="../bower_components/three.js/examples/js/controls/TransformControls.js"></script>
+<script>
+    // Start new scence
+    var scene = new THREE.Scene();
+    scene.add( new THREE.GridHelper( 1000, 10 ) );
 
-        var control, cube, renderer, camera;
+    var control, cube, renderer, camera;
 
-		// Load div-overlay-container sizes
-		var video_container = $( '#video-container' );
-		var overlay_container = $( '#overlay-container' );
-        var vid = document.getElementById('video');
+    // Load div-overlay-container sizes
+    var video_container = $( '#video-container' );
+    var overlay_container = $( '#overlay-container' );
+    var vid = document.getElementById('video');
 
-		//Wait for the video to load
-        vid.onloadeddata = function () {
+    //Wait for the video to load
+    vid.onloadeddata = function () {
 
-            var overlay_container_width = $( '#video-container' ).width();
-            var overlay_container_height = $( '#video-container' ).height();
+        var overlay_container_width = $( '#video-container' ).width();
+        var overlay_container_height = $( '#video-container' ).height();
 
-            // Resize container
-            overlay_container.css( "width", overlay_container_width);
-            overlay_container.css( "height", overlay_container_height);
+        // Resize container
+        overlay_container.css( "width", overlay_container_width);
+        overlay_container.css( "height", overlay_container_height);
 
-            // Set new position to overlay containers over each other
-            //overlay_container.position( "top", video_container.position.top * -1);
+        // Set new position to overlay containers over each other
+        //overlay_container.position( "top", video_container.position.top * -1);
 
-            // Set camera position
-            camera = new THREE.PerspectiveCamera( 75, overlay_container.width() / overlay_container.height(), 0.1, 1000 );
+        // Set camera position
+        camera = new THREE.PerspectiveCamera( 75, overlay_container.width() / overlay_container.height(), 0.1, 1000 );
 
-			/*var camera = new THREE.PerspectiveCamera( 50, overlay_container.width() / overlay_container.height(), 1, 3000 );
-			 camera.position.set( 0, 101, 300 );
-			 camera.lookAt(new THREE.Vector3( 0, 101, 0 ));*/
+		/*var camera = new THREE.PerspectiveCamera( 50, overlay_container.width() / overlay_container.height(), 1, 3000 );
+		 camera.position.set( 0, 101, 300 );
+		 camera.lookAt(new THREE.Vector3( 0, 101, 0 ));*/
 
-            // Create renderer and allow transparent backgroun-color
-            renderer = new THREE.WebGLRenderer({
-                alpha: true
-            });
-            // Set size with width and height of the div-overlay-container
-            renderer.setSize(overlay_container.width(), overlay_container.height());
-            // Set background color to transparent
-            renderer.setClearColor(0xffffff, 0);
-            // Add canvas to overlay_container
-            overlay_container.append(renderer.domElement);
+        // Create renderer and allow transparent backgroun-color
+        renderer = new THREE.WebGLRenderer({
+            alpha: true
+        });
+        // Set size with width and height of the div-overlay-container
+        renderer.setSize(overlay_container.width(), overlay_container.height());
+        // Set background color to transparent
+        renderer.setClearColor(0xffffff, 0);
+        // Add canvas to overlay_container
+        overlay_container.append(renderer.domElement);
 
-            control = new THREE.TransformControls(camera, renderer.domElement);
-			control.addEventListener('change', render );
+        control = new THREE.TransformControls(camera, renderer.domElement);
+        control.addEventListener('change', render );
 
 
-            var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-            var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-            cube = new THREE.Mesh( geometry, material );
-            scene.add( cube );
-            control.attach(cube);
-            scene.add(control);
+        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+        var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+        cube = new THREE.Mesh( geometry, material );
+        scene.add( cube );
+        control.attach(cube);
+        scene.add(control);
 
-            window.addEventListener( 'keydown', function ( event ) {
-                switch (event.keyCode) {
-                    case 81: // Q
-                        control.setSpace(control.space === "local" ? "world" : "local");
-                        break;
-                    case 17: // Ctrl
-                        control.setTranslationSnap(100);
-                        control.setRotationSnap(THREE.Math.degToRad(15));
-                        break;
-                    case 87: // W
-                        control.setMode("translate");
-                        break;
-                    case 69: // E
-                        control.setMode("rotate");
-                        break;
-                    case 82: // R
-                        control.setMode("scale");
-                        break;
-                    case 187:
-                    case 107: // +, =, num+
-                        control.setSize(control.size + 0.1);
-                        break;
-                    case 189:
-                    case 109: // -, _, num-
-                        control.setSize(Math.max(control.size - 0.1, 0.1));
-                        break;
-                }
-            });
+        var controlsOn = false;
+        $(document).keyup(function(e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                // <DO YOUR WORK HERE>
+            }
+        });
 
-            window.addEventListener( 'keyup', function ( event ) {
-                switch ( event.keyCode ) {
-                    case 17: // Ctrl
-                        control.setTranslationSnap( null );
-                        control.setRotationSnap( null );
-                        break;
-                }
-            });
+        window.addEventListener( 'keydown', function ( event ) {
+            switch (event.keyCode) {
+                case 81: // Q
+                    control.setSpace(control.space === "local" ? "world" : "local");
+                    break;
+                case 17: // Ctrl
+                    control.setTranslationSnap(100);
+                    control.setRotationSnap(THREE.Math.degToRad(15));
+                    break;
+                case 84: // T
+                    control.setMode("translate");
+                    break;
+                case 82: // R
+                    control.setMode("rotate");
+                    break;
+                case 68: // D
+                    control.setMode("scale");
+                    break;
+                case 83: // S
+                    control.setMode("scale");
+                    break;
+                case 187:
+                case 107: // +, =, num+
+                    control.setSize(control.size + 0.1);
+                    break;
+                case 189:
+                case 109: // -, _, num-
+                    control.setSize(Math.max(control.size - 0.1, 0.1));
+                    break;
+            }
+        });
 
-            camera.position.z = 5;
+        window.addEventListener( 'keyup', function ( event ) {
+            switch ( event.keyCode ) {
+                case 17: // Ctrl
+                    control.setTranslationSnap( null );
+                    control.setRotationSnap( null );
+                    break;
+            }
+        });
 
-            render();
+        camera.position.z = 5;
 
-            window.addEventListener( 'resize', onWindowResize, false );
-        }
+        render();
 
-        var render = function () {
-            control.update();
-            requestAnimationFrame( render );
+        window.addEventListener( 'resize', onWindowResize, false );
+    }
 
-            cube.rotation.x += 0.1;
-            cube.rotation.y += 0.1;
+    var render = function () {
+        control.update();
+        requestAnimationFrame( render );
 
-            renderer.render(scene, camera);
-        };
+        renderer.render(scene, camera);
+    };
 
-        function onWindowResize(){
+    function onWindowResize(){
 
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
 
-            renderer.setSize(overlay_container.width(), overlay_container.height());        }
+        renderer.setSize(overlay_container.width(), overlay_container.height());
+    }
 
-		</script>
-	</body>
+</script>
+</body>
 </html>
