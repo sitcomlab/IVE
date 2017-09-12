@@ -83,6 +83,14 @@ node.Locations {
   diameter: 80px;
 }
 
+node.abstractLocations {
+  color: #32CD32;
+  border-color: #2CB32C;
+  text-color-internal: #FFFFFF;
+  caption: '{name}';
+  diameter: 80px;
+}
+
 node.Videos {
   color: #DC143C;
   border-color: #C71236;

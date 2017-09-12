@@ -41,6 +41,9 @@ queries.push(fs.readFileSync(__dirname + dir + 'import_connected_to.cypher', 'ut
 queries.push(fs.readFileSync(__dirname + dir + 'import_recorded_at.cypher', 'utf8').toString());
 queries.push(fs.readFileSync(__dirname + dir + 'import_embedded_in.cypher', 'utf8').toString());
 
+// Set new label
+queries.push(fs.readFileSync(__dirname + dir + 'create_abstract_locations_label.cypher', 'utf8').toString());
+
 
 async.forEachOf(queries, function (query, key, callback) {
     // Run query
