@@ -2,6 +2,8 @@ node_modules
 public/bower_components
 public/images/*
 public/videos/*
+public/thumbnails/*
+.env
 .DS_Store
 yarn.lock
 _site
