@@ -3,8 +3,8 @@ public/bower_components
 public/images/*
 public/videos/*
 public/thumbnails/*
-.env
 .DS_Store
+.env
 yarn.lock
 _site
 .sass-cache
