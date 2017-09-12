@@ -1,7 +1,7 @@
 CREATE (l:Locations {
     created: timestamp(),
     updated: timestamp(),
-    l_id: {l_id},
+    location_uuid: {location_uuid},
     name: {name},
     description: {description},
     lat: {lat},
@@ -11,7 +11,7 @@ CREATE (l:Locations {
     ID(l) AS location_id,
     l.created AS created,
     l.updated AS updated,
-    l.l_id AS l_id,
+    l.location_uuid AS location_uuid,
     l.name AS name,
     l.description AS description,
     l.lat AS lat,

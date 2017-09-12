@@ -10,6 +10,15 @@ body {
     margin-top: 60px;
 }
 
+.navbar {
+    height: 60px;
+}
+
+.view {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
 footer {
     position: absolute;
     bottom: 0;
@@ -36,6 +45,27 @@ footer {
 
 .link:hover {
     text-decoration: none;
+}
+
+
+#map {
+    width: 100%;
+    top: 60px;
+    position: absolute;
+}
+
+
+.previewMap {
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+.previewVideo {
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+
+.uuid {
+    cursor: pointer;
 }
 
 

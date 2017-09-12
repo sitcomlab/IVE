@@ -1,13 +1,13 @@
 MATCH (start:Locations)-[r:connected_to]->(end:Locations)
 WHERE
     // Start locations
-    toLower(start.l_id) CONTAINS toLower({search_term}) OR
+    toLower(start.location_uuid) CONTAINS toLower({search_term}) OR
 	toLower(start.name) CONTAINS toLower({search_term}) OR
 	toLower(start.description) CONTAINS toLower({search_term}) OR
 	start.lat CONTAINS toLower({search_term}) OR
 	start.lng CONTAINS toLower({search_term}) OR
     // End locations
-    toLower(end.l_id) CONTAINS toLower({search_term}) OR
+    toLower(end.location_uuid) CONTAINS toLower({search_term}) OR
 	toLower(end.name) CONTAINS toLower({search_term}) OR
 	toLower(end.description) CONTAINS toLower({search_term}) OR
 	end.lat CONTAINS toLower({search_term}) OR
@@ -16,13 +16,13 @@ WITH count(r) AS full_count
 MATCH (start:Locations)-[r:connected_to]->(end:Locations)
 WHERE
     // Start locations
-    toLower(start.l_id) CONTAINS toLower({search_term}) OR
+    toLower(start.location_uuid) CONTAINS toLower({search_term}) OR
     toLower(start.name) CONTAINS toLower({search_term}) OR
     toLower(start.description) CONTAINS toLower({search_term}) OR
     start.lat CONTAINS toLower({search_term}) OR
     start.lng CONTAINS toLower({search_term}) OR
     // End locations
-    toLower(end.l_id) CONTAINS toLower({search_term}) OR
+    toLower(end.location_uuid) CONTAINS toLower({search_term}) OR
     toLower(end.name) CONTAINS toLower({search_term}) OR
     toLower(end.description) CONTAINS toLower({search_term}) OR
     end.lat CONTAINS toLower({search_term}) OR
@@ -32,7 +32,7 @@ RETURN
     ID(start) AS start_location_id,
     start.created AS start_location_created,
     start.updated AS start_location_updated,
-    start.l_id AS start_l_id,
+    start.location_uuid AS start_location_uuid,
     start.name AS start_location_name,
     start.description AS start_location_description,
     start.lat AS start_location_lat,
@@ -44,7 +44,7 @@ RETURN
     ID(end) AS end_location_id,
     end.created AS end_location_created,
     end.updated AS end_location_updated,
-    end.l_id AS end_l_id,
+    end.location_uuid AS end_location_uuid,
     end.name AS end_location_name,
     end.description AS end_location_description,
     end.lat AS end_location_lat,

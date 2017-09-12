@@ -2,7 +2,7 @@
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'file:///overlays.csv' AS line FIELDTERMINATOR ','
 CREATE (overlay:Overlays {
-    o_id: line.`o_id`,
+    overlay_uuid: line.`overlay_uuid`,
     name: line.`name`,
     description: line.`description`,
     category: line.`category`,

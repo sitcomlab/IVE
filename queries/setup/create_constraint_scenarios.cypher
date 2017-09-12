@@ -1,2 +1,2 @@
 // Unique Scenario Id
-CREATE CONSTRAINT ON (scenario:Scenarios) ASSERT scenario.s_id IS UNIQUE;
+CREATE CONSTRAINT ON (scenario:Scenarios) ASSERT scenario.scenario_uuid IS UNIQUE;

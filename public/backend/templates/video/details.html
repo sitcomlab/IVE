@@ -7,20 +7,27 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
                 <div class="btn-group">
-                    <button class="btn btn-info" role="button" ng-click="redirect('/videos/' + video.video_id + '/edit')">
+                    <button class="btn btn-info" type="button" ng-click="redirect('/videos/' + video.video_id + '/edit')">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-danger" role="button" ng-click="redirect('/videos/' + video.video_id + '/delete')">
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/videos/' + video.video_id + '/delete')">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </div>
-                <button class="btn btn-secondary" role="button" ng-click="redirect('/videos')">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/videos')">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
     </div>
     <div class="card-block">
+        <div ng-if="video.thumbnails > 0">
+            <h6>{{ 'PREVIEW' | translate }}</h6>
+            <img class="previewVideo" ng-src="{{ video | previewVideo }}" alt="{{video.name}}" style="max-width: 100%; height: auto;">
+            <br>
+            <br>
+        </div>
+
         <h6>{{ 'PROPERTIES' | translate }}</h6>
         <table class="table table-bordered">
             <tbody>
@@ -29,15 +36,17 @@
                         {{ 'ID' | translate }}
                     </th>
                     <td>
-                        <code>{{video.video_id}}</code>
+                        <kbd>{{video.video_id}}</kbd>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        {{ 'EXPORT_ID' | translate }}
+                        {{ 'UUID' | translate }}
                     </th>
                     <td>
-                        <kbd>{{video.v_id}}</kbd>
+                        <code class="uuid" ngclipboard data-clipboard-text="{{video.video_uuid}}">
+                            {{video.video_uuid}}
+                        </code>
                     </td>
                 </tr>
                 <tr>
@@ -53,8 +62,8 @@
                         {{ 'DESCRIPTION' | translate }}
                     </th>
                     <td>
-                        <kbd ng-if="video.description!=null">{{video.description}}</kbd>
-                        <span class="text-muted" ng-if="video.description==null">-</span>
+                        <kbd ng-if="video.description != null && video.description != '' ">{{video.description}}</kbd>
+                        <span class="text-muted" ng-if="video.description == null || video.description == '' ">-</span>
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +71,7 @@
                         {{ 'URL' | translate }}
                     </th>
                     <td>
-                        <kbd>{{video.url}}</kbd>
+                        <kbd>{{video.url}}</kbd> <kbd>.mp4 | .ogg</kbd>
                     </td>
                 </tr>
                 <tr>
@@ -70,8 +79,8 @@
                         {{ 'RECORDED' | translate }}
                     </th>
                     <td>
-                        <kbd ng-if="video.recorded!=null">{{video.recorded}}</kbd>
-                        <span class="text-muted" ng-if="video.description==null">-</span>
+                        <kbd ng-if="video.recorded != null && video.recorded != '' ">{{video.recorded}}</kbd>
+                        <span class="text-muted" ng-if="video.recorded == null || video.recorded == '' ">-</span>
                     </td>
                 </tr>
                 <tr>
@@ -121,5 +130,5 @@
             <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
         </a>
     </div>
-    
+
 </div>

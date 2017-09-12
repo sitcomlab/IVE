@@ -14,7 +14,7 @@ RETURN
     ID(o) AS overlay_id,
     o.created AS created,
     o.updated AS updated,
-    o.o_id AS o_id,
+    o.overlay_uuid AS overlay_uuid,
     o.name AS name,
     o.description AS description,
     o.category AS category,

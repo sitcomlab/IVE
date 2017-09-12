@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<div class="card">
+    <div class="card-header" style="font-size: 20pt;">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE_RELATIONSHIP' | translate }}
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/relationships/' + relationship_label + '/' + relationship.relationship_id + ('/' + relationship_type || '') )">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+
+        <div class="list-group">
+            <div class="list-group-item">
+
+                <!-- belongs_to -->
+                <div style="width:100%;" ng-if="relationship_label == 'belongs_to' ">
+                    <!-- location -->
+                    <div style="width: 33.33333333%; float: left;" ng-if="relationship_type == 'location' ">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.location_type=='outdoor',
+                            'badge-default': relationship.location_type=='indoor',
+                            'badge-success': relationship.location_type=='abstract'
+                        }">{{relationship.location_type}}</span>
+                        <br>
+                        <img class="previewMap" ng-src="{{ relationship.location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.location_id|findLocationById:locations).lat !== null && (relationship.location_id|findLocationById:locations).lng !== null">
+                    </div>
+                    <!-- video -->
+                    <div style="width: 33.33333333%; float: left;" ng-if="relationship_type == 'video' ">
+                        <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                    </div>
+                    <!-- overlay -->
+                    <div style="width: 33.33333333%; float: left;" ng-if="relationship_type == 'overlay' ">
+                        <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
+                    </div>
+                    <div class="middle" style="width: 33.33333333%; float: left; padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <div class="right" style="width: 33.33333333%; float: left;">
+                        <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.scenario_name}}
+                    </div>
+                </div>
+
+                <!-- connected_to -->
+                <div style="width:100%;" ng-if="relationship_label == 'connected_to' ">
+                    <div style="width: 33.33333333%; float: left;">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.start_location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.start_location_type=='outdoor',
+                            'badge-default': relationship.start_location_type=='indoor',
+                            'badge-success': relationship.start_location_type=='abstract'
+                        }">{{relationship.start_location_type}}</span>
+                        <br>
+                        <img class="previewMap" ng-src="{{ relationship.start_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.start_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.start_location_id|findLocationById:locations).lat !== null && (relationship.start_location_id|findLocationById:locations).lng !== null">
+                    </div>
+                    <div class="middle" style="width: 33.33333333%; float: left; padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;CONNECTED_TO&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <div class="right" style="width: 33.33333333%; float: left;">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.end_location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.end_location_type=='outdoor',
+                            'badge-default': relationship.end_location_type=='indoor',
+                            'badge-success': relationship.end_location_type=='abstract'
+                        }">{{relationship.end_location_type}}</span>
+                        <br>
+                        <img class="previewMap" ng-src="{{ relationship.end_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.end_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.end_location_id|findLocationById:locations).lat !== null && (relationship.end_location_id|findLocationById:locations).lng !== null">
+                    </div>
+                </div>
+
+                <!-- embedded_in -->
+                <div style="width:100%;" ng-if="relationship_label == 'embedded_in' ">
+                    <div style="width: 33.33333333%; float: left;">
+                        <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.overlay_name}}
+                    </div>
+                    <div class="middle" style="width: 33.33333333%; float: left; padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;EMBEDDED_IN&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <div class="right" style="width: 33.33333333%; float: left;">
+                        <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                    </div>
+                </div>
+
+                <!-- has_parent_location -->
+                <div style="width:100%;" ng-if="relationship_label == 'has_parent_location' ">
+                    <div style="width: 33.33333333%; float: left;">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.child_location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.child_location_type=='outdoor',
+                            'badge-default': relationship.child_location_type=='indoor',
+                            'badge-success': relationship.child_location_type=='abstract'
+                        }">{{relationship.child_location_type}}</span>
+                        <br>
+                        <img class="previewMap" ng-src="{{ relationship.child_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.child_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.child_location_id|findLocationById:locations).lat !== null && (relationship.child_location_id|findLocationById:locations).lng !== null">
+                    </div>
+                    <div class="middle" style="width: 33.33333333%; float: left; padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;HAS_PARENT_LOCATION&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <div class="right" style="width: 33.33333333%; float: left;">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.parent_location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.parent_location_type=='outdoor',
+                            'badge-default': relationship.parent_location_type=='indoor',
+                            'badge-success': relationship.parent_location_type=='abstract'
+                        }">{{relationship.parent_location_type}}</span>
+                        <br>
+                        <img class="previewMap" ng-src="{{ relationship.parent_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.parent_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.parent_location_id|findLocationById:locations).lat !== null && (relationship.parent_location_id|findLocationById:locations).lng !== null">
+                    </div>
+                </div>
+
+                <!-- recorded_at -->
+                <div style="width:100%;" ng-if="relationship_label == 'recorded_at' ">
+                    <div style="width: 33.33333333%; float: left;">
+                        <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                    </div>
+                    <div class="middle" style="width: 33.33333333%; float: left; padding-left: 5px; padding-right: 5px;">
+                        <span class="badge badge-pill badge-default">
+                            &mdash;&nbsp;RECORDED_AT&nbsp;&mdash;&gt;
+                        </span>
+                    </div>
+                    <div class="right" style="width: 33.33333333%; float: left;">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
+                        <span class="badge" ng-class="{
+                            'badge-primary': relationship.location_type=='outdoor',
+                            'badge-default': relationship.location_type=='indoor',
+                            'badge-success': relationship.location_type=='abstract'
+                        }">{{relationship.location_type}}</span>
+                        <br>
+                        <img class="previewMap" ng-src="{{ relationship.location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.location_id|findLocationById:locations).lat !== null && (relationship.location_id|findLocationById:locations).lng !== null">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br>
+        <h5>
+            {{ 'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS' | translate }} <code>{{ relationship_label | uppercase }}</code> {{ ' RELATIONSHIP' | translate }}?
+        </h5>
+        <br>
+        <label>
+            <b>{{ 'TYPE' | translate }}</b>
+        </label>
+        <input type="text" class="form-control" ng-model="input" id="name" placeholder="{{ 'RELATIONSHIP_LABEL' | translate }}" autofocus>
+        <small class="form-text text-muted">
+            {{ 'PLEASE_TYPE_IN_THE_LABEL_OF_THIS_RELATIONSHIP_TO_CONFIRM' | translate }}
+        </small>
+        <br>
+    </div>
+    <div class="card-footer right">
+        <button class="btn btn-danger" type="button" ng-click="delete()" ng-disabled="(input | lowercase) != relationship_label">
+            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
+        </button>
+    </div>
+
+</div>

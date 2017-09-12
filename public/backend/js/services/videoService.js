@@ -22,9 +22,10 @@ app.factory('$videoService', function($http, config, $authenticationService) {
         init: function() {
             return {
                 name: "",
-                description: "",
+                description: null,
                 url: "",
-                recorded: ""
+                recorded: null,
+                thumbnails: 0
             };
         },
         getCount: function(){

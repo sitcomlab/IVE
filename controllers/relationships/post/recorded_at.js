@@ -57,6 +57,7 @@ exports.request = function(req, res) {
             var params = {
                 video_id: req.body.video_id,
                 location_id: req.body.location_id,
+                description: req.body.description,
                 preferred: req.body.preferred
             };
 

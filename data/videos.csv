@@ -1,70 +1,70 @@
-v_id,name,url,description,description_german,recorded
-v_01,Schlossplatz,/videos/muenster-city-center/task01,Schlossplatz,Schlossplatz,2014-04-03 11:56:00
-v_02,Frauenstraße [1],/videos/muenster-city-center/task02,Frauenstraße [1],Frauenstraße [1],2014-04-03 12:43:00
-v_03,Frauenstraße [2],/videos/muenster-city-center/task03,Frauenstraße [2],Frauenstraße [2],2014-04-03 13:25:00
-v_04,Krummer Timpen,/videos/muenster-city-center/task04,Krummer Timpen,Krummer Timpen,2014-04-03 14:09:00
-v_05,Juridicum,/videos/muenster-city-center/task05,Juridicum,Juridicum,2014-04-03 13:52:00
-v_06,Jesuitengang,/videos/muenster-city-center/task06,Jesuitengang,Jesuitengang,2014-04-03 14:50:00
-v_07,Pferdegasse,/videos/muenster-city-center/task07,Pferdegasse,Pferdegasse,2014-05-02 09:40:00
-v_08,Fürstenberghaus,/videos/muenster-city-center/task08,Fürstenberghaus,Fürstenberghaus,2014-05-02 10:23:00
-v_09,Domplatz,/videos/muenster-city-center/task09,Domplatz,Domplatz,2014-05-02 11:01:00
-v_10,Main station (inside),/videos/muenster-main-station/main-station-inside,Main station (inside),Hauptbahnhof (innen),
-v_11,Main station (side entrance),/videos/muenster-main-station/main-station-side-entrance,Main station (side entrance),Hauptbahnhof (Seiteneingang),
-v_12,Main station (pedestrian area) [1],/videos/muenster-main-station/main-station-pedestrian-area-1,Main station (pedestrian area) [1],Hauptbahnhof (Fußgängerzone) [1],
-v_13,Main station (pedestrian area) [2],/videos/muenster-main-station/main-station-pedestrian-area-2,Main station (pedestrian area) [2],Hauptbahnhof (Fußgängerzone) [2],
-v_14,Main station (pedestrian crossing) [1],/videos/muenster-main-station/main-station-pedestrian-crossing-1,Main station (pedestrian crossing) [1],Hauptbahnhof (Fußgängerampel) [1],
-v_15,Main station (pedestrian crossing) [2],/videos/muenster-main-station/main-station-pedestrian-crossing-2,Main station (pedestrian crossing) [2],Hauptbahnhof (Fußgängerampel) [2],
-v_16,Bahnhofsstraße,/videos/muenster-main-station/bahnhofsstrasse,Bahnhofsstraße,Bahnhofsstraße,
-v_17,Berliner Platz,/videos/muenster-main-station/berliner-platz,Berliner Platz,Berliner Platz,
-v_18,Bremer Platz [1],/videos/muenster-main-station/bremer-platz-1,Bremer Platz [1],Bremer Platz [1],
-v_19,Bremer Platz [2],/videos/muenster-main-station/bremer-platz-2,Bremer Platz [2],Bremer Platz [2],
-v_20,Hafenstraße,/videos/muenster-main-station/hafenstrasse,Hafenstraße,Hafenstraße,
-v_21,Windthorststraße,/videos/muenster-main-station/windthorststrasse,Windthorststraße,Windthorststraße,
-v_22,Heisenbergstraße (car entrance),/videos/geo-1/heisenbergstrasse-car-entrance,Heisenbergstraße (car entrance),Heisenbergstraße (Einfahrt),
-v_23,Heisenbergstraße (parking lots),/videos/geo-1/heisenbergstrasse-parking-lots,Heisenbergstraße (parking lots),Heisenbergstraße (Parkplatz),
-v_24,GEO-1 (main entrance),/videos/geo-1/geo1-main-entrance,GEO-1 (main entrance),GEO-1 (Haupteingang),
-v_25,Ground floor (atrium),/videos/geo-1/geo1-level-0-atrium-1,Ground floor (atrium),Erdgeschoss (Atrium),
-v_26,Ground floor (elevator),/videos/geo-1/geo1-level-0-elevator,Ground floor (elevator),Erdgeschoss (Aufzug),
-v_27,Ground floor (stairs),/videos/geo-1/geo1-level-0-stairs,Ground floor (stairs),Erdgeschoss (Hintere Treppe),
-v_28,Ground floor (IVVGeo),/videos/geo-1/geo1-level-0-ivvgeo,Ground floor (IVVGeo),Erdgeschoss (IVVGeo),
-v_29,Ground floor (2nd atrium) [1],/videos/geo-1/geo1-level-0-atrium-2-1,Ground floor (2nd atrium) [1],Erdgeschoss (2. Atrium) [1],
-v_30,Ground floor (2nd atrium) [2],/videos/geo-1/geo1-level-0-atrium-2-2,Ground floor (2nd atrium) [2],Erdgeschoss (2. Atrium) [2],
-v_31,Ground floor (lecture room),/videos/geo-1/geo1-level-0-lecture-room,Ground floor (lecture room),Erdgeschoss (Hörsaal),
-v_32,1st floor (atrium),/videos/geo-1/geo1-level-1-atrium,1st floor (atrium),1. Stock (Atrium),
-v_33,1st floor (stairwell),/videos/geo-1/geo1-level-1-stairwell,1st floor (stairwell),1. Stock (Treppenhaus),
-v_34,2nd floor (stairwell),/videos/geo-1/geo1-level-2-stairwell,2nd floor (stairwell),2. Stock (Treppenhaus),
-v_35,4th floor (stairwell),/videos/geo-1/geo1-level-4-stairwell,4th floor (stairwell),4. Stock (Treppenhaus),
-v_36,2DP1-E,/videos/geo-1-level-2/2DP1-E,2DP1-E,,
-v_37,2DP1-S,/videos/geo-1-level-2/2DP1-S,2DP1-S,,
-v_38,2DP1-W,/videos/geo-1-level-2-floor/2DP1-W,2DP1-W,,
-v_39,2DP2-E,/videos/geo-1-level-2-floor/2DP2-E,2DP2-E,,
-v_40,2DP2-W,/videos/geo-1-level-2-floor/2DP2-W,2DP2-W,,
-v_41,2DP3-E,/videos/geo-1-level-2-floor/2DP3-E,2DP3-E,,
-v_42,2DP3-N,/videos/geo-1-level-2-floor/2DP3-N,2DP3-N,,
-v_43,2DP3-W,/videos/geo-1-level-2-floor/2DP3-W,2DP3-W,,
-v_44,2DP4-N,/videos/geo-1-level-2-floor/2DP4-N,2DP4-N,,
-v_45,2DP4-S,/videos/geo-1-level-2-floor/2DP4-S,2DP4-S,,
-v_46,2DP4-W,/videos/geo-1-level-2-floor/2DP4-W,2DP4-W,,
-v_47,2DP5-E,/videos/geo-1-level-2-floor/2DP5-E,2DP5-E,,
-v_48,2DP5-N,/videos/geo-1-level-2-floor/2DP5-N,2DP5-N,,
-v_49,2DP5-W,/videos/geo-1-level-2-floor/2DP5-W,2DP5-W,,
-v_50,2DP6-N,/videos/geo-1-level-2-floor/2DP6-N,2DP6-N,,
-v_51,2DP6-S,/videos/geo-1-level-2-floor/2DP6-S,2DP6-S,,
-v_52,2DP6-W,/videos/geo-1-level-2-floor/2DP6-W,2DP6-W,,
-v_53,2DP7-N,/videos/geo-1-level-2-floor/2DP7-N,2DP7-N,,
-v_54,2DP7-S,/videos/geo-1-level-2-floor/2DP7-S,2DP7-S,,
-v_55,2DP8-N,/videos/geo-1-level-2-floor/2DP8-N,2DP8-N,,
-v_56,2DP8-S,/videos/geo-1-level-2-floor/2DP8-S,2DP8-S,,
-v_57,2DP8-W,/videos/geo-1-level-2-floor/2DP8-W,2DP8-W,,
-v_58,2DP9-E,/videos/geo-1-level-2-floor/2DP9-E,2DP9-E,,
-v_59,2DP9-N,/videos/geo-1-level-2-floor/2DP9-N,2DP9-N,,
-v_60,2DP9-S,/videos/geo-1-level-2-floor/2DP9-S,2DP9-S,,
-v_61,2DP10-E,/videos/geo-1-level-2-floor/2DP10-E,2DP10-E,,
-v_62,2DP10-N,/videos/geo-1-level-2-floor/2DP10-N,2DP10-N,,
-v_63,2DP10-W,/videos/geo-1-level-2-floor/2DP10-W,2DP10-W,,
-v_64,2DP11-E,/videos/geo-1-level-2-floor/2DP11-E,2DP11-E,,
-v_65,2DP11-S,/videos/geo-1-level-2-floor/2DP11-S,2DP11-S,,
-v_66,2DP11-W,/videos/geo-1-level-2-floor/2DP11-W,2DP11-W,,
-v_67,2DP12-E,/videos/geo-1-level-2-floor/2DP12-E,2DP12-E,,
-v_68,2DP12-N,/videos/geo-1-level-2-floor/2DP12-N,2DP12-N,,
-v_69,2DP12-W,/videos/geo-1-level-2-floor/2DP12-W,2DP12-W,,
+video_uuid,name,url,description,description_german,recorded,thumbnails
+v_01,Schlossplatz,/muenster-city-center/task01,Schlossplatz,Schlossplatz,2014-04-03 11:56:00,312
+v_02,Frauenstraße [1],/muenster-city-center/task02,Frauenstraße [1],Frauenstraße [1],2014-04-03 12:43:00,294
+v_03,Frauenstraße [2],/muenster-city-center/task03,Frauenstraße [2],Frauenstraße [2],2014-04-03 13:25:00,307
+v_04,Krummer Timpen,/muenster-city-center/task04,Krummer Timpen,Krummer Timpen,2014-04-03 14:09:00,252
+v_05,Juridicum,/muenster-city-center/task05,Juridicum,Juridicum,2014-04-03 13:52:00,293
+v_06,Jesuitengang,/muenster-city-center/task06,Jesuitengang,Jesuitengang,2014-04-03 14:50:00,298
+v_07,Pferdegasse,/muenster-city-center/task07,Pferdegasse,Pferdegasse,2014-05-02 09:40:00,302
+v_08,Fürstenberghaus,/muenster-city-center/task08,Fürstenberghaus,Fürstenberghaus,2014-05-02 10:23:00,268
+v_09,Domplatz,/muenster-city-center/task09,Domplatz,Domplatz,2014-05-02 11:01:00,168
+v_10,Main station (inside),/muenster-main-station/main-station-inside,Main station (inside),Hauptbahnhof (innen),,162
+v_11,Main station (side entrance),/muenster-main-station/main-station-side-entrance,Main station (side entrance),Hauptbahnhof (Seiteneingang),,125
+v_12,Main station (pedestrian area) [1],/muenster-main-station/main-station-pedestrian-area-1,Main station (pedestrian area) [1],Hauptbahnhof (Fußgängerzone) [1],,175
+v_13,Main station (pedestrian area) [2],/muenster-main-station/main-station-pedestrian-area-2,Main station (pedestrian area) [2],Hauptbahnhof (Fußgängerzone) [2],,143
+v_14,Main station (pedestrian crossing) [1],/muenster-main-station/main-station-pedestrian-crossing-1,Main station (pedestrian crossing) [1],Hauptbahnhof (Fußgängerampel) [1],,176
+v_15,Main station (pedestrian crossing) [2],/muenster-main-station/main-station-pedestrian-crossing-2,Main station (pedestrian crossing) [2],Hauptbahnhof (Fußgängerampel) [2],,182
+v_16,Bahnhofsstraße,/muenster-main-station/bahnhofsstrasse,Bahnhofsstraße,Bahnhofsstraße,,170
+v_17,Berliner Platz,/muenster-main-station/berliner-platz,Berliner Platz,Berliner Platz,,165
+v_18,Bremer Platz [1],/muenster-main-station/bremer-platz-1,Bremer Platz [1],Bremer Platz [1],,174
+v_19,Bremer Platz [2],/muenster-main-station/bremer-platz-2,Bremer Platz [2],Bremer Platz [2],,176
+v_20,Hafenstraße,/muenster-main-station/hafenstrasse,Hafenstraße,Hafenstraße,,162
+v_21,Windthorststraße,/muenster-main-station/windthorststrasse,Windthorststraße,Windthorststraße,,176
+v_22,Heisenbergstraße (car entrance),/geo-1/heisenbergstrasse-car-entrance,Heisenbergstraße (car entrance),Heisenbergstraße (Einfahrt),,76
+v_23,Heisenbergstraße (parking lots),/geo-1/heisenbergstrasse-parking-lots,Heisenbergstraße (parking lots),Heisenbergstraße (Parkplatz),,70
+v_24,GEO-1 (main entrance),/geo-1/geo1-main-entrance,GEO-1 (main entrance),GEO-1 (Haupteingang),,79
+v_25,Ground floor (atrium),/geo-1/geo1-level-0-atrium-1,Ground floor (atrium),Erdgeschoss (Atrium),,59
+v_26,Ground floor (elevator),/geo-1/geo1-level-0-elevator,Ground floor (elevator),Erdgeschoss (Aufzug),,52
+v_27,Ground floor (stairs),/geo-1/geo1-level-0-stairs,Ground floor (stairs),Erdgeschoss (Hintere Treppe),,25
+v_28,Ground floor (IVVGeo),/geo-1/geo1-level-0-ivvgeo,Ground floor (IVVGeo),Erdgeschoss (IVVGeo),,57
+v_29,Ground floor (2nd atrium) [1],/geo-1/geo1-level-0-atrium-2-1,Ground floor (2nd atrium) [1],Erdgeschoss (2. Atrium) [1],,59
+v_30,Ground floor (2nd atrium) [2],/geo-1/geo1-level-0-atrium-2-2,Ground floor (2nd atrium) [2],Erdgeschoss (2. Atrium) [2],,66
+v_31,Ground floor (lecture room),/geo-1/geo1-level-0-lecture-room,Ground floor (lecture room),Erdgeschoss (Hörsaal),,43
+v_32,1st floor (atrium),/geo-1/geo1-level-1-atrium,1st floor (atrium),1. Stock (Atrium),,28
+v_33,1st floor (stairwell),/geo-1/geo1-level-1-stairwell,1st floor (stairwell),1. Stock (Treppenhaus),,59
+v_34,2nd floor (stairwell),/geo-1/geo1-level-2-stairwell,2nd floor (stairwell),2. Stock (Treppenhaus),,60
+v_35,4th floor (stairwell),/geo-1/geo1-level-4-stairwell,4th floor (stairwell),4. Stock (Treppenhaus),,50
+v_36,2DP1-E,/geo-1-level-2/2DP1-E,2DP1-E,,,288
+v_37,2DP1-S,/geo-1-level-2/2DP1-S,2DP1-S,,,128
+v_38,2DP1-W,/geo-1-level-2-floor/2DP1-W,2DP1-W,,,300
+v_39,2DP2-E,/geo-1-level-2-floor/2DP2-E,2DP2-E,,,217
+v_40,2DP2-W,/geo-1-level-2-floor/2DP2-W,2DP2-W,,,319
+v_41,2DP3-E,/geo-1-level-2-floor/2DP3-E,2DP3-E,,,310
+v_42,2DP3-N,/geo-1-level-2-floor/2DP3-N,2DP3-N,,,299
+v_43,2DP3-W,/geo-1-level-2-floor/2DP3-W,2DP3-W,,,225
+v_44,2DP4-N,/geo-1-level-2-floor/2DP4-N,2DP4-N,,,304
+v_45,2DP4-S,/geo-1-level-2-floor/2DP4-S,2DP4-S,,,199
+v_46,2DP4-W,/geo-1-level-2-floor/2DP4-W,2DP4-W,,,191
+v_47,2DP5-E,/geo-1-level-2-floor/2DP5-E,2DP5-E,,,291
+v_48,2DP5-N,/geo-1-level-2-floor/2DP5-N,2DP5-N,,,253
+v_49,2DP5-W,/geo-1-level-2-floor/2DP5-W,2DP5-W,,,289
+v_50,2DP6-N,/geo-1-level-2-floor/2DP6-N,2DP6-N,,,290
+v_51,2DP6-S,/geo-1-level-2-floor/2DP6-S,2DP6-S,,,314
+v_52,2DP6-W,/geo-1-level-2-floor/2DP6-W,2DP6-W,,,356
+v_53,2DP7-N,/geo-1-level-2-floor/2DP7-N,2DP7-N,,,356
+v_54,2DP7-S,/geo-1-level-2-floor/2DP7-S,2DP7-S,,,340
+v_55,2DP8-N,/geo-1-level-2-floor/2DP8-N,2DP8-N,,,311
+v_56,2DP8-S,/geo-1-level-2-floor/2DP8-S,2DP8-S,,,307
+v_57,2DP8-W,/geo-1-level-2-floor/2DP8-W,2DP8-W,,,215
+v_58,2DP9-E,/geo-1-level-2-floor/2DP9-E,2DP9-E,,,285
+v_59,2DP9-N,/geo-1-level-2-floor/2DP9-N,2DP9-N,,,181
+v_60,2DP9-S,/geo-1-level-2-floor/2DP9-S,2DP9-S,,,323
+v_61,2DP10-E,/geo-1-level-2-floor/2DP10-E,2DP10-E,,,234
+v_62,2DP10-N,/geo-1-level-2-floor/2DP10-N,2DP10-N,,,274
+v_63,2DP10-W,/geo-1-level-2-floor/2DP10-W,2DP10-W,,,228
+v_64,2DP11-E,/geo-1-level-2-floor/2DP11-E,2DP11-E,,,280
+v_65,2DP11-S,/geo-1-level-2-floor/2DP11-S,2DP11-S,,,303
+v_66,2DP11-W,/geo-1-level-2-floor/2DP11-W,2DP11-W,,,196
+v_67,2DP12-E,/geo-1-level-2-floor/2DP12-E,2DP12-E,,,325
+v_68,2DP12-N,/geo-1-level-2-floor/2DP12-N,2DP12-N,,,281
+v_69,2DP12-W,/geo-1-level-2-floor/2DP12-W,2DP12-W,,,388

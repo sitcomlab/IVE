@@ -12,6 +12,8 @@ var app = angular.module("ive", [
     "ngSanitize",
     "pascalprecht.translate",
     "angular-momentjs",
+    "underscore",
+    "ngclipboard",
     "com.2fdevs.videogular",
 	"com.2fdevs.videogular.plugins.controls",
 	//"com.2fdevs.videogular.plugins.overlayplay",

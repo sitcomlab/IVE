@@ -4,7 +4,7 @@ WHERE
 	AND
 		ID(s)= toInt({scenario_id})
 	AND (
-		toLower(l.l_id) CONTAINS toLower({search_term}) OR
+		toLower(l.location_uuid) CONTAINS toLower({search_term}) OR
 		toLower(l.name) CONTAINS toLower({search_term}) OR
 		toLower(l.description) CONTAINS toLower({search_term}) OR
 		l.lat CONTAINS toLower({search_term}) OR
@@ -17,7 +17,7 @@ WHERE
 	AND
 		ID(s)= toInt({scenario_id})
 	AND (
-		toLower(l.l_id) CONTAINS toLower({search_term}) OR
+		toLower(l.location_uuid) CONTAINS toLower({search_term}) OR
 		toLower(l.name) CONTAINS toLower({search_term}) OR
 		toLower(l.description) CONTAINS toLower({search_term}) OR
 		l.lat CONTAINS toLower({search_term}) OR
@@ -28,7 +28,7 @@ RETURN
     ID(l) AS location_id,
     l.created AS created,
     l.updated AS updated,
-    l.l_id AS l_id,
+    l.location_uuid AS location_uuid,
     l.name AS name,
     l.description AS description,
     l.lat AS lat,

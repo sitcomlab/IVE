@@ -7,14 +7,14 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
                 <div class="btn-group">
-                    <button class="btn btn-info" role="button" ng-click="redirect('/scenarios/' + scenario.scenario_id + '/edit')">
+                    <button class="btn btn-info" type="button" ng-click="redirect('/scenarios/' + scenario.scenario_id + '/edit')">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-danger" role="button" ng-click="redirect('/scenarios/' + scenario.scenario_id + '/delete')">
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/scenarios/' + scenario.scenario_id + '/delete')">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </div>
-                <button class="btn btn-secondary" role="button" ng-click="redirect('/scenarios')">
+                <button class="btn btn-secondary" type="button" ng-click="redirect('/scenarios')">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
@@ -29,15 +29,17 @@
                         {{ 'ID' | translate }}
                     </th>
                     <td>
-                        <code>{{scenario.scenario_id}}</code>
+                        <kbd>{{scenario.scenario_id}}</kbd>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        {{ 'EXPORT_ID' | translate }}
+                        {{ 'UUID' | translate }}
                     </th>
                     <td>
-                        <kbd>{{scenario.s_id}}</kbd>
+                        <code class="uuid" ngclipboard data-clipboard-text="{{scenario.scenario_uuid}}">
+                            {{scenario.scenario_uuid}}
+                        </code>
                     </td>
                 </tr>
                 <tr>
@@ -53,8 +55,8 @@
                         {{ 'DESCRIPTION' | translate }}
                     </th>
                     <td>
-                        <kbd ng-if="scenario.description!=null">{{scenario.description}}</kbd>
-                        <span class="text-muted" ng-if="scenario.description==null">-</span>
+                        <kbd ng-if="scenario.description != null && scenario.description != '' ">{{scenario.description}}</kbd>
+                        <span class="text-muted" ng-if="scenario.description == null || scenario.description == '' ">-</span>
                     </td>
                 </tr>
                 <tr>
@@ -105,19 +107,28 @@
             </span>
         </a>
     </div>
-    <div class="list-group list-group-flush" ng-if="scenario.locations.length>0 && relatedLocations">
-        <a href="" class="list-group-item list-group-item-action justify-content-between" ng-repeat="location in scenario.locations | orderBy: ['location_type','name']" ng-click="redirect('/locations/' + location.location_id)">
-            <span>
-                <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{location.name}}
-            </span>
-            <span class="badge" ng-class="{
-                'badge-primary': location.location_type=='outdoor',
-                'badge-default': location.location_type=='indoor',
-                'badge-success': location.location_type=='abstract'
-            }">{{location.location_type}}</span>
+    <div class="card-columns" ng-if="scenario.locations.length>0 && relatedLocations" style="padding: 20px;">
+        <a href="" ng-repeat="location in scenario.locations | orderBy: ['location_type','name']" ng-click="redirect('/locations/' + location.location_id)">
+            <div class="card">
+                <img class="card-img-top img-fluid" ng-src="{{ location | previewMapRequest }}" alt="{{location.name}}" style="height: auto;" ng-if="location.lat !== null && location.lng !== null">
+                <div class="card-block">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    &nbsp;
+                    <b>{{location.name}}</b>
+                    &nbsp;
+                    <span class="badge" ng-class="{
+                        'badge-primary': location.location_type=='outdoor',
+                        'badge-default': location.location_type=='indoor',
+                        'badge-success': location.location_type=='abstract'
+                    }">
+                        {{location.location_type}}
+                    </span>
+                </div>
+            </div>
         </a>
     </div>
     <br>
+
 
     <!-- Related Videos -->
     <div class="list-group list-group-flush" ng-if="scenario.videos.length==0">
@@ -147,9 +158,24 @@
             </span>
         </a>
     </div>
-    <div class="list-group list-group-flush" ng-if="scenario.videos.length>0 && relatedVideos">
-        <a href="" class="list-group-item list-group-item-action" ng-repeat="video in scenario.videos" ng-click="redirect('/videos/' + video.video_id)">
-            <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{video.name}}
+    <div class="card-columns" ng-if="scenario.videos.length>0 && relatedVideos" style="padding: 20px;">
+        <a href="" ng-repeat="video in scenario.videos" ng-click="redirect('/videos/' + video.video_id)">
+            <div class="card">
+                <img
+                    class="card-img-top img-fluid"
+                    ng-init="video.thumbnail = (video | thumbnail:1)"
+                    ng-src="{{video.thumbnail}}"
+                    ng-mouseover="startPreview(video)"
+                    ng-mouseout="stopPreview(video)"
+                    alt="{{video.name}}"
+                    style="height: auto;"
+                    ng-if="video.thumbnails > 0">
+                <div class="card-block">
+                    <i class="fa fa-file-video-o" aria-hidden="true"></i>
+                    &nbsp;
+                    <b>{{video.name}}</b>
+                </div>
+            </div>
         </a>
     </div>
     <br>

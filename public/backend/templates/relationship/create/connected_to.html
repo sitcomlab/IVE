@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <div class="card">
     <form class="form-horizontal" name="createRelationshipForm" ng-submit="send()">
-        <div class="card-header middle" style="font-size: 20pt;">
-            <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CREATE_NEW' | translate }} {{ 'RELATIONSHIP' | translate }}
+        <div class="card-header" style="font-size: 20pt;">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'NEW_RELATIONSHIP' | translate }}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                    <button class="btn btn-secondary" type="button" ng-click="redirect('/create/relationship')">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="card-block">
-            <br>
-
             <div class="row">
                 <div class="col-12">
                     <label>
-                        <b>{{ 'FILTER' | translate }} {{ 'LOCATIONS' | translate }} {{ 'BY' | translate }} {{ 'SCENARIO' | translate }}</b>
+                        <b>{{ 'FILTER_LOCATIONS_BY_SCENARIO' | translate }}</b>
                     </label>
                     <br>
                     <select class="custom-select form-control" ng-change="updateDropdown('locations')" ng-model="locationDropdown.scenario_id" autofocus>
@@ -33,7 +40,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <label>
-                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'START_LOCATION' | translate }}*</b>
+                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_START_LOCATION' | translate }}</b> <sup class="text-danger">*</sup>
                     </label>
                     <br>
                     <div class="form-group" ng-class="{'has-danger': createRelationshipForm.start_location_id.$invalid && !createRelationshipForm.start_location_id.$pristine}">
@@ -52,6 +59,10 @@
                             </small>
                         </span>
                     </div>
+                    <div ng-if="(relationship.start_location_id|findLocationById:locations).lat !== null && (relationship.start_location_id|findLocationById:locations).lng !== null">
+                        <img class="previewMap" ng-src="{{ relationship.start_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.start_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto;">
+                        <br>
+                    </div>
                     <br>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 middle">
@@ -63,7 +74,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <label>
-                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'END_LOCATION' | translate }}*</b>
+                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'END_LOCATION' | translate }}</b> <sup class="text-danger">*</sup>
                     </label>
                     <br>
                     <div class="form-group" ng-class="{'has-danger': createRelationshipForm.end_location_id.$invalid && !createRelationshipForm.end_location_id.$pristine}">
@@ -82,24 +93,18 @@
                             </small>
                         </span>
                     </div>
-                    <br>
+                    <div ng-if="(relationship.end_location_id|findLocationById:locations).lat !== null && (relationship.end_location_id|findLocationById:locations).lng !== null">
+                        <img class="previewMap" ng-src="{{ relationship.end_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.end_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto;">
+                        <br>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="card-footer">
-            <div class="row">
-                <div class="col">
-                    <button class="btn btn-secondary btn-block" role="button" ng-click="redirect('/relationship/connected_to')">
-                        <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'CANCEL' | translate }}
-                    </button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-success btn-block" role="submit">
-                        <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
-                    </button>
-                </div>
-            </div>
+        <div class="card-footer right">
+            <button class="btn btn-success" type="submit">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
+            </button>
         </div>
     </form>
 </div>

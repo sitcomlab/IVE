@@ -7,7 +7,7 @@
                     <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'NEW_VIDEO' | translate }}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                    <button class="btn btn-secondary" role="button" ng-click="redirect('/videos')">
+                    <button class="btn btn-secondary" type="button" ng-click="redirect('/videos')">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -15,7 +15,7 @@
         </div>
         <div class="card-block">
             <label>
-                <b>{{ 'NAME' | translate }}*</b>
+                <b>{{ 'NAME' | translate }}</b> <sup class="text-danger">*</sup>
             </label>
             <div class="form-group" ng-class="{'has-danger': createVideoForm.name.$invalid && !createVideoForm.name.$pristine}">
                 <input
@@ -24,7 +24,7 @@
                     ng-model="video.name"
                     name="name"
                     id="name"
-                    placeholder="{{ 'NAME' | translate }}*"
+                    placeholder="{{ 'NAME' | translate }}"
                     aria-describedby="inputName"
                     autofocus
                     required>
@@ -50,19 +50,66 @@
             <br>
 
             <label>
-                <b>{{ 'URL' | translate }}*</b>
+                <b>{{ 'URL' | translate }}</b> <sup class="text-danger">*</sup>
+                <small>({{ 'NO_FILENAME_EXTENSION_REQUIRED' | translate }})</small>
             </label>
             <div class="form-group" ng-class="{'has-danger': createVideoForm.url.$invalid && !createVideoForm.url.$pristine}">
-                <input
-                    type="url"
-                    class="form-control"
-                    ng-model="video.url"
-                    name="url"
-                    id="url"
-                    placeholder="{{ 'URL' | translate }}*"
-                    aria-describedby="inputUrl"
-                    required>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-file-video-o" aria-hidden="true"></i>
+                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        ng-model="video.url"
+                        name="url"
+                        id="url"
+                        placeholder="{{ 'URL' | translate }}"
+                        aria-describedby="inputUrl"
+                        required>
+                    <div class="input-group-addon">
+                        .mp4 / .ogg
+                    </div>
+                </div>
+                <small class="form-text text-muted">
+                    <b>{{ 'EXAMPLE' | translate }}</b>: <code>/geo1</code> {{ 'FOR_THE_FILES' | translate }} <code>geo1.mp4</code> {{ 'AND' | translate }} <code>geo1.ogg</code>
+                </small>
                 <span ng-show="createVideoForm.url.$error.required && !createVideoForm.url.$pristine" class="text-danger">
+                    <small>
+                        {{ 'REQUIRED' | translate }}
+                    </small>
+                </span>
+            </div>
+            <br>
+
+            <label>
+                <b>{{ 'THUMBNAILS' | translate }}</b> <sup class="text-danger">*</sup>
+                <small>({{ 'AMOUNT_OF_THUMBNAILS' | translate }})</small>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createVideoForm.thumbnails.$invalid && !createVideoForm.thumbnails.$pristine}">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    </div>
+                    <input
+                        type="number"
+                        class="form-control"
+                        ng-model="video.thumbnails"
+                        name="thumbnails"
+                        id="thumbnails"
+                        min="0"
+                        step="1"
+                        placeholder="{{ 'THUMBNAILS' | translate }}"
+                        aria-describedby="inputThumbnails"
+                        required>
+                </div>
+                <small class="form-text text-muted">
+                    <b>{{ 'EXAMPLE' | translate }}</b>: <code>42</code> {{ 'FOR_LAST_ITEM_IN_THE_FOLDER' | translate }} <code>{{config.thumbnailFolder}}/video_uuid/42.jpg</code>
+                </small>
+                <small class="form-text text-muted">
+                    <b>{{ 'ATTENTION' | translate }}</b>: {{ 'YOU_WILL_RECEIVE_A_NEW_UUID' | translate }}
+                </small>
+                <span ng-show="createVideoForm.thumbnails.$error.required && !createVideoForm.thumbnails.$pristine" class="text-danger">
                     <small>
                         {{ 'REQUIRED' | translate }}
                     </small>
@@ -74,20 +121,25 @@
                 <b>{{ 'RECORDED' | translate }}</b>
             </label>
             <div class="form-group" ng-class="{'has-danger': createVideoForm.recorded.$invalid && !createVideoForm.recorded.$pristine}">
-                <input
-                    type="datetime"
-                    class="form-control"
-                    ng-model="video.recorded"
-                    name="recorded"
-                    id="recorded"
-                    placeholder="{{ 'RECORDED' | translate }}"
-                    aria-describedby="inputRecorded"
-                    >
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </div>
+                    <input
+                        type="datetime"
+                        class="form-control"
+                        ng-model="video.recorded"
+                        name="recorded"
+                        id="recorded"
+                        placeholder="{{ 'RECORDED' | translate }}"
+                        aria-describedby="inputRecorded"
+                        >
+                </div>
             </div>
 
         </div>
         <div class="card-footer right">
-            <button class="btn btn-success" role="submit">
+            <button class="btn btn-success" type="submit">
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
             </button>
         </div>

@@ -2,7 +2,7 @@ var app = angular.module("ive");
 
 
 // Video list controller
-app.controller("videoListController", function($scope, $rootScope, $filter, $translate, $location, config, $window, $authenticationService, $videoService) {
+app.controller("videoListController", function($scope, $rootScope, $interval, $filter, $translate, $location, config, $window, $authenticationService, $videoService) {
 
     /*************************************************
         FUNCTIONS
@@ -15,6 +15,41 @@ app.controller("videoListController", function($scope, $rootScope, $filter, $tra
      */
     $scope.redirect = function(path){
         $location.url(path);
+    };
+
+    /**
+     * [startPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.startPreview = function(video) {
+        // store the interval promise
+        $scope.currentPreview = 1;
+        $scope.maxPreview = video.thumbnails;
+
+        // stops any running interval to avoid two intervals running at the same time
+        $interval.cancel(promise);
+
+        // store the interval promise
+        promise = $interval(function() {
+            var index = $scope.videos.indexOf(video);
+            if($scope.videos[index].thumbnails > 1){
+                if($scope.currentPreview >= $scope.maxPreview){
+                    $scope.currentPreview = 1;
+                }
+                $scope.videos[index].thumbnail = $filter('thumbnail')($scope.videos[index], $scope.currentPreview);
+            }
+            $scope.currentPreview++;
+        }, config.thumbnailSpeed);
+    };
+
+    /**
+     * [stopPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.stopPreview = function(video) {
+        $interval.cancel(promise);
     };
 
     /**
@@ -118,9 +153,18 @@ app.controller("videoListController", function($scope, $rootScope, $filter, $tra
 
 
     /*************************************************
+        LISTENERS
+     *************************************************/
+    $scope.$on('$destroy', function() {
+        $interval.cancel(promise);
+    });
+
+
+    /*************************************************
         INIT
      *************************************************/
     $scope.$parent.loading = { status: true, message: $filter('translate')('LOADING_VIDEOS') };
+    var promise;
 
     // Load videos
     $scope.pagination = $videoService.getPagination();

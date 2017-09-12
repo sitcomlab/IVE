@@ -1,4 +1,4 @@
-child_id,parent_id
+child_location_uuid,parent_location_uuid
 l_10_01,l_10
 l_20_01,l_20
 l_20_02,l_20

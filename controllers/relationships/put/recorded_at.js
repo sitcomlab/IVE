@@ -38,6 +38,7 @@ exports.request = function(req, res) {
             // TODO: Validate all attributes of req.body
             var params = {
                 relationship_id: req.params.relationship_id,
+                description: req.body.description,
                 preferred: req.body.relationship_preferred
             };
 

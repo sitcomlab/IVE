@@ -18,16 +18,16 @@ exports.request = function(req, res) {
     async.waterfall([
         function(callback){ // Parameter validation
 
-            // Check s_id
-            var s_id = uuid.v1();
-            if(req.body.s_id && req.body.s_id !== ""){
-                s_id = req.body.s_id;
+            // Check scenario_uuid
+            var scenario_uuid = uuid.v1();
+            if(req.body.scenario_uuid && req.body.scenario_uuid !== ""){
+                scenario_uuid = req.body.scenario_uuid;
             }
 
             // TODO: Validate all attributes of req.body
 
             var params = {
-                s_id: s_id,
+                scenario_uuid: scenario_uuid,
                 name: req.body.name,
                 description: req.body.description
             };

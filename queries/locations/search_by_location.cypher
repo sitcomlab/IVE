@@ -2,7 +2,7 @@ MATCH (start:Locations)-[r:connected_to]->(end:Locations)
 WHERE
         ID(start)= toInt({location_id})
     AND (
-        toLower(end.l_id) CONTAINS toLower({search_term}) OR
+        toLower(end.location_uuid) CONTAINS toLower({search_term}) OR
     	toLower(end.name) CONTAINS toLower({search_term}) OR
     	toLower(end.description) CONTAINS toLower({search_term}) OR
     	end.lat CONTAINS toLower({search_term}) OR
@@ -13,7 +13,7 @@ MATCH (start:Locations)-[r:connected_to]->(end:Locations)
 WHERE
         ID(start)= toInt({location_id})
     AND (
-        toLower(end.l_id) CONTAINS toLower({search_term}) OR
+        toLower(end.location_uuid) CONTAINS toLower({search_term}) OR
     	toLower(end.name) CONTAINS toLower({search_term}) OR
     	toLower(end.description) CONTAINS toLower({search_term}) OR
     	end.lat CONTAINS toLower({search_term}) OR
@@ -24,7 +24,7 @@ RETURN
     ID(end) AS location_id,
     end.created AS created,
     end.updated AS updated,
-    end.l_id AS l_id,
+    end.location_uuid AS location_uuid,
     end.name AS name,
     end.description AS description,
     end.lat AS lat,

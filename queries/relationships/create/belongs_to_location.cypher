@@ -8,7 +8,7 @@ RETURN
     ID(l) AS location_id,
     l.created AS location_created,
     l.updated AS location_updated,
-    l.l_id AS l_id,
+    l.location_uuid AS location_uuid,
     l.name AS location_name,
     l.description AS location_description,
     l.lat AS location_lat,
@@ -20,7 +20,7 @@ RETURN
     ID(s) AS scenario_id,
     s.created AS scenario_created,
     s.updated AS scenario_updated,
-    s.s_id AS s_id,
+    s.scenario_uuid AS scenario_uuid,
     s.name AS scenario_name,
     s.description AS scenario_description
 ;

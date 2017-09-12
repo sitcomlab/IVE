@@ -7,7 +7,7 @@
                     <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'NEW_SCENARIO' | translate }}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
-                    <button class="btn btn-secondary" role="button" ng-click="redirect('/scenarios')">
+                    <button class="btn btn-secondary" type="button" ng-click="redirect('/scenarios')">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -15,7 +15,7 @@
         </div>
         <div class="card-block">
             <label>
-                <b>{{ 'NAME' | translate }}*</b>
+                <b>{{ 'NAME' | translate }}</b> <sup class="text-danger">*</sup>
             </label>
             <div class="form-group" ng-class="{'has-danger': createScenarioForm.name.$invalid && !createScenarioForm.name.$pristine}">
                 <input
@@ -24,7 +24,7 @@
                     ng-model="scenario.name"
                     name="name"
                     id="name"
-                    placeholder="{{ 'NAME' | translate }}*"
+                    placeholder="{{ 'NAME' | translate }}"
                     aria-describedby="inputName"
                     autofocus
                     required>
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="card-footer right">
-            <button class="btn btn-success btn-block" role="submit">
+            <button class="btn btn-success" type="submit">
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
             </button>
         </div>

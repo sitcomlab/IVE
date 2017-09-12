@@ -28,13 +28,15 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
             $scope.createVideoForm.description.$pristine = false;
             $scope.createVideoForm.url.$pristine = false;
             $scope.createVideoForm.recorded.$pristine = false;
+            $scope.createVideoForm.thumbnails.$pristine = false;
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_VIDEO') };
 
             $videoService.create($scope.video)
             .then(function onSuccess(response) {
-                var new_video = response.data;
-                $scope.redirect("/videos/" + new_video.video_id);
+                $scope.video = response.data;
+                $window.prompt($filter('translate')('NEW_VIDEO_CREATED'), $scope.video.video_uuid);
+                $scope.redirect("/videos/" + $scope.video.video_id);
             })
             .catch(function onError(response) {
                 $window.alert(response.data);

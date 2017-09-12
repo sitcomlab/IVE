@@ -1,13 +1,15 @@
 MATCH (v:Videos)-[r:recorded_at]->(l:Locations)
 WHERE
+    // Relationship
+    toLower(r.description) CONTAINS toLower({search_term}) OR
     // Videos
-    toLower(v.v_id) CONTAINS toLower({search_term}) OR
+    toLower(v.video_uuid) CONTAINS toLower({search_term}) OR
     toLower(v.name) CONTAINS toLower({search_term}) OR
     toLower(v.description) CONTAINS toLower({search_term}) OR
     toLower(v.url) CONTAINS toLower({search_term}) OR
     toLower(v.recorded) CONTAINS toLower({search_term}) OR
     // Locations
-    toLower(l.l_id) CONTAINS toLower({search_term}) OR
+    toLower(l.location_uuid) CONTAINS toLower({search_term}) OR
     toLower(l.name) CONTAINS toLower({search_term}) OR
     toLower(l.description) CONTAINS toLower({search_term}) OR
     l.lat CONTAINS toLower({search_term}) OR
@@ -15,14 +17,16 @@ WHERE
 WITH count(r) AS full_count
 MATCH (v:Videos)-[r:recorded_at]->(l:Locations)
 WHERE
+    // Relationship
+    toLower(r.description) CONTAINS toLower({search_term}) OR
     // Videos
-    toLower(v.v_id) CONTAINS toLower({search_term}) OR
+    toLower(v.video_uuid) CONTAINS toLower({search_term}) OR
     toLower(v.name) CONTAINS toLower({search_term}) OR
     toLower(v.description) CONTAINS toLower({search_term}) OR
     toLower(v.url) CONTAINS toLower({search_term}) OR
     toLower(v.recorded) CONTAINS toLower({search_term}) OR
     // Locations
-    toLower(l.l_id) CONTAINS toLower({search_term}) OR
+    toLower(l.location_uuid) CONTAINS toLower({search_term}) OR
     toLower(l.name) CONTAINS toLower({search_term}) OR
     toLower(l.description) CONTAINS toLower({search_term}) OR
     l.lat CONTAINS toLower({search_term}) OR
@@ -32,19 +36,21 @@ RETURN
     ID(v) AS video_id,
     v.created AS video_created,
     v.updated AS video_updated,
-    v.v_id AS v_id,
+    v.video_uuid AS video_uuid,
     v.name AS video_name,
     v.description AS video_description,
     v.url AS video_url,
     v.recorded AS video_recorded,
+    v.thumbnails AS thumbnails,
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
+    r.description AS relationship_description,
     r.preferred AS relationship_preferred,
     ID(l) AS location_id,
     l.created AS location_created,
     l.updated AS location_updated,
-    l.l_id AS l_id,
+    l.location_uuid AS location_uuid,
     l.name AS location_name,
     l.description AS location_description,
     l.lat AS location_lat,

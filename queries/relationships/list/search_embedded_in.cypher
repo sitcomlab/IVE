@@ -1,12 +1,14 @@
 MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
 WHERE
+    // Relationship
+    toLower(r.description) CONTAINS toLower({search_term}) OR
     // Overlays
-    toLower(o.o_id) CONTAINS toLower({search_term}) OR
+    toLower(o.overlay_uuid) CONTAINS toLower({search_term}) OR
     toLower(o.name) CONTAINS toLower({search_term}) OR
     toLower(o.description) CONTAINS toLower({search_term}) OR
     toLower(o.url) CONTAINS toLower({search_term}) OR
     // Videos
-    toLower(v.v_id) CONTAINS toLower({search_term}) OR
+    toLower(v.video_uuid) CONTAINS toLower({search_term}) OR
     toLower(v.name) CONTAINS toLower({search_term}) OR
     toLower(v.description) CONTAINS toLower({search_term}) OR
     toLower(v.url) CONTAINS toLower({search_term}) OR
@@ -14,13 +16,15 @@ WHERE
 WITH count(r) AS full_count
 MATCH (o:Overlays)-[r:embedded_in]->(v:Videos)
 WHERE
+    // Relationship
+    toLower(r.description) CONTAINS toLower({search_term}) OR
     // Overlays
-    toLower(o.o_id) CONTAINS toLower({search_term}) OR
+    toLower(o.overlay_uuid) CONTAINS toLower({search_term}) OR
     toLower(o.name) CONTAINS toLower({search_term}) OR
     toLower(o.description) CONTAINS toLower({search_term}) OR
     toLower(o.url) CONTAINS toLower({search_term}) OR
     // Videos
-    toLower(v.v_id) CONTAINS toLower({search_term}) OR
+    toLower(v.video_uuid) CONTAINS toLower({search_term}) OR
     toLower(v.name) CONTAINS toLower({search_term}) OR
     toLower(v.description) CONTAINS toLower({search_term}) OR
     toLower(v.url) CONTAINS toLower({search_term}) OR
@@ -30,7 +34,7 @@ RETURN
     ID(o) AS overlay_id,
     o.created AS overlay_created,
     o.updated AS overlay_updated,
-    o.o_id AS o_id,
+    o.overlay_uuid AS overlay_uuid,
     o.name AS overlay_name,
     o.description AS overlay_description,
     o.category AS overlay_category,
@@ -38,6 +42,7 @@ RETURN
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,
+    r.description AS relationship_description,
     r.w AS relationship_w,
     r.h AS relationship_h,
     r.d AS relationship_d,
@@ -51,11 +56,12 @@ RETURN
     ID(v) AS video_id,
     v.created AS video_created,
     v.updated AS video_updated,
-    v.v_id AS v_id,
+    v.video_uuid AS video_uuid,
     v.name AS video_name,
     v.description AS video_description,
     v.url AS video_url,
-    v.recorded AS video_recorded
+    v.recorded AS video_recorded,
+    v.thumbnails AS thumbnails
 ORDER BY
     CASE WHEN {orderby} = 'created.asc'         THEN r.created END ASC,
     CASE WHEN {orderby} = 'created.desc'        THEN r.created END DESC,

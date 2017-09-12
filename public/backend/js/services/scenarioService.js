@@ -22,7 +22,7 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
         init: function() {
             return {
                 name: "",
-                description: ""
+                description: null
             };
         },
         getCount: function(){
