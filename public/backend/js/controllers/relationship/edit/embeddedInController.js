@@ -17,10 +17,10 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
     };
 
     /**
-     * [send description]
+     * [save description]
      * @return {[type]} [description]
      */
-    $scope.send = function(){
+    $scope.save = function(){
         // Validate input
         if($scope.editRelationshipForm.$invalid) {
             // Update UI
@@ -36,9 +36,12 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
             $scope.editRelationshipForm.display.$pristine = false;
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('SAVING_RELATIONSHIP') };
+            console.log($scope.relationship);
 
             $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
             .then(function onSuccess(response) {
+                console.log("in then");
+                console.log(response.data);
                 $scope.relationship = response.data;
                 $scope.redirect("/relationships/" + $scope.relationship_label + "/" + $scope.relationship.relationship_id);
             })

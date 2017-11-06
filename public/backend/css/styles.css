@@ -10,15 +10,6 @@ body {
     margin-top: 60px;
 }
 
-.navbar {
-    height: 60px;
-}
-
-.view {
-    padding-top: 25px;
-    padding-bottom: 25px;
-}
-
 footer {
     position: absolute;
     bottom: 0;
@@ -48,13 +39,6 @@ footer {
 }
 
 
-#map {
-    width: 100%;
-    top: 60px;
-    position: absolute;
-}
-
-
 .previewMap {
     border-radius: 3px;
     border: 1px solid rgba(0, 0, 0, .125);
@@ -63,11 +47,9 @@ footer {
     border: 1px solid rgba(0, 0, 0, .125);
 }
 
-
 .uuid {
     cursor: pointer;
 }
-
 
 .card-footer > .btn-block-xs-only, .btn-block-xs-only {
     margin-top: 1px;
@@ -111,5 +93,23 @@ footer {
 
 /* https://docs.angularjs.org/api/ng/directive/ngCloak */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+    display: none !important;
+}
+#video-container {
+    z-index: 0;
+    position: absolute;
+    width: 100%;
+}
+
+/*#overlay-container {
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}*/
+
+#overlay-container {
+    position: absolute;
+    z-index: 50;
 }

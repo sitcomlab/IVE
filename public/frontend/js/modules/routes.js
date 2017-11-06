@@ -8,7 +8,7 @@ app.config(function($routeProvider, $locationProvider, config) {
 
         // Home
         .when("/", {
-            templateUrl: "js/templates/main.html",
+            templateUrl: "templates/main.html",
             controller: "mainController"
         })
 

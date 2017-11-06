@@ -219,8 +219,8 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                 });
             }
         },
-        edit: function(relationship_label, relationship_id, relationship_type, data) {
-            return $http.put(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_id + "/" + relationship_type, data, {
+        edit: function(relationship_label, relationship_id, data) {
+            return $http.put(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_id, data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
                     'Content-Type': 'application/json'
