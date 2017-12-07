@@ -54,8 +54,8 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
                     new_object = {
                         overlay_id: null,
                         video_id: null,
-                        w: 300,
-                        h: 200,
+                        w: 3,
+                        h: 2,
                         d: 0,
                         x: 1,
                         y: 1,

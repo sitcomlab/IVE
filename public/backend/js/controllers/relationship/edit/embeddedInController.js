@@ -21,6 +21,9 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
      * @return {[type]} [description]
      */
     $scope.save = function(){
+        $scope.relationship.relationship_rx = $scope.rotation_x_grad * (Math.PI/180);
+        $scope.relationship.relationship_ry = $scope.rotation_y_grad * (Math.PI/180);
+        $scope.relationship.relationship_rz = $scope.rotation_z_grad * (Math.PI/180);
         // Validate input
         if($scope.editRelationshipForm.$invalid) {
             // Update UI
@@ -36,12 +39,9 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
             $scope.editRelationshipForm.display.$pristine = false;
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('SAVING_RELATIONSHIP') };
-            console.log($scope.relationship);
 
             $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
             .then(function onSuccess(response) {
-                console.log("in then");
-                console.log(response.data);
                 $scope.relationship = response.data;
                 $scope.redirect("/relationships/" + $scope.relationship_label + "/" + $scope.relationship.relationship_id);
             })
@@ -105,6 +105,9 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
     $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
+        $scope.rotation_x_grad = $scope.relationship.relationship_rx * (180/Math.PI);
+        $scope.rotation_y_grad = $scope.relationship.relationship_ry * (180/Math.PI);
+        $scope.rotation_z_grad = $scope.relationship.relationship_rz * (180/Math.PI);
         $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {

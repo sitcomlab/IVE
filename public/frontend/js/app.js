@@ -25,7 +25,8 @@ var app = angular.module("ive", [
 
     // Import services
     "videoService",
-    "overlayService"
+    "overlayService",
+    "relationshipService"
 
 ]);
 

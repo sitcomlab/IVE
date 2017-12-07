@@ -142,17 +142,21 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
      * @return {[type]}         [description]
      */
     $scope.toggleOverlay = function(overlay){
-        if($scope.overlays[0].display){
-            $scope.overlays[0].display = false;
-        } else {
-            $scope.overlays[0].display = true;
-        }
+        for(var i = 0; i < $scope.overlays.length; i++){
+            if($scope.overlays[i].overlay_id == overlay.overlay_id){
+                if($scope.overlays[i].display){
+                    $scope.overlays[i].display = false;
+                } else {
+                    $scope.overlays[i].display = true;
+                }
 
-        // Send socket message
-        $socket.emit('/toggle/overlay', {
-            overlay_id: overlay.overlay_id,
-            display: $scope.overlays[0].display
-        });
+                // Send socket message
+                $socket.emit('/toggle/overlay', {
+                    overlay_id: overlay.overlay_id,
+                    display: $scope.overlays[i].display
+                });
+            }
+        }
     };
 
 

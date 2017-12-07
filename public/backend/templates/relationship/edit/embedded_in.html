@@ -74,6 +74,7 @@
                     <div class="form-group" ng-class="{'has-danger': editRelationshipForm.w.$invalid && !editRelationshipForm.w.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
                             ng-model="relationship.relationship_w"
                             name="w"
@@ -91,6 +92,7 @@
                     <div class="form-group" ng-class="{'has-danger': editRelationshipForm.h.$invalid && !editRelationshipForm.h.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
                             ng-model="relationship.relationship_h"
                             name="h"
@@ -108,6 +110,7 @@
                     <div class="form-group" ng-class="{'has-danger': editRelationshipForm.d.$invalid && !editRelationshipForm.d.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
                             ng-model="relationship.relationship_d"
                             name="d"
@@ -128,6 +131,7 @@
                     <div class="form-group" ng-class="{'has-danger': editRelationshipForm.x.$invalid && !editRelationshipForm.x.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
                             ng-model="relationship.relationship_x"
                             name="x"
@@ -145,6 +149,7 @@
                     <div class="form-group" ng-class="{'has-danger': editRelationshipForm.y.$invalid && !editRelationshipForm.y.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
                             ng-model="relationship.relationship_y"
                             name="y"
@@ -162,6 +167,7 @@
                     <div class="form-group" ng-class="{'has-danger': editRelationshipForm.z.$invalid && !editRelationshipForm.z.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
                             ng-model="relationship.relationship_z"
                             name="z"
@@ -177,13 +183,14 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <label>
-                        <b>{{ 'ROTATION' | translate }} X-{{ 'AXIS' | translate }}</b> <sup class="text-danger">*</sup>
+                        <b>{{ 'ROTATION' | translate }} X-{{ 'AXIS' | translate }} (Grad)</b> <sup class="text-danger">*</sup>
                     </label>
                     <div class="form-group" ng-class="{'has-danger': editRelationshipForm.rx.$invalid && !editRelationshipForm.rx.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
-                            ng-model="relationship.relationship_rx"
+                            ng-model="rotation_x_grad"
                             name="rx"
                             id="rx"
                             placeholder="{{ 'RX' | translate }}"
@@ -194,13 +201,14 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <label>
-                        <b>{{ 'ROTATION' | translate }} Y-{{ 'AXIS' | translate }}</b> <sup class="text-danger">*</sup>
+                        <b>{{ 'ROTATION' | translate }} Y-{{ 'AXIS' | translate }} (Grad)</b> <sup class="text-danger">*</sup>
                     </label>
                     <div class="form-group" ng-class="{'has-danger': editRelationshipForm.ry.$invalid && !editRelationshipForm.ry.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
-                            ng-model="relationship.relationship_ry"
+                            ng-model="rotation_y_grad"
                             name="ry"
                             id="ry"
                             placeholder="{{ 'RY' | translate }}"
@@ -211,13 +219,14 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <label>
-                        <b>{{ 'ROTATION' | translate }} Z-{{ 'AXIS' | translate }}</b> <sup class="text-danger">*</sup>
+                        <b>{{ 'ROTATION' | translate }} Z-{{ 'AXIS' | translate }} (Grad)</b> <sup class="text-danger">*</sup>
                     </label>
                     <div class="form-group" ng-class="{'has-danger': editRelationshipForm.rz.$invalid && !editRelationshipForm.rz.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
-                            ng-model="relationship.relationship_rz"
+                            ng-model="rotation_z_grad"
                             name="rz"
                             id="rz"
                             placeholder="{{ 'RZ' | translate }}"

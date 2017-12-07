@@ -34,6 +34,12 @@ h2 {
     justify-content: center;
 }
 
-.videogular-container {
-	width: 100%;
+#video-container {
+    z-index: 0;
+    position: absolute;
+    width: 100%;
+}
+
+#overlay-container {
+    z-index: 50;
 }

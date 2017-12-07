@@ -1,7 +1,7 @@
-var app = angular.module("ive");
+var app = angular.module("ive.upload", ['ngFileUpload']);
 
 // Overlay create controller
-app.controller("overlayCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService) {
+app.controller("overlayCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService, Upload, $timeout) {
 
     /*************************************************
         FUNCTIONS
@@ -42,8 +42,64 @@ app.controller("overlayCreateController", function($scope, $rootScope, $routePar
         }
     };
 
+    $scope.uploadImage = function(file, errFiles) {
+        $scope.overlay.url = "/images/" + file.name;
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: config.getApiEndpoint() + '/overlays/uploadImage',
+                method: 'POST',
+                data: {file: file},
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
 
-    /*************************************************
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        }
+    };
+
+    $scope.uploadVideo = function(file, errFiles) {
+        $scope.overlay.url = "/videos/overlays/" + file.name;
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: config.getApiEndpoint() + '/overlays/uploadVideo',
+                method: 'POST',
+                data: {file: file},
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        }
+    };
+
+
+                /*************************************************
         INIT
      *************************************************/
     $scope.overlay = $overlayService.init();

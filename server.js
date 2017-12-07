@@ -7,7 +7,7 @@ var path = require('path');
 var neo4j = require('neo4j-driver').v1;
 var jwt = require('jsonwebtoken');
 var config = require('dotenv').config();
-
+var multipart = require('connect-multiparty');
 
 // Connect to Neo4j
 var driver = neo4j.driver(
@@ -55,6 +55,17 @@ app.use(bodyParser.urlencoded({
 // Set folder for static files
 app.use(express.static(__dirname + '/public', {
     redirect: false
+}));
+
+// Allow CORS
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.use(multipart({
+    uploadDir: config.tmp
 }));
 
 // Authentication
