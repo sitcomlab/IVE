@@ -105,9 +105,14 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
     $relationshipService.retrieve_by_id($scope.relationship_label, $routeParams.relationship_id)
     .then(function onSuccess(response) {
         $scope.relationship = response.data;
-        $scope.rotation_x_grad = $scope.relationship.relationship_rx * (180/Math.PI);
-        $scope.rotation_y_grad = $scope.relationship.relationship_ry * (180/Math.PI);
-        $scope.rotation_z_grad = $scope.relationship.relationship_rz * (180/Math.PI);
+        var x_grad = $scope.relationship.relationship_rx * (180/Math.PI);
+        $scope.rotation_x_grad = Math.round(x_grad * Math.pow(10, 4)) / Math.pow(10, 4);
+
+        var y_grad = $scope.relationship.relationship_ry * (180/Math.PI);
+        $scope.rotation_y_grad = Math.round(y_grad * Math.pow(10, 4)) / Math.pow(10, 4);
+
+        var z_grad = $scope.relationship.relationship_rz * (180/Math.PI);
+        $scope.rotation_z_grad = Math.round(z_grad * Math.pow(10, 4)) / Math.pow(10, 4);
         $scope.$parent.loading = { status: false, message: "" };
     })
     .catch(function onError(response) {

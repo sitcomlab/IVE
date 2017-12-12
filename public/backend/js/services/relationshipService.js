@@ -204,6 +204,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
         },
         create: function(relationship_label, data, relationship_type) {
             if(relationship_type){
+                console.log(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_type)
                 return $http.post(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_type, data, {
                     headers: {
                         'Authorization': 'Bearer ' + $authenticationService.getToken(),

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div class="flexbox-container">
+<div>
 
     <!-- Video container -->
     <div id="video-container" ng-if="current.videoStatus">
@@ -8,10 +8,9 @@
             <source id="srcogg" src="" type="video/ogg; codecs=theora, vorbis" />
         </video>
     </div>
-    <div id="overlay-container"></div>
 
     <!-- No scenario -->
-    <div ng-if="!current.scenarioStatus">
+    <div ng-if="!current.scenarioStatus" style="text-align: center">
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <br>
         <br>
@@ -20,7 +19,7 @@
     </div>
 
     <!-- No start location -->
-    <div ng-if="current.scenarioStatus && !current.locationStatus">
+    <div ng-if="current.scenarioStatus && !current.locationStatus" style="text-align: center">
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <br>
         <br>
@@ -29,7 +28,7 @@
     </div>
 
     <!-- No video found -->
-    <div ng-if="current.scenarioStatus && current.locationStatus && !current.videoStatus">
+    <div ng-if="current.scenarioStatus && current.locationStatus && !current.videoStatus" style="text-align: center">
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <br>
         <br>
