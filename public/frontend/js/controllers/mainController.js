@@ -316,11 +316,9 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         for(var i = 0; i < $scope.scene.children.length; i++){
             if($scope.scene.children[i].name === data.overlay_id && data.display === false){
                 $scope.scene.children[i].visible = false;
-                console.log($scope.scene.children);
             }
             if($scope.scene.children[i].name === data.overlay_id && data.display === true){
                 $scope.scene.children[i].visible = true;
-                console.log($scope.scene.children);
             }
         }
     })

@@ -22,8 +22,6 @@ app.controller("belongsToCreateController", function($scope, $rootScope, $routeP
      */
     $scope.send = function(){
         $scope.label = $scope.relationship_type;
-        console.log($scope.relationship);
-        console.log($scope.label);
         // Validate input
         if($scope.createRelationshipForm.$invalid) {
             // Update UI

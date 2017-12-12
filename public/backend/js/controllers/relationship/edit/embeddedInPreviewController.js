@@ -67,7 +67,6 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
                                                                         $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
                                                                             .then(function onSuccess(response) {
                                                                                 $scope.relationship = response.data;
-                                                                                console.log($scope.relationship);
                                                                                 $scope.redirect("/edit/relationships/" + $scope.relationship_label + "/" + $scope.relationship.relationship_id);
                                                                             })
                                                                             .catch(function onError(response) {
