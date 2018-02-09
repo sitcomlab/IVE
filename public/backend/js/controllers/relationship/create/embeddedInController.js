@@ -37,14 +37,28 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_RELATIONSHIP') };
 
+            // Setting the values for the belongsTo relationship
+            $scope.relationshipBelongsTo = {};
+            $scope.relationshipBelongsTo.scenario_id = $scope.videoDropdown.scenario_id;
+            $scope.relationshipBelongsTo.overlay_id = $scope.relationship.overlay_id;
+
+            // Saving the embeddedIn Relationship
             $relationshipService.create('embedded_in', $scope.relationship)
-            .then(function onSuccess(response) {
-                $scope.relationship = response.data;
-                $scope.redirect("/relationship/embedded_in/" + $scope.relationship.relationship_id);
-            })
-            .catch(function onError(response) {
-                $window.alert(response.data);
-            });
+                .then(function onSuccess(response) {
+
+                    // Saving the BelongsTo relationship
+                    $relationshipService.create('belongs_to', $scope.relationshipBelongsTo, 'overlay')
+                        .then(function onSuccess(responseBelongsTo) {
+                            $scope.relationship = response.data;
+                            $scope.redirect("/relationships/embedded_in/" + $scope.relationship.relationship_id);
+                        })
+                        .catch(function onError(response) {
+                            $window.alert(response.data);
+                        });
+                })
+                .catch(function onError(response) {
+                    $window.alert(response.data);
+                });
         }
     };
 
@@ -58,86 +72,88 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
             case 'overlays': {
                 if($scope.overlayDropdown.scenario_id !== ""){
                     $overlayService.list_by_scenario($scope.overlayDropdown.scenario_id)
-                    .then(function onSuccess(response) {
-                        $scope.overlays = response.data;
+                        .then(function onSuccess(response) {
+                            $scope.overlays = response.data;
 
-                        // Select first video in dropdown
-                        var first_overlay;
-                        if($scope.overlays.length > 0){
-                            first_overlay = $scope.overlays[0].overlay_id;
-                        }
-                        $scope.relationship.overlay_id = first_overlay;
+                            // Select first video in dropdown
+                            var first_overlay;
+                            if($scope.overlays.length > 0){
+                                first_overlay = $scope.overlays[0].overlay_id;
+                            }
+                            $scope.relationship.overlay_id = first_overlay;
 
-                        // Update UI
-                        $scope.overlayDropdown.status = false;
-                        $scope.$parent.loading = { status: false, message: "" };
-                    })
-                    .catch(function onError(response) {
-                        $window.alert(response.data);
-                    });
+                            // Update UI
+                            $scope.overlayDropdown.status = false;
+                            $scope.$parent.loading = { status: false, message: "" };
+                        })
+                        .catch(function onError(response) {
+                            $window.alert(response.data);
+                        });
                 } else {
                     $overlayService.list()
-                    .then(function onSuccess(response) {
-                        $scope.overlays = response.data;
+                        .then(function onSuccess(response) {
+                            $scope.overlays = response.data;
 
-                        // Select first video in dropdown
-                        var first_overlay;
-                        if($scope.overlays.length > 0){
-                            first_overlay = $scope.overlays[0].overlay_id;
-                        }
-                        $scope.relationship.overlay_id = first_overlay;
+                            // Select first video in dropdown
+                            var first_overlay;
+                            if($scope.overlays.length > 0){
+                                first_overlay = $scope.overlays[0].overlay_id;
+                            }
+                            $scope.relationship.overlay_id = first_overlay;
 
-                        // Update UI
-                        $scope.overlayDropdown.status = false;
-                        $scope.$parent.loading = { status: false, message: "" };
-                    })
-                    .catch(function onError(response) {
-                        $window.alert(response.data);
-                    });
+                            // Update UI
+                            $scope.overlayDropdown.status = false;
+                            $scope.$parent.loading = { status: false, message: "" };
+                        })
+                        .catch(function onError(response) {
+                            $window.alert(response.data);
+                        });
                 }
                 break;
             }
             case 'videos': {
                 if($scope.videoDropdown.scenario_id !== ""){
+                    $scope.scenarioSelected = true;
                     $videoService.list_by_scenario($scope.videoDropdown.scenario_id)
-                    .then(function onSuccess(response) {
-                        $scope.videos = response.data;
+                        .then(function onSuccess(response) {
+                            $scope.videos = response.data;
 
-                        // Select first video in dropdown
-                        var first_video;
-                        if($scope.videos.length > 0){
-                            first_video = $scope.videos[0].video_id;
-                        }
-                        $scope.relationship.video_id = first_video;
-                        $scope.findVideo();
+                            // Select first video in dropdown
+                            var first_video;
+                            if($scope.videos.length > 0){
+                                first_video = $scope.videos[0].video_id;
+                            }
+                            $scope.relationship.video_id = first_video;
+                            $scope.findVideo();
 
-                        // Update UI
-                        $scope.videoDropdown.status = false;
-                        $scope.$parent.loading = { status: false, message: "" };
-                    })
-                    .catch(function onError(response) {
-                        $window.alert(response.data);
-                    });
+                            // Update UI
+                            $scope.videoDropdown.status = false;
+                            $scope.$parent.loading = { status: false, message: "" };
+                        })
+                        .catch(function onError(response) {
+                            $window.alert(response.data);
+                        });
                 } else {
+                    $scope.scenarioSelected = false;
                     $videoService.list()
-                    .then(function onSuccess(response) {
-                        $scope.videos = response.data;
+                        .then(function onSuccess(response) {
+                            $scope.videos = response.data;
 
-                        // Select first video in dropdown
-                        var first_video;
-                        if($scope.videos.length > 0){
-                            first_video = $scope.videos[0].video_id;
-                        }
-                        $scope.relationship.video_id = first_video;
-                        $scope.findVideo();
+                            // Select first video in dropdown
+                            var first_video;
+                            if($scope.videos.length > 0){
+                                first_video = $scope.videos[0].video_id;
+                            }
+                            $scope.relationship.video_id = first_video;
+                            $scope.findVideo();
 
-                        // Update UI
-                        $scope.videoDropdown.status = false;
-                        $scope.$parent.loading = { status: false, message: "" };
-                    })
-                    .catch(function onError(response) {
-                        $window.alert(response.data);
-                    });
+                            // Update UI
+                            $scope.videoDropdown.status = false;
+                            $scope.$parent.loading = { status: false, message: "" };
+                        })
+                        .catch(function onError(response) {
+                            $window.alert(response.data);
+                        });
                 }
                 break;
             }
@@ -224,11 +240,11 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
 
     // Load scenarios for dropdowns
     $scenarioService.list()
-    .then(function onSuccess(response) {
-        $scope.scenarios = response.data;
-    })
-    .catch(function onError(response) {
-        $window.alert(response.data);
-    });
+        .then(function onSuccess(response) {
+            $scope.scenarios = response.data;
+        })
+        .catch(function onError(response) {
+            $window.alert(response.data);
+        });
 
 });

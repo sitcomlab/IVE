@@ -1,0 +1,16 @@
+.btn-group.float-right {
+    padding-bottom: 2em;
+}
+
+.inputFields {
+    margin-top: 3rem;
+}
+
+.form-group {
+    width: 100%;
+}
+.video-container {
+    margin: 0 auto;
+    height: 50%;
+    width: 60%;
+}

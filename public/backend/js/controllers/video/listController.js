@@ -93,7 +93,9 @@ app.controller("videoListController", function($scope, $rootScope, $interval, $f
             // Load videos
             $videoService.list($scope.pagination, $scope.filter)
             .then(function onSuccess(response) {
+                console.log(response)
                 $scope.videos = response.data;
+                console.log($scope.videos);
                 $scope.pages = [];
 
                 // Prepare pagination

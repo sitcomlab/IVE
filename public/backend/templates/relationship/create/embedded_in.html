@@ -40,7 +40,7 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <label>
-                        <b>{{ 'FILTER_VIDEOS_BY_SCENARIO' | translate }}</b>
+                        <b>{{ 'FILTER_VIDEOS_BY_SCENARIO' | translate }}</b><sup class="text-danger">*</sup>
                     </label>
                     <br>
                     <select class="custom-select form-control" ng-change="updateDropdown('videos')" ng-model="videoDropdown.scenario_id">
@@ -93,7 +93,10 @@
                         <b><i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}</b> <sup class="text-danger">*</sup>
                     </label>
                     <br>
-                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.video_id.$invalid && !createRelationshipForm.video_id.$pristine}">
+                    <div ng-if="!scenarioSelected">
+                        <b>Choose a scenario</b>
+                    </div>
+                    <div ng-if="scenarioSelected" class="form-group" ng-class="{'has-danger': createRelationshipForm.video_id.$invalid && !createRelationshipForm.video_id.$pristine}">
                         <select
                             class="custom-select form-control"
                             id="video_id"
@@ -111,7 +114,7 @@
                         </span>
                     </div>
                     <div
-                        ng-if="selectedVideo.thumbnails > 0"
+                        ng-if="selectedVideo.thumbnails > 0;  scenarioSelected"
                         style="
                             margin-top: 5px;
                             width: 100%;

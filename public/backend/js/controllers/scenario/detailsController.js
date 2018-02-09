@@ -87,14 +87,14 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
 
                 // Load scenario
                 $scenarioService.retrieve($routeParams.scenario_id)
-                .then(function onSuccess(response) {
-                    $scope.scenario = response.data;
-                    $scope.load("locations");
-                })
-                .catch(function onError(response) {
-                    $window.alert(response.data);
-                    $scope.load();
-                });
+                    .then(function onSuccess(response) {
+                        $scope.scenario = response.data;
+                        $scope.load("locations");
+                    })
+                    .catch(function onError(response) {
+                        $window.alert(response.data);
+                        $scope.load();
+                    });
                 break;
             }
             case 'locations': {
@@ -102,14 +102,14 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
 
                 // Load related locations
                 $locationService.list_by_scenario($scope.scenario.scenario_id)
-                .then(function onSuccess(response) {
-                    $scope.scenario.locations = response.data;
-                    $scope.load("videos");
-                })
-                .catch(function onError(response) {
-                    $window.alert(response.data);
-                    $scope.load();
-                });
+                    .then(function onSuccess(response) {
+                        $scope.scenario.locations = response.data;
+                        $scope.load("videos");
+                    })
+                    .catch(function onError(response) {
+                        $window.alert(response.data);
+                        $scope.load();
+                    });
                 break;
             }
             case 'videos': {
@@ -117,14 +117,14 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
 
                 // Load related videos
                 $videoService.list_by_scenario($scope.scenario.scenario_id)
-                .then(function onSuccess(response) {
-                    $scope.scenario.videos = response.data;
-                    $scope.load("overlays");
-                })
-                .catch(function onError(response) {
-                    $window.alert(response.data);
-                    $scope.load();
-                });
+                    .then(function onSuccess(response) {
+                        $scope.scenario.videos = response.data;
+                        $scope.load("overlays");
+                    })
+                    .catch(function onError(response) {
+                        $window.alert(response.data);
+                        $scope.load();
+                    });
                 break;
             }
             case 'overlays': {
@@ -132,14 +132,14 @@ app.controller("scenarioDetailsController", function($scope, $rootScope, $routeP
 
                 // Load related overlays
                 $overlayService.list_by_scenario($scope.scenario.scenario_id)
-                .then(function onSuccess(response) {
-                    $scope.scenario.overlays = response.data;
-                    $scope.load();
-                })
-                .catch(function onError(response) {
-                    $window.alert(response.data);
-                    $scope.load();
-                });
+                    .then(function onSuccess(response) {
+                        $scope.scenario.overlays = response.data;
+                        $scope.load();
+                    })
+                    .catch(function onError(response) {
+                        $window.alert(response.data);
+                        $scope.load();
+                    });
                 break;
             }
             default: {

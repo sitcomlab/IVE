@@ -1,0 +1,79 @@
+h1 {
+    color: #193441;
+}
+
+.col-center{
+    float: none;
+    margin: 0 auto;
+}
+
+main {
+    text-align: center;
+}
+
+/*Hexagons*/
+
+.hexagon {
+  display: inline-block;
+  position: relative;
+  width: 120px; 
+  height: 69.28px;
+  background-color: #193441;
+  margin: 34.64px 0;
+  border-left: solid 5px #3e606f;
+  border-right: solid 5px #3e606f;
+  color: #fcfff5;
+}
+
+.hexagon:before,
+.hexagon:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 84.85px;
+  height: 84.85px;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background-color: inherit;
+  left: 12.5736px;
+}
+
+.hexagon:before {
+  top: -42.4264px;
+  border-top: solid 7.0711px #3e606f;
+  border-right: solid 7.0711px #3e606f;
+}
+
+.hexagon:after {
+  bottom: -42.4264px;
+  border-bottom: solid 7.0711px #3e606f;
+  border-left: solid 7.0711px #3e606f;
+}
+
+.hexagon i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%)
+}
+
+.iconbox {
+    text-align: center;
+}
+
+.iconbox a{
+    text-decoration: none;
+}
+.iconbox span{
+    color: #193441;
+}
+
+.iconbox span:hover{
+    color: #3e606f;
+    text-shadow: 0 0 5px #193441;
+}
+
+.mapbox {
+    text-align: center;
+}

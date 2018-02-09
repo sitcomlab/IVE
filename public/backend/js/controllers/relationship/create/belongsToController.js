@@ -31,7 +31,7 @@ app.controller("belongsToCreateController", function($scope, $rootScope, $routeP
             $relationshipService.create('belongs_to', $scope.relationship, $scope.label)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
-                $scope.redirect("/relationship/belongs_to/" + $scope.label + '/' + $scope.relationship.relationship_id);
+                $scope.redirect("/relationships/belongs_to/" + $scope.relationship.relationship_id + "/" + $scope.label);
             })
             .catch(function onError(response) {
                 $window.alert(response.data);

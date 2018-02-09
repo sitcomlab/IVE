@@ -1,0 +1,173 @@
+h1, h2, h3 {
+    color: #193441;
+}
+
+.col-center {
+    margin: 0 auto;
+}
+
+main {
+    text-align: center;
+}
+
+.hexagon {
+  position: relative;
+  width: 80px; 
+  height: 46.19px;
+  background-color: #193441;
+  margin: 23.09px auto;
+  border-left: solid 5px #3E606F;
+  border-right: solid 5px #3E606F;
+}
+
+.hexagon:before,
+.hexagon:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 56.57px;
+  height: 56.57px;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background-color: inherit;
+  left: 6.7157px;
+}
+
+.hexagon:before {
+  top: -28.2843px;
+  border-top: solid 7.0711px #3E606F;
+  border-right: solid 7.0711px #3E606F;
+}
+
+.hexagon:after {
+  bottom: -28.2843px;
+  border-bottom: solid 7.0711px #3E606F;
+  border-left: solid 7.0711px #3E606F;
+}
+
+.hexagon i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    color: #FCFFF5;
+
+}
+
+.iconbox {
+    text-align: center;
+    opacity: 0.4;
+}
+
+.iconbox a{
+    text-decoration: none;
+    color: #FCFFF5;
+}
+.iconbox span{
+    color: #193441;
+}
+
+.active {
+    opacity: 1;
+}
+
+.animate-show-hide.ng-hide {
+  opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.scenario {
+    padding: 0 15px 15px 30px;
+    text-align: center;
+}
+
+.scenario i, td i {
+    padding: 0.5em 0.5em 0 0;
+    color: #193441;
+}
+
+.scenario a{
+    text-decoration: none;
+    color: #193441;
+}
+
+.scenario a:hover{
+    text-shadow: 0 0 5px #193441;
+}
+
+.scenario input {
+    width: 10%;
+}
+
+.addScenario {
+    text-align: center;
+    margin: auto 0 auto;
+}
+
+.addScenario a {
+    text-decoration: none;
+    color: #193441;
+    text-align: center;
+    margin: auto;
+}
+
+#videoTypeSwitcher {
+    padding-bottom: 1em;
+}
+
+#searchBar {
+    padding: 1em 0px;
+}
+
+.upload-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    margin: 1rem auto;
+    padding-bottom: 2em;
+}
+
+.introText {
+    padding: 1em 1em;
+}
+.newOverlay {
+    padding: 1em 1em;
+}
+/* video-container = preview of video at overlay creation */
+.video-container {
+    /*width: 200px;*/
+    height: 320px;
+    margin: 1em auto;
+
+}
+
+.progress {
+    margin: 1em;
+}
+
+/* video_container = overlay-placement-mockup */
+#video_container {
+    /*background-color: blue;*/
+    margin: auto;
+    width: 75%;
+    height: 70%;
+}
+
+#video_container > div{
+    padding-top: 1em;
+}
+
+#overlay_container{
+    position: absolute;
+    width: 200px;
+    height: 113px;
+    background-color: green;
+    opacity: 0.7;
+}

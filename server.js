@@ -54,7 +54,7 @@ app.use(bodyParser.urlencoded({
 
 // Set folder for static files
 app.use(express.static(__dirname + '/public', {
-    redirect: false
+    redirect: true
 }));
 
 // Allow CORS
@@ -104,6 +104,9 @@ app.use(prefix, require('./routes/overlays'));
 app.use(prefix, require('./routes/relationships'));
 app.use(prefix, require('./routes/search'));
 app.use(prefix, require('./routes/handlers'));
+
+var cms = require('./routes/cms');
+app.use(cms);
 
 // Resolve path after refreshing inside app
 app.get('/', function(req, res, next) {

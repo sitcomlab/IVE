@@ -26,65 +26,66 @@ app.controller("scenarioListController", function($scope, $rootScope, $filter, $
         if($scope.filter.search_term !== ""){
             // Search scenarios
             $scenarioService.search($scope.pagination, $scope.filter)
-            .then(function onSuccess(response) {
-                $scope.scenarios = response.data;
-                $scope.pages = [];
+                .then(function onSuccess(response) {
+                    $scope.scenarios = response.data;
+                    $scope.pages = [];
 
-                // Prepare pagination
-                if($scope.scenarios.length > 0){
-                    // Set count
-                    $scenarioService.setCount($scope.scenarios[0].full_count);
-                } else {
-                    // Reset count
-                    $scenarioService.setCount(0);
+                    // Prepare pagination
+                    if($scope.scenarios.length > 0){
+                        // Set count
+                        $scenarioService.setCount($scope.scenarios[0].full_count);
+                    } else {
+                        // Reset count
+                        $scenarioService.setCount(0);
 
-                    // Reset pagination
-                    $scope.pagination.offset = 0;
-                }
+                        // Reset pagination
+                        $scope.pagination.offset = 0;
+                    }
 
-                // Set pagination
-                for(var i=0; i<Math.ceil($scenarioService.getCount() / $scope.pagination.limit); i++){
-                    $scope.pages.push({
-                        offset: i * $scope.pagination.limit
-                    });
-                }
+                    // Set pagination
+                    for(var i=0; i<Math.ceil($scenarioService.getCount() / $scope.pagination.limit); i++){
+                        $scope.pages.push({
+                            offset: i * $scope.pagination.limit
+                        });
+                    }
 
-                $scope.$parent.loading = { status: false, message: "" };
-            })
-            .catch(function onError(response) {
-                $window.alert(response.data);
-            });
+                    $scope.$parent.loading = { status: false, message: "" };
+                })
+                .catch(function onError(response) {
+                    $window.alert(response.data);
+                });
         } else {
             // Load scenarios
             $scenarioService.list($scope.pagination, $scope.filter)
-            .then(function onSuccess(response) {
-                $scope.scenarios = response.data;
-                $scope.pages = [];
+                .then(function onSuccess(response) {
+                    $scope.scenarios = response.data;
+                    console.log($scope.scenarios);
+                    $scope.pages = [];
 
-                // Prepare pagination
-                if($scope.scenarios.length > 0){
-                    // Set count
-                    $scenarioService.setCount($scope.scenarios[0].full_count);
-                } else {
-                    // Reset count
-                    $scenarioService.setCount(0);
+                    // Prepare pagination
+                    if($scope.scenarios.length > 0){
+                        // Set count
+                        $scenarioService.setCount($scope.scenarios[0].full_count);
+                    } else {
+                        // Reset count
+                        $scenarioService.setCount(0);
 
-                    // Reset pagination
-                    $scope.pagination.offset = 0;
-                }
+                        // Reset pagination
+                        $scope.pagination.offset = 0;
+                    }
 
-                // Set pagination
-                for(var i=0; i<Math.ceil($scenarioService.getCount() / $scope.pagination.limit); i++){
-                    $scope.pages.push({
-                        offset: i * $scope.pagination.limit
-                    });
-                }
+                    // Set pagination
+                    for(var i=0; i<Math.ceil($scenarioService.getCount() / $scope.pagination.limit); i++){
+                        $scope.pages.push({
+                            offset: i * $scope.pagination.limit
+                        });
+                    }
 
-                $scope.$parent.loading = { status: false, message: "" };
-            })
-            .catch(function onError(response) {
-                $window.alert(response.data);
-            });
+                    $scope.$parent.loading = { status: false, message: "" };
+                })
+                .catch(function onError(response) {
+                    $window.alert(response.data);
+                });
         }
     };
 

@@ -32,7 +32,7 @@ app.controller("hasParentLocationCreateController", function($scope, $rootScope,
             $relationshipService.create('has_parent_location', $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
-                $scope.redirect("/relationship/has_parent_location/" + $scope.relationship.relationship_id);
+                $scope.redirect("/relationships/has_parent_location/" + $scope.relationship.relationship_id);
             })
             .catch(function onError(response) {
                 $window.alert(response.data);

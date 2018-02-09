@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<!--Header-->
+
+<div class="row col-center">
+    <!--Icon 1-->
+    <div class="col-md-4 col-lg-4 iconbox active">
+        <div class="hexagon">
+            <i class="fa fa-street-view fa-2x" aria-hidden="true"></i>
+        </div>
+        <span>I. Create Scenario</span>
+    </div>
+    <!--Icon 2-->
+    <div class="col-md-4 col-lg-4 iconbox" id="step2">
+        <div class="hexagon">
+            <i class="fa fa-file-video-o fa-2x" aria-hidden="true"></i>
+        </div>
+        <span>II. Add Video</span>
+    </div>
+    <!--Icon 3-->
+    <div class="col-md-4 col-lg-4 iconbox" id="step3">
+        <div class="hexagon">
+            <i class="fa fa-window-maximize fa-2x" aria-hidden="true"></i>
+        </div>
+        <span>III. Place Overlays</span>
+    </div>
+</div>
+<hr>
+
+<!--Step 1 (General Information)-->
+<div class="row" ng-show="currentState.general">
+    <div class="col-md-6 col-center animate-show-hide">
+        <p>Step 1: General Information</p>
+        <div class="form-group row">
+            <label for="name-input" class="col-2 col-form-label">Name:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="newScenario.name" placeholder="e.g. 'Main Station Scenario'" id="name-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="desc-input" class="col-2 col-form-label">Description:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="newScenario.description" placeholder="e.g. 'A scenario simulating a new construction'"
+                    id="desc-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tags-input" class="col-2 col-form-label">Tags:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="newScenario.tags" placeholder="e.g. '#muenster, #sitcom, #myProject'" id="tags-input">
+            </div>
+        </div>
+        <button type="button" class="btn btn-secondary float-left" ng-click="redirect('/scenarios')"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
+        <button type="button" class="btn btn-secondary float-right" ng-click="submitGeneral()">Next <i class="fa fa-caret-right" aria-hidden="true"></i></button>
+    </div>
+</div>
+
+<!--Step 2.1 (Add Videos - Overview)-->
+<div class="row" ng-show="currentState.scenarioVideoOverview">
+    <div class="col-md-12">
+        <p>Step 2: Add Videos to your scenario:</p>
+        <div class="row">
+            <div ng-repeat="video in newScenario.videos" class="col-md-4 scenario">
+                <p>{{video.name}}</p>
+                <img width="300px" height="169px" src="{{video.url + '_thumbnail.png'}}"></br>
+                <a href="" ng-click="removeTempVideo($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></br>
+            </div>
+
+            <div class="col-md-4 addScenario">
+                <a href="" ng-click="addVideo()">Add video to Scenario</br>
+                <i class="fa fa-plus-square-o fa-4x" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <button type="button" class="btn btn-secondary float-left" ng-click="cancel('scenarioVideoOverview')"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
+        <button type="button" class="btn btn-secondary float-right" ng-click="createOverlay()">Add Overlays <i class="fa fa-caret-right" aria-hidden="true"></i></button>
+    </div>
+</div>
+
+<!--Step 2.2 (Add new Video)-->
+<div ng-show="currentState.addVideo">
+
+    <label for="videoTypeSwitcher" class="col-form-label">Type of video:&nbsp</label>
+    <div class="btn-group" role="group" aria-label="Switcher" id="videoTypeSwitcher">
+        <button type="button" ng-click="switchVideoType()" ng-class="{'active': existingVideo === true}" class="btn btn-secondary">Existing</button>
+        <button type="button" ng-click="switchVideoType()" ng-class="{'active': existingVideo === false}" class="btn btn-secondary">New</button>
+    </div>
+
+    <!--Add a new Video-->
+    <div class="row" ng-hide="existingVideo">
+        <div class="col-md-6">
+            <p> General information and file upload </p>
+            <hr>
+            <div ngf-drop ngf-select ng-model="uploadingVideo" class="upload-box" ngf-drag-over-class="'dragover'" ngf-multiple="false"
+                ngf-allow-dir="false" ngf-accept="'video/*, video/mp4'" ngf-pattern="'video/*, video/mp4'" ngf-change="upload_change($event)">
+                <p ng-hide="file_selected">Drop your video file here or click to upload</p>
+                <div ng-show="file_selected">
+
+                    <p> Selected File: {{uploadingVideo.name}}</p>
+                    <p> File Size: {{uploadingVideo.size}} Bytes</p>
+                    <div ng-show="uploadStarted" class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                            aria-valuemax="100" style="width: 15%"></div>
+                    </div>
+                    <p ng-show="uploadStarted" class="col-center">{{uploadStatus.currentPercentage}}% ({{uploadStatus.loaded}} / {{uploadStatus.total}})</p>
+                </div>
+            </div>
+            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+            <div class="form-group row">
+                <label for="video_name-input" class="col-2 col-form-label">Name:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="newVideo.name" placeholder="e.g. 'Main Station Video'" id="video_name-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="video_desc-input" class="col-2 col-form-label">Description:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="newVideo.description" placeholder="e.g. 'A video simulating a new construction'"
+                        id="video_desc-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="video_tags-input" class="col-2 col-form-label">Tags:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="newVideo.tags" placeholder="e.g. '#muenster, #sitcom, #myProject'" id="video_tags-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="video_recorded-input" class="col-2 col-form-label">Recorded:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="newVideo.recorded" placeholder="YYYY-MM-DD" id="video_recorded-input">
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary float-left" ng-click="cancel('addVideo')"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
+            <button type="button" class="btn btn-secondary float-right" ng-click="submitVideo()">Add Video <i class="fa fa-caret-right" aria-hidden="true"></i></button>
+        </div>
+        <!-- End col-md-6 -->
+
+        <div class="col-md-6">
+
+            <p>Select location of the video or drag the black marker!</p>
+            <hr>
+            <leaflet id="addNewVideoMap" defaults="defaults" width="100%" height="40%"></leaflet>
+            </br>
+            <div class="form-group row">
+                <label for="latitude" class="col-3 col-form-label">Latitude: </label>
+                <div class="col-3">
+                    <input class="form-control" ng-model="newVideo.location.lat" placeholder=51.22 id="latitude">
+                </div>
+
+                <label for="longitude" class="col-3 col-form-label">Longitude: </label>
+                <div class="col-3 float-right">
+                    <input class="form-control" ng-model="newVideo.location.lng" placeholder=7.04 id="longitude">
+                </div>
+
+                <div class="input-group" id="searchBar">
+                    <input type="text" class="form-control" ng-model="searchLocationTerm" placeholder="Search for names...">
+                    <span class="input-group-btn">
+                            <button class="btn btn-secondary" ng-click="searchLocation()" type="button">Go!</button>
+                        </span>
+                </div>
+
+                <div ng-hide="existingLocation">
+                    <hr>
+                    <p>It seems like you want to create a new Location. Please add the following details:</p>
+                    <div class="form-group row">
+                        <label for="name-input" class="col-2 col-form-label">Name:</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" ng-model="newVideo.location.name" placeholder="e.g. 'Münster Domplatz'" id="name-input-location">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="desc-input" class="col-2 col-form-label">Description:</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" ng-model="newVideo.location.description" placeholder="e.g. 'A place near the dom'"
+                                id="desc-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End col-md-6 -->
+    </div>
+    <!-- End row Add new Video-->
+
+    <!--Add an existing Video-->
+    <div class="row" ng-show="existingVideo">
+        <!--Add an existing video-->
+        <div data-tap-disabled="true" class="col-md-12">
+            <leaflet id="addExistingVideoMap" defaults="defaults" width="100%" height="40%"></leaflet>
+            <div class="input-group" id="searchBar">
+                <input type="text" class="form-control" ng-model="searchVideoTerm" placeholder="Search for existing Videos">
+                <span class="input-group-btn">
+                            <button class="btn btn-secondary" ng-click="searchVideo()" type="button">Go!</button>
+                        </span>
+            </div>
+            <button type="button" class="btn btn-secondary float-left" ng-click="cancel('addVideo')"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
+            <button type="button" class="btn btn-secondary float-right" ng-click="submitVideo()">Add Video <i class="fa fa-caret-right" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Step 3.1 (Create Overlays)-->
+<div class="row" ng-show="currentState.createOverlay && !currentState.scenarioVideoOverview && !currentState.general">
+
+    <p class="introText">Create Overlay for Video: "<span ng-bind="currentVideo.name"></span>"</p>
+    <div class="col-md-12">
+        <label for="overlayTypeSwitcher" class="col-form-label float-left">Type of overlay:&nbsp</label>
+        <div class="btn-group float-left" role="group" aria-label="Switcher" id="overlayTypeSwitcher">
+            <button type="button" ng-click="switchOverlayType()" ng-class="{'active': existingOverlay === true}" class="btn btn-secondary">Existing</button>
+            <button type="button" ng-click="switchOverlayType()" ng-class="{'active': existingOverlay === false}" class="btn btn-secondary">New</button>
+        </div>
+
+        <button type="button" class="btn btn-warning float-right" ng-click="skipVideo()">I don't want an overlay for this Video</button>
+
+        <br>
+    </div>
+
+    <!--Input fields-->
+    <div class="col-md-6">
+        <div class="input-group" ng-show="existingOverlay" id="searchBar">
+            <input type="text" class="form-control" ng-model="searchOverlayTerm" placeholder="Search for existing Overlay">
+            <span class="input-group-btn">
+                <button class="btn btn-secondary" ng-click="searchOverlay()" type="button">Go!</button>
+            </span>
+        </div>
+
+        <div ng-show="existingOverlay">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="overlay in overlaySearchResults">
+                        <th>{{overlay.name}}</th>
+                        <td>{{overlay.description}}</td>
+                        <td>{{overlay.category}}</td>
+                        <td><button class="btn btn-secondary" ng-class="{'active': selectedOverlay.overlay_id === overlay.overlay_id}" ng-click="selectOverlay(overlay)" type="button">Select</button>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="newOverlay" ng-hide="existingOverlay">
+            <div class="form-group row">
+                <label for="overlay_name-input" class="col-3 col-form-label">Name:</label>
+                <div class="col-9">
+                    <input class="form-control" type="text" ng-model="newOverlay.name" placeholder="e.g. 'Main Station Overlay'" id="overlay_name-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="overlay_desc-input" class="col-3 col-form-label">Description:</label>
+                <div class="col-9">
+                    <input class="form-control" type="text" ng-model="newOverlay.description" placeholder="e.g. 'A Overlay simulating a new type of map'"
+                        id="overlay_desc-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="overlay_tags-input" class="col-3 col-form-label">Tags:</label>
+                <div class="col-9">
+                    <input class="form-control" type="text" ng-model="newOverlay.tags" placeholder="e.g. '#muenster, #sitcom, #myProject'" id="overlay_tags-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="overlay_type-input" class="col-3 col-form-label">Overlay type:</label>
+                <div class="col-9 dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        {{newOverlay.category === "" ? 'Click to select a category' : newOverlay.category}}
+                        </button>
+                    <div class="col-9 dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'video'">Video</a>
+                        <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'website'">Website</a>
+                        <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'other'">Other</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="overlay_url-input" class="col-3 col-form-label">Link (URL):</label>
+                <div class="col-9">
+                    <input class="form-control" type="url" ng-model="newOverlay.url" placeholder="e.g. http://www.google.de" id="overlay_url-input">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--Video preview-->
+    <div class="col-md-6">
+        <div class="video-container">
+            <videogular vg-theme="videoConfig.theme" vg-responsive="true">
+                <vg-media vg-src="videoConfig.sources" vg-tracks="videoConfig.tracks" vg-native-controls="true"></vg-media>
+            </videogular>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <button type="button" class="btn btn-secondary float-left" ng-click="cancel('createOverlay')"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
+        <button type="button" class="btn btn-secondary float-right" ng-click="submitOverlay()">Place Overlay <i class="fa fa-caret-right" aria-hidden="true"></i></button>
+    </div>
+
+</div>
+
+<!--Step 3.2 (Place Overlay)-->
+<div class="row" ng-show="currentState.placeOverlay">
+
+    <div id='video_container'>
+        <h2>Place the Overlay for Video {{positioningOverlay.video_name}}</h2>
+        <videogular vg-theme="videoConfig.theme" vg-responsive="true">
+            <div id="overlay_container" ng-draggable='dragOptions'>
+            </div>
+            <vg-media vg-src="videoConfig.sources" vg-tracks="videoConfig.tracks" vg-native-controls="true"></vg-media>
+        </videogular>
+
+        <div class="btn-group float-left" aria-label="ButtonBar">
+            <button ng-click="cancel('placeOverlay')" type="button" class="btn btn-secondary float-left">
+                    <i class="fa fa-caret-left" aria-hidden="true"></i> Back
+                </button>
+        </div>
+
+        <div class="btn-group float-right" aria-label="ButtonBar">
+            <button ng-click="submitOverlayRotation()" type="button" class="btn btn-secondary float-right">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+                </button>
+        </div>
+    </div>
+</div>
+
+<!--Step 4 (Finish Creation)-->
+<div ng-show="currentState.finishScenario">
+    <div class="row">
+        <div class="col-md-12 col-center">
+            <h3>
+                Scenario Overview
+            </h3>
+            <p>Name: {{newScenario.name}}</p>
+            <p>Description: {{newScenario.description}}</p>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row" ng-repeat="video in newScenario.videos">
+        <div class="col-md-4 video">
+            <p>Video #{{$index + 1}}: {{video.name}}</p>
+            <br>
+            <img width="250px" height="141px" src="{{video.thumbnail_url}}"></br>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div ng-if="video.overlay != null" class="col-md-4 overlay">
+                    <p>Overlay #{{$index + 1}}: <br> {{video.overlay.name}}</p>
+                    <img width="250px" height="141px" src="{{overlay.url}}" ng-show="video.overlay.category == 'picture'">
+                    <img width="250px" height="141px" src="/media/images/website_placeholder.png" ng-show="video.overlay.category == 'website'">
+                    <img width="250px" height="141px" src="/media/images/other_placeholder.png" ng-show="video.overlay.category == 'other'">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="currentState.finishScenario">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-secondary float-left" ng-click="cancel(finishScenario)"><i class="fa fa-repeat" aria-hidden="true"></i> Restart</i></button>
+        <button type="button" class="btn btn-primary float-right" ng-click="finishScenario()">Continue <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+    </div>
+</div>

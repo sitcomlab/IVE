@@ -53,7 +53,6 @@ exports.request = function(req, res) {
         },
         function(callback){ // Parameter validation
 
-            // TODO: Validate all attributes of req.body
             var params = {
                 overlay_id: req.body.overlay_id,
                 video_id: req.body.video_id,

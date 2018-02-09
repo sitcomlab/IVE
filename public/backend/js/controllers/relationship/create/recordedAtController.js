@@ -31,7 +31,7 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
             $relationshipService.create('recorded_at', $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
-                $scope.redirect("/relationship/recorded_at/" + $scope.relationship.relationship_id);
+                $scope.redirect("/relationships/recorded_at/" + $scope.relationship.relationship_id);
             })
             .catch(function onError(response) {
                 $window.alert(response.data);

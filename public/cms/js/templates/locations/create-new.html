@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<div class="row">
+    <div class="col-md-6">
+        <leaflet id="locationCreateNewMap" defaults="defaults" width="100%" height="65%"></leaflet>
+    </div>
+    <div class="col-md-6 inputGroup">
+        <h3>Create a new location:</h3>
+        <p> Insert general information:</p>
+        <div class="form-group row">
+            <label for="name-input" class="col-2 col-form-label">Name:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="newLocation.name" id="name-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="desc-input" class="col-2 col-form-label">Description:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="newLocation.description" id="desc-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tags-input" class="col-2 col-form-label">Tags:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="newLocation.tags" id="tags-input">
+            </div>
+        </div>
+
+        <p> Insert latitude and longitude or drag the marker on the left:</p>
+        <div class="form-group row">
+            <label for="lat-input" class="col-2 col-form-label">Latitude:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="newLocation.lat" id="lat-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="lng-input" class="col-2 col-form-label">Longitude:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="newLocation.lng" id="lng-input">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="buttons col-md-12">
+        <button ng-click="redirect('/locations')" class="btn btn-secondary"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
+        <button ng-click="createLocation()" class="btn btn-primary float-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Create Location</button>
+    </div>
+</div>

@@ -4,7 +4,7 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService, $overlayService, $socket, _) {
+app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService, $overlayService, $relationshipService, $socket, _) {
 
     // Init
     $scope.current = {
@@ -101,7 +101,24 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                     // Load all related overlays
                     $overlayService.list_by_video($scope.current.video.video_id)
                     .then(function onSuccess(response) {
-                        $scope.overlays = response.data;
+
+                        // Make sure the overlays are in the scenario
+                        $scope.filter = {};
+                        $scope.filter.relationship_type = "overlay";
+                        $relationshipService.list_by_label("belongs_to", $scope.pagination, $scope.filter)
+                            .then(function(responseBelongsTo){
+                                $scope.filter = undefined;
+                                $scope.overlays = [];
+                                for(var i = 0; i < response.data.length; i++){
+                                    for(var k = 0; k < responseBelongsTo.data.length; k++){
+                                        if(response.data[i].overlay_id === responseBelongsTo.data[k].overlay_id && responseBelongsTo.data[k].scenario_id === $scope.current.scenario.scenario_id){
+                                            $scope.overlays.push(response.data[i]);
+                                        }
+                                    }
+                                }
+                            }).catch(function onError(responseBelongsTo) {
+                                $scope.err = responseBelongsTo.data;
+                            });
                     }).catch(function onError(response) {
                         $scope.err = response.data;
                     });
@@ -110,7 +127,6 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         }).catch(function onError(response) {
             $scope.err = response.data;
         });
-
 
         // Load all connected locations
         $locationService.list_by_location($scope.current.location.location_id)
@@ -142,6 +158,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
      * @return {[type]}         [description]
      */
     $scope.toggleOverlay = function(overlay){
+        console.log($scope.overlays);
         for(var i = 0; i < $scope.overlays.length; i++){
             if($scope.overlays[i].overlay_id == overlay.overlay_id){
                 if($scope.overlays[i].display){
@@ -153,7 +170,8 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                 // Send socket message
                 $socket.emit('/toggle/overlay', {
                     overlay_id: overlay.overlay_id,
-                    display: $scope.overlays[i].display
+                    display: $scope.overlays[i].display,
+                    type: $scope.overlays[i].category
                 });
             }
         }

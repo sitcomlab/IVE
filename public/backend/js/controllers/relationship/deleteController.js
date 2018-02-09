@@ -25,7 +25,7 @@ app.controller("relationshipDeleteController", function($scope, $rootScope, $rou
 
         $relationshipService.remove($scope.relationship.relationship_id)
         .then(function onSuccess(response) {
-            $scope.redirect("/relationship/" + $scope.relationship_label);
+            $scope.redirect("/relationships/" + $scope.relationship_label);
         })
         .catch(function onError(response) {
             $window.alert(response.data);

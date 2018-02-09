@@ -37,21 +37,34 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
     // Load the overlays to the selected video
     $scope.getOverlays = function(){
         $relationshipService.list_by_label("embedded_in", $scope.pagination, $scope.filter)
-            .then(function(response){
-                $scope.relationships = [];
-                for(var i = 0; i < response.data.length; i++){
-                    if(response.data[i].video_id === $scope.current.video.video_id){
-                        $scope.relationships.push(response.data[i])
-                    }
-                    if(i === response.data.length - 1){
-                        $scope.setOverlays();
-                    }
-                }
+            .then(function(responseEmbeddedIn){
+                $scope.filter = {};
+                $scope.filter.relationship_type = "overlay";
+                $relationshipService.list_by_label("belongs_to", $scope.pagination, $scope.filter)
+                    .then(function(responseBelongsTo){
+                        $scope.filter = undefined;
+                        console.log(responseEmbeddedIn.data);
+                        console.log(responseBelongsTo.data);
+                        $scope.relationships = [];
+                        for(var i = 0; i < responseEmbeddedIn.data.length; i++){
+                            if(responseEmbeddedIn.data[i].video_id === $scope.current.video.video_id){
+                                for(var k = 0; k < responseBelongsTo.data.length; k++){
+                                    if(responseEmbeddedIn.data[i].overlay_id === responseBelongsTo.data[k].overlay_id && responseBelongsTo.data[k].scenario_id === $scope.scenarioId){
+                                        $scope.relationships.push(responseEmbeddedIn.data[i])
+                                    }
+                                }
+                            }
+                            if(i === responseEmbeddedIn.data.length - 1){
+                                $scope.setOverlays();
+                            }
+                        }
+                    });
             })
     };
 
     // Show the overlays in the overlay-container
     $scope.setOverlays = function(){
+        console.log($scope.relationships);
         // Setting everything to NULL, prevent loading issues
         $scope.scene = null;
         $scope.renderer = null;
@@ -74,10 +87,10 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $scope.scene = new THREE.Scene();
 
         // Creating the camera
-        var camera = new THREE.PerspectiveCamera( 75, overlay_container_width/overlay_container_height, 1, 3000 );
+        $scope.camera = new THREE.PerspectiveCamera( 75, overlay_container_width/overlay_container_height, 1, 3000 );
         // camera.position.set( 0, 101, 300 );
-        camera.lookAt( $scope.scene.position );
-        camera.position.z = 5;
+        $scope.camera.lookAt( $scope.scene.position );
+        $scope.camera.position.z = 5;
 
         // Make sure that Three.js uses CORS to load external urls as textures, for example.
         THREE.ImageUtils.crossOrigin = '';
@@ -90,7 +103,6 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $scope.cssRenderer.setClearColor(0xffffff, 0);
         $scope.cssRenderer.domElement.style.position = 'absolute';
         $scope.cssRenderer.domElement.style.zIndex = 101;
-        //$scope.cssRenderer.domElement.style.top = 0;
         $scope.overlay_container.append($scope.cssRenderer.domElement);
 
         // Creating the glRenderer
@@ -101,7 +113,6 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $scope.renderer.setClearColor(0xffffff, 0);
         $scope.renderer.domElement.style.position = 'absolute';
         $scope.renderer.domElement.style.zIndex = 100;
-        //$scope.renderer.domElement.style.top = 0;
         $scope.overlay_container.append($scope.renderer.domElement);
 
         // Create Overlays
@@ -116,6 +127,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                 element.style.width = parseFloat(iframe_w) + 'px';
                 element.style.height = parseFloat(iframe_h) + 'px';
                 element.style.border = '0px';
+                element.style.visibility = "visible";
+                element.id = $scope.relationships[i].overlay_id;
 
                 // Creating the css object
                 var objectCSS = new THREE.CSS3DObject(element);
@@ -212,8 +225,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         // Render the scene
         var render = function () {
             requestAnimationFrame( render );
-            $scope.cssRenderer.render($scope.scene, camera);
-            $scope.renderer.render($scope.scene, camera);
+            $scope.cssRenderer.render($scope.scene, $scope.camera);
+            $scope.renderer.render($scope.scene, $scope.camera);
         };
 
         render();
@@ -225,6 +238,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      */
     $socket.on('/set/scenario', function(data) {
         console.log(new Date() + " /set/scenario: " + data.scenario_id);
+        $scope.scenarioId = data.scenario_id;
         $scope.current = {
             scenarioStatus: true,
             locationStatus: false,
@@ -316,9 +330,15 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         for(var i = 0; i < $scope.scene.children.length; i++){
             if($scope.scene.children[i].name === data.overlay_id && data.display === false){
                 $scope.scene.children[i].visible = false;
+                if(data.type === "website"){
+                    $('#' + data.overlay_id).css('visibility', 'hidden');
+                }
             }
             if($scope.scene.children[i].name === data.overlay_id && data.display === true){
                 $scope.scene.children[i].visible = true;
+                if(data.type === "website"){
+                    $('#' + data.overlay_id).css('visibility', 'visible');
+                }
             }
         }
     })

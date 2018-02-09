@@ -32,7 +32,7 @@ app.controller("connectedToCreateController", function($scope, $rootScope, $rout
             $relationshipService.create('connected_to', $scope.relationship)
             .then(function onSuccess(response) {
                 $scope.relationship = response.data;
-                $scope.redirect("/relationship/connected_to/" + $scope.relationship.relationship_id);
+                $scope.redirect("/relationships/connected_to/" + $scope.relationship.relationship_id);
             })
             .catch(function onError(response) {
                 $window.alert(response.data);

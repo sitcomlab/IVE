@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<h1> Welcome to the IVE CMS</h1>
+</br>
+<h2> Your options:</h2>
+
+<!--Icon row-->
+<div class="row col-center">
+    <!--Icon 1-->
+    <div class="col-md-4 col-lg-4 iconbox">
+        <a href="" ng-click="redirect('/scenarios/create-new')">
+            <div class="hexagon">
+                <i class="fa fa-street-view fa-3x" aria-hidden="true"></i>
+            </div>
+            </br>
+            <span>Create Scenario</span>
+        </a>
+    </div>
+    <!--Icon 2-->
+    <div class="col-md-4 col-lg-4 iconbox">
+        <a href="/cms/videos/create-new">
+            <div class="hexagon">
+                <i class="fa fa-file-video-o fa-3x" aria-hidden="true"></i>
+            </div>
+            </br>
+            <span>Add Video</span>
+        </a>
+    </div>
+    <!--Icon 3-->
+    <div class="col-md-4 col-lg-4 iconbox">
+        <a href="/cms/overlays/create-new">
+            <div class="hexagon">
+                <i class="fa fa-window-maximize fa-3x" aria-hidden="true"></i>
+            </div>
+            </br>
+            <span>Place Overlays</span>
+        </a>
+    </div>
+</div>
+</br>
+<h4>Scenario Overview:</h4>
+<div class="row">
+    <div class="col-md-9 col-center">
+        <leaflet id="map" defaults="defaults" width="100%" height="40%"></leaflet>
+    </div>
+</div>
