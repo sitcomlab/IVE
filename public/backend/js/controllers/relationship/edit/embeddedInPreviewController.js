@@ -37,7 +37,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
         $scope.$parent.loading = { status: true, message: $filter('translate')('SAVING_RELATIONSHIP') };
 
-        // Setting the new values, round to 4 decimals
+        // Setting all the new values, round to 4 decimals
         $scope.round(sizeX, 4)
             .then(function(data){
                 $scope.relationship.relationship_w = data;

@@ -17,6 +17,7 @@ var app = angular.module("ive", [
     "com.2fdevs.videogular",
 	"com.2fdevs.videogular.plugins.controls",
     "ive.upload",
+    "ive.upload.video",
 	"ngFileUpload",
 	//"com.2fdevs.videogular.plugins.overlayplay",
 	//"com.2fdevs.videogular.plugins.poster",

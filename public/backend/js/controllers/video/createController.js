@@ -1,7 +1,7 @@
-var app = angular.module("ive");
+var app = angular.module("ive.upload.video", ['ngFileUpload']);
 
 // Video create controller
-app.controller("videoCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $videoService) {
+app.controller("videoCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $videoService, Upload, $timeout) {
 
     /*************************************************
         FUNCTIONS
@@ -40,6 +40,35 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
             })
             .catch(function onError(response) {
                 $window.alert(response.data);
+            });
+        }
+    };
+
+    $scope.uploadVideo = function(file, errFiles) {
+        var folderUrl = $('#folderUrl').val();
+        $scope.video.url = "/videos/" + $scope.folderUrl + "/" + file.name;
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: config.getApiEndpoint() + '/videos/uploadVideo/' + folderUrl,
+                method: 'POST',
+                data: {file: file},
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
             });
         }
     };

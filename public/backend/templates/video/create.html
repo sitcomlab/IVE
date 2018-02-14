@@ -50,35 +50,43 @@
             <br>
 
             <label>
-                <b>{{ 'URL' | translate }}</b> <sup class="text-danger">*</sup>
-                <small>({{ 'NO_FILENAME_EXTENSION_REQUIRED' | translate }})</small>
+                <b>Upload File</b> <sup class="text-danger">*</sup>
             </label>
-            <div class="form-group" ng-class="{'has-danger': createVideoForm.url.$invalid && !createVideoForm.url.$pristine}">
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-file-video-o" aria-hidden="true"></i>
-                    </div>
-                    <input
+
+            <label>
+                <b>Folder name</b> <sup class="text-danger">*</sup>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': createVideoForm.name.$invalid && !createVideoForm.name.$pristine}">
+                <input
                         type="text"
                         class="form-control"
-                        ng-model="video.url"
-                        name="url"
-                        id="url"
-                        placeholder="{{ 'URL' | translate }}"
-                        aria-describedby="inputUrl"
+                        ng-model="folderUrl"
+                        name="folderUrl"
+                        id="folderUrl"
+                        placeholder="Folder"
+                        aria-describedby="inputFolderUrl"
+                        autofocus
                         required>
-                    <div class="input-group-addon">
-                        .mp4 / .ogg
-                    </div>
-                </div>
-                <small class="form-text text-muted">
-                    <b>{{ 'EXAMPLE' | translate }}</b>: <code>/geo1</code> {{ 'FOR_THE_FILES' | translate }} <code>geo1.mp4</code> {{ 'AND' | translate }} <code>geo1.ogg</code>
-                </small>
-                <span ng-show="createVideoForm.url.$error.required && !createVideoForm.url.$pristine" class="text-danger">
+                <span ng-show="createVideoForm.name.$error.required && !createVideoForm.name.$pristine" class="text-danger">
                     <small>
                         {{ 'REQUIRED' | translate }}
                     </small>
                 </span>
+            </div>
+
+            <div >
+                <button type="file" ngf-select="uploadVideo($file, $invalidFiles)"
+                        accept="video/*">
+                    Select File</button>
+                <br>
+                <br>
+                File:
+                <div >{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                    <span class="progress" ng-show="f.progress >= 0">
+                                <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></div>
+                            </span>
+                </div>
+                {{errorMsg}}
             </div>
             <br>
 
