@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Relationship embedded_in edit in preview mode controller
-app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $sce, $authenticationService, $relationshipService, $videoService, $q) {
+app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $sce, $authenticationService, $relationshipService, $videoService, $q, $socket) {
 
     /*************************************************
      FUNCTIONS
@@ -82,12 +82,11 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
             })
     };
 
-
     // Round a number to dec decimals
     $scope.round = function(num, dec){
         var deferred = $q.defer();
         var rounded = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
-        deferred.resolve(rounded)
+        deferred.resolve(rounded);
         return deferred.promise;
     }
 
@@ -202,7 +201,8 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
             // Setting the controls for the WebGL Object
             control = new THREE.TransformControls(camera, renderer.domElement);
-            control.addEventListener('change', render );
+            // control.addEventListener('change', render );
+            control.addEventListener('change', valuesChanged );
 
             control.attach($scope.object);
             $scope.scene.add(control);
@@ -245,7 +245,8 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
             // Setting the controls for the object
             control = new THREE.TransformControls(camera, renderer.domElement);
-            control.addEventListener('change', render );
+            // control.addEventListener('change', render );
+            control.addEventListener('change', valuesChanged );
 
             control.attach($scope.object);
             $scope.scene.add(control);
@@ -312,7 +313,8 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
             // Setting the controls for the object
             control = new THREE.TransformControls(camera, renderer.domElement);
-            control.addEventListener('change', render );
+            // control.addEventListener('change', render );
+            control.addEventListener('change', valuesChanged );
 
             control.attach($scope.object);
             $scope.scene.add(control);
@@ -325,7 +327,8 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
                     controlOn =! controlOn;
                     if(controlOn === true){
                         control = new THREE.TransformControls(camera, renderer.domElement);
-                        control.addEventListener('change', render );
+                        // control.addEventListener('change', render );
+                        control.addEventListener('change', valuesChanged );
 
                         control.attach($scope.object);
                         $scope.scene.add(control);
@@ -405,6 +408,33 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
         render();
 
+    };
+
+    // Changing the values of the overlay in the Frontend live
+    function valuesChanged(evt) {
+        $scope.scene.updateMatrixWorld(true);
+
+        // Getting translation, rotation, scale
+        var translation = new THREE.Vector3();
+        var rotationQ = new THREE.Quaternion();
+        var scale = new THREE.Vector3();
+
+        // Getting the Size and the Euler-Rotation
+        $scope.object.matrixWorld.decompose(translation, rotationQ, scale);
+
+        $socket.emit('/change/values', {
+            relationship_id: $scope.relationship.relationship_id,
+            overlay_id: $scope.relationship.overlay_id,
+            size_x: scale.x,
+            size_y: scale.y,
+            translation_x: translation.x,
+            translation_y: translation.y,
+            translation_z: translation.z,
+            rotation_x: rotationQ._x,
+            rotation_y: rotationQ._y,
+            rotation_z: rotationQ._z,
+            rotation_w: rotationQ._w
+        });
     }
 
     // Creating the div with the shortcuts
@@ -415,7 +445,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
         div.id = "helpcontainer";
         document.getElementById("container").appendChild(div);
         $('#helpcontainer').append('<div id="help"><h1>Shortcuts</h1><ul><li>Controls on/off: c</li><li>Translate: t</li><li>Rotate: r</li><li>Scale: s</li><li>Controls bigger/smaller: +/-</li></ul></div>');
-    }
+    };
 
     /*************************************************
      INIT

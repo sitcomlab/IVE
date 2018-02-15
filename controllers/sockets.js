@@ -37,6 +37,12 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('/toggle/overlay', data);
     });
 
+    // Live changing of the overlay values
+    socket.on('/change/values', function(data) {
+        console.log(colors.cyan(new Date() + " /change/values: " + JSON.stringify(data)));
+        socket.broadcast.emit('/change/values', data);
+    });
+
 });
 
 exports.sockets = io;

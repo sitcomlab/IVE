@@ -12,6 +12,7 @@ var app = angular.module("ive", [
     "ngSanitize",
     "pascalprecht.translate",
     "angular-momentjs",
+    "btford.socket-io",
     "underscore",
     "ngclipboard",
     "com.2fdevs.videogular",
@@ -25,7 +26,9 @@ var app = angular.module("ive", [
     // Import routes
     "routes",
 
+    // Imports modules
     // "tjsModelViewer",
+    "sockets",
 
     // Import services
     "authenticationService",

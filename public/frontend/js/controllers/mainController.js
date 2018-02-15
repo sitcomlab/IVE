@@ -28,8 +28,6 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $("#video-container video")[0].load();
         var vidload = document.getElementById("video");
         vidload.onloadeddata = function() {
-            // var vidCon = $( '#video-container' );
-            // vidCon.after('<div id="overlay-container"></div>')
             $scope.getOverlays();
         };
     };
@@ -43,8 +41,6 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                 $relationshipService.list_by_label("belongs_to", $scope.pagination, $scope.filter)
                     .then(function(responseBelongsTo){
                         $scope.filter = undefined;
-                        console.log(responseEmbeddedIn.data);
-                        console.log(responseBelongsTo.data);
                         $scope.relationships = [];
                         for(var i = 0; i < responseEmbeddedIn.data.length; i++){
                             if(responseEmbeddedIn.data[i].video_id === $scope.current.video.video_id){
@@ -64,7 +60,6 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
     // Show the overlays in the overlay-container
     $scope.setOverlays = function(){
-        console.log($scope.relationships);
         // Setting everything to NULL, prevent loading issues
         $scope.scene = null;
         $scope.renderer = null;
@@ -326,8 +321,10 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $scope.controls = data.status;
     });
 
+
+    // Switch overlays on and off
     $socket.on('/toggle/overlay', function(data){
-        for(var i = 0; i < $scope.scene.children.length; i++){
+        for(let i = 0; i < $scope.scene.children.length; i++){
             if($scope.scene.children[i].name === data.overlay_id && data.display === false){
                 $scope.scene.children[i].visible = false;
                 if(data.type === "website"){
@@ -341,5 +338,22 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                 }
             }
         }
-    })
+    });
+
+    // Live changing of the overlay
+    $socket.on('/change/values', function(data) {
+        for(let i = 0; i < $scope.scene.children.length; i++){
+            if($scope.scene.children[i]._overlay.relationship_id === data.relationship_id){
+                $scope.scene.children[i].scale.x = data.size_x;
+                $scope.scene.children[i].scale.y = data.size_y;
+                $scope.scene.children[i].position.x = data.translation_x;
+                $scope.scene.children[i].position.y = data.translation_y;
+                $scope.scene.children[i].position.z = data.translation_z;
+                $scope.scene.children[i].quaternion._w = data.rotation_w;
+                $scope.scene.children[i].quaternion._x = data.rotation_x;
+                $scope.scene.children[i].quaternion._y = data.rotation_y;
+                $scope.scene.children[i].quaternion._z = data.rotation_z;
+            }
+        }
+    });
 });
