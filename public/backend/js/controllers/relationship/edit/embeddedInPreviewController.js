@@ -67,6 +67,9 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
                                                                         $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
                                                                             .then(function onSuccess(response) {
                                                                                 $scope.relationship = response.data;
+                                                                                $socket.emit('/change/saveValues', {
+                                                                                    relationship_id: $scope.relationship.relationship_id
+                                                                                });
                                                                                 $scope.redirect("/edit/relationships/" + $scope.relationship_label + "/" + $scope.relationship.relationship_id);
                                                                             })
                                                                             .catch(function onError(response) {
@@ -405,13 +408,11 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
                 renderer.render($scope.scene, camera);
             }
         };
-
         render();
-
     };
 
     // Changing the values of the overlay in the Frontend live
-    function valuesChanged(evt) {
+    function valuesChanged() {
         $scope.scene.updateMatrixWorld(true);
 
         // Getting translation, rotation, scale
@@ -422,6 +423,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
         // Getting the Size and the Euler-Rotation
         $scope.object.matrixWorld.decompose(translation, rotationQ, scale);
 
+        // Sending the new values in the frontend
         $socket.emit('/change/values', {
             relationship_id: $scope.relationship.relationship_id,
             overlay_id: $scope.relationship.overlay_id,
@@ -445,6 +447,16 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
         div.id = "helpcontainer";
         document.getElementById("container").appendChild(div);
         $('#helpcontainer').append('<div id="help"><h1>Shortcuts</h1><ul><li>Controls on/off: c</li><li>Translate: t</li><li>Rotate: r</li><li>Scale: s</li><li>Controls bigger/smaller: +/-</li></ul></div>');
+    };
+
+    // Abort the editing
+    $scope.abort = function (){
+        // Resetting the overlay in the frontend
+        $socket.emit('/change/saveValues', {
+            relationship_id: $scope.relationship.relationship_id
+        });
+
+        $scope.redirect('/relationships/' + $scope.relationship_label + '/' + $scope.relationship.relationship_id)
     };
 
     /*************************************************

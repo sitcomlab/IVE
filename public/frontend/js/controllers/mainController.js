@@ -344,8 +344,14 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
     $socket.on('/change/values', function(data) {
         for(let i = 0; i < $scope.scene.children.length; i++){
             if($scope.scene.children[i]._overlay.relationship_id === data.relationship_id){
-                $scope.scene.children[i].scale.x = data.size_x;
-                $scope.scene.children[i].scale.y = data.size_y;
+                if($scope.scene.children[i]._overlay.overlay_category === "website"){
+                    $scope.scene.children[i].scale.x = data.size_x * 0.01;
+                    $scope.scene.children[i].scale.y = data.size_y * 0.01;
+                }
+                else {
+                    $scope.scene.children[i].scale.x = data.size_x;
+                    $scope.scene.children[i].scale.y = data.size_y;
+                }
                 $scope.scene.children[i].position.x = data.translation_x;
                 $scope.scene.children[i].position.y = data.translation_y;
                 $scope.scene.children[i].position.z = data.translation_z;
@@ -355,5 +361,10 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                 $scope.scene.children[i].quaternion._z = data.rotation_z;
             }
         }
+    });
+
+    // Replacing the overlay
+    $socket.on('/change/saveValues', function(data){
+        $scope.getOverlays();
     });
 });

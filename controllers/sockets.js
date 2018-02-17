@@ -43,6 +43,12 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('/change/values', data);
     });
 
+    // Reload the scene in the frontend with new values
+    socket.on('/change/saveValues', function(data) {
+        console.log(colors.cyan(new Date() + " /change/saveValues: " + JSON.stringify(data)));
+        socket.broadcast.emit('/change/saveValues', data);
+    });
+
 });
 
 exports.sockets = io;
