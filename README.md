@@ -13,7 +13,7 @@ The Immersive Video Environment (IVE) is the next version of the previous develo
 
 ## Demo
 
-![https://www.youtube.com/embed/0iaOFMc1ptU?rel=0](https://www.youtube.com/embed/0iaOFMc1ptU?rel=0)
+[https://www.youtube.com/embed/0iaOFMc1ptU?rel=0](https://www.youtube.com/embed/0iaOFMc1ptU?rel=0)
 
 ## Installation
 
