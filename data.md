@@ -26,7 +26,7 @@ permalink: /data/
 
 # 1. Example graph
 
-The following graph gives a quick overview about the nodes and edges of the IVE inside the Neo4j database. It is a simple representation and doesn't contain all required properties (and was created with the [arrow tool](http://www.apcjones.com/arrows/), which is made by [apcjones](https://github.com/apcj)):
+The following graph gives a quick overview about the nodes and edges of the data inside the Neo4j database. It is a simple representation and doesn't contain all required properties:
 
 [<img src="{{ site.baseurl }}/images/graph_overview.png" alt="graph overview" class="picture" />]({{ site.baseurl }}/)
 

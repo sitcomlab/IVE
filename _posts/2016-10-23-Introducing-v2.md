@@ -5,7 +5,7 @@ author: nicho
 excerpt_separator: <!--more-->
 ---
 
-> TL;DR: 2nd version is in development, everything will be more awesome!
+> TL;DR: 2nd version is in development.
 
 <!--more-->
 
@@ -15,10 +15,10 @@ it's Nicho from the SitcomLab and I'm proud to announce the **2nd version** of t
 
 The original concept of a distributed client-server approach still exists. The following parts forms the system:
 
-* the backend, which contains a webserver, a REST-API and the graph database, as well as a websocket-server for realtime communication
+* the CREATOR, which contains a webserver, a REST-API and the graph database, as well as a websocket-server for realtime communication
 * an administrative UI to organize the data
-* the frontend, which can play the panoramic videos and overlay them with virtual objects
-* the remote control (web-app on a smartphone), which is used for navigation and interaction with the frontend.
+* the VIEWER, which can play the panoramic videos and overlay them with virtual objects
+* the REMOTE CONTROL (web-app on a smartphone), which is used for navigation and interaction with the VIEWER.
 
 The backend is also implemented in Nodejs, but I had to switch from the Neo4j database v2.1.8, which was the last stable version of the **IPED-TOOLKIT** to the latest v3.x, because the previous database drivers were not supported any more. The package we used, was community driven and was not supported officially by Neo4j. With the installation to the latest Neo4j database v3.x, the company introduced a new protocol (*Bolt*), which allowed them to built drivers for all major platforms, including Nodejs. If you are interested, please [here](https://neo4j.com/developer/language-guides/) is a the full overview about the official drivers.
 Furthermore the websocket-server was rebuild and allows developers to create own extensions.
@@ -34,10 +34,10 @@ Thanks to the new development, I was also able to the redesign the database sche
 
 ###### Roadmap
 * Backend: further REST-API endpoints, so that HTTP-requests are a second option to communicate with the server beside the websockets
-* Backend: Administrative UI to setup and change Overlays
-* Frontend: Rendering Overlays
-* Remote control: settings view
-* (Remote control: Voice control system)
+* CREATOR: Administrative UI to setup and change Overlays
+* VIEWER: Rendering Overlays
+* REMOTE CONTROL: settings view
+* (REMOTE CONTROL: Voice control system)
 * (Backend: Voice control system)
 
 As I already mentioned at the beginning, the development is still in progress and some parts might change in the future. Please check out the materials of this blog and create some issues on GitHub, if you find some bugs. Your feedback and ideas are very welcome, feel free to get in touch with me and fork the project on GitHub.

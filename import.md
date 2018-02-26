@@ -5,7 +5,7 @@ permalink: /import/
 
 #### Overview
 1. [Options](#options)
-    1. [IVE-Backend](#ive-backend)
+    1. [CREATOR](#CREATOR)
     2. [CSV files](#csv-files)
     3. [REST-API](#rest-api)
     4. [Cypher queries](#cypher-queries)
@@ -30,14 +30,14 @@ The IVE provides different import functionalities to get your data into Neo4j. T
 
 [<img src="{{ site.baseurl }}/images/import.svg" alt="import options" class="picture" />]({{ site.baseurl }}/)
 
-## 1.1. IVE-Backend (RECOMMENDED)
-The IVE-Backend is the recommended way to create new entries or manage you existing entries.
+## 1.1. CREATOR (RECOMMENDED)
+The CREATOR is the recommended way to create new entries or manage you existing entries.
 
 ## 1.2. CSV files
 For sharing a graph, the CSV format is the best. Therefore the setup-script can be used to import the example graph of the IVE. It contains several scenarios with locations, videos, overlays and their relationships. Beside the automatic import of the setup-script, it is possible to create own CSV files and upload them by using the cypher-commands of Neo4j. You need to specify the import-path for Neo4j, please checkout the instructions in the installation guide to get more information about it. All necessary cypher commands can be found in the folder `/queries/setup/*`.
 
 ## 1.3. REST-API
-The IVE-Backend, as well as the IVE-Frontend and IVE-Remote control, are using internally an REST-API to request and retrieve the data. So the REST-API is an alternative way to creating new entries or managing existing ones, but most requests need a JSON-webtoken for authentication, so you need to request a token first, before you can use all API endpoints. Submit a POST-request to the endpoint `/login` to authenticate:
+The CREATOR, as well as the VIEWER and REMOTE CONTROL, are using internally an REST-API to request and retrieve the data. So the REST-API is an alternative way to creating new entries or managing existing ones, but most requests need a JSON-webtoken for authentication, so you need to request a token first, before you can use all API endpoints. Submit a POST-request to the endpoint `/login` to authenticate:
 
 ```json
 {
@@ -46,10 +46,10 @@ The IVE-Backend, as well as the IVE-Frontend and IVE-Remote control, are using i
 }
 ```
 
-It is not recommended to use it in this way, because the IVE-Backend provides a much better user-interface, where you can easily create new entries. But if you plan to create a new application to create or import data, the REST-API is the perfect way for that.
+It is not recommended to use it in this way, because the CREATOR provides a much better user-interface, where you can easily create new entries. But if you plan to create a new application to create or import data, the REST-API is the perfect way for that.
 
 ## 1.4. Cypher queries
-This option is on the database-level and a direct way to your data. It is also not recommended, because the IVE-Backend provides a much better user-interface, where you can easily create new entries or edit existing ones. But if you want to validate your data with the help of a full graph visualization, the Neo4j browser can help you. Open in your browser the address `localhost:7474` to access the graphical user interface with the built in neo4j-shell. (On a command-line-interface, if you only want the neo4j-shell, type in the command `neo4j-shell`, more information can be found here: [http://neo4j.com/docs/snapshot/shell-starting.html](http://neo4j.com/docs/snapshot/shell-starting.html)).
+This option is on the database-level and a direct way to your data. It is also not recommended, because the CREATOR provides a much better user-interface, where you can easily create new entries or edit existing ones. But if you want to validate your data with the help of a full graph visualization, the Neo4j browser can help you. Open in your browser the address `localhost:7474` to access the graphical user interface with the built in neo4j-shell. (On a command-line-interface, if you only want the neo4j-shell, type in the command `neo4j-shell`, more information can be found here: [http://neo4j.com/docs/snapshot/shell-starting.html](http://neo4j.com/docs/snapshot/shell-starting.html)).
 For inserting your data manually, please find the cypher queries below. If you want to see your full graph, type in the following cypher query:
 
 ```sql

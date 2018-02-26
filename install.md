@@ -16,9 +16,10 @@ permalink: /install/
     2. [GitHub repository](#github-repository)
     3. [Nodejs](#nodejs)
     4. [Bower](#bower)
-3. [Starting the IVE](#starting-the-ive)
-4. [Using the IVE](#using-the-ive)
-5. [Documentation](#documentation)
+3. [Media files](#media-files)
+4. [Starting the IVE](#starting-the-ive)
+5. [Using the IVE](#using-the-ive)
+6. [Documentation](#documentation)
 
 ***
 
@@ -202,7 +203,19 @@ sudo bower install --allow-root
 
 ***
 
-# 3. Starting the IVE
+# 4. Media files
+
+* If you have imported the CSV files of available scenarios from step 1.2.1. you have to download the required media files
+* All content for the IVE (videos, thumbnails and overlay images, etc.) is available on the university cloud storage [Sciebo](https://www.sciebo.de). Please create an account, if you don't have one yet.
+* Then create in your repository the following folders:
+    * `public/videos`
+    * `public/images`
+    * `public/thumbnails`
+* After that, ask a local team member of the Situated Computing Lab to get access to the online folders of the cloud storage. You can decide which material of the available scenarios you want to download or to download them all. **Attention: Please checkout the file sizes of the folders, before you actually downloading them!**
+
+***
+
+# 5. Starting the IVE
 
 * You can start the IVE-server with the following command:
 
@@ -219,8 +232,8 @@ node server.js
     * `DB_PORT`: Neo4j-database port number (default: `7687`)
     * `DB_USER`: Neo4j-database username (default: `neo4j`)
     * `DB_PASSWORD`: Neo4j-database password (default: `123456`)
-    * `BACKEND_USER`: Username for the backend admin account (default: `admin`)
-    * `BACKEND_PASSWORD`: Password for the backend admin account (default: `admin`)
+    * `ADMIN_USERNAME`: Username for the admin account (default: `admin`)
+    * `ADMIN_PASSWORD`: Password for the admin account (default: `admin`)
     * `JWTSECRET`: Secret for the JSON-Webtoken-authentication (default: `superSecretKey`)
 
 * Run the following command, like this:
@@ -235,11 +248,11 @@ set HTTP_PORT=4000 node server.js
 
 ***
 
-# 4. Using the IVE
+# 5. Using the IVE
 
 * Open a webbrowser and go to [http://localhost:4000](http://localhost:4000/) (there is also a **night-version** for the demonstrations in the IVE: [http://localhost:4000/ive.html](http://localhost:4000/ive.html))
 
-* Open the **FRONTEND** in a new tab ([http://localhost:4000/frontend](http://localhost:4000/frontend))
+* Open the **VIEWER** in a new tab ([http://localhost:4000/frontend](http://localhost:4000/frontend))
 * Open the **REMOTE CONTROL APP** in a new tab or on your smartphone ([http://localhost:4000/remote](http://localhost:4000/remote))
 * In the remote app, select a Scenario from the list
 * After that, select a starting location
@@ -248,7 +261,7 @@ Have fun!
 
 ***
 
-# 5. Documentation
+# 6. Documentation
 
 * If you want to contribute to this documentation, you need to install Jekyll ([https://jekyllrb.com/docs/installation/](https://jekyllrb.com/docs/installation/)) on your local machine. **Attention**: Jekyll is not officially supported by Windows. Please follow the instructions on their website.
 * Switch to the `gh-pages` branch in your local repository:

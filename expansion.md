@@ -113,10 +113,10 @@ In the folder `/rest/*` inside the repository, you can find two files, which can
 
 | Endpoint | Message | Description |
 |----------|---------|-------------|
-| `/set/scenario` | `{ "scenario_id": 1 }` | Set the scenario inside the frontend application |
-| `/set/location` | `{ "location_id": 2 }` | Set the (start-) location inside the frontend application |
-| `/set/video` | `{ "video_id": 3 }` | Set (change) the current video inside the frontend application |
-| `/toggle/overlay` | `{ "overlay_id": 4 }` | Show or hide the current overlay inside the frontend application |
+| `/set/scenario` | `{ "scenario_id": 1 }` | Set the scenario inside the VIEWER |
+| `/set/location` | `{ "location_id": 2 }` | Set the (start-) location inside the VIEWER |
+| `/set/video` | `{ "video_id": 3 }` | Set (change) the current video inside the VIEWER |
+| `/toggle/overlay` | `{ "overlay_id": 4 }` | Show or hide the current overlay inside the VIEWER |
 
 ***
 
@@ -129,4 +129,4 @@ The following image shows the basic architecture of the implementation.
 
 [<img src="{{ site.baseurl }}/images/voice-control.svg" alt="Voice control system" class="picture" />]({{ site.baseurl }}/)
 
-The voice control system uses the expressions <-> intents concept, so a user can say different commands (expressions), but the meaning (intent) are all the same. Based on this concept, multiple intents can be used to navigate inside the IVE. The property `intent_id` inside a `-[CONNECTED_TO]->` relationship is used as a reference-key. In a second relational database ([PostgreSQL](https://www.postgresql.org)), the `intent_id` is unique and contains all possible intents. If a spoken voice command (expression) was identified by the external voice recognition system ([Wit.Ai](https://wit.ai)), the external voice recognition system tries to find the intent, which the expression is related to. It sends the identified intent (e.g. `go_left`) back to the IVE-Server, where a simple algorithm tries to found the intent inside all outgoing `-[CONNECTED_TO]->` relationships of the current <span class="label label-location">Location</span>. If there is a match, the IVE goes to the new location and switch the video.
+The voice control system uses the **expressions <-> intents** approach. This means a user can give a variation of voice commands (expressions), for example: "Go left" or "Turn left". But these commands have all the same meaning, for example: "navigate_left", which allows to aggregate them into a single intent. If one of those expression is matched during the voice recognition phase, the identified intent is sent back from the voice recognition system ([Wit.Ai](https://wit.ai)) to the IVE. Based on this idea multiple intents, which different meanings (for example: "go_left", "go_right", etc.) can be used to build a simple  navigation system for the IVE. The property `intents` inside the `-[CONNECTED_TO]->` relationship is an array, which contains all available intents for this relationship. Based on this, all out-going `-[CONNECTED_TO]->` relationships of the current <span class="label label-location">Location</span> can be searched for the intent name, the voice recognition system had identified. If the intent can be found inside the relationships, the system can navigate to the connected <span class="label label-location">Location</span>. One requirement for this simple search algorithm it that all intent names have to be unique.
