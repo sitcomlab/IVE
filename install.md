@@ -16,6 +16,8 @@ permalink: /install/
     2. [GitHub repository](#github-repository)
     3. [Nodejs](#nodejs)
     4. [Bower](#bower)
+    5. [Setup your local environment variables](#setup-your-local-environment-variables)
+    6. [Server-settings (only for maintainers)](#server-settings-only-for-maintainers)
 3. [Media files](#media-files)
 4. [Starting the IVE](#starting-the-ive)
 5. [Using the IVE](#using-the-ive)
@@ -187,7 +189,15 @@ bower install
 sudo bower install --allow-root
 ```
 
-### (Server-settings)
+### 2.5 Setup your local environment variables
+
+* Before you can use the IVE you need to specify the **NODE ENVIRONMENT VARIABLES** by creating a `.env` file. It is also possible to create these variables on runtime, please see section [4. Starting the IVE](#starting-the-ive), but storing them in a file is the recommended way. You can make use of the example-file by coping it to your local repository:
+
+```
+cp .env.sample .env
+```
+
+### 2.6 Server-settings (only for maintainers)
 
 * If you have installed the IVE on a Linux server, you can create a cronjob to automatically start Neo4j and the server after a reboot. Open `sudo nano /etc/crontab` and add the following lines:
 
@@ -203,7 +213,7 @@ sudo bower install --allow-root
 
 ***
 
-# 4. Media files
+# 3. Media files
 
 * If you have imported the CSV files of available scenarios from step 1.2.1. you have to download the required media files
 * All content for the IVE (videos, thumbnails and overlay images, etc.) is available on the university cloud storage [Sciebo](https://www.sciebo.de). Please create an account, if you don't have one yet.
@@ -215,9 +225,7 @@ sudo bower install --allow-root
 
 ***
 
-# 5. Starting the IVE
-
-* You can start the IVE-server with the following command:
+# 4. Starting the IVE
 
 ```
 node server.js
@@ -235,7 +243,7 @@ node server.js
     * `ADMIN_USERNAME`: Username for the admin account (default: `admin`)
     * `ADMIN_PASSWORD`: Password for the admin account (default: `admin`)
     * `JWTSECRET`: Secret for the JSON-Webtoken-authentication (default: `superSecretKey`)
-
+* You can also save them in a `.env` file
 * Run the following command, like this:
 
 ```

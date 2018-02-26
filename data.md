@@ -4,7 +4,8 @@ permalink: /data/
 ---
 
 #### Overview
-1. [Example graph](#example-graph)
+1. [Meta graph](#meta-graph)
+    1. [Example graph](#example-graph)
 2. [Nodes](#nodes)
     1. [Scenarios](#scenarios)
     2. [Locations](#locations)
@@ -24,7 +25,14 @@ permalink: /data/
 
 ***
 
-# 1. Example graph
+# 1. Meta graph
+
+The following graph gives a quick overview about the nodes and edges of the data inside the Neo4j database.
+
+[<img src="{{ site.baseurl }}/images/meta_graph.png" alt="graph overview" class="picture" />]({{ site.baseurl }}/)
+
+
+# 1.1. Example graph
 
 The following graph gives a quick overview about the nodes and edges of the data inside the Neo4j database. It is a simple representation and doesn't contain all required properties:
 
