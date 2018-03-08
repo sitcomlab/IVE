@@ -49,6 +49,12 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('/change/saveValues', data);
     });
 
+    // Switch the point overlay on and off
+    socket.on('/toggle/pointing', function(data) {
+        console.log(colors.cyan(new Date() + " /toggle/pointing: " + JSON.stringify(data)));
+        socket.broadcast.emit('/toggle/pointing', data);
+    });
+
 });
 
 exports.sockets = io;

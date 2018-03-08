@@ -12,6 +12,9 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         locationStatus: false
     };
 
+    $scope.pointingOverlay = {};
+    $scope.pointingOverlay.display = true;
+
     // Load all scenarios
     $scenarioService.list()
     .then(function onSuccess(response) {
@@ -109,8 +112,8 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                             .then(function(responseBelongsTo){
                                 $scope.filter = undefined;
                                 $scope.overlays = [];
-                                for(var i = 0; i < response.data.length; i++){
-                                    for(var k = 0; k < responseBelongsTo.data.length; k++){
+                                for(let i = 0; i < response.data.length; i++){
+                                    for(let k = 0; k < responseBelongsTo.data.length; k++){
                                         if(response.data[i].overlay_id === responseBelongsTo.data[k].overlay_id && responseBelongsTo.data[k].scenario_id === $scope.current.scenario.scenario_id){
                                             $scope.overlays.push(response.data[i]);
                                         }
@@ -158,9 +161,8 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
      * @return {[type]}         [description]
      */
     $scope.toggleOverlay = function(overlay){
-        console.log($scope.overlays);
-        for(var i = 0; i < $scope.overlays.length; i++){
-            if($scope.overlays[i].overlay_id == overlay.overlay_id){
+        for(let i = 0; i < $scope.overlays.length; i++){
+            if($scope.overlays[i].overlay_id === overlay.overlay_id){
                 if($scope.overlays[i].display){
                     $scope.overlays[i].display = false;
                 } else {
@@ -175,6 +177,20 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                 });
             }
         }
+    };
+
+    // Switch the point overlay on and off
+    $scope.togglePointingOverlay = function(){
+        if($scope.pointingOverlay.display){
+            $scope.pointingOverlay.display = false;
+        } else {
+            $scope.pointingOverlay.display = true;
+        }
+
+        // Send socket message
+        $socket.emit('/toggle/pointing', {
+            display: $scope.pointingOverlay.display
+        });
     };
 
 

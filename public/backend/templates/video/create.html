@@ -91,41 +91,6 @@
             <br>
 
             <label>
-                <b>{{ 'THUMBNAILS' | translate }}</b> <sup class="text-danger">*</sup>
-                <small>({{ 'AMOUNT_OF_THUMBNAILS' | translate }})</small>
-            </label>
-            <div class="form-group" ng-class="{'has-danger': createVideoForm.thumbnails.$invalid && !createVideoForm.thumbnails.$pristine}">
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-picture-o" aria-hidden="true"></i>
-                    </div>
-                    <input
-                        type="number"
-                        class="form-control"
-                        ng-model="video.thumbnails"
-                        name="thumbnails"
-                        id="thumbnails"
-                        min="0"
-                        step="1"
-                        placeholder="{{ 'THUMBNAILS' | translate }}"
-                        aria-describedby="inputThumbnails"
-                        required>
-                </div>
-                <small class="form-text text-muted">
-                    <b>{{ 'EXAMPLE' | translate }}</b>: <code>42</code> {{ 'FOR_LAST_ITEM_IN_THE_FOLDER' | translate }} <code>{{config.thumbnailFolder}}/video_uuid/42.jpg</code>
-                </small>
-                <small class="form-text text-muted">
-                    <b>{{ 'ATTENTION' | translate }}</b>: {{ 'YOU_WILL_RECEIVE_A_NEW_UUID' | translate }}
-                </small>
-                <span ng-show="createVideoForm.thumbnails.$error.required && !createVideoForm.thumbnails.$pristine" class="text-danger">
-                    <small>
-                        {{ 'REQUIRED' | translate }}
-                    </small>
-                </span>
-            </div>
-            <br>
-
-            <label>
                 <b>{{ 'RECORDED' | translate }}</b>
             </label>
             <div class="form-group" ng-class="{'has-danger': createVideoForm.recorded.$invalid && !createVideoForm.recorded.$pristine}">

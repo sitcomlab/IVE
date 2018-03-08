@@ -15,6 +15,25 @@
     <br>
 
     <div class="list-group list-group-flush">
+        <a href="" ng-click="redirect('/create/recorded_at/relationship')" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <div>
+                    <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}
+                </div>
+                <div style="padding-left: 5px; padding-right: 5px;">
+                    <span class="badge badge-pill badge-default">
+                        &mdash;&nbsp;RECORDED_AT&nbsp;&mdash;&gt;
+                    </span>
+                </div>
+                <span>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_LOCATION' | translate }}
+                </span>
+            </div>
+        </a>
+    </div>
+    <br>
+
+    <div class="list-group list-group-flush">
         <a href="" ng-click="redirect('/create/belongs_to/relationship/location')" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <div>
@@ -45,18 +64,22 @@
                 </span>
             </div>
         </a>
-        <a href="" ng-click="redirect('/create/belongs_to/relationship/overlay')" class="list-group-item list-group-item-action flex-column align-items-start">
+    </div>
+    <br>
+
+    <div class="list-group list-group-flush">
+        <a href="" ng-click="redirect('/create/embedded_in/relationship')" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <div>
                     <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_OVERLAY' | translate }}
                 </div>
                 <div style="padding-left: 5px; padding-right: 5px;">
                     <span class="badge badge-pill badge-default">
-                        &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                        &mdash;&nbsp;EMBEDDED_IN&nbsp;&mdash;&gt;
                     </span>
                 </div>
                 <span>
-                    <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_SCENARIO' | translate }}
+                    <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}
                 </span>
             </div>
         </a>
@@ -83,25 +106,6 @@
     <br>
 
     <div class="list-group list-group-flush">
-        <a href="" ng-click="redirect('/create/embedded_in/relationship')" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-                <div>
-                    <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_OVERLAY' | translate }}
-                </div>
-                <div style="padding-left: 5px; padding-right: 5px;">
-                    <span class="badge badge-pill badge-default">
-                        &mdash;&nbsp;EMBEDDED_IN&nbsp;&mdash;&gt;
-                    </span>
-                </div>
-                <span>
-                    <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}
-                </span>
-            </div>
-        </a>
-    </div>
-    <br>
-
-    <div class="list-group list-group-flush">
         <a href="" ng-click="redirect('/create/has_parent_location/relationship')" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <div>
@@ -114,25 +118,6 @@
                 </div>
                 <span>
                     <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'END_LOCATION' | translate }}
-                </span>
-            </div>
-        </a>
-    </div>
-    <br>
-
-    <div class="list-group list-group-flush">
-        <a href="" ng-click="redirect('/create/recorded_at/relationship')" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-                <div>
-                    <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}
-                </div>
-                <div style="padding-left: 5px; padding-right: 5px;">
-                    <span class="badge badge-pill badge-default">
-                        &mdash;&nbsp;RECORDED_AT&nbsp;&mdash;&gt;
-                    </span>
-                </div>
-                <span>
-                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_LOCATION' | translate }}
                 </span>
             </div>
         </a>

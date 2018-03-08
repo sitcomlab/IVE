@@ -59,7 +59,6 @@ app.controller("scenarioListController", function($scope, $rootScope, $filter, $
             $scenarioService.list($scope.pagination, $scope.filter)
                 .then(function onSuccess(response) {
                     $scope.scenarios = response.data;
-                    console.log($scope.scenarios);
                     $scope.pages = [];
 
                     // Prepare pagination

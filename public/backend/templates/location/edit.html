@@ -85,6 +85,7 @@
                     <div class="form-group" ng-class="{'has-danger': editLocationForm.lng.$invalid && !editLocationForm.lng.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
                             ng-model="location.lng"
                             name="lng"
@@ -112,6 +113,7 @@
                     <div class="form-group" ng-class="{'has-danger': editLocationForm.lat.$invalid && !editLocationForm.lat.$pristine}">
                         <input
                             type="number"
+                            step="any"
                             class="form-control"
                             ng-model="location.lat"
                             name="lat"
@@ -133,6 +135,9 @@
                     <br>
                 </div>
             </div>
+            <br>
+
+            <div id="map" style="height: 400px"></div>
 
         </div>
         <div class="card-footer right">

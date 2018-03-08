@@ -141,6 +141,17 @@
                 </span>
             </div>
         </button>
+        <button type="button" class="list-group-item list-group-item-action" ng-click="togglePointingOverlay()">
+            <div class="d-flex w-100 justify-content-between">
+                Pointing overlay
+                <span ng-if="pointingOverlay.display" class="text-success">
+                    <i class="fa fa-toggle-on" aria-hidden="true"></i>
+                </span>
+                <span ng-if="!pointingOverlay.display">
+                    <i class="fa fa-toggle-off" aria-hidden="true"></i>
+                </span>
+            </div>
+        </button>
         <div class="card-block card-block-active" ng-if="overlays.length == 0">
             <span class="text-muted">
                 {{ 'NO_OVERLAYS_FOUND' | translate }}

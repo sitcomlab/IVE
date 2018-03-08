@@ -44,8 +44,8 @@ app.constant("config", {
         if(this.serverMode === 'production'){
             return this.serverSettings.production.host + ":" + this.serverSettings.production.port + this.serverSettings.production.apiPath
         } else {
-            //var ngrok = "http://a8d7f761.ngrok.io/api";
-            //return ngrok;
+            // var ngrok = "http://8920855e.ngrok.io/api";
+            // return ngrok;
             return this.serverSettings.development.host + ":" + this.serverSettings.development.port + this.serverSettings.development.apiPath
         }
     }

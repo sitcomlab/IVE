@@ -41,6 +41,7 @@
     "path": "^0.12.7",
     "socket.io": "^1.5.1",
     "socket.io-client": "^1.7.2",
+    "underscore": "^1.8.3",
     "uuid": "^3.0.1"
   }
 }

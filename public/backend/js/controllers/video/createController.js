@@ -32,10 +32,11 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
         } else {
             $scope.$parent.loading = { status: true, message: $filter('translate')('CREATING_VIDEO') };
 
+            $scope.video.url = $scope.video.url.slice(0, -4);
+
             $videoService.create($scope.video)
             .then(function onSuccess(response) {
                 $scope.video = response.data;
-                $window.prompt($filter('translate')('NEW_VIDEO_CREATED'), $scope.video.video_uuid);
                 $scope.redirect("/videos/" + $scope.video.video_id);
             })
             .catch(function onError(response) {
@@ -46,7 +47,7 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
 
     $scope.uploadVideo = function(file, errFiles) {
         var folderUrl = $('#folderUrl').val();
-        $scope.video.url = "/videos/" + $scope.folderUrl + "/" + file.name;
+        $scope.video.url = "/" +  $scope.folderUrl + "/" + file.name;
         $scope.f = file;
         $scope.errFile = errFiles && errFiles[0];
         if (file) {

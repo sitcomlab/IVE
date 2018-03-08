@@ -110,6 +110,23 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $scope.renderer.domElement.style.zIndex = 100;
         $scope.overlay_container.append($scope.renderer.domElement);
 
+        // Create the pointing overlay
+
+        var elementpointing = document.createElement('iframe');
+        elementpointing.src = "http://navas.staff.ifgi.de/ive_backend/";
+        iframe_w = overlay_container_width / 3; // The iframe mst show the whole website; Scaled down later
+        iframe_h = overlay_container_height; // The iframe must show the whole website; Scaled down later
+        elementpointing.style.width = parseFloat(iframe_w) + 'px';
+        elementpointing.style.height = parseFloat(iframe_h) + 'px';
+        elementpointing.style.position = 'absolute';
+        elementpointing.style.border = '0px';
+        let marginLeft = overlay_container_width / 3;
+        elementpointing.style.marginLeft = parseFloat(marginLeft) + 'px';
+        elementpointing.style.visibility = "visible";
+        elementpointing.id = "pointing";
+        elementpointing.style.zIndex = 90;
+        $scope.overlay_container.append(elementpointing);
+
         // Create Overlays
         for(var i = 0; i < $scope.relationships.length; i++){
             // If Website
@@ -327,14 +344,33 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         for(let i = 0; i < $scope.scene.children.length; i++){
             if($scope.scene.children[i].name === data.overlay_id && data.display === false){
                 $scope.scene.children[i].visible = false;
+                console.log($scope.scene);
                 if(data.type === "website"){
                     $('#' + data.overlay_id).css('visibility', 'hidden');
                 }
             }
             if($scope.scene.children[i].name === data.overlay_id && data.display === true){
                 $scope.scene.children[i].visible = true;
+                console.log($scope.scene);
                 if(data.type === "website"){
                     $('#' + data.overlay_id).css('visibility', 'visible');
+                }
+            }
+        }
+    });
+
+    // Switch pointing overlay on and off
+    $socket.on('/toggle/pointing', function (data){
+        if(data.display === true){
+            for(let i = 0; i < $scope.scene.children.length; i++){
+                if($scope.scene.children[i].name === "pointing"){
+                    $('#' + data.overlay_id).css('visibility', 'visible');
+                }
+            }
+        } else {
+            for(let i = 0; i < $scope.scene.children.length; i++){
+                if($scope.scene.children[i].name === "pointing"){
+                    $('#' + data.overlay_id).css('visibility', 'hidden');
                 }
             }
         }

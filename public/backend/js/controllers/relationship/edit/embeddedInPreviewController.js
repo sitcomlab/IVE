@@ -31,8 +31,8 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
         // Getting the Size and the Euler-Rotation
         $scope.object.matrixWorld.decompose(translation, rotationQ, scale);
-        var sizeX = scale.x * $scope.object.geometry.parameters.width
-        var sizeY = scale.y * $scope.object.geometry.parameters.height
+        var sizeX = scale.x * $scope.object.geometry.parameters.width;
+        var sizeY = scale.y * $scope.object.geometry.parameters.height;
         var rotationE = new THREE.Euler().setFromQuaternion(rotationQ.normalize());
 
         $scope.$parent.loading = { status: true, message: $filter('translate')('SAVING_RELATIONSHIP') };
