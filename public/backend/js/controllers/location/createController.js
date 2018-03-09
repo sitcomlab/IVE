@@ -44,10 +44,10 @@ app.controller("locationCreateController", function($scope, $rootScope, $routePa
     };
 
     $scope.changeCoordinates = function (){
-        console.log($scope.long);
         $scope.location.lng = $scope.long;
         $scope.location.lat = $scope.lati;
-        console.log($scope.location);
+        $('#lng').val($scope.long);
+        $('#lat').val($scope.lati);
     };
 
 

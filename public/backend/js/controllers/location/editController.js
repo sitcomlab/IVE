@@ -46,6 +46,8 @@ app.controller("locationEditController", function($scope, $rootScope, $routePara
     $scope.changeCoordinates = function (){
         $scope.location.lng = $scope.long;
         $scope.location.lat = $scope.lati;
+        $('#lng').val($scope.long);
+        $('#lat').val($scope.lati);
     };
 
     /*************************************************

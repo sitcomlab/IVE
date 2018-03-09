@@ -130,7 +130,7 @@
         <h5 class="card-header">
             {{ 'OVERLAYS' | translate }}
         </h5>
-        <button type="button" class="list-group-item list-group-item-action" ng-repeat="overlay in overlays | orderBy: ['name']" ng-click="toggleOverlay(overlay)" ng-if="overlays.length > 0">
+        <button type="button" class="list-group-item list-group-item-action" ng-repeat="overlay in overlays | orderBy: ['overlay_id']" ng-click="toggleOverlay(overlay)" ng-if="overlays.length > 0">
             <div class="d-flex w-100 justify-content-between">
                 {{overlay.name}}
                 <span ng-if="overlay.display" class="text-success">

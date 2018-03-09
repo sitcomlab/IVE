@@ -42,11 +42,24 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                     .then(function(responseBelongsTo){
                         $scope.filter = undefined;
                         $scope.relationships = [];
-                        for(var i = 0; i < responseEmbeddedIn.data.length; i++){
+                        for(let i = 0; i < responseEmbeddedIn.data.length; i++){
                             if(responseEmbeddedIn.data[i].video_id === $scope.current.video.video_id){
-                                for(var k = 0; k < responseBelongsTo.data.length; k++){
+                                for(let k = 0; k < responseBelongsTo.data.length; k++){
                                     if(responseEmbeddedIn.data[i].overlay_id === responseBelongsTo.data[k].overlay_id && responseBelongsTo.data[k].scenario_id === $scope.scenarioId){
-                                        $scope.relationships.push(responseEmbeddedIn.data[i])
+                                        let exists = false;
+                                        if($scope.relationships.length > 0){
+                                            for(let j = 0; j < $scope.relationships.length; j++){
+                                                if($scope.relationships[j] === responseEmbeddedIn.data[i]){
+                                                    exists = true;
+                                                }
+                                                if(j = $scope.relationships.length - 1 && exists === false){
+                                                    $scope.relationships.push(responseEmbeddedIn.data[i])
+                                                }
+                                            }
+                                        }
+                                        else{
+                                            $scope.relationships.push(responseEmbeddedIn.data[i])
+                                        }
                                     }
                                 }
                             }
@@ -122,7 +135,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         elementpointing.style.border = '0px';
         let marginLeft = overlay_container_width / 3;
         elementpointing.style.marginLeft = parseFloat(marginLeft) + 'px';
-        elementpointing.style.visibility = "visible";
+        elementpointing.style.visibility = "hidden";
         elementpointing.id = "pointing";
         elementpointing.style.zIndex = 90;
         $scope.overlay_container.append(elementpointing);
@@ -362,17 +375,10 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
     // Switch pointing overlay on and off
     $socket.on('/toggle/pointing', function (data){
         if(data.display === true){
-            for(let i = 0; i < $scope.scene.children.length; i++){
-                if($scope.scene.children[i].name === "pointing"){
-                    $('#' + data.overlay_id).css('visibility', 'visible');
-                }
-            }
+            $('#pointing').css('visibility', 'visible');
+
         } else {
-            for(let i = 0; i < $scope.scene.children.length; i++){
-                if($scope.scene.children[i].name === "pointing"){
-                    $('#' + data.overlay_id).css('visibility', 'hidden');
-                }
-            }
+            $('#pointing').css('visibility', 'hidden');
         }
     });
 
