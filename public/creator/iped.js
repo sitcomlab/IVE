@@ -76,7 +76,7 @@ define(['threejs/js/three.min',
 
             this.init();
 
-            // Hooks the Overlay plugin to the frontend's functions
+            // Hooks the Overlay plugin to the viewer's functions
             // Morin: This could also be done by using Backbone.js's on change listener
             if (this.parent.myHooks) {
                 if (this.parent.myHooks['setLocationId']) {
@@ -191,7 +191,7 @@ define(['threejs/js/three.min',
         };
 
         /**
-         * Hooked to the corresponding frontend method
+         * Hooked to the corresponding viewer method
          */
         OverlayPlugin.prototype.setLocationId = function(locationId) {
             JL('iPED Toolkit.OverlayPlugin')

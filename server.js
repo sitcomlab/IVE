@@ -79,7 +79,7 @@ exports.isAuthenticated = function isAuthenticated(req, res, next) {
                 res.status(401).send("Authentication failed!");
             } else {
                 // Authorization
-                if(decoded.username === process.env.BACKEND_USERNAME && decoded.iss === process.env.SERVER_URL){
+                if(decoded.username === process.env.ADMIN_USERNAME && decoded.iss === process.env.SERVER_URL){
                     return next();
                 } else {
                     res.status(401).send("Authentication failed!");
@@ -112,11 +112,11 @@ app.use(cms);
 app.get('/', function(req, res, next) {
     res.sendFile(path.resolve('public/index.html'));
 });
-app.get('/backend/*', function(req, res, next) {
-    res.sendFile(path.resolve('public/backend/index.html'));
+app.get('/creator/*', function(req, res, next) {
+    res.sendFile(path.resolve('public/creator/index.html'));
 });
-app.get('/frontend/*', function(req, res, next) {
-    res.sendFile(path.resolve('public/frontend/index.html'));
+app.get('/viewer/*', function(req, res, next) {
+    res.sendFile(path.resolve('public/viewer/index.html'));
 });
 app.get('/remote/*', function(req, res, next) {
     res.sendFile(path.resolve('public/remote/index.html'));

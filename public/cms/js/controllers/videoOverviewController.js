@@ -12,9 +12,9 @@ app.controller("videoOverviewController", function ($scope, $rootScope, $window,
     }
     $rootScope.currentSite = null;
 
-    // Authenticate with the backend to get permissions to delete content
+    // Authenticate with the creator to get permissions to delete content
 
-    $authenticationService.authenticate(config.backendLogin)
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })

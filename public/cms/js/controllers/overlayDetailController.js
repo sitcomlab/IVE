@@ -21,7 +21,7 @@ app.controller("overlayDetailController", function ($scope, $rootScope, $routePa
     var url_input = angular.element('#url-input');
     var type_input = angular.element('#overlay_type-button');
 
-    $authenticationService.authenticate(config.backendLogin)
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })

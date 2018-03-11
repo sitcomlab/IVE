@@ -19,7 +19,7 @@ app.controller("overlayCreateNewController", function ($scope, $rootScope, $wind
         url: ""
     }
 
-    $authenticationService.authenticate(config.backendLogin)
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })

@@ -41,9 +41,9 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
     var location_name;
 
 
-    // Authenticate with the backend to get permissions to create content
+    // Authenticate with the creator to get permissions to create content
 
-    $authenticationService.authenticate(config.backendLogin)
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })
@@ -276,7 +276,7 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
         }
     }
 
-    // Accept Uploaded files and send them to the backend server
+    // Accept Uploaded files and send them to the creator server
     // TODO: Think about how the videos are ordered on the fs --> create location
     // before the upload is initialised
 
@@ -309,7 +309,7 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
                 .then(function (response) {
 
                     if (response.status != 201) {
-                        $window.alert('It seems like the backend is not responding. Please try again later.');
+                        $window.alert('It seems like the creator is not responding. Please try again later.');
                         return;
                     }
 
@@ -368,7 +368,7 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
                 }).then(function (createdVideo) {
 
                     if (createdVideo.status != 201) {
-                        $window.alert('It seems like the backend is not responding. Please try again later.');
+                        $window.alert('It seems like the creator is not responding. Please try again later.');
                         return;
                     }
 

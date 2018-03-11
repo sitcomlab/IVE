@@ -22,8 +22,8 @@ app.controller("locationDetailController", function ($scope, $rootScope, $routeP
     $rootScope.currentSite = null;
 
 
-    // Authenticate with the backend to get permissions to delete and modify content
-    $authenticationService.authenticate(config.backendLogin)
+    // Authenticate with the creator to get permissions to delete and modify content
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })

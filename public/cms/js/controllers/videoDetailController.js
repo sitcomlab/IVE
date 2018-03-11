@@ -18,7 +18,7 @@ app.controller("videoDetailController", function ($scope, $rootScope, $window, c
     }
     $rootScope.currentSite = null;
 
-    $authenticationService.authenticate(config.backendLogin)
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })

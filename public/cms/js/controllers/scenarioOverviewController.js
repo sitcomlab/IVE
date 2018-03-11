@@ -12,7 +12,7 @@ app.controller("scenarioOverviewController", function ($scope, $rootScope, $wind
     }
     $rootScope.currentSite = null;
 
-    $authenticationService.authenticate(config.backendLogin)
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })

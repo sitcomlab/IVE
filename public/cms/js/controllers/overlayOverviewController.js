@@ -12,8 +12,8 @@ app.controller("overlayOverviewController", function ($scope, $rootScope, $windo
     }
     $rootScope.currentSite = null;
 
-    // Authenticate with the backend to get permissions to delete content
-    $authenticationService.authenticate(config.backendLogin)
+    // Authenticate with the creator to get permissions to delete content
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })

@@ -18,7 +18,7 @@ app.constant("config", {
     // apiURL: "http://f3e6c7de.ngrok.io/api",
     debugMode: true,
     html5Mode: true,
-    backendLogin: {
+    creatorLogin: {
         username: 'admin',
         password: 'admin'
     },

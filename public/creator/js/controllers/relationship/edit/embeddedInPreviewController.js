@@ -411,7 +411,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
         render();
     };
 
-    // Changing the values of the overlay in the Frontend live
+    // Changing the values of the overlay in the viewer live
     function valuesChanged() {
         $scope.scene.updateMatrixWorld(true);
 
@@ -423,7 +423,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
         // Getting the Size and the Euler-Rotation
         $scope.object.matrixWorld.decompose(translation, rotationQ, scale);
 
-        // Sending the new values in the frontend
+        // Sending the new values in the viewer
         $socket.emit('/change/values', {
             relationship_id: $scope.relationship.relationship_id,
             overlay_id: $scope.relationship.overlay_id,
@@ -451,7 +451,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
     // Abort the editing
     $scope.abort = function (){
-        // Resetting the overlay in the frontend
+        // Resetting the overlay in the viewer
         $socket.emit('/change/saveValues', {
             relationship_id: $scope.relationship.relationship_id
         });

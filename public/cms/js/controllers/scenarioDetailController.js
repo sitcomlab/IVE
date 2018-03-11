@@ -17,7 +17,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
     }
     $rootScope.currentSite = null;
 
-    $authenticationService.authenticate(config.backendLogin)
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })

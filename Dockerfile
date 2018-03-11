@@ -26,12 +26,4 @@ RUN mkdir /queries/setup
 ADD queries/setup/* ./queries/setup/
 
 RUN npm install
-RUN DB_PORT=7687 DB_USER=neo4j DB_PASSWORD=123456 node setup.js
 RUN bower install --allow-root
-
-# If you are building your code for production
-# RUN npm install --only=production
-# Bundle app source
-COPY . .
-EXPOSE 5000
-CMD [ "npm", "start" ]

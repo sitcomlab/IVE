@@ -31,8 +31,8 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
 
     var scenarioCreated = false;
 
-    // Authenticate with the backend to get permissions to create content
-    $authenticationService.authenticate(config.backendLogin)
+    // Authenticate with the creator to get permissions to create content
+    $authenticationService.authenticate(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
         })
@@ -145,7 +145,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                     }).then(function (createdVideo) {
 
                         if (createdVideo.status != 201) {
-                            $window.alert('It seems like the backend is not responding. Please try again later.');
+                            $window.alert('It seems like the creator is not responding. Please try again later.');
                             return;
                         }
 
@@ -199,7 +199,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
             $locationService.create($scope.newVideo.location)
                 .then(function (response) {
                     if (response.status != 201) {
-                        $window.alert('It seems like the backend is not responding. Please try again later.');
+                        $window.alert('It seems like the creator is not responding. Please try again later.');
                         return;
                     }
                     $scope.newVideo.location = response.data;
