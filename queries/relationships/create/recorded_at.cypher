@@ -3,7 +3,7 @@ MATCH (l:Locations) WHERE ID(l) = toInt({location_id})
 CREATE (v)-[r:recorded_at {
     created: timestamp(),
     updated: timestamp(),
-    description: {description}
+    description: {description},
     preferred: {preferred}
 }]->(l)
 RETURN

@@ -3,6 +3,11 @@ var router = express.Router();
 var isAuthenticated = require('../server.js').isAuthenticated;
 
 var list_by_label = require('../controllers/relationships/list_by_label');
+var list_belongs_to = require('../controllers/relationships/list/belongs_to');
+var list_connected_to = require('../controllers/relationships/list/connected_to');
+var list_embedded_in = require('../controllers/relationships/list/embedded_in');
+var list_parent_location = require('../controllers/relationships/list/parent_location');
+var list_recorded_at = require('../controllers/relationships/list/recorded_at');
 
 var post_belongs_to = require('../controllers/relationships/post/belongs_to');
 var post_connected_to = require('../controllers/relationships/post/connected_to');
@@ -28,6 +33,13 @@ var del = require('../controllers/relationships/delete');
 
 // LIST BY RELATIONSHIP-LABEL
 router.get('/relationship/:relationship_label', list_by_label.request);
+
+// LIST BY RELATIONSHIP-TYPE
+router.get('/relationship/belongs_to/:label', list_belongs_to.request);
+router.get('/relationship/connected_to', list_connected_to.request);
+router.get('/relationship/embedded_in', list_embedded_in.request);
+router.get('/relationship/parent_location', list_parent_location.request);
+router.get('/relationship/recorded_at', list_recorded_at.request);
 
 // POST BY RELATIONSHIP-LABEL
 router.post('/relationship/belongs_to/:relationship_type', isAuthenticated, post_belongs_to.request);

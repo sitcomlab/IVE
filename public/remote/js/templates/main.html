@@ -130,13 +130,24 @@
         <h5 class="card-header">
             {{ 'OVERLAYS' | translate }}
         </h5>
-        <button type="button" class="list-group-item list-group-item-action" ng-repeat="overlay in overlays | orderBy: ['name']" ng-click="toggleOverlay(overlay)" ng-if="overlays.length > 0">
+        <button type="button" class="list-group-item list-group-item-action" ng-repeat="overlay in overlays | orderBy: ['overlay_id']" ng-click="toggleOverlay(overlay)" ng-if="overlays.length > 0">
             <div class="d-flex w-100 justify-content-between">
                 {{overlay.name}}
                 <span ng-if="overlay.display" class="text-success">
                     <i class="fa fa-toggle-on" aria-hidden="true"></i>
                 </span>
                 <span ng-if="!overlay.display">
+                    <i class="fa fa-toggle-off" aria-hidden="true"></i>
+                </span>
+            </div>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" ng-click="togglePointingOverlay()">
+            <div class="d-flex w-100 justify-content-between">
+                Pointing overlay
+                <span ng-if="pointingOverlay.display" class="text-success">
+                    <i class="fa fa-toggle-on" aria-hidden="true"></i>
+                </span>
+                <span ng-if="!pointingOverlay.display">
                     <i class="fa fa-toggle-off" aria-hidden="true"></i>
                 </span>
             </div>

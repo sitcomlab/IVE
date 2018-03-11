@@ -1,0 +1,90 @@
+<div class="row">
+
+    <div class="col-md-6">
+        <img class="previewImage" src="{{overlay.url}}" ng-show="overlay.category == 'picture'">
+        <img class="previewImage" src="/media/images/website_placeholder.png" ng-show="overlay.category == 'website'">
+        <img class="previewImage" src="/media/images/other_placeholder.png" ng-show="overlay.category == 'other'">
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="btn-group float-right" role="group" aria-label="ButtonBar" ng-hide="editMode">
+            <button ng-click="redirect('/overlays')" type="button" class="btn btn-secondary">
+                    <i class="fa fa-caret-left" aria-hidden="true"></i> Back
+                </button>
+            <button ng-click="editOverlay()" type="button" class="btn btn-secondary">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+                </button>
+        </div>
+
+        <div class="btn-group float-right" role="group" aria-label="ButtonBar" ng-show="editMode">
+            <button ng-click="editOverlay()" type="button" class="btn btn-secondary">
+                    <i class="fa fa-caret-left" aria-hidden="true"></i> Back
+                </button>
+            <button ng-click="deleteOverlay()" type="button" class="btn btn-danger">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+                </button>
+            <button ng-click="saveOverlay()" type="button" class="btn btn-primary">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+                </button>
+        </div>
+
+        <br>
+
+        <div class="inputFields">
+            <div class="form-group row">
+                <label for="name-input" class="col-2 col-form-label">Name:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="overlay.name" id="name-input" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="desc-input" class="col-2 col-form-label">Description:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="overlay.description" id="desc-input" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="tags-input" class="col-2 col-form-label">Tags:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="overlay.tags" id="tags-input" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="url-input" class="col-2 col-form-label">URL:</label>
+                <div class="col-10">
+                    <input class="form-control" type="string" ng-model="overlay.url" id="url-input" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="overlay_type-button" class="col-2 col-form-label">Type:</label>
+                <div class="col-10 dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="overlay_type-button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" disabled>
+                        {{overlay.category === "" ? 'Click to select a category' : overlay.category}}
+                        </button>
+                    <div class="col-9 dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" ng-click="overlay.category = 'picture'">Picture</a>
+                        <a class="dropdown-item" href="#" ng-click="overlay.category = 'website'">Website</a>
+                        <a class="dropdown-item" href="#" ng-click="overlay.category = 'other'">Other</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<hr>
+<h3> Appears in: </h3>
+
+<div class="row">
+
+    <div ng-repeat="video in appearsInVideos" class="col-md-3 video">
+        <p>Video #{{$index + 1}}: <br> {{video.name}}</p>
+        <img width="250px" height="141px" src="{{video.url + '_thumbnail.png'}}"></br>
+        <a href="" ng-click="redirect('/videos/'+ video.url)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        <a href="" ng-click="deleteVideo(video.video_id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+    </div>
+
+</div>

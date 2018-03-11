@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<div class="card">
+    <form class="form-horizontal" name="createRelationshipForm" ng-submit="send()">
+        <div class="card-header" style="font-size: 20pt;">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'NEW_RELATIONSHIP' | translate }}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/create/relationship')">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="row">
+                <div class="col-12">
+                    <label>
+                        <b>{{ 'FILTER_LOCATIONS_BY_SCENARIO' | translate }}</b>
+                    </label>
+                    <br>
+                    <select class="custom-select form-control" ng-change="updateDropdown('locations')" ng-model="locationDropdown.scenario_id" autofocus>
+                        <optgroup label="{{ 'DEFAULT' | translate }}">
+                            <option value="" selected>
+                                {{ 'ALL' | translate }}
+                            </option>
+                        </optgroup>
+                        <optgroup label="{{ '_SCENARIOS' | translate }}">
+                            <option ng-repeat="scenario in scenarios | orderBy: ['name']" value="{{scenario.scenario_id}}">
+                                {{ scenario.name }}
+                            </option>
+                        </optgroup>
+                    </select>
+                    <br>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label>
+                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_START_LOCATION' | translate }}</b> <sup class="text-danger">*</sup>
+                    </label>
+                    <br>
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.start_location_id.$invalid && !createRelationshipForm.start_location_id.$pristine}">
+                        <select
+                            class="custom-select form-control"
+                            id="start_location_id"
+                            name="start_location_id"
+                            ng-model="relationship.start_location_id"
+                            ng-disabled="locationDropdown.status"
+                            ng-options="location.location_id as location.name group by location.location_type for location in locations | orderBy:['name']"
+                            required>
+                        </select>
+                        <span ng-show="createRelationshipForm.start_location_id.$error.required && !createRelationshipForm.start_location_id.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <div ng-if="(relationship.start_location_id|findLocationById:locations).lat !== null && (relationship.start_location_id|findLocationById:locations).lng !== null">
+                        <img class="previewMap" ng-src="{{ relationship.start_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.start_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto;">
+                        <br>
+                    </div>
+                    <br>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 middle">
+                    <span class="badge badge-pill badge-default">
+                        &mdash;&nbsp;CONNECTED_TO&nbsp;&mdash;&gt;
+                    </span>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label>
+                        <b><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'END_LOCATION' | translate }}</b> <sup class="text-danger">*</sup>
+                    </label>
+                    <br>
+                    <div class="form-group" ng-class="{'has-danger': createRelationshipForm.end_location_id.$invalid && !createRelationshipForm.end_location_id.$pristine}">
+                        <select
+                            class="custom-select form-control"
+                            id="end_location_id"
+                            name="end_location_id"
+                            ng-model="relationship.end_location_id"
+                            ng-disabled="locationDropdown.status"
+                            ng-options="location.location_id as location.name group by location.location_type for location in locations | orderBy:['name'] | filter: locationType"
+                            required>
+                        </select>
+                        <span ng-show="createRelationshipForm.end_location_id.$error.required && !createRelationshipForm.end_location_id.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                    <div ng-if="(relationship.end_location_id|findLocationById:locations).lat !== null && (relationship.end_location_id|findLocationById:locations).lng !== null">
+                        <img class="previewMap" ng-src="{{ relationship.end_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.end_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto;">
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer right">
+            <button class="btn btn-success" type="submit">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
+            </button>
+        </div>
+    </form>
+</div>

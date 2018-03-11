@@ -1,5 +1,5 @@
 #!/bin/bash
-for f in `find public/videos/geo-1/* -type f -name '*.mp4' -exec ls {} \;`
+for f in `find public/videos/* -maxdepth 1 -type f -name '*.mp4' -exec ls {} \;`
 do
 	echo $(basename ${f%.mp4})
     b=$(basename ${f%.mp4})

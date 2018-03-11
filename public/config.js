@@ -6,8 +6,8 @@ var app = angular.module("config", []);
 app.constant("config", {
     appName: "IVE",
     appSubnames: {
-        backend: "IVE | Backend",
-        frontend: "IVE | Frontend",
+        creator: "IVE | Creator",
+        viewer: "IVE | Viewer",
         remote: "IVE | Remote control"
     },
     appDevelopers: [{
@@ -44,6 +44,8 @@ app.constant("config", {
         if(this.serverMode === 'production'){
             return this.serverSettings.production.host + ":" + this.serverSettings.production.port + this.serverSettings.production.apiPath
         } else {
+            // var ngrok = "http://2801e427.ngrok.io/api";
+            // return ngrok;
             return this.serverSettings.development.host + ":" + this.serverSettings.development.port + this.serverSettings.development.apiPath
         }
     }

@@ -1,0 +1,47 @@
+.overlay {
+    padding: 0 15px 15px 30px;
+    text-align: center;
+}
+
+.overlay i, td i {
+    padding: 0.5em 0.5em 0 0;
+    color: #193441;
+}
+
+.overlay a {
+    text-decoration: none;
+    color: #193441;
+}
+
+.overlay a:hover {
+    text-shadow: 0 0 5px #193441;
+}
+
+div.input-group.searchbar {
+    width: 40%;
+}
+
+.addOverlay {
+    text-align: center;
+    margin: auto 0 auto;
+}
+
+.addOVerlay a {
+    text-decoration: none;
+    color: #193441;
+    text-align: center;
+    margin: auto;
+}
+
+.tag::after {
+    content: ", ";
+}
+
+.tag:last-of-type::after {
+    content: "";
+}
+
+.thead-default th {
+    color: #fcfff5;
+    background-color: #193441
+}

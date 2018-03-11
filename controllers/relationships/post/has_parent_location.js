@@ -36,12 +36,12 @@ exports.request = function(req, res) {
         function(callback) { // Find entry by Id
             session
                 .run(query_get_location, {
-                    location_id: req.body.has_parent_location_id
+                    location_id: req.body.parent_location_id
                 })
                 .then(function(result) {
                     // Check if Location exists
                     if (result.records.length===0) {
-                        callback(new Error("Location with id '" + req.body.has_parent_location_id + "' not found!"), 404);
+                        callback(new Error("Location with id '" + req.body.parent_location_id + "' not found!"), 404);
                     } else {
                         callback(null);
                     }
@@ -55,7 +55,7 @@ exports.request = function(req, res) {
             // TODO: Validate all attributes of req.body
             var params = {
                 child_location_id: req.body.child_location_id,
-                has_parent_location_id: req.body.has_parent_location_id
+                parent_location_id: req.body.parent_location_id
             };
 
             callback(null, params);

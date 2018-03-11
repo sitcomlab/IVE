@@ -3,7 +3,7 @@ var app = angular.module("en_US", []);
 
 // ENGLISH translations
 app.constant("en_US", {
-    // BACKEND
+    // CREATOR
     _MAP: 'Map',
     SCENARIO: 'scenario',
     SCENARIOS: 'scenarios',
@@ -92,7 +92,7 @@ app.constant("en_US", {
     PLEASE_TYPE_IN_THE_TYPE_OF_THIS: 'Please type in the type of the',
     TO_CONFIRM: 'to confirm',
 
-    // FRONTEND
+    // Viewer
     PLEASE_SELECT_A: 'Please select a',
     SCENARIO: 'Scenario',
     LOCATION: 'Location',
