@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<div class="row">
+    <div class="col-md-12">
+        <!--Header: Search field and View Switcher-->
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
+            <div class="input-group searchbar">
+                <input type="text" ng-model="searchTerm" ng-change="search()" class="form-control" placeholder="Search for tags (#), names or file names...">
+                <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button">Go!</button>
+      </span>
+            </div>
+            <div class="btn-group" role="group" aria-label="Switch Layout">
+                <button ng-click="portraitView = true" type="button" ng-class="{'active': portraitView === true}" class="btn btn-secondary">
+                    <i class="fa fa-th-large" aria-hidden="true"></i>
+                </button>
+                <button ng-click="portraitView = false" type="button" ng-class="{'active': portraitView === false}" class="btn btn-secondary">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</br>
+
+<!--Scenario Overview: Portrait View-->
+<div class="row" ng-show="portraitView">
+    <div class="col-md-4 addScenario">
+        <a ng-click="redirect('/scenarios/create-new')" href="">Create new Scenario</br>
+        <i class="fa fa-plus-square-o fa-4x" aria-hidden="true"></i></a>
+    </div>
+    <div ng-repeat="scenario in scenarios" class="col-md-4 scenario">
+        <p>{{scenario.name}}</p>
+        <img src="{{scenario.thumbnail}}"></br>
+        <i class="fa fa-tags" aria-hidden="true"></i><span class="tag" ng-repeat="tag in scenario.tags">{{tag}}</span></br>
+        <a href="" ng-click="redirect('/scenarios/'+ scenario.scenario_id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        <a href="" ng-click="deleteScenario(scenario.scenario_id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></br>
+    </div>
+</div>
+
+<!--Scenario Overview: List View-->
+
+<div class="row" ng-hide="portraitView">
+    <div class="col-md-12">
+        <table class="table">
+            <thead class="thead-default">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Tags</th>
+                    <th>Created</th>
+                    <th>Last edited</th>
+                    <th>&nbsp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="scenario in scenarios">
+                    <th>{{scenario.scenario_id}}</th>
+                    <td>{{scenario.name}}</td>
+                    <td>{{scenario.description}}</td>
+                    <td><i class="fa fa-tag" aria-hidden="true"></i><span class="tag" ng-repeat="tag in scenario.tags">{{tag}}</span></td>
+                    <td>{{scenario.created | timestamp}}</td>
+                    <td>{{scenario.updated | timestamp}}</td>
+                    <td>
+                        <a href="" ng-click="redirect('/scenarios/'+ scenario.scenario_id)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a href="" ng-click="deleteScenario(scenario.scenario_id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

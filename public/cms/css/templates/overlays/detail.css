@@ -1,0 +1,37 @@
+.btn-group.float-right {
+    padding-bottom: 2em;
+}
+
+.inputFields {
+    margin-top: 3rem;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.previewImage {
+    margin: 0 auto;
+    width: 100%;
+    height: 35%;
+    border: 1px solid #193441;
+}
+
+.video {
+    padding: 0 15px 15px 30px;
+    text-align: center;
+}
+
+.video i {
+    padding: 0.5em 0.5em 0 0;
+    color: #193441;
+}
+
+.video a {
+    text-decoration: none;
+    color: #193441;
+}
+
+.video a:hover {
+    text-shadow: 0 0 5px #193441;
+}

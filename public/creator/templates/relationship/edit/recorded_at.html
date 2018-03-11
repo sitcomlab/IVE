@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<div class="card">
+    <form class="form-horizontal" name="editRelationshipForm" ng-submit="save()">
+        <div class="card-header" style="font-size: 20pt;">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT_RELATIONSHIP' | translate }}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                    <button class="btn btn-danger" type="button" ng-click="redirect('/relationships/' + relationship_label + '/' + relationship.relationship_id)">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div style="width: 100%;">
+                        <div style="width: 33.33333333%; float: left;">
+                            <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.video_name}}
+                            <br>
+                            <div
+                                ng-if="relationship.thumbnails > 0"
+                                style="
+                                    margin-top: 5px;
+                                    width: 100%;
+                                    height: auto;"
+                                ng-mouseover="startPreview(relationship)"
+                                ng-mouseout="stopPreview(relationship)"
+                            >
+                                <img ng-init="relationship.thumbnail = (relationship | thumbnail:1)" ng-src="{{relationship.thumbnail}}" class="previewVideo"
+                                style="
+                                    max-width: 480px;
+                                    width: 100%;
+                                    max-height: 90px;
+                                    height: auto;">
+                            </div>
+                        </div>
+                        <div class="middle" style="width: 33.33333333%; float: left; padding-left: 5px; padding-right: 5px;">
+                            <span class="badge badge-pill badge-default">
+                                &mdash;&nbsp;RECORDED_AT&nbsp;&mdash;&gt;
+                            </span>
+                        </div>
+                        <div class="right" style="width: 33.33333333%; float: left;">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{relationship.location_name}}
+                            <span class="badge" ng-class="{
+                                'badge-primary': relationship.location_type=='outdoor',
+                                'badge-default': relationship.location_type=='indoor',
+                                'badge-success': relationship.location_type=='abstract'
+                            }">{{relationship.location_type}}</span>
+                            <br>
+                            <img class="previewMap" ng-src="{{ relationship | previewMapRequest:'recorded_at' }}" alt="{{relationship.location_name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="relationship.location_lat !== null && relationship.location_lng !== null">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h6>{{ 'PROPERTIES' | translate }}</h6>
+            <label>
+                <b>{{ 'DESCRIPTION' | translate }}</b>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.description.$invalid && !editRelationshipForm.description.$pristine }">
+                <textarea
+                    class="form-control"
+                    rows="3"
+                    placeholder="{{ 'DESCRIPTION' | translate }}"
+                    ng-model="relationship.relationship_relationship_description"
+                    name="description"
+                    id="description"
+                    required
+                ></textarea>
+            </div>
+            <br>
+            <label>
+                <b>{{ 'PREFERRED' | translate }}</b> <sup class="text-danger">*</sup>
+            </label>
+            <div class="form-group" ng-class="{'has-danger': editRelationshipForm.preferred.$invalid && !editRelationshipForm.preferred.$pristine}">
+                <div class="row">
+                    <div class="col">
+                        <label class="custom-control custom-radio">
+                            <input
+                                type="radio"
+                                class="custom-control-input"
+                                id="preferred1"
+                                name="preferred"
+                                ng-value="true"
+                                ng-model="relationship.relationship_preferred"
+                                required>
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">
+                                {{ 'YES' | translate }}
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="custom-control custom-radio">
+                            <input
+                                type="radio"
+                                class="custom-control-input"
+                                id="preferred2"
+                                name="preferred"
+                                ng-value="false"
+                                ng-model="relationship.relationship_preferred"
+                                required>
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">
+                                {{ 'NO' | translate }}
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer right">
+            <button class="btn btn-success" type="submit">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
+            </button>
+        </div>
+    </form>
+</div>

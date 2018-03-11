@@ -1,0 +1,112 @@
+.row.videos {
+    border-bottom: 2px solid #193441;
+    padding: 15px 0 15px 0;
+    margin: 0px;
+}
+
+.row.videos a,
+.row.videos p {
+    color: #193441;
+    text-decoration: none;
+}
+
+.row.videos a:hover {
+    text-shadow: 0 0 5px #193441;
+}
+
+.col-md-4.overlay {
+    padding: 0 15px 15px 15px;
+    text-align: center;
+}
+
+.col-md-4.overlay>i {
+    padding-top: 0.5em;
+    color: #193441;
+    display: inline-block;
+}
+
+.col-md-4.overlay>a {
+    display: inline-block;
+    text-align: center;
+    padding-top: 0.5em;
+}
+
+.addOverlay {
+    text-align: center;
+    margin: auto 0 auto;
+}
+
+.col-md-3.addOverlay a {
+    text-decoration: none;
+    color: #193441;
+    text-align: center;
+    display: block;
+    padding-top: 4em;
+}
+
+.addVideo {
+    text-align: center;
+    margin: auto 0 auto;
+}
+
+.col-md-3.addVideo a {
+    text-decoration: none;
+    color: #193441;
+    text-align: center;
+    display: block;
+    padding-left: 7em;
+}
+
+.video {
+    text-align: center;
+}
+
+.col-md-3.video>p {
+    text-align: left;
+    color: #193441;
+}
+
+.col-md-3.video>a {
+    display: inline-block;
+    text-align: center;
+    padding-top: 0.5em;
+}
+
+.btn-group.float-right {
+    padding-bottom: 2em;
+}
+
+.inputFields {
+    margin-top: 3rem;
+}
+
+.form-group {
+    width: 100%;
+}
+
+hr {
+    border-bottom: 2px solid #193441;
+}
+
+#video_container {
+    /*background-color: blue;*/
+    margin: auto;
+    width: 75%;
+    height: 70%;
+}
+
+#video_container>div {
+    padding-top: 1em;
+}
+
+#overlay_container {
+    position: absolute;
+    width: 200px;
+    height: 113px;
+    background-color: green;
+    opacity: 0.7;
+}
+
+.col-center {
+    margin: 0 auto;
+}

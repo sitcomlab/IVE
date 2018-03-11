@@ -1,0 +1,27 @@
+h3 {
+    padding-top: 0.5em;
+}
+
+h3 button {
+    padding: 0.5em;
+}
+
+span>a {
+    color: ffffff;
+}
+
+p>span {
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+}
+
+.inputGroup {
+    padding-top: 1em;
+}
+
+.locationlist {
+    padding-top: 1em;
+    overflow-y: auto;
+    height: 150px;
+    display: block;
+}

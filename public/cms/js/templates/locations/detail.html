@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3> Selected Location: {{location.name}}
+            <div ng-hide="editMode" class="btn-group float-right">
+                <button ng-click="redirect('/locations')" type="button" class="btn btn-secondary"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</button>
+                <button ng-click="editLocation()" type="button" class="btn btn-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></button>
+            </div>
+
+            <div ng-show="editMode" class="btn-group float-right">
+                <button ng-click="editLocation()" type="button" class="btn btn-secondary"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
+                <button ng-click="deleteLocation()" type="button" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></button>
+                <button ng-click="saveLocation()" type="button" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"> Save</i></button>
+            </div>
+        </h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <leaflet id="locationDetailMap" defaults="defaults" width="100%" height="35%"></leaflet>
+    </div>
+    <div class="col-md-6 inputGroup">
+        <div class="form-group row">
+            <label for="name-input" class="col-2 col-form-label">Name:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="location.name" id="name-input" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="desc-input" class="col-2 col-form-label">Description:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="location.description" id="desc-input" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="lat-input" class="col-2 col-form-label">Latitude:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="location.lat" id="lat-input" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="lng-input" class="col-2 col-form-label">Longitude:</label>
+            <div class="col-10">
+                <input class="form-control" type="text" ng-model="location.lng" id="lng-input" disabled>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+
+    <div class="col-md-2">
+        <p>Incoming Locations:
+
+        </p>
+        <hr>
+        <p>Reachable Locations:
+
+        </p>
+    </div>
+
+    <div class="col-md-10">
+        <!--Incoming Locations-->
+        <p><span ng-repeat="ingoing in location.connections.ingoing" class="badge badge-pill badge-primary"><i class="fa fa-sign-in" aria-hidden="true"></i> IN {{ingoing.start_location_name}}<a ng-show="editMode" href="" ng-click="deleteConnection(ingoing.relationship_id)"> <i class="fa fa-times" aria-hidden="true"></i></a></span>
+            <span ng-if="location.connections.ingoing.length == 0" class="badge badge-pill badge-info">No connected Locations</span>
+            <span ng-show="editMode" class="badge badge-pill badge-info"><a href="" ng-click="newConnection('ingoing')"><i class="fa fa-plus" aria-hidden="true"></i> Add ingoing connection</a></span>
+        </p>
+        <hr>
+        <!--Outgoing Locations-->
+        <p> <span ng-repeat="outgoing in location.connections.outgoing" class="badge badge-pill badge-primary"><i class="fa fa-sign-out" aria-hidden="true"></i> OUT {{outgoing.end_location_name}} <a ng-show="editMode" href="" ng-click="deleteConnection(outgoing.relationship_id)"> <i class="fa fa-times" aria-hidden="true"></i></a></span>
+            <span ng-if="location.connections.outgoing.length == 0" class="badge badge-pill badge-info">No connected Locations</span>
+            <span ng-show="editMode" class="badge badge-pill badge-info"><a href="" ng-click="newConnection('outgoing')"><i class="fa fa-plus" aria-hidden="true"></i> Add outgoing connection</a></span>
+        </p>
+
+    </div>
+
+</div>
+<hr ng-show="createConnection">
+<p ng-show="createConnection">Creating a new {{connectiontype}} connection: </p>
+<div ng-show="createConnection" class="row">
+
+    <div class="col-md-6">
+
+        <p>{{connectiontype == 'ingoing' ? 'Pick a location!' : 'Startlocation: '+location.name }}</p>
+        <p ng-show="connectiontype == 'ingoing'">Selected Location : <span ng-show="selectedLocation != null">{{selectedLocation.name}}</span></p>
+        <button ng-show="connectiontype == 'outgoing'" ng-click="submitConnection()" class="btn btn-primary">Create Connection</button>
+
+        <div ng-show="connectiontype == 'ingoing'" class="list-group locationlist">
+            <button ng-click="selectLocation(location);" ng-repeat="location in locations" type="button" class="list-group-item list-group-item-action">{{location.name}}</button>
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <p>Endlocation: {{connectiontype == 'outgoing' ? 'Pick a location!' : location.name }}</p>
+        <p ng-show="connectiontype == 'outgoing'">Selected Location : <span ng-show="selectedLocation != null">{{selectedLocation.name}}</span></p>        
+        <button ng-show="connectiontype == 'ingoing'" ng-click="submitConnection()" class="btn btn-primary">Create Connection</button>
+
+        <div ng-show="connectiontype == 'outgoing'" class="list-group locationlist">
+            <button ng-click="selectLocation(location)" ng-repeat="location in locations" type="button" class="list-group-item list-group-item-action">{{location.name}}</button>
+        </div>
+        <br>
+    </div>
+
+
+
+</div>

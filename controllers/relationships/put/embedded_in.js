@@ -34,13 +34,12 @@ exports.request = function(req, res) {
                 });
         },
         function(callback){ // Parameter validation
-
             // TODO: Validate all attributes of req.body
             var params = {
                 relationship_id: req.params.relationship_id,
                 overlay_id: req.body.overlay_id,
                 video_id: req.body.video_id,
-                description: req.body.description,
+                description: req.body.relationship_description,
                 w: req.body.relationship_w,
                 h: req.body.relationship_h,
                 d: req.body.relationship_d,
@@ -49,7 +48,7 @@ exports.request = function(req, res) {
                 z: req.body.relationship_z,
                 rx: req.body.relationship_rx,
                 ry: req.body.relationship_ry,
-                rz: rreq.body.relationship_rz,
+                rz: req.body.relationship_rz,
                 display: req.body.relationship_display
             };
 

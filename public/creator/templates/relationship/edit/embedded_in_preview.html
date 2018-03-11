@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<div class="card" id="container">
+    <form class="form-horizontal" name="editRelationshipForm" ng-submit="save()">
+        <div class="card-header" style="font-size: 20pt;">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'EDIT_RELATIONSHIP' | translate }}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SAVE' | translate }}
+                    </button>
+                    <button class="btn btn-danger" type="button" ng-click="abort()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="video-container">
+            <video id="video" width="100%" loop autoplay preload="none">
+                <source id="srcmp4" src="" type="video/mp4" />
+                <source id="srcogg" src="" type="video/ogg; codecs=theora, vorbis" />
+            </video>
+        </div>
+        <div id="overlay-container"></div>
+    </form>
+</div>

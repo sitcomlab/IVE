@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<div class="row">
+    <div class="col-md-12">
+        <!--Header: Search field and View Switcher-->
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
+            <div class="input-group searchbar">
+                <input ng-model="searchTerm" ng-change="search()" type="text" class="form-control" placeholder="Search for Location names or descriptions...">
+                <span class="input-group-btn">
+        <button class="btn btn-secondary" ng-click="search()" type="button">Go!</button>
+      </span>
+            </div>
+            <div class="btn-group" role="group" aria-label="Switch Layout">
+                <button ng-click="redirect('/locations/create-new')" type="button" class="btn btn-secondary"><i class="fa fa-plus" aria-hidden="true"> Create new</i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</br>
+
+<!--location Overview: Portrait View-->
+<div ng-show="mapView">
+    <div class="row">
+        <div class="col-md-12">
+            <leaflet id="locationOverviewMap" defaults="defaults" width="100%" height="85%"></leaflet>
+        </div>
+    </div>
+</div>

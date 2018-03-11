@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var isAuthenticated = require('../server.js').isAuthenticated;
 
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
 var list = require('../controllers/videos/list');
 var post = require('../controllers/videos/post');
 var del_all = require('../controllers/videos/delete_all');
@@ -12,6 +15,8 @@ var del = require('../controllers/videos/delete');
 
 var list_by_scenario = require('../controllers/videos/list_by_scenario');
 var list_by_location = require('../controllers/videos/list_by_location');
+
+var uploadVideo = require('../controllers/videos/upload_video');
 
 
 
@@ -41,5 +46,7 @@ router.get('/scenarios/:scenario_id/videos', list_by_scenario.request);
 // LIST BY LOCATION
 router.get('/locations/:location_id/videos', list_by_location.request);
 
+// UPLOAD NEW IVE VIDEO
+router.post('/videos/uploadVideo/:folderUrl', multipartMiddleware, isAuthenticated, uploadVideo.request);
 
 module.exports = router;

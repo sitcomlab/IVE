@@ -4,13 +4,16 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService, $overlayService, $socket, _) {
+app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $scenarioService, $locationService, $videoService, $overlayService, $relationshipService, $socket, _) {
 
     // Init
     $scope.current = {
         scenarioStatus: false,
         locationStatus: false
     };
+
+    $scope.pointingOverlay = {};
+    $scope.pointingOverlay.display = false;
 
     // Load all scenarios
     $scenarioService.list()
@@ -101,7 +104,36 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                     // Load all related overlays
                     $overlayService.list_by_video($scope.current.video.video_id)
                     .then(function onSuccess(response) {
-                        $scope.overlays = response.data;
+                        // Make sure the overlays are in the scenario
+                        $scope.filter = {};
+                        $scope.filter.relationship_type = "overlay";
+                        $relationshipService.list_by_label("belongs_to", $scope.pagination, $scope.filter)
+                            .then(function(responseBelongsTo){
+                                $scope.filter = undefined;
+                                $scope.overlays = [];
+                                for(let i = 0; i < response.data.length; i++){
+                                    for(let k = 0; k < responseBelongsTo.data.length; k++){
+                                        if(response.data[i].overlay_id === responseBelongsTo.data[k].overlay_id && responseBelongsTo.data[k].scenario_id === $scope.current.scenario.scenario_id){
+                                            let exists = false;
+                                            if($scope.overlays.length > 0){
+                                                for(let j = 0; j < $scope.overlays.length; j++){
+                                                    if($scope.overlays[i] === response.data[i]){
+                                                        exists = true;
+                                                    }
+                                                    if(j = $scope.overlays.length - 1 && exists === false){
+                                                        $scope.overlays.push(response.data[i]);
+                                                    }
+                                                }
+                                            }
+                                            else{
+                                                $scope.overlays.push(response.data[i]);
+                                            }
+                                        }
+                                    }
+                                }
+                            }).catch(function onError(responseBelongsTo) {
+                                $scope.err = responseBelongsTo.data;
+                            });
                     }).catch(function onError(response) {
                         $scope.err = response.data;
                     });
@@ -110,7 +142,6 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         }).catch(function onError(response) {
             $scope.err = response.data;
         });
-
 
         // Load all connected locations
         $locationService.list_by_location($scope.current.location.location_id)
@@ -142,16 +173,35 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
      * @return {[type]}         [description]
      */
     $scope.toggleOverlay = function(overlay){
-        if($scope.overlays[0].display){
-            $scope.overlays[0].display = false;
+        for(let i = 0; i < $scope.overlays.length; i++){
+            if($scope.overlays[i].overlay_id === overlay.overlay_id){
+                if($scope.overlays[i].display){
+                    $scope.overlays[i].display = false;
+                } else {
+                    $scope.overlays[i].display = true;
+                }
+
+                // Send socket message
+                $socket.emit('/toggle/overlay', {
+                    overlay_id: overlay.overlay_id,
+                    display: $scope.overlays[i].display,
+                    type: $scope.overlays[i].category
+                });
+            }
+        }
+    };
+
+    // Switch the point overlay on and off
+    $scope.togglePointingOverlay = function(){
+        if($scope.pointingOverlay.display){
+            $scope.pointingOverlay.display = false;
         } else {
-            $scope.overlays[0].display = true;
+            $scope.pointingOverlay.display = true;
         }
 
         // Send socket message
-        $socket.emit('/toggle/overlay', {
-            overlay_id: overlay.overlay_id,
-            display: $scope.overlays[0].display
+        $socket.emit('/toggle/pointing', {
+            display: $scope.pointingOverlay.display
         });
     };
 
@@ -220,18 +270,6 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                     $scope.current.video = _.findWhere($scope.videos, {
                         preferred: true
                     });
-
-                    if($scope.current.video === -1){
-                        delete $scope.current.video;
-                    } else {
-                        // Load all related overlays
-                        $overlayService.list_by_video($scope.current.video.video_id)
-                        .then(function onSuccess(response){
-                            $scope.overlays = response.data;
-                        }).catch(function onError(err) {
-                            $scope.err = response.data;
-                        });
-                    }
                 }
 
             }).catch(function onError(response) {

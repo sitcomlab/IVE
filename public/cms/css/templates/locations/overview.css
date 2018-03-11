@@ -1,0 +1,40 @@
+div.input-group.searchbar {
+    width: 40%;
+}
+
+td i {
+    padding: 0.5em 0.5em 0 0;
+    color: #193441;
+}
+
+.thead-default th {
+    color: #fcfff5;
+    background-color: #193441;
+}
+
+h3 {
+    padding-top: 0.5em;
+}
+
+h3 button {
+    padding: 0.5em;
+}
+
+span>a {
+    color: ffffff;
+}
+
+p>span {
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.btn-group {
+    margin-top: -0.25em
+}

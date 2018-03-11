@@ -7,7 +7,7 @@ var path = require('path');
 var neo4j = require('neo4j-driver').v1;
 var jwt = require('jsonwebtoken');
 var config = require('dotenv').config();
-
+var multipart = require('connect-multiparty');
 
 // Connect to Neo4j
 var driver = neo4j.driver(
@@ -54,7 +54,18 @@ app.use(bodyParser.urlencoded({
 
 // Set folder for static files
 app.use(express.static(__dirname + '/public', {
-    redirect: false
+    redirect: true
+}));
+
+// Allow CORS
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.use(multipart({
+    uploadDir: config.tmp
 }));
 
 // Authentication
@@ -68,7 +79,7 @@ exports.isAuthenticated = function isAuthenticated(req, res, next) {
                 res.status(401).send("Authentication failed!");
             } else {
                 // Authorization
-                if(decoded.username === process.env.BACKEND_USERNAME && decoded.iss === process.env.SERVER_URL){
+                if(decoded.username === process.env.ADMIN_USERNAME && decoded.iss === process.env.SERVER_URL){
                     return next();
                 } else {
                     res.status(401).send("Authentication failed!");
@@ -94,15 +105,18 @@ app.use(prefix, require('./routes/relationships'));
 app.use(prefix, require('./routes/search'));
 app.use(prefix, require('./routes/handlers'));
 
+var cms = require('./routes/cms');
+app.use(cms);
+
 // Resolve path after refreshing inside app
 app.get('/', function(req, res, next) {
     res.sendFile(path.resolve('public/index.html'));
 });
-app.get('/backend/*', function(req, res, next) {
-    res.sendFile(path.resolve('public/backend/index.html'));
+app.get('/creator/*', function(req, res, next) {
+    res.sendFile(path.resolve('public/creator/index.html'));
 });
-app.get('/frontend/*', function(req, res, next) {
-    res.sendFile(path.resolve('public/frontend/index.html'));
+app.get('/viewer/*', function(req, res, next) {
+    res.sendFile(path.resolve('public/viewer/index.html'));
 });
 app.get('/remote/*', function(req, res, next) {
     res.sendFile(path.resolve('public/remote/index.html'));

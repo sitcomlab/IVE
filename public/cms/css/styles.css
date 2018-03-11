@@ -1,0 +1,127 @@
+body {
+  padding-top: 50px;
+  background: #fcfff5;
+}
+
+p {
+  color: #193441;
+}
+
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 46px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  /*padding: 20px;*/
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* Scrollable contents if viewport is shorter than content. */
+  border-right: 1px solid #3e606f;
+  background: #193441;
+}
+
+
+/* Sidebar navigation */
+
+.sidebar {
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+  padding-top: 8px;
+  /* 5px + 3px Border */
+}
+
+.sidebar a {
+  color: #fcfff5;
+}
+
+.sidebar a:hover {
+  color: #3e606f;
+}
+
+.sidebar .nav {
+  margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+  width: 100%;
+  border-bottom: 3px solid #3e606f;
+  display: block;
+  line-height: 100%;
+  padding-top: .5em;
+}
+
+.sidebar .nav-item+.nav-item {
+  margin-left: 0;
+}
+
+.sidebar .nav-link {
+  border-radius: 0;
+}
+
+.sidebar .nav-link.active {
+  background-color: #3e606f;
+}
+
+.navbar {
+  background: #193441;
+  border-bottom: 3px solid #3e606f;
+  color: #fcfff5;
+}
+
+.navbar-brand {
+  color: #fcfff5;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar .breadcrumbs {
+  background-color: transparent;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  color: #fcfff5;
+}
+
+.nav-item .fa {
+  color: #fcfff5;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.nav-subitem {
+  color: #fcfff5;
+  background-color: #3E606F;
+}
+
+.nav-subitem ul {
+  text-align: left;
+  padding: 1em 0 1em 40%;
+}
+
+.nav-subitem li {
+  list-style-position: inside;
+}
+
+.nav-sublink:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.nav-sublink {
+  padding-bottom: 0.5em;
+}
+
+.nav-bottom {
+  color: #fcfff5;
+  bottom: 0px;
+  position: absolute;
+  left: 40%;
+}

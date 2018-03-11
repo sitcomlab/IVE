@@ -23,7 +23,7 @@ exports.request = function(req, res) {
     var query_1;
     var query_2;
     var query_3;
-    switch (req.params.label) {
+    switch (req.params.relationship_type) {
         case 'location': {
             query_1 = query_get_location;
             query_1_params = {

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<div>
+
+    <!-- Video container -->
+    <div id="video-container" ng-if="current.videoStatus">
+        <video id="video" width="100%" loop autoplay preload="none">
+            <source id="srcmp4" src="" type="video/mp4" />
+            <source id="srcogg" src="" type="video/ogg; codecs=theora, vorbis" />
+        </video>
+    </div>
+
+    <!-- No scenario -->
+    <div ng-if="!current.scenarioStatus" style="text-align: center">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <br>
+        <br>
+        <h2>{{ 'PLEASE_SELECT_A' | translate }}
+            {{ 'SCENARIO' | translate }}</h2>
+    </div>
+
+    <!-- No start location -->
+    <div ng-if="current.scenarioStatus && !current.locationStatus" style="text-align: center">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <br>
+        <br>
+        <h2>{{ 'PLEASE_SELECT_A' | translate }}
+            {{ 'START_LOCATION' | translate }}</h2>
+    </div>
+
+    <!-- No video found -->
+    <div ng-if="current.scenarioStatus && current.locationStatus && !current.videoStatus" style="text-align: center">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <br>
+        <br>
+        <h2>{{ 'NO_VIDEO_FOUND' | translate }}</h2>
+    </div>
+</div>

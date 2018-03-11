@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<div class="card">
+    <div class="card-header" style="font-size: 20pt;">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SELECT_A_NEW_RELATIONSHIP' | translate }}
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 right">
+                <button class="btn btn-danger" type="button" ng-click="redirect('/create/relationship')">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="list-group list-group-flush">
+        <a href="" ng-click="redirect('/create/belongs_to/relationship/location')" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <div>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_LOCATION' | translate }}
+                </div>
+                <div style="padding-left: 5px; padding-right: 5px;">
+                    <span class="badge badge-pill badge-default">
+                        &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                    </span>
+                </div>
+                <span>
+                    <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_SCENARIO' | translate }}
+                </span>
+            </div>
+        </a>
+    </div>
+    <br>
+    <div class="list-group list-group-flush">
+        <a href="" ng-click="redirect('/create/belongs_to/relationship/video')" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <div>
+                    <i class="fa fa-file-video-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_VIDEO' | translate }}
+                </div>
+                <div style="padding-left: 5px; padding-right: 5px;">
+                    <span class="badge badge-pill badge-default">
+                        &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                    </span>
+                </div>
+                <span>
+                    <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_SCENARIO' | translate }}
+                </span>
+            </div>
+        </a>
+    </div>
+    <br>
+    <div class="list-group list-group-flush">
+        <a href="" ng-click="redirect('/create/belongs_to/relationship/overlay')" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <div>
+                    <i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_OVERLAY' | translate }}
+                </div>
+                <div style="padding-left: 5px; padding-right: 5px;">
+                    <span class="badge badge-pill badge-default">
+                        &mdash;&nbsp;BELONGS_TO&nbsp;&mdash;&gt;
+                    </span>
+                </div>
+                <span>
+                    <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;&nbsp;{{ '_SCENARIO' | translate }}
+                </span>
+            </div>
+        </a>
+    </div>
+    <br>
+</div>
