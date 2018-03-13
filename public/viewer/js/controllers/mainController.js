@@ -357,14 +357,12 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         for(let i = 0; i < $scope.scene.children.length; i++){
             if($scope.scene.children[i].name === data.overlay_id && data.display === false){
                 $scope.scene.children[i].visible = false;
-                console.log($scope.scene);
                 if(data.type === "website"){
                     $('#' + data.overlay_id).css('visibility', 'hidden');
                 }
             }
             if($scope.scene.children[i].name === data.overlay_id && data.display === true){
                 $scope.scene.children[i].visible = true;
-                console.log($scope.scene);
                 if(data.type === "website"){
                     $('#' + data.overlay_id).css('visibility', 'visible');
                 }

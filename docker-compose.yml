@@ -1,0 +1,20 @@
+##docker-compose.yml
+version: "2"
+services:
+  app:
+    container_name: app
+    restart: always
+    build: .
+    depends_on:
+      - neo4j
+    ports:            ## publish ports
+      - "5000:5000"
+    links:            ## connects neo4j to app container
+      - neo4j
+
+  neo4j:
+    container_name: neo4j
+    image: neo4j:3.0          ## we use neo4j v3
+    ports:                    ## publish ports to have Web UI
+      - "7474:7474"
+      - "7687:7687"

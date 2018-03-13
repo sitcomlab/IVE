@@ -27,3 +27,12 @@ ADD queries/setup/* ./queries/setup/
 
 RUN npm install
 RUN bower install --allow-root
+RUN node setup.js
+
+# Bundle app source
+COPY . .
+
+EXPOSE 5000
+
+# Start the application:
+CMD [ "npm", "start" ]
