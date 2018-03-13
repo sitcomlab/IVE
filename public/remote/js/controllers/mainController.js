@@ -120,7 +120,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                                                     if($scope.overlays[i] === response.data[i]){
                                                         exists = true;
                                                     }
-                                                    if(j = $scope.overlays.length - 1 && exists === false){
+                                                    if(j === $scope.overlays.length - 1 && exists === false){
                                                         $scope.overlays.push(response.data[i]);
                                                     }
                                                 }

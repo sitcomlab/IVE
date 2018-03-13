@@ -52,7 +52,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                                                 if($scope.relationships[j] === responseEmbeddedIn.data[i]){
                                                     exists = true;
                                                 }
-                                                if(j = $scope.relationships.length - 1 && exists === false){
+                                                if(j === $scope.relationships.length - 1 && exists === false){
                                                     $scope.relationships.push(responseEmbeddedIn.data[i])
                                                 }
                                             }
