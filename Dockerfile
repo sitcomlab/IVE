@@ -27,7 +27,6 @@ ADD queries/setup/* ./queries/setup/
 
 RUN npm install
 RUN bower install --allow-root
-RUN node setup.js
 
 # Bundle app source
 COPY . .
