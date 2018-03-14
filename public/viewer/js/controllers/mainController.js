@@ -108,7 +108,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
             alpha: true
         });
         $scope.cssRenderer.setSize(overlay_container_width, overlay_container_height);
-        $scope.cssRenderer.setClearColor(0xffffff, 0);
+        // $scope.cssRenderer.setClearColor(0xffffff, 0);       Not working on windows
         $scope.cssRenderer.domElement.style.position = 'absolute';
         $scope.cssRenderer.domElement.style.zIndex = 101;
         $scope.overlay_container.append($scope.cssRenderer.domElement);

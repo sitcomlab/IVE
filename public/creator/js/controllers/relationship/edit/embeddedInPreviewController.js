@@ -146,7 +146,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
                 alpha: true
             });
             cssRenderer.setSize(overlay_container_width, overlay_container_height);
-            cssRenderer.setClearColor(0xffffff, 0);
+            // cssRenderer.setClearColor(0xffffff, 0);      Not working on windows
             cssRenderer.domElement.style.position = 'absolute';
             cssRenderer.domElement.style.zIndex = 100;
             overlay_container.append(cssRenderer.domElement);
