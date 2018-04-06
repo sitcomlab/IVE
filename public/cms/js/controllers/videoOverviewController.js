@@ -6,6 +6,8 @@ app.controller("videoOverviewController", function ($scope, $rootScope, $window,
     $scope.subsite = "overview";
     $scope.portraitView = true;
 
+    var promise;
+
     $rootScope.currentCategory = "Videos";
     $rootScope.redirectBreadcrumb = function () {
         $location.url('/videos');
@@ -91,6 +93,41 @@ app.controller("videoOverviewController", function ($scope, $rootScope, $window,
                     $scope.videos = allVideos;
                 }
             })
+    };
+
+    /**
+     * [startPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.startPreview = function(video) {
+        // store the interval promise
+        $scope.currentPreview = 1;
+        $scope.maxPreview = video.thumbnails;
+
+        // stops any running interval to avoid two intervals running at the same time
+        $interval.cancel(promise);
+
+        // store the interval promise
+        promise = $interval(function() {
+            var index = $scope.videos.indexOf(video);
+            if($scope.videos[index].thumbnails > 1){
+                if($scope.currentPreview >= $scope.maxPreview){
+                    $scope.currentPreview = 1;
+                }
+                $scope.videos[index].thumbnail = $filter('thumbnail')($scope.videos[index], $scope.currentPreview);
+            }
+            $scope.currentPreview++;
+        }, config.thumbnailSpeed);
+    };
+
+    /**
+     * [stopPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.stopPreview = function(video) {
+        $interval.cancel(promise);
     };
 
 

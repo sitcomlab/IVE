@@ -73,7 +73,15 @@
 <div ng-repeat="video in scenario.videos" class="row videos" ng-hide="repositionOverlayState || addOverlayState || addVideoState">
     <div class="col-md-4 video">
         <p>Video #{{$index + 1}}: <br> {{video.video_name}}</p>
-        <img width="250px" height="141px" src="{{video.video_url + '_thumbnail.png'}}"></br>
+        <img
+                class="card-img-top img-fluid"
+                ng-init="video.thumbnail = (video | thumbnail:1)"
+                ng-src="{{video.thumbnail}}"
+                ng-mouseover="startPreview(video)"
+                ng-mouseout="stopPreview(video)"
+                alt="{{video.name}}"
+                style="height: auto;"
+                ng-if="video.thumbnails > 0"></br>
         <a href="" ng-click="redirect('/videos/'+ video.video_id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
         <a href="" ng-click="deleteVideo(video.video_id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
     </div>
@@ -81,12 +89,9 @@
     <div class="col-md-8">
 
         <div class="row">
-            <div ng-repeat="overlay in video.overlays" class="col-md-4 overlay">
+            <div ng-repeat="overlay in video.overlays | orderBy: ['name']" class="col-md-4 overlay">
 
                 <p>Overlay #{{$index + 1}}: <br> {{overlay.overlay_name}}</p>
-                <img width="250px" height="141px" src="{{overlay.overlay_url}}" ng-show="overlay.overlay_category == 'picture'">
-                <img width="250px" height="141px" src="/media/images/website_placeholder.png" ng-show="overlay.overlay_category == 'website'">
-                <img width="250px" height="141px" src="/media/images/other_placeholder.png" ng-show="overlay.overlay_category == 'other'">
                 </br>
                 <a href="" ng-click="redirect('/overlays/'+ overlay.overlay_id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 <a href="" ng-click="deleteOverlay(video.video_id, overlay.overlay_id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

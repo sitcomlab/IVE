@@ -20,14 +20,14 @@ app.controller("homeController", function ($scope, $rootScope, $relationshipServ
             var scenarioID = "";
             response.data.forEach(function (element) {
                 // Indoor locations won't be added but it's abstract parent will
-                if (element.location_type != "indoor") {
+                if (element.location_type !== "indoor" && element.location_lat !== null && element.location_lng !== null) {
 
                     // Expect that we have a scenario here we want to display
-                    if (scenarioID == element.s_id) {
+                    if (scenarioID === element.scenario_id) {
                         return;
                     }
 
-                    scenarioID = element.s_id;
+                    scenarioID = element.scenario_id;
 
                     var myIcon = new L.Icon({
                         iconUrl: 'images/scenariomarker.png',
@@ -45,7 +45,7 @@ app.controller("homeController", function ($scope, $rootScope, $relationshipServ
                         $scope.redirect('/scenarios/' + element.scenario_id);
                     })
 
-                    if (element.location_type == "abstract") {
+                    if (element.location_type === "abstract") {
                         markerObject.options.title = element.location_name + " ABSTRACT";
                     }
 

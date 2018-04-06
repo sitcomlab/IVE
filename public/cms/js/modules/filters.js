@@ -24,3 +24,17 @@ app.filter('timestamp', function() {
         }
     };
 });
+
+// Preview video filter
+app.filter('previewVideo', function(config) {
+    return function(video, fileName) {
+        return config.thumbnailFolder + "/" + video.video_uuid + "/poster.jpg";
+    };
+});
+
+// Thumbnail filter
+app.filter('thumbnail', function(config) {
+    return function(video, fileName, relationship_label) {
+        return config.thumbnailFolder + "/" + video.video_uuid + "/" + fileName + ".jpg";
+    };
+});

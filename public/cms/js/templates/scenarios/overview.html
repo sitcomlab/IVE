@@ -31,7 +31,7 @@
     </div>
     <div ng-repeat="scenario in scenarios" class="col-md-4 scenario">
         <p>{{scenario.name}}</p>
-        <img src="{{scenario.thumbnail}}"></br>
+        <i class="fa fa-flask fa-4x" href="" ng-click="redirect('/scenarios/'+ scenario.scenario_id)" style="width: 100%;" aria-hidden="true"></i>
         <i class="fa fa-tags" aria-hidden="true"></i><span class="tag" ng-repeat="tag in scenario.tags">{{tag}}</span></br>
         <a href="" ng-click="redirect('/scenarios/'+ scenario.scenario_id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
         <a href="" ng-click="deleteScenario(scenario.scenario_id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></br>

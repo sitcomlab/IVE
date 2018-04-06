@@ -30,7 +30,7 @@ app.constant("config", {
     serverMode: 'development',
     serverSettings: {
         development: {
-            host: 'http://192.168.99.100',      // Just for windows
+            host: 'http://localhost',
             port: 5000,
             apiPath: "/api"
         },

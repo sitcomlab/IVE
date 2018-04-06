@@ -31,7 +31,17 @@
     </div>
     <div ng-repeat="video in videos" class="col-md-4 video">
         <p>{{video.name}}</p>
-        <img width="300px" height="169px" src="{{'/thumbnails/' + video.video_uuid + '/1.jpg'}}"></br>
+        <img
+            href=""
+            ng-click="redirect('/videos/'+ video.video_id)"
+            class="card-img-top img-fluid"
+            ng-init="video.thumbnail = (video | thumbnail:1)"
+            ng-src="{{video.thumbnail}}"
+            ng-mouseover="startPreview(video)"
+            ng-mouseout="stopPreview(video)"
+            alt="{{video.name}}"
+            style="height: auto;"
+            ng-if="video.thumbnails > 0"></br>
         <i class="fa fa-tags" aria-hidden="true"></i><span class="tag" ng-repeat="tag in video.tags">{{tag}}</span></br>
         <a href="" ng-click="redirect('/videos/'+ video.video_id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
         <a href="" ng-click="deleteVideo(video.video_id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></br>

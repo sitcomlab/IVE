@@ -59,7 +59,7 @@ app.controller("locationOverviewController", function ($scope, $rootScope, $wind
         $scope.locations.forEach(function (location) {
 
             // Draw them on the map
-            if (location.lat != 0 && location.lng != 0) {
+            if (location.lat !== null && location.lng !== null) {
                 var coords = new L.latLng(location.lat, location.lng);
                 var popupContent = `Location: ${location.name}<br>
                 Description: ${location.description}`
@@ -209,7 +209,7 @@ app.controller("locationOverviewController", function ($scope, $rootScope, $wind
                 locationMarkers = [];
                 $scope.locations.forEach(function (location) {
 
-                    if (location.lat != 0 && location.lng != 0) {
+                    if (location.lat !== null && location.lng !== null) {
                         var coords = new L.latLng(location.lat, location.lng);
                         var popupContent = `Location: ${location.name}<br>
                 Description: ${location.description}`

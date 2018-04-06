@@ -22,5 +22,6 @@ app.constant("config", {
         username: 'admin',
         password: 'admin'
     },
+    thumbnailFolder: '/thumbnails',
     thumbnailSpeed: 50
 });

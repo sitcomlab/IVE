@@ -1,9 +1,11 @@
 var app = angular.module("ive_cms");
 
-app.controller("scenarioDetailController", function ($scope, $rootScope, $route, $window, $document, config, $authenticationService, $videoService, $scenarioService, $locationService, $relationshipService, $overlayService, $location, $routeParams, $sce, $filter, leafletData) {
+app.controller("scenarioDetailController", function ($scope, $rootScope, $route, $window, $document, config, $authenticationService, $videoService, $scenarioService, $locationService, $relationshipService, $overlayService, $location, $routeParams, $sce, $filter, leafletData, $interval) {
 
     $scope.subsite = "detail";
     $scope.editMode = false;
+
+    var promise;
 
     // Input fields
     var name_input = angular.element('#name-input');
@@ -39,7 +41,6 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
 
             // Style date 
             $scope.scenario.created = $filter('timestamp')($scope.scenario.created);
-            $scope.scenario.tags = ['tag1,tag2,tag3'];
 
             // Get relationship to get the belonging videos
             $relationshipService.list_by_type('belongs_to', 'video').then(function onSuccess(response) {
@@ -57,12 +58,12 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                     var videoMarkers = [];
                     video_locations.forEach(function (relation) {
                         $scope.scenario.videos.forEach(function (video, index) {
-                            if (relation.video_id == video.video_id) {
+                            if (relation.video_id === video.video_id) {
                                 $scope.scenario.videos[index].location = relation;
                                 $scope.scenario.videos[index].overlays = [];
 
                                 // Create Marker for every video's location
-                                if ($scope.scenario.videos[index].location.location_type == 'outdoor') {
+                                if ($scope.scenario.videos[index].location.location_type === 'outdoor' && $scope.scenario.videos[index].location.location_lat !== null && $scope.scenario.videos[index].location.location_lng !== null) {
                                     var location = new L.latLng($scope.scenario.videos[index].location.location_lat, $scope.scenario.videos[index].location.location_lng);
                                     var popupContent = `Video: ${$scope.scenario.videos[index].video_name} <br> Location: ${$scope.scenario.videos[index].location.location_name}`;
                                     var videoMarker = new L.Marker(location, {
@@ -476,14 +477,49 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
             $scope.newVideoState = false;
         }
 
-    }
+    };
+
+    /**
+     * [startPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.startPreview = function(video) {
+        // store the interval promise
+        $scope.currentPreview = 1;
+        $scope.maxPreview = video.thumbnails;
+
+        // stops any running interval to avoid two intervals running at the same time
+        $interval.cancel(promise);
+
+        // store the interval promise
+        promise = $interval(function() {
+            var index = $scope.scenario.videos.indexOf(video);
+            if($scope.scenario.videos[index].thumbnails > 1){
+                if($scope.currentPreview >= $scope.maxPreview){
+                    $scope.currentPreview = 1;
+                }
+                $scope.scenario.videos[index].thumbnail = $filter('thumbnail')($scope.scenario.videos[index], $scope.currentPreview);
+            }
+            $scope.currentPreview++;
+        }, config.thumbnailSpeed);
+    };
+
+    /**
+     * [stopPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.stopPreview = function(video) {
+        $interval.cancel(promise);
+    };
 
     $scope.cancelVideoAddition = function () {
 
         $scope.newVideoState = false;
         $scope.existingVideoState = false;
         $route.reload();
-    }
+    };
 
 
     $scope.submitVideo = function () {
@@ -498,7 +534,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
             $route.reload();
         })
 
-    }
+    };
     /**
      * 
      *  Map Settings & setUp functions
@@ -518,10 +554,10 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                 videos.data.forEach(function (video, video_index) {
 
                     relations.data.forEach(function (relation) {
-                        if (video.video_id == relation.video_id) {
+                        if (video.video_id === relation.video_id) {
 
                             // We dont want to display indoor locations
-                            if (relation.location_type != "indoor" && relation.location_lat != 0 && relation.location_lng != 0) {
+                            if (relation.location_type !== "indoor" && relation.location_lat !== null && relation.location_lng !== null) {
 
                                 var myIcon = new L.Icon({
                                     iconUrl: 'images/videomarker.png',
@@ -576,8 +612,8 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                     relations.data.forEach(function (relation) {
 
                         // Add all if the term is empty
-                        if ($scope.searchVideoTerm == "") {
-                            if (relation.location_type != "indoor" && relation.location_lat != 0 && relation.location_lng != 0) {
+                        if ($scope.searchVideoTerm === "") {
+                            if (relation.location_type !== "indoor" && relation.location_lat !== null && relation.location_lng !== null) {
 
                                 var myIcon = new L.Icon({
                                     iconUrl: 'images/videomarker.png',

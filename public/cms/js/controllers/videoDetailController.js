@@ -34,11 +34,10 @@ app.controller("videoDetailController", function ($scope, $rootScope, $window, c
 
             // Style date to 
             $scope.video.recorded = $filter('timestamp')($scope.video.recorded);
-            $scope.video.tags = ['tag1,tag2,tag3'];
 
             var videoExtension = $scope.video.url.split('.')[1];
 
-            // Wenn keine extension in der URL war..
+            // if not extention in the url
             if (videoExtension == null) {
                 videoExtension = 'mp4';
                 $scope.video.url += '.mp4';
@@ -46,7 +45,7 @@ app.controller("videoDetailController", function ($scope, $rootScope, $window, c
             // Init video
             $scope.videoConfig = {
                 sources: [{
-                    src: $sce.trustAsResourceUrl($scope.video.url),
+                    src: $sce.trustAsResourceUrl('/videos' + $scope.video.url),
                     type: "video/" + videoExtension
                 }],
                 tracks: [],

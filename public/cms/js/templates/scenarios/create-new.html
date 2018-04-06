@@ -62,7 +62,15 @@
         <div class="row">
             <div ng-repeat="video in newScenario.videos" class="col-md-4 scenario">
                 <p>{{video.name}}</p>
-                <img width="300px" height="169px" src="{{video.url + '_thumbnail.png'}}"></br>
+                <img
+                        class="card-img-top img-fluid"
+                        ng-init="video.thumbnail = (video | thumbnail:1)"
+                        ng-src="{{video.thumbnail}}"
+                        ng-mouseover="startPreview(video)"
+                        ng-mouseout="stopPreview(video)"
+                        alt="{{video.name}}"
+                        style="height: auto;"
+                        ng-if="video.thumbnails > 0"></br>
                 <a href="" ng-click="removeTempVideo($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></br>
             </div>
 
@@ -191,8 +199,8 @@
             <div class="input-group" id="searchBar">
                 <input type="text" class="form-control" ng-model="searchVideoTerm" placeholder="Search for existing Videos">
                 <span class="input-group-btn">
-                            <button class="btn btn-secondary" ng-click="searchVideo()" type="button">Go!</button>
-                        </span>
+                    <button class="btn btn-secondary" ng-click="searchVideo()" type="button">Go!</button>
+                </span>
             </div>
             <button type="button" class="btn btn-secondary float-left" ng-click="cancel('addVideo')"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
             <button type="button" class="btn btn-secondary float-right" ng-click="submitVideo()">Add Video <i class="fa fa-caret-right" aria-hidden="true"></i></button>
@@ -351,15 +359,20 @@
         <div class="col-md-4 video">
             <p>Video #{{$index + 1}}: {{video.name}}</p>
             <br>
-            <img width="250px" height="141px" src="{{video.thumbnail_url}}"></br>
+            <img
+                class="card-img-top img-fluid"
+                ng-init="video.thumbnail = (video | thumbnail:1)"
+                ng-src="{{video.thumbnail}}"
+                ng-mouseover="startPreview(video)"
+                ng-mouseout="stopPreview(video)"
+                alt="{{video.name}}"
+                style="height: auto;"
+                ng-if="video.thumbnails > 0"></br>
         </div>
         <div class="col-md-8">
             <div class="row">
                 <div ng-if="video.overlay != null" class="col-md-4 overlay">
                     <p>Overlay #{{$index + 1}}: <br> {{video.overlay.name}}</p>
-                    <img width="250px" height="141px" src="{{overlay.url}}" ng-show="video.overlay.category == 'picture'">
-                    <img width="250px" height="141px" src="/media/images/website_placeholder.png" ng-show="video.overlay.category == 'website'">
-                    <img width="250px" height="141px" src="/media/images/other_placeholder.png" ng-show="video.overlay.category == 'other'">
                 </div>
             </div>
         </div>

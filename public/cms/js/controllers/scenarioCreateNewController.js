@@ -49,10 +49,45 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
         $location.url(path);
     };
 
+    /**
+     * [startPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.startPreview = function(video) {
+        // store the interval promise
+        $scope.currentPreview = 1;
+        $scope.maxPreview = video.thumbnails;
+
+        // stops any running interval to avoid two intervals running at the same time
+        $interval.cancel(promise);
+
+        // store the interval promise
+        promise = $interval(function() {
+            var index = $scope.scenario.videos.indexOf(video);
+            if($scope.scenario.videos[index].thumbnails > 1){
+                if($scope.currentPreview >= $scope.maxPreview){
+                    $scope.currentPreview = 1;
+                }
+                $scope.scenario.videos[index].thumbnail = $filter('thumbnail')($scope.scenario.videos[index], $scope.currentPreview);
+            }
+            $scope.currentPreview++;
+        }, config.thumbnailSpeed);
+    };
+
+    /**
+     * [stopPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.stopPreview = function(video) {
+        $interval.cancel(promise);
+    };
+
     // Method to sumbit the general Scenario information, send it to the
     // server and handle the created object
     $scope.submitGeneral = function () {
-        if ($scope.validateScenario() == true && !scenarioCreated) {
+        if ($scope.validateScenario() === true && !scenarioCreated) {
 
             // Send Scenario to Service 
             // Include Tags here when implemented
@@ -718,29 +753,30 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
     $scope.setupAddNewVideoMap = function () {
         var locationMarkers = [];
         // Get all locations and create markers for them;
-        $locationService.list().then(function onSuccess(response) {
-            response.data.forEach(function (location) {
-                // Exclude indoor locations and those which are wrongly located at 0/0
-                if (location.location_type != "indoor" && location.lat != 0 && location.lng != 0) {
+        $locationService.list()
+            .then(function onSuccess(response) {
+                response.data.forEach(function (location) {
+                    // Exclude indoor locations and those which are wrongly located at 0/0
+                    if (location.location_type !== "indoor" && location.lat !== null && location.lng !== null) {
 
-                    // locations.push(location);
-                    var markerOptions = {
-                        clickable: true
+                        // locations.push(location);
+                        var markerOptions = {
+                            clickable: true
+                        }
+
+                        var popupContent = `Location: ${location.name}`;
+                        var marker = new L.Marker(L.latLng(location.lat, location.lng), markerOptions).bindPopup(popupContent);
+                        marker.on('click', function (e) {
+                            $scope.newVideo.location.lat = e.latlng.lat;
+                            $scope.newVideo.location.lng = e.latlng.lng;
+                            $scope.newVideo.location.name = location.name;
+                            $scope.newVideo.location.location_id = location.location_id;
+                            $scope.existingLocation = true;
+
+                        })
+                        locationMarkers.push(marker);
                     }
-
-                    var popupContent = `Location: ${location.name}`;
-                    var marker = new L.Marker(L.latLng(location.lat, location.lng), markerOptions).bindPopup(popupContent);
-                    marker.on('click', function (e) {
-                        $scope.newVideo.location.lat = e.latlng.lat;
-                        $scope.newVideo.location.lng = e.latlng.lng;
-                        $scope.newVideo.location.name = location.name;
-                        $scope.newVideo.location.location_id = location.location_id;
-                        $scope.existingLocation = true;
-
-                    })
-                    locationMarkers.push(marker);
-                }
-            }, this);
+                }, this);
 
             leafletData.getMap('addNewVideoMap').then(function (map) {
                 // Clear map first;
@@ -791,7 +827,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                 var searchLocationMarkers = [];
                 response.data.forEach(function (location) {
                     if ($scope.searchLocationTerm == "") {
-                        if (location.location_type != "indoor" && location.lat != 0 && location.lng != 0) {
+                        if (location.location_type !== "indoor" && location.lat !== null && location.lng !== null) {
                             var markerOptions = {
                                 clickable: true
                             }
@@ -854,15 +890,17 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
         $videoService.list().then(function (videos) {
             // Get recorded_At relations
             $relationshipService.list_by_type('recorded_at').then(function (relations) {
+                console.log(videos);
+                console.log(relations);
 
                 // create markers from recorded at relation when video.video_id relation.video_id matches
                 videos.data.forEach(function (video, video_index) {
 
                     relations.data.forEach(function (relation) {
-                        if (video.video_id == relation.video_id) {
+                        if (video.video_id === relation.video_id) {
 
                             // We dont want to display indoor locations
-                            if (relation.location_type != "indoor" && relation.location_lat != 0 && relation.location_lng != 0) {
+                            if (relation.location_type !== "indoor" && relation.location_lat !== null && relation.location_lng !== null) {
 
                                 var myIcon = new L.Icon({
                                     iconUrl: 'images/videomarker.png',
@@ -918,8 +956,8 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                     relations.data.forEach(function (relation) {
 
                         // Add all if the term is empty
-                        if ($scope.searchVideoTerm == "") {
-                            if (relation.location_type != "indoor" && relation.location_lat != 0 && relation.location_lng != 0) {
+                        if ($scope.searchVideoTerm === "") {
+                            if (relation.location_type !== "indoor" && relation.location_lat !== 0 && relation.location_lng !== 0) {
 
 
                                 var myIcon = new L.Icon({

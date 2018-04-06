@@ -52,70 +52,72 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
         });
 
 
-    $locationService.list().then(function onSuccess(response) {
-        response.data.forEach(function (location) {
-            // Exclude indoor locations and those which are wrongly located at 0/0
-            if (location.location_type != "indoor" && location.lat != 0 && location.lng != 0) {
+    $locationService.list()
+        .then(function onSuccess(response) {
+            response.data.forEach(function (location) {
+                // Exclude indoor locations and those which are wrongly located at 0/0
+                if (location.location_type !== "indoor" && location.lat !== null && location.lng !== null) {
 
-                locations.push(location);
-                var markerOptions = {
-                    clickable: true
+                    locations.push(location);
+                    var markerOptions = {
+                        clickable: true
+                    }
+
+                    var popupContent = `Location: ${location.name}`;
+                    var marker = new L.Marker(L.latLng(location.lat, location.lng), markerOptions).bindPopup(popupContent);
+                    marker.on('click', function (e) {
+                        $scope.newVideo.location.lat = e.latlng.lat;
+                        $scope.newVideo.location.lng = e.latlng.lng;
+                        // $scope.newVideo.location.l_id = location.l_id;
+                        $scope.newVideo.location.name = location.name;
+
+                        location_id = location.location_id;
+
+                        $scope.newLocation = location;
+                        $scope.createLocation = false;
+
+                    })
+                    locationMarkers.push(marker);
+                }
+            }, this);
+
+        leafletData.getMap('addNewVideoMap')
+            .then(function (map) {
+
+                featureGroup = L.featureGroup(locationMarkers).addTo(map);
+                map.fitBounds(featureGroup.getBounds(), {
+                    animate: false,
+                    padding: L.point(50, 50)
+                });
+
+                // Add colored marker to the center
+                var myIcon = new L.Icon({
+                    iconUrl: 'images/customMarker.png',
+                    iconRetinaUrl: 'images/customMarker@2x.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41]
+                })
+
+                var ownMarkerOptions = {
+                    icon: myIcon,
+                    draggable: true,
+                    riseOnHover: true
                 }
 
-                var popupContent = `Location: ${location.name}`;
-                var marker = new L.Marker(L.latLng(location.lat, location.lng), markerOptions).bindPopup(popupContent);
-                marker.on('click', function (e) {
-                    $scope.newVideo.location.lat = e.latlng.lat;
-                    $scope.newVideo.location.lng = e.latlng.lng;
-                    // $scope.newVideo.location.l_id = location.l_id;
-                    $scope.newVideo.location.name = location.name;
+                var ownMarker = new L.Marker(map.getCenter(), ownMarkerOptions);
 
-                    location_id = location.location_id;
+                ownMarker.on('dragend', function (e) {
+                    //Clear to have a clean new location
+                    $scope.newVideo.location = {};
 
-                    $scope.newLocation = location;
-                    $scope.createLocation = false;
-
+                    $scope.newVideo.location.lat = e.target._latlng.lat;
+                    $scope.newVideo.location.lng = e.target._latlng.lng;
+                    $scope.createLocation = true;
                 })
-                locationMarkers.push(marker);
-            }
-        }, this);
 
-        leafletData.getMap('addNewVideoMap').then(function (map) {
-
-            featureGroup = L.featureGroup(locationMarkers).addTo(map);
-            map.fitBounds(featureGroup.getBounds(), {
-                animate: false,
-                padding: L.point(50, 50)
-            });
-
-            // Add colored marker to the center
-            var myIcon = new L.Icon({
-                iconUrl: 'images/customMarker.png',
-                iconRetinaUrl: 'images/customMarker@2x.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41]
+                var popupContent = 'Drag this marker to select a new Location!';
+                ownMarker.addTo(map);
             })
-
-            var ownMarkerOptions = {
-                icon: myIcon,
-                draggable: true,
-                riseOnHover: true
-            }
-
-            var ownMarker = new L.Marker(map.getCenter(), ownMarkerOptions);
-
-            ownMarker.on('dragend', function (e) {
-                //Clear to have a clean new location
-                $scope.newVideo.location = {};
-
-                $scope.newVideo.location.lat = e.target._latlng.lat;
-                $scope.newVideo.location.lng = e.target._latlng.lng;
-                $scope.createLocation = true;
-            })
-
-            var popupContent = 'Drag this marker to select a new Location!';
-            ownMarker.addTo(map);
-        })
 
 
 
