@@ -88,25 +88,17 @@ hr {
     border-bottom: 2px solid #193441;
 }
 
-#video_container {
-    /*background-color: blue;*/
-    margin: auto;
-    width: 75%;
-    height: 70%;
-}
-
-#video_container>div {
-    padding-top: 1em;
-}
-
-#overlay_container {
+#video-container {
+    z-index: 0;
     position: absolute;
-    width: 200px;
-    height: 113px;
-    background-color: green;
-    opacity: 0.7;
+    width: 100%;
+}
+
+#overlay-container {
+    z-index: 50;
 }
 
 .col-center {
     margin: 0 auto;
 }
+

@@ -41,11 +41,12 @@ app.factory('$relationshipService', function ($http, config, $authenticationServ
                     new_object = {
                         overlay_id: null,
                         video_id: null,
-                        w: 300,
-                        h: 200,
+                        description: "null",
+                        w: 3,
+                        h: 2,
                         d: 0,
-                        x: 1,
-                        y: 1,
+                        x: 0,
+                        y: 0,
                         z: 0,
                         rx: 0,
                         ry: 0,
@@ -121,8 +122,8 @@ relat            }
                 });
             }
         },
-        edit: function (relationship_type, relationship_id, label, data) {
-            return $http.put(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id + "/" + label, data, {
+        edit: function (relationship_type, relationship_id, data) {
+            return $http.put(config.apiURL + "/relationship/" + relationship_type + "/" + relationship_id, data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
                     'Content-Type': 'application/json'

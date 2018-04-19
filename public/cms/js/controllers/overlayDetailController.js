@@ -1,7 +1,7 @@
 var app = angular.module("ive_cms");
 
 
-app.controller("overlayDetailController", function ($scope, $rootScope, $routeParams, $window, config, $overlayService, $location, $authenticationService, $relationshipService) {
+app.controller("overlayDetailController", function ($scope, $rootScope, $routeParams, $window, config, $overlayService, $location, $authenticationService, $relationshipService, $interval, $filter) {
 
     $scope.subsite = "detail";
     $scope.editMode = false;
@@ -13,6 +13,8 @@ app.controller("overlayDetailController", function ($scope, $rootScope, $routePa
         $location.url('/overlays');
     }
     $rootScope.currentSite = null;
+
+    var promise;
 
     // Input fields
     var name_input = angular.element('#name-input');
@@ -40,7 +42,9 @@ app.controller("overlayDetailController", function ($scope, $rootScope, $routePa
                     var attachedVideo = {
                         id: relation.video_id,
                         name: relation.video_name,
-                        url: relation.video_url
+                        url: relation.video_url,
+                        thumbnails: relation.thumbnails,
+                        video_uuid: relation.video_uuid
                     }
                     $scope.appearsInVideos.push(attachedVideo);
                 }
@@ -126,5 +130,35 @@ app.controller("overlayDetailController", function ($scope, $rootScope, $routePa
      */
     $scope.redirect = function (path) {
         $location.url(path);
+    };
+
+    $scope.startPreview = function(video) {
+        // store the interval promise
+        $scope.currentPreview = 1;
+        $scope.maxPreview = video.thumbnails;
+
+        // stops any running interval to avoid two intervals running at the same time
+        $interval.cancel(promise);
+
+        // store the interval promise
+        promise = $interval(function() {
+            var index = $scope.appearsInVideos.indexOf(video);
+            if($scope.appearsInVideos[index].thumbnails > 1){
+                if($scope.currentPreview >= $scope.maxPreview){
+                    $scope.currentPreview = 1;
+                }
+                $scope.appearsInVideos[index].thumbnail = $filter('thumbnail')($scope.appearsInVideos[index], $scope.currentPreview);
+            }
+            $scope.currentPreview++;
+        }, config.thumbnailSpeed);
+    };
+
+    /**
+     * [stopPreview description]
+     * @param  {[type]} video [description]
+     * @return {[type]}       [description]
+     */
+    $scope.stopPreview = function(video) {
+        $interval.cancel(promise);
     };
 });

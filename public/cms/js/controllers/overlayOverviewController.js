@@ -25,9 +25,6 @@ app.controller("overlayOverviewController", function ($scope, $rootScope, $windo
     $overlayService.list()
         .then(function onSuccess(response) {
             $scope.overlays = response.data;
-            $scope.overlays.forEach(function (element) {
-                element.tags = ['tag1', 'tag2', 'tag3', 'tag4', 'tag5']
-            }, this);
         })
 
     /**

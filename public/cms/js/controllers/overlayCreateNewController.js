@@ -1,7 +1,7 @@
 var app = angular.module("ive_cms");
 
 
-app.controller("overlayCreateNewController", function ($scope, $rootScope, $window, config, $overlayService, $location, $authenticationService) {
+app.controller("overlayCreateNewController", function ($scope, $rootScope, $window, config, $overlayService, $location, $authenticationService, Upload, $timeout) {
 
     $scope.subsite = "create-new";
 
@@ -71,7 +71,7 @@ app.controller("overlayCreateNewController", function ($scope, $rootScope, $wind
             $scope.newOverlay.tags_parsed = tagArray;
         }
 
-        if ($scope.overlay.category == 'website') {
+        if ($scope.newOverlay.category == 'website') {
             var urlRegExp = new RegExp('^(https?:\\/\\/)?' + // protocol
                 '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
                 '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -87,7 +87,65 @@ app.controller("overlayCreateNewController", function ($scope, $rootScope, $wind
         }
         return isValid;
 
-    }
+    };
+
+    // Upload an Image as an Overlay
+    $scope.uploadImage = function(file, errFiles) {
+        $scope.newOverlay.url = "/images/" + file.name;
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: config.apiURL + '/overlays/uploadImage',
+                method: 'POST',
+                data: {file: file},
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        }
+    };
+
+    // Upload an Image as an Overlay
+    $scope.uploadVideo = function(file, errFiles) {
+        $scope.newOverlay.url = "/videos/overlays/" + file.name;
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: config.apiURL + '/overlays/uploadVideo',
+                method: 'POST',
+                data: {file: file},
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        }
+    };
 
     /**
      * [redirect description]

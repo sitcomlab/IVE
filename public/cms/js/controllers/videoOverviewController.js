@@ -28,10 +28,6 @@ app.controller("videoOverviewController", function ($scope, $rootScope, $window,
     $videoService.list()
         .then(function onSuccess(response) {
             $scope.videos = response.data;
-
-            $scope.videos.forEach(function (element) {
-                element.tags = ['tag1', 'tag2', 'tag3', 'tag4', 'tag5']
-            }, this);
         });
 
     /**

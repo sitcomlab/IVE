@@ -91,7 +91,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
         var rounded = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
         deferred.resolve(rounded);
         return deferred.promise;
-    }
+    };
 
     /**
      * [changeSource description]

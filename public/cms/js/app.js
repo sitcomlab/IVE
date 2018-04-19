@@ -6,6 +6,7 @@ var app = angular.module("ive_cms", [
     // External Modules
     "ngRoute",
     "ngSanitize",
+    "btford.socket-io",
     // "pascalprecht.translate",
     "angular-momentjs",
     "ui-leaflet",
@@ -18,6 +19,7 @@ var app = angular.module("ive_cms", [
 
     // Own Modules
     "routes",
+    "sockets",
     // "languages",
     "filters",
 

@@ -1,12 +1,6 @@
 <div class="row">
 
     <div class="col-md-6">
-        <img class="previewImage" src="{{overlay.url}}" ng-show="overlay.category == 'picture'">
-        <img class="previewImage" src="/media/images/website_placeholder.png" ng-show="overlay.category == 'website'">
-        <img class="previewImage" src="/media/images/other_placeholder.png" ng-show="overlay.category == 'other'">
-    </div>
-
-    <div class="col-md-6">
 
         <div class="btn-group float-right" role="group" aria-label="ButtonBar" ng-hide="editMode">
             <button ng-click="redirect('/overlays')" type="button" class="btn btn-secondary">
@@ -82,7 +76,17 @@
 
     <div ng-repeat="video in appearsInVideos" class="col-md-3 video">
         <p>Video #{{$index + 1}}: <br> {{video.name}}</p>
-        <img width="250px" height="141px" src="{{video.url + '_thumbnail.png'}}"></br>
+        <img
+            href=""
+            ng-click="redirect('/videos/'+ video.video_id)"
+            class="card-img-top img-fluid"
+            ng-init="video.thumbnail = (video | thumbnail:1)"
+            ng-src="{{video.thumbnail}}"
+            ng-mouseover="startPreview(video)"
+            ng-mouseout="stopPreview(video)"
+            alt="{{video.name}}"
+            style="height: auto;"
+            ng-if="video.thumbnails > 0"></br>
         <a href="" ng-click="redirect('/videos/'+ video.url)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
         <a href="" ng-click="deleteVideo(video.video_id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
     </div>

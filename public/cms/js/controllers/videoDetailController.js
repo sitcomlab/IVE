@@ -54,21 +54,23 @@ app.controller("videoDetailController", function ($scope, $rootScope, $window, c
 
 
             // Get relationship to get the fitting location
-            $relationshipService.list_by_type('recorded_at').then(function (results) {
-                results.data.forEach(function (relation) {
-                    if (relation.video_id == $scope.video.video_id) {
+            $relationshipService.list_by_type('recorded_at')
+                .then(function (results) {
+                    results.data.forEach(function (relation) {
+                        if (relation.video_id === $scope.video.video_id) {
 
-                        leafletData.getMap('videoDetailMap').then(function (map) {
-                            var popupContent = `Location: ${relation.location_name}`;
-                            var videoPositionMarker = new L.Marker(L.latLng(relation.location_lat, relation.location_lng), {
-                                clickable: true
-                            }).bindPopup(popupContent);
-                            videoPositionMarker.addTo(map);
-                            map.setView(videoPositionMarker._latlng, 14);
-                        });
-                    }
+                            leafletData.getMap('videoDetailMap')
+                                .then(function (map) {
+                                    var popupContent = `Location: ${relation.location_name}`;
+                                    var videoPositionMarker = new L.Marker(L.latLng(relation.location_lat, relation.location_lng), {
+                                        clickable: true
+                                    }).bindPopup(popupContent);
+                                    videoPositionMarker.addTo(map);
+                                    map.setView(videoPositionMarker._latlng, 14);
+                            });
+                        }
 
-                }, this);
+                    }, this);
             })
         });
 
