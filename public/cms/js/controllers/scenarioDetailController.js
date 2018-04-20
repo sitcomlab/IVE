@@ -1,6 +1,6 @@
 var app = angular.module("ive_cms");
 
-app.controller("scenarioDetailController", function ($scope, $rootScope, $route, $window, $document, config, $authenticationService, $videoService, $scenarioService, $locationService, $relationshipService, $overlayService, $location, $routeParams, $sce, $filter, leafletData, $interval, $q, $socket) {
+app.controller("scenarioDetailController", function ($scope, $rootScope, $route, $window, $document, config, $authenticationService, $videoService, $scenarioService, $locationService, $relationshipService, $overlayService, $location, $routeParams, $sce, $filter, leafletData, $interval, $q, $socket, Upload, $timeout) {
 
     $scope.subsite = "detail";
     $scope.editMode = false;
@@ -327,10 +327,8 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
 
     // Change the video source
     $scope.changeSource = function(path) {
-        console.log($window);
-
         path = $window.location.origin + config.videoFolder + path;
-        console.log(path);
+
         pathMp4 = path + ".mp4";
         pathOgg = path + ".ogg";
         $("#video").find("#srcmp4").attr("src", pathMp4);
@@ -351,8 +349,8 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
 
     // Round a number to dec decimals
     $scope.round = function(num, dec){
-        var deferred = $q.defer();
-        var rounded = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+        let deferred = $q.defer();
+        let rounded = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
         deferred.resolve(rounded);
         return deferred.promise;
     };
@@ -705,15 +703,15 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
         $scope.scene.updateMatrixWorld(true);
 
         // Getting translation, rotation, scale
-        var translation = new THREE.Vector3();
-        var rotationQ = new THREE.Quaternion();
-        var scale = new THREE.Vector3();
+        let translation = new THREE.Vector3();
+        let rotationQ = new THREE.Quaternion();
+        let scale = new THREE.Vector3();
 
         // Getting the Size and the Euler-Rotation
         $scope.object.matrixWorld.decompose(translation, rotationQ, scale);
-        var sizeX = scale.x * $scope.object.geometry.parameters.width;
-        var sizeY = scale.y * $scope.object.geometry.parameters.height;
-        var rotationE = new THREE.Euler().setFromQuaternion(rotationQ.normalize());
+        let sizeX = scale.x * $scope.object.geometry.parameters.width;
+        let sizeY = scale.y * $scope.object.geometry.parameters.height;
+        let rotationE = new THREE.Euler().setFromQuaternion(rotationQ.normalize());
 
         // Setting all the new values, round to 4 decimals
         $scope.round(sizeX, 4)
@@ -808,28 +806,90 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
         $route.reload();
     };
 
-    $scope.submitNewOverlay = function (overlay) {
-        $overlayService.create(overlay).then(function onSuccess(response) {
-            overlay = response.data;
-            $relationshipService.create('belongs_to', {
-                scenario_id: $scope.scenario.scenario_id,
-                overlay_id: response.data.overlay_id
-            }, 'overlay')
-                .then(function onSuccess(response) {
-                    $scope.relationship = $relationshipService.init('embedded_in');
-                    $scope.relationship.overlay_id = response.data.overlay_id;
-                    $scope.relationship.video_id = $scope.baseVideo.video_id;
-                    $relationshipService.create('embedded_in', $scope.relationship)
-                        .then(function (responseOverlay) {
-                            $scope.newOverlayState = false;
-                            $scope.addOverlayState = false;
+    // Upload an Image as an Overlay
+    $scope.uploadImage = function(file, errFiles) {
+        $scope.newOverlay.url = "/images/" + file.name;
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: config.apiURL + '/overlays/uploadImage',
+                method: 'POST',
+                data: {file: file},
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
 
-                            overlay.video_url = $scope.baseVideo.video_url;
-                            overlay.video_id = $scope.baseVideo.video_id;
-                            $scope.baseVideo = {};
-                            $scope.repositionOverlay(overlay);
-                        });
-                })
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        }
+    };
+
+    // Upload an Image as an Overlay
+    $scope.uploadVideo = function(file, errFiles) {
+        $scope.newOverlay.url = "/videos/overlays/" + file.name;
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: config.apiURL + '/overlays/uploadVideo',
+                method: 'POST',
+                data: {file: file},
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        }
+    };
+
+    $scope.submitNewOverlay = function (overlay) {
+        $overlayService.create(overlay)
+            .then(function onSuccess(response) {
+                overlay = response.data;
+                $relationshipService.create('belongs_to', {
+                    scenario_id: $scope.scenario.scenario_id,
+                    overlay_id: response.data.overlay_id
+                }, 'overlay')
+                    .then(function onSuccess(response) {
+                        $scope.relationship = $relationshipService.init('embedded_in');
+                        $scope.relationship.overlay_id = response.data.overlay_id;
+                        $scope.relationship.video_id = $scope.baseVideo.video_id;
+                        $relationshipService.create('embedded_in', $scope.relationship)
+                            .then(function (responseOverlay) {
+                                $scope.relationship = responseOverlay.data;
+                                $scope.newOverlayState = false;
+                                $scope.addOverlayState = false;
+
+                                overlay.video_url = $scope.baseVideo.video_url;
+                                overlay.video_id = $scope.baseVideo.video_id;
+                                $scope.baseVideo = {};
+                                overlay = $scope.relationship;
+                                console.log(overlay);
+                                $scope.repositionOverlay(overlay);
+                            });
+                    })
 
         })
 
@@ -853,6 +913,8 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                         overlay.video_url = $scope.baseVideo.video_url;
                         overlay.video_id = $scope.baseVideo.video_id;
                         $scope.baseVideo = {};
+                        overlay = $scope.relationship;
+                        console.log(overlay);
                         $scope.repositionOverlay(overlay);
                     });
             })
