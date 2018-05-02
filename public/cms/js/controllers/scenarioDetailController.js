@@ -215,14 +215,14 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
         // Validate input
         var isValid = true;
 
-        if ($scope.scenario.name == "") {
-            name_input.parent().parent().addClass('has-danger')
+        if ($scope.scenario.name === "") {
+            name_input.parent().parent().addClass('has-danger');
             name_input.addClass('form-control-danger');
             isValid = false;
         }
 
-        if ($scope.scenario.description == "") {
-            desc_input.parent().parent().addClass('has-danger')
+        if ($scope.scenario.description === "") {
+            desc_input.parent().parent().addClass('has-danger');
             desc_input.addClass('form-control-danger');
             isValid = false;
         }
@@ -241,32 +241,32 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
         }
         */
 
-        if ($scope.scenario.created != "") {
+        if ($scope.scenario.created !== "") {
             // Trying to create a new date
             var created_date = new Date(parseInt($scope.scenario.created.split('-')[0]), parseInt($scope.scenario.created.split('-')[1] - 1), parseInt($scope.scenario.created.split('-')[2]));
             // Check if it has been parsed correctly
             if (isNaN(created_date)) {
-                created_input.parent().parent().addClass('has-danger')
+                created_input.parent().parent().addClass('has-danger');
                 created_input.addClass('form-control-danger');
                 isValid = false;
             }
 
             // Catch dates in the future...
             if (created_date > new Date()) {
-                created_input.parent().parent().addClass('has-danger')
+                created_input.parent().parent().addClass('has-danger');
                 created_input.addClass('form-control-danger');
                 isValid = false;
             }
 
         } else {
-            created_input.parent().parent().addClass('has-danger')
+            created_input.parent().parent().addClass('has-danger');
             created_input.addClass('form-control-danger');
             isValid = false;
         }
 
         if (isValid) {
             $scenarioService.edit($scope.scenario.scenario_id, $scope.scenario).then(function (response) {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     $scope.redirect('/scenarios');
                 }
             });
@@ -281,7 +281,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                 // Remove Video from the (over)view
                 $scope.scenario.videos.forEach(function (video, index) {
 
-                    if (video.video_id == video_id) {
+                    if (video.video_id === video_id) {
                         video_to_delete = video;
                         $scope.scenario.videos.splice(index, 1);
                     }
@@ -294,22 +294,22 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
             }
         }
 
-    }
+    };
 
     $scope.deleteOverlay = function (video_id, overlay_id) {
 
         if ($window.confirm(`You are going to remove this Overlay from the Video. Are you sure? THIS WILL NOT BE REVERSIBLE!`)) {
             if ($window.confirm('Are you really, really sure?')) {
                 $scope.scenario.videos.forEach(function (video, index) {
-                    if (video.video_id == video_id) {
+                    if (video.video_id === video_id) {
                         $scope.scenario.videos[index].overlays.forEach(function (overlay, overlayIndex) {
-                            if (overlay.overlay_id == overlay_id) {
+                            if (overlay.overlay_id === overlay_id) {
                                 $scope.scenario.videos[index].overlays.splice(overlayIndex, 1);
 
                                 $relationshipService.remove(overlay.relationship_id).then(function onSuccess() {
                                     $relationshipService.list_by_type('belongs_to', 'overlay').then(function onSuccess(response) {
                                         response.data.forEach(function (relation) {
-                                            if (relation.overlay_id == overlay_id) {
+                                            if (relation.overlay_id === overlay_id) {
                                                 $relationshipService.remove(relation.relationship_id);
                                             }
                                         }, this);
@@ -890,9 +890,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                                 $scope.repositionOverlay(overlay);
                             });
                     })
-
         })
-
     };
 
     $scope.submitExistingOverlay = function (overlay) {
@@ -928,7 +926,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
     $scope.addVideo = function () {
         $scope.editMode = false;
         $scope.addVideoState = true;
-    }
+    };
 
     $scope.initVideoAddition = function (isNew) {
         if (isNew) {
@@ -1030,7 +1028,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                                     iconRetinaUrl: 'images/videomarker@2x.png',
                                     iconSize: [25, 41],
                                     iconAnchor: [12, 41]
-                                })
+                                });
 
                                 var popupContent = `Selected Video: <br> Video Name: ${relation.video_name} <br> Description: ${relation.video_description} `;
                                 var marker = new L.Marker(L.latLng(relation.location_lat, relation.location_lng), {

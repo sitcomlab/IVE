@@ -204,6 +204,52 @@
             </div>
             <button type="button" class="btn btn-secondary float-left" ng-click="cancel('addVideo')"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
             <button type="button" class="btn btn-secondary float-right" ng-click="submitVideo()">Add Video <i class="fa fa-caret-right" aria-hidden="true"></i></button>
+
+
+            <div class="btn-group" role="group" aria-label="Switcher">
+                <button type="button" ng-click="videoIndoor = true" ng-class="{'active': videoIndoor === true}" class="btn btn-secondary">Without Coordinates</button>
+                <button type="button" ng-click="videoIndoor = false" ng-class="{'active': videoIndoor === false}" class="btn btn-secondary">With Coordinates</button>
+            </div>
+
+            <!--Portrait View-->
+            <!--Show videos without coordinates-->
+            <div class="row" ng-show="videoIndoor">
+                <div ng-repeat="video in videos" class="col-md-4 video">
+                    <a href="" ng-click="addListVideo(video)">
+                        <p>{{video.name}}</p>
+                        <img
+                                href=""
+                                class="card-img-top img-fluid"
+                                ng-init="video.thumbnail = (video | thumbnail:1)"
+                                ng-src="{{video.thumbnail}}"
+                                ng-mouseover="startPreviewAddVideo(video)"
+                                ng-mouseout="stopPreviewAddVideo(video)"
+                                alt="{{video.name}}"
+                                style="height: auto;"
+                                ng-if="video.thumbnails > 0"></br>
+                        <i class="fa fa-tags" aria-hidden="true"></i><span class="tag" ng-repeat="tag in video.tags">{{tag}}</span></br>
+                    </a>
+                </div>
+            </div>
+            <!--Show videos withcoordinates-->
+            <div class="row" ng-hide="videoIndoor">
+                <div ng-repeat="video in videosCoord" class="col-md-4 video">
+                    <a href="" ng-click="addListVideo(video)">
+                        <p>{{video.name}}</p>
+                        <img
+                                href=""
+                                class="card-img-top img-fluid"
+                                ng-init="video.thumbnail = (video | thumbnail:1)"
+                                ng-src="{{video.thumbnail}}"
+                                ng-mouseover="startPreviewAddVideoCoord(video)"
+                                ng-mouseout="stopPreviewAddVideoCoord(video)"
+                                alt="{{video.name}}"
+                                style="height: auto;"
+                                ng-if="video.thumbnails > 0"></br>
+                        <i class="fa fa-tags" aria-hidden="true"></i><span class="tag" ng-repeat="tag in video.tags">{{tag}}</span></br>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -256,44 +302,77 @@
         </div>
 
         <div class="newOverlay" ng-hide="existingOverlay">
+            <h2>Create a new Overlay: </h2>
+            <hr>
+            <p> General information and file upload </p>
             <div class="form-group row">
-                <label for="overlay_name-input" class="col-3 col-form-label">Name:</label>
-                <div class="col-9">
-                    <input class="form-control" type="text" ng-model="newOverlay.name" placeholder="e.g. 'Main Station Overlay'" id="overlay_name-input">
+                <label for="name-input" class="col-2 col-form-label">Name:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="newOverlay.name" placeholder="e.g. 'Main Station Overlay'" id="name-input">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="overlay_desc-input" class="col-3 col-form-label">Description:</label>
-                <div class="col-9">
-                    <input class="form-control" type="text" ng-model="newOverlay.description" placeholder="e.g. 'A Overlay simulating a new type of map'"
-                        id="overlay_desc-input">
+                <label for="desc-input" class="col-2 col-form-label">Description:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="newOverlay.description" placeholder="e.g. 'A overlay for the Münster Main Station'"
+                           id="desc-input">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="overlay_tags-input" class="col-3 col-form-label">Tags:</label>
-                <div class="col-9">
-                    <input class="form-control" type="text" ng-model="newOverlay.tags" placeholder="e.g. '#muenster, #sitcom, #myProject'" id="overlay_tags-input">
+                <label for="tags-input" class="col-2 col-form-label">Tags:</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="newOverlay.tags" placeholder="e.g. '#muenster, #sitcom'' (optional)" id="tags-input">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="overlay_type-input" class="col-3 col-form-label">Overlay type:</label>
                 <div class="col-9 dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
+                            aria-expanded="false">
                         {{newOverlay.category === "" ? 'Click to select a category' : newOverlay.category}}
-                        </button>
+                    </button>
                     <div class="col-9 dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'video'">Video</a>
+                        <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'picture'">Picture</a>
                         <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'website'">Website</a>
-                        <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'other'">Other</a>
+                        <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'video'">Video</a>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="overlay_url-input" class="col-3 col-form-label">Link (URL):</label>
-                <div class="col-9">
-                    <input class="form-control" type="url" ng-model="newOverlay.url" placeholder="e.g. http://www.google.de" id="overlay_url-input">
+                <div ng-if="newOverlay.category == 'website'">
+                    <label for="url-input" class="col-2 col-form-label">Link (URL):</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" ng-model="newOverlay.url" placeholder="e.g. 'http://www.google.de/'" id="url-input">
+                    </div>
                 </div>
+            </div>
+            <div ng-if="newOverlay.category == 'picture'">
+                <button type="file" ngf-select="uploadImage($file, $invalidFiles)"
+                        accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
+                    Select File</button>
+                <br>
+                <br>
+                File:
+                <div >{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                    <span class="progress" ng-show="f.progress >= 0">
+                        <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></div>
+                    </span>
+                </div>
+                {{errorMsg}}
+            </div>
+            <div ng-if="newOverlay.category == 'video'">
+                <button type="file" ngf-select="uploadVideoOverlay($file, $invalidFiles)"
+                        accept="video/*" ngf-max-height="1000" ngf-max-size="20MB">
+                    Select File</button>
+                <br>
+                <br>
+                File:
+                <div >{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                    <span class="progress" ng-show="f.progress >= 0">
+                        <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></div>
+                    </span>
+                </div>
+                {{errorMsg}}
             </div>
         </div>
 
@@ -302,31 +381,34 @@
 
     <!--Video preview-->
     <div class="col-md-6">
-        <div class="video-container">
-            <videogular vg-theme="videoConfig.theme" vg-responsive="true">
-                <vg-media vg-src="videoConfig.sources" vg-tracks="videoConfig.tracks" vg-native-controls="true"></vg-media>
-            </videogular>
+        <div id="video-container">
+            <video id="video" width="100%" loop autoplay preload="none">
+                <source id="srcmp4" src="" type="video/mp4" />
+                <source id="srcogg" src="" type="video/ogg; codecs=theora, vorbis" />
+            </video>
         </div>
     </div>
 
 
     <div class="col-md-12">
         <button type="button" class="btn btn-secondary float-left" ng-click="cancel('createOverlay')"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
-        <button type="button" class="btn btn-secondary float-right" ng-click="submitOverlay()">Place Overlay <i class="fa fa-caret-right" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-secondary float-right" ng-click="submitOverlay(newOverlay)">Place Overlay <i class="fa fa-caret-right" aria-hidden="true"></i></button>
     </div>
 
 </div>
 
 <!--Step 3.2 (Place Overlay)-->
-<div class="row" ng-show="currentState.placeOverlay">
+<div ng-show="currentState.placeOverlay">
 
+    <h2>Place the Overlay for Video {{positioningOverlay.video_name}}</h2>
     <div id='video_container'>
-        <h2>Place the Overlay for Video {{positioningOverlay.video_name}}</h2>
-        <videogular vg-theme="videoConfig.theme" vg-responsive="true">
-            <div id="overlay_container" ng-draggable='dragOptions'>
-            </div>
-            <vg-media vg-src="videoConfig.sources" vg-tracks="videoConfig.tracks" vg-native-controls="true"></vg-media>
-        </videogular>
+        <div id="video-container-overlay">
+            <video id="videoOverlay" width="100%" loop autoplay preload="none">
+                <source id="srcmp4Overlay" src="" type="video/mp4" />
+                <source id="srcoggOverlay" src="" type="video/ogg; codecs=theora, vorbis" />
+            </video>
+        </div>
+        <div id="overlay-container"></div>
 
         <div class="btn-group float-left" aria-label="ButtonBar">
             <button ng-click="cancel('placeOverlay')" type="button" class="btn btn-secondary float-left">

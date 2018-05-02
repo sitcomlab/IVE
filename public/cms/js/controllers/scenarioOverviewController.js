@@ -41,47 +41,49 @@ app.controller("scenarioOverviewController", function ($scope, $rootScope, $wind
                 // First delete any relationships the scenario has
                 // Since the API doesn't give a way to display all belongs_to relations we need to
                 // do it individually for every 'label' (overlay, loc, vid) of belongs_to relation
-                $relationshipService.list_by_type('belongs_to', 'video').then(function (response) {
-                    var relations = response.data;
-                    relations.forEach(function (relation) {
-                        if (relation.scenario_id == scenario_id) {
-                            $relationshipService.remove(relation.relation_id);
-                        }
-                    }, this);
-                })
+                $relationshipService.list_by_type('belongs_to', 'video')
+                    .then(function (response) {
+                        let relations = response.data;
+                        relations.forEach(function (relation) {
+                            if (relation.scenario_id === scenario_id) {
+                                $relationshipService.remove(relation.relationship_id);
+                            }
+                        }, this);
+                });
 
-                $relationshipService.list_by_type('belongs_to', 'location').then(function (response) {
-                    var relations = response.data;
-                    relations.forEach(function (relation) {
-                        if (relation.scenario_id == scenario_id) {
-                            $relationshipService.remove(relation.relation_id);
-                        }
-                    }, this);
-                })
+                $relationshipService.list_by_type('belongs_to', 'location')
+                    .then(function (response) {
+                        let relations = response.data;
+                        relations.forEach(function (relation) {
+                            if (relation.scenario_id === scenario_id) {
+                                $relationshipService.remove(relation.relationship_id);
+                            }
+                        }, this);
+                });
 
 
-                $relationshipService.list_by_type('belongs_to', 'overlay').then(function (response) {
-                    var relations = response.data;
-                    relations.forEach(function (relation) {
-                        if (relation.scenario_id == scenario_id) {
-                            $relationshipService.remove(relation.relation_id);
-                        }
-                    }, this);
-                })
+                $relationshipService.list_by_type('belongs_to', 'overlay')
+                    .then(function (response) {
+                        let relations = response.data;
+                        relations.forEach(function (relation) {
+                            if (relation.scenario_id === scenario_id) {
+                                $relationshipService.remove(relation.relationship_id);
+                            }
+                        }, this);
+                });
 
 
                 // Then remove the scenario
-                $scenarioService.remove(scenario_id).then(function (response) {
-                    // .. and remove it from the list that is displayed in the view
-                    $scope.scenarios.forEach(function (scenario, index) {
-                        if (scenario.scenario_id == scenario_id) {
-                            $scope.scenarios.splice(index, 1);
-                        }
-                    }, this);
+                $scenarioService.remove(scenario_id)
+                    .then(function (response) {
+                        // .. and remove it from the list that is displayed in the view
+                        $scope.scenarios.forEach(function (scenario, index) {
+                            if (scenario.scenario_id === scenario_id) {
+                                $scope.scenarios.splice(index, 1);
+                            }
+                        }, this);
 
                 })
-
-
             }
         }
     }
