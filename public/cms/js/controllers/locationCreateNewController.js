@@ -28,9 +28,9 @@ app.controller("locationCreateNewController", function ($scope, $rootScope, $win
         name: "",
         description: "",
         tags: [],
-        lat: 0,
-        lng: 0,
-        location_type: 'outdoor'
+        lat: null,
+        lng: null,
+        location_type: ''
     }
 
     leafletData.getMap('locationCreateNewMap').then(function (map) {

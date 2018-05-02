@@ -38,7 +38,7 @@ app.controller("videoDetailController", function ($scope, $rootScope, $window, c
             var videoExtension = $scope.video.url.split('.')[1];
 
             // if not extention in the url
-            if (videoExtension === null) {
+            if (videoExtension === null || videoExtension === undefined) {
                 videoExtension = 'mp4';
                 $scope.video.url += '.mp4';
             }

@@ -6,6 +6,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
     $scope.editMode = false;
 
     var promise;
+    $scope.videoIndoor = true;
 
     // Input fields
     var name_input = angular.element('#name-input');
@@ -46,7 +47,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
             $relationshipService.list_by_type('belongs_to', 'video').then(function onSuccess(response) {
                 var video_relations = response.data;
                 video_relations.forEach(function (relation) {
-                    if (relation.scenario_id == $scope.scenario.scenario_id) {
+                    if (relation.scenario_id === $scope.scenario.scenario_id) {
                         $scope.scenario.videos.push(relation);
                     }
                 }, this);
@@ -88,12 +89,24 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                             var filtered = [];
                             overlays.forEach(function (overlay) {
                                 response.data.forEach(function (relation) {
-                                    if (overlay.overlay_id == relation.overlay_id && relation.scenario_id == $scope.scenario.scenario_id) {
-                                        filtered.push(overlay);
+                                    if (overlay.overlay_id === relation.overlay_id && relation.scenario_id === $scope.scenario.scenario_id) {
+                                        if(filtered.length === 0){
+                                            filtered.push(overlay);
+                                        }
+                                        for(let i = 0; i < filtered.length; i++){
+                                            let doubled = false;
+                                            if(overlay.relationship_id === filtered[i].relationship_id){
+                                                doubled = true;
+                                            }
+                                            if(i === filtered.length - 1 && doubled === false){
+                                                filtered.push(overlay);
+                                            }
+                                        }
                                     }
                                 }, this);
                             }, this);
                             // Now display the filtered overlays
+                            console.log(filtered);
                             displayOverlays(filtered);
                         })
                     }
@@ -104,7 +117,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                             $scope.scenario.videos[video_index].overlays = [];
                             var i = 0;
                             overlay_relations.forEach(function (overlay, overlay_index) {
-                                if (overlay.video_id == video.video_id) {
+                                if (overlay.video_id === video.video_id) {
                                     $scope.scenario.videos[video_index].overlays[i] = overlay;
                                     i++;
                                 }
@@ -329,8 +342,22 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
     $scope.changeSource = function(path) {
         path = $window.location.origin + config.videoFolder + path;
 
-        pathMp4 = path + ".mp4";
-        pathOgg = path + ".ogg";
+        let videoExtension = path.split('.')[1];
+
+        // if not extention in the url
+        if (videoExtension === null || videoExtension === undefined) {
+            var mp4path = path + '.mp4';
+            var oggpath = path + '.ogg';
+        }
+        else{
+            var mp4path = path;
+            var oggpath = path;
+        }
+
+        console.log(mp4path);
+
+        pathMp4 = mp4path;
+        pathOgg = oggpath;
         $("#video").find("#srcmp4").attr("src", pathMp4);
         $("#video").find("#srcogg").attr("src", pathOgg);
         $("#video-container video")[0].load();
@@ -343,6 +370,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
     $scope.repositionOverlay = function (overlay) {
         $scope.repositionOverlayState = true;
         $scope.relationship = overlay;
+        console.log($scope.relationship);
 
         $scope.changeSource($scope.relationship.video_url);
     };
@@ -912,7 +940,6 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                         overlay.video_id = $scope.baseVideo.video_id;
                         $scope.baseVideo = {};
                         overlay = $scope.relationship;
-                        console.log(overlay);
                         $scope.repositionOverlay(overlay);
                     });
             })
@@ -985,6 +1012,74 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
         $route.reload();
     };
 
+    // Start the preview of a video
+    $scope.startPreviewAddVideo = function(video) {
+        // store the interval promise
+        $scope.currentPreview = 1;
+        $scope.maxPreview = video.thumbnails;
+
+        // stops any running interval to avoid two intervals running at the same time
+        $interval.cancel(promise);
+
+        // store the interval promise
+        promise = $interval(function() {
+            let indexAddVideo = $scope.videos.indexOf(video);
+            if($scope.videos[indexAddVideo].thumbnails > 1){
+                if($scope.currentPreview >= $scope.maxPreview){
+                    $scope.currentPreview = 1;
+                }
+                $scope.videos[indexAddVideo].thumbnail = $filter('thumbnail')($scope.videos[indexAddVideo], $scope.currentPreview);
+            }
+            $scope.currentPreview++;
+        }, config.thumbnailSpeed);
+    };
+
+    // Stop the preview of a video
+    $scope.stopPreviewAddVideo = function(video) {
+        $interval.cancel(promise);
+    };
+
+    // Start the preview of a video
+    $scope.startPreviewAddVideoCoord = function(video) {
+        // store the interval promise
+        $scope.currentPreview = 1;
+        $scope.maxPreview = video.thumbnails;
+
+        // stops any running interval to avoid two intervals running at the same time
+        $interval.cancel(promise);
+
+        // store the interval promise
+        promise = $interval(function() {
+            let indexAddVideo = $scope.videosCoord.indexOf(video);
+            if($scope.videosCoord[indexAddVideo].thumbnails > 1){
+                if($scope.currentPreview >= $scope.maxPreview){
+                    $scope.currentPreview = 1;
+                }
+                $scope.videosCoord[indexAddVideo].thumbnail = $filter('thumbnail')($scope.videosCoord[indexAddVideo], $scope.currentPreview);
+            }
+            $scope.currentPreview++;
+        }, config.thumbnailSpeed);
+    };
+
+    // Stop the preview of a video
+    $scope.stopPreviewAddVideoCoord = function(video) {
+        $interval.cancel(promise);
+    };
+
+    // Add a Video as an object out of the list
+    $scope.addListVideo = function(video){
+        for(let i = 0; i < $scope.relationsRecAt.length; i++){
+            if($scope.relationsRecAt[i].video_id === video.video_id){
+                $scope.newVideo = video;
+                $scope.newVideo.location = {
+                    lat: $scope.relationsRecAt[i].location_lat,
+                    lng: $scope.relationsRecAt[i].location_lng,
+                    location_id: $scope.relationsRecAt[i].location_id
+                };
+            }
+        }
+    };
+
 
     $scope.submitVideo = function () {
         // Create relation
@@ -1013,6 +1108,9 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
         $videoService.list().then(function (videos) {
             // Get recorded_At relations
             $relationshipService.list_by_type('recorded_at').then(function (relations) {
+                $scope.videos = [];
+                $scope.relationsRecAt = relations.data;
+                $scope.videosCoord = [];
 
                 // create markers from recorded at relation when video.video_id relation.video_id matches
                 videos.data.forEach(function (video, video_index) {
@@ -1043,14 +1141,21 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                                         lng: relation.location_lng,
                                         location_id: relation.location_id
                                     }
-                                })
+                                });
                                 videoMarkers.push(marker);
                             }
 
-                            if (video_index == videos.data.length - 1) {
+                            if(relation.location_type === "indoor" || relation.location_lat === null || relation.location_lng === null){
+                                $scope.videos.push(video);
+                            }
+                            else{
+                                $scope.videosCoord.push(video);
+                            }
+
+                            if (video_index === videos.data.length - 1) {
                                 leafletData.getMap('addExistingVideoMap').then(function (map) {
                                     // Clear map first;
-                                    if ($scope.featureGroup != null) {
+                                    if ($scope.featureGroup !== null) {
                                         map.removeLayer($scope.featureGroup);
                                     }
                                     $scope.featureGroup = new L.featureGroup(videoMarkers).addTo(map);

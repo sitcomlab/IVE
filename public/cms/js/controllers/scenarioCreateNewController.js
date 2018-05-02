@@ -160,8 +160,12 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
 
         var startUpload = function () {
             Upload.upload({
-                    url: '/cms/videos/upload',
-                    data: uploadVideoData
+                    url: config.apiURL + '/videos/uploadVideo/' + uploadVideoData.location.name,
+                    data: uploadVideoData,
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + $authenticationService.getToken()
+                    }
                 })
                 .progress(function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
@@ -173,12 +177,12 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                     angular.element('.progress-bar').attr('aria-valuenow', progressPercentage).css('width', progressPercentage + '%');
                 })
                 .success(function (data, status, headers, config) {
-                    console.log("Upload finished! Creating Thumbnail now...");
+                    console.log("Upload finished!");
 
                     $videoService.create({
                         name: $scope.newVideo.name,
                         description: $scope.newVideo.description,
-                        url: '/' + data.url.split('/public/')[1],
+                        url: '/' + uploadVideoData.location.name + '/' + uploadVideoData.file.name,
                         recorded: $scope.newVideo.recorded
                     }).then(function (createdVideo) {
 
@@ -191,18 +195,20 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                         var recorded_at = {
                             video_id: createdVideo.data.video_id,
                             location_id: newLocation.location_id,
-                            preferred: false // What does this parameter do?
+                            description: "Recorded at",
+                            preferred: true
                         };
 
-                        $relationshipService.create('recorded_at', recorded_at).then(function (createdRelation) {
-                            if (createdVideo.status === 201) {
-                                createdVideo.data.location = newLocation;
-                                $scope.newScenario.videos.push(createdVideo.data);
-                                $scope.currentState.addVideo = false;
-                                $scope.currentState.scenarioVideoOverview = true;
-                            }
+                        $relationshipService.create('recorded_at', recorded_at)
+                            .then(function (createdRelation) {
+                                if (createdVideo.status === 201) {
+                                    createdVideo.data.location = newLocation;
+                                    $scope.newScenario.videos.push(createdVideo.data);
+                                    $scope.currentState.addVideo = false;
+                                    $scope.currentState.scenarioVideoOverview = true;
+                                }
 
-                        })
+                            })
 
                     })
 
@@ -226,13 +232,12 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
 
         if ($scope.existingLocation) {
             uploadVideoData.location = {
-                existing_name: $scope.newVideo.location.name,
+                name: $scope.newVideo.location.name,
                 newVideo: $scope.newVideo
             };
             newLocation = $scope.newVideo.location;
             startUpload();
         } else {
-            $scope.newVideo.location.location_type = "outdoor";
             // Create location
             $locationService.create($scope.newVideo.location)
                 .then(function (response) {
@@ -243,7 +248,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                     $scope.newVideo.location = response.data;
                     newLocation = response.data;
                     uploadVideoData.location = {
-                        newLocation: $scope.newVideo.location,
+                        name: $scope.newVideo.location.name,
                         newVideo: $scope.newVideo
                     };
                     startUpload();
@@ -301,7 +306,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
         var videoExtension = $scope.currentVideo.url.split('.')[1];
 
         // Wenn keine extension in der URL war..
-        if (videoExtension === null) {
+        if (videoExtension === null || videoExtension === undefined) {
             videoExtension = 'mp4';
             $scope.currentVideo.thumbnail_url = $scope.currentVideo.url + '_thumbnail.png';
             $scope.currentVideo.url += '.mp4';
@@ -365,7 +370,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
             var videoExtension = $scope.currentVideo.url.split('.')[1];
 
             // Wenn keine extension in der URL war..
-            if (videoExtension === null) {
+            if (videoExtension === null || videoExtension === undefined) {
                 videoExtension = 'mp4';
                 $scope.currentVideo.thumbnail_url = $scope.currentVideo.url + '_thumbnail.png';
                 $scope.currentVideo.url += '.mp4';
@@ -564,10 +569,20 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
     // Change the video source
     $scope.changeSource = function(path) {
         path = $window.location.origin + config.videoFolder + path;
-        console.log(path);
 
-        pathMp4 = path + ".mp4";
-        pathOgg = path + ".ogg";
+        let videoExtension = path.split('.')[1];
+
+        // if not extention in the url
+        if (videoExtension === null || videoExtension === undefined) {
+            var mp4path = path + '.mp4';
+            var oggpath = path + '.ogg';
+        }
+        else{
+            var mp4path = path;
+            var oggpath = path;
+        }
+        pathMp4 = mp4path;
+        pathOgg = oggpath;
         $("#videoOverlay").find("#srcmp4Overlay").attr("src", pathMp4);
         $("#videoOverlay").find("#srcoggOverlay").attr("src", pathOgg);
         $("#video-container-overlay video")[0].load();
@@ -1234,6 +1249,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                             $scope.newVideo.location.lng = e.latlng.lng;
                             $scope.newVideo.location.name = location.name;
                             $scope.newVideo.location.location_id = location.location_id;
+                            $scope.newVideo.location.location_type = location.location_type;
                             $scope.existingLocation = true;
 
                         })
@@ -1243,7 +1259,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
 
             leafletData.getMap('addNewVideoMap').then(function (map) {
                 // Clear map first;
-                if ($scope.featureGroup != null) {
+                if ($scope.featureGroup !== null) {
                     map.removeLayer($scope.featureGroup);
                 }
 

@@ -107,7 +107,7 @@
 <div ng-show="repositionOverlayState">
 
     <div id="repositionContainer">
-        <h2>Place the Overlay for Video {{positioningOverlay.video_name}}</h2>
+        <h2>Place the Overlay for Video {{relationship.video_name}}</h2>
 
         <div id='video_container'>
             <div id="video-container">
@@ -257,6 +257,51 @@
             <br>
             <button type="button" class="btn btn-secondary float-left" ng-click="cancelVideoAddition()"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
             <button type="button" class="btn btn-primary float-right" ng-click="submitVideo()">Continue <i class="fa fa-caret-right" aria-hidden="true"></i></button>
+
+            <div class="btn-group" role="group" aria-label="Switcher">
+                <button type="button" ng-click="videoIndoor = true" ng-class="{'active': videoIndoor === true}" class="btn btn-secondary">Without Coordinates</button>
+                <button type="button" ng-click="videoIndoor = false" ng-class="{'active': videoIndoor === false}" class="btn btn-secondary">With Coordinates</button>
+            </div>
+
+            <!--Portrait View-->
+            <!--Show videos without coordinates-->
+            <div class="row" ng-show="videoIndoor">
+                <div ng-repeat="video in videos" class="col-md-4 video">
+                    <a href="" ng-click="addListVideo(video)">
+                        <p>{{video.name}}</p>
+                        <img
+                                href=""
+                                class="card-img-top img-fluid"
+                                ng-init="video.thumbnail = (video | thumbnail:1)"
+                                ng-src="{{video.thumbnail}}"
+                                ng-mouseover="startPreviewAddVideo(video)"
+                                ng-mouseout="stopPreviewAddVideo(video)"
+                                alt="{{video.name}}"
+                                style="height: auto;"
+                                ng-if="video.thumbnails > 0"></br>
+                        <i class="fa fa-tags" aria-hidden="true"></i><span class="tag" ng-repeat="tag in video.tags">{{tag}}</span></br>
+                    </a>
+                </div>
+            </div>
+            <!--Show videos with coordinates-->
+            <div class="row" ng-hide="videoIndoor">
+                <div ng-repeat="video in videosCoord" class="col-md-4 video">
+                    <a href="" ng-click="addListVideo(video)">
+                        <p>{{video.name}}</p>
+                        <img
+                                href=""
+                                class="card-img-top img-fluid"
+                                ng-init="video.thumbnail = (video | thumbnail:1)"
+                                ng-src="{{video.thumbnail}}"
+                                ng-mouseover="startPreviewAddVideoCoord(video)"
+                                ng-mouseout="stopPreviewAddVideoCoord(video)"
+                                alt="{{video.name}}"
+                                style="height: auto;"
+                                ng-if="video.thumbnails > 0"></br>
+                        <i class="fa fa-tags" aria-hidden="true"></i><span class="tag" ng-repeat="tag in video.tags">{{tag}}</span></br>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

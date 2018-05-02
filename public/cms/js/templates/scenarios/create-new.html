@@ -152,12 +152,12 @@
             <div class="form-group row">
                 <label for="latitude" class="col-3 col-form-label">Latitude: </label>
                 <div class="col-3">
-                    <input class="form-control" ng-model="newVideo.location.lat" placeholder=51.22 id="latitude">
+                    <input class="form-control" ng-model="newVideo.location.lat" placeholder=latitude id="latitude">
                 </div>
 
                 <label for="longitude" class="col-3 col-form-label">Longitude: </label>
                 <div class="col-3 float-right">
-                    <input class="form-control" ng-model="newVideo.location.lng" placeholder=7.04 id="longitude">
+                    <input class="form-control" ng-model="newVideo.location.lng" placeholder=longitude id="longitude">
                 </div>
 
                 <div class="input-group" id="searchBar">
@@ -182,6 +182,19 @@
                         <div class="col-10">
                             <input class="form-control" type="text" ng-model="newVideo.location.description" placeholder="e.g. 'A place near the dom'"
                                 id="desc-input">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="location-type-input" class="col-2 col-form-label">Type:</label>
+                        <div class="col-10">
+                            <select
+                                    id="location-type-input"
+                                    ng-model="newVideo.location.location_type"
+                                    required>
+                                <option value="abstract">abstract</option>
+                                <option value="indoor">indoor</option>
+                                <option value="outdoor">outdoor</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -231,7 +244,7 @@
                     </a>
                 </div>
             </div>
-            <!--Show videos withcoordinates-->
+            <!--Show videos with coordinates-->
             <div class="row" ng-hide="videoIndoor">
                 <div ng-repeat="video in videosCoord" class="col-md-4 video">
                     <a href="" ng-click="addListVideo(video)">

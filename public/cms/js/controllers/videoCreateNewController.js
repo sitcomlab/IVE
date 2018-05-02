@@ -68,8 +68,9 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
                     marker.on('click', function (e) {
                         $scope.newVideo.location.lat = e.latlng.lat;
                         $scope.newVideo.location.lng = e.latlng.lng;
-                        // $scope.newVideo.location.l_id = location.l_id;
                         $scope.newVideo.location.name = location.name;
+                        $scope.newVideo.location.location_id = location.location_id;
+                        $scope.newVideo.location.location_type = location.location_type;
 
                         location_id = location.location_id;
 
@@ -147,7 +148,7 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
         locations.forEach(function (location) {
 
 
-            if (searchTerm == "") {
+            if (searchTerm === "") {
 
                 var popupContent = `Location: ${location.name}`;
                 var marker = new L.Marker(L.latLng(location.lat, location.lng), {
@@ -169,7 +170,7 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
 
             }
 
-            if (location.name.search(searchTerm) != -1) {
+            if (location.name.search(searchTerm) !== -1) {
 
                 var popupContent = `Location: ${location.name}`;
                 var marker = new L.Marker(L.latLng(location.lat, location.lng), {
@@ -198,30 +199,30 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
             featureGroup = L.featureGroup(SearchMarkers).addTo(map);
 
         });
-    }
+    };
 
     $scope.submit = function () {
 
         isValid = true;
 
-        if ($scope.newVideo.name == "") {
-            name_input.parent().parent().addClass('has-danger')
+        if ($scope.newVideo.name === "") {
+            name_input.parent().parent().addClass('has-danger');
             name_input.addClass('form-control-danger');
             isValid = false;
         }
 
-        if ($scope.newVideo.description == "") {
-            desc_input.parent().parent().addClass('has-danger')
+        if ($scope.newVideo.description === "") {
+            desc_input.parent().parent().addClass('has-danger');
             desc_input.addClass('form-control-danger');
             isValid = false;
         }
 
         // Put tags in array
-        if ($scope.newVideo.tags != "") {
+        if ($scope.newVideo.tags !== "") {
             // Parse array, grab them by the comma and remove the #
             var tagArray = [];
             $scope.newVideo.tags.split(', ').forEach(function (element) {
-                if (element.charAt(0) == "#") {
+                if (element.charAt(0) === "#") {
                     tagArray.push(element.slice(1));
                 }
             }, this);
@@ -229,38 +230,38 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
         }
 
         // Validate the input for the date and parse it
-        if ($scope.newVideo.recorded != "") {
+        if ($scope.newVideo.recorded !== "") {
 
             // Try to create a new date
             var recorded_date = new Date($scope.newVideo.recorded);
 
             // Check if it has been parsed correctly
             if (isNaN(recorded_date)) {
-                recorded_input.parent().parent().addClass('has-danger')
+                recorded_input.parent().parent().addClass('has-danger');
                 recorded_input.addClass('form-control-danger');
                 isValid = false;
             }
 
             // Catch dates in the future...
             if (recorded_date > new Date()) {
-                recorded_input.parent().parent().addClass('has-danger')
+                recorded_input.parent().parent().addClass('has-danger');
                 recorded_input.addClass('form-control-danger');
                 isValid = false;
             }
 
         } else {
-            recorded_input.parent().parent().addClass('has-danger')
+            recorded_input.parent().parent().addClass('has-danger');
             recorded_input.addClass('form-control-danger');
             isValid = false;
         }
 
-        if ($scope.newVideo.location.lat == 0 || $scope.newVideo.location.lng == 0) {
+        if ($scope.newVideo.location.lat === 0 || $scope.newVideo.location.lng === 0) {
             isVaild = false;
             alert("Please select a location!");
         }
 
         // Check if file has been selected
-        if (isValid && $scope.uploadingVideo != null) {
+        if (isValid && $scope.uploadingVideo !== null) {
             $scope.upload();
         }
 
@@ -269,11 +270,11 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
     }
 
     $scope.upload_change = function (evt) {
-        if (evt.type == "change" || evt.type == "drop") {
+        if (evt.type === "change" || evt.type === "drop") {
             $scope.file_selected = true;
         }
 
-        if (evt.type == "cleared") {
+        if (evt.type === "cleared") {
             $scope.file_selected = false;
         }
     }
@@ -288,7 +289,7 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
     $scope.newLocation = {
         name: "",
         description: "",
-        location_type: "outdoor",
+        location_type: "",
         lng: null,
         lat: null,
     }
@@ -296,11 +297,97 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
 
     $scope.upload = function () {
 
+        var startUpload = function(){
+            $scope.uploadStarted = true;
+
+            console.log("Uploading...");
+
+            // Get location if existing or create a new one...
+            $scope.uploadStatus = {
+                currentPercentage: 0,
+                loaded: 0,
+                total: 0
+            };
+
+            var uploadVideoData = {
+                file: $scope.uploadingVideo
+            };
+
+            if ($scope.createLocation) {
+                uploadVideoData.location = {
+                    name: $scope.newLocation.name,
+                    newVideo: $scope.newVideo
+                }
+            } else {
+                uploadVideoData.location = {
+                    name: location_name,
+                    newVideo: $scope.newVideo
+                }
+            }
+
+            Upload.upload({
+                url: config.apiURL + '/videos/uploadVideo/' + uploadVideoData.location.name,
+                data: uploadVideoData,
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+                })
+                .progress(function (evt) {
+                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+
+                    $scope.uploadStatus.currentPercentage = progressPercentage;
+                    $scope.uploadStatus.loaded = evt.loaded;
+                    $scope.uploadStatus.total = evt.total;
+
+                    angular.element('.progress-bar').attr('aria-valuenow', progressPercentage).css('width', progressPercentage + '%');
+                })
+                .success(function (data, status, headers, config) {
+                    console.log("Upload finished! Creating Thumbnail now...");
+
+                    $videoService.create({
+                        name: $scope.newVideo.name,
+                        description: $scope.newVideo.description,
+                        url: '/' + uploadVideoData.location.name + '/' + uploadVideoData.file.name,
+                        recorded: $scope.newVideo.recorded
+                    }).then(function (createdVideo) {
+
+                        if (createdVideo.status !== 201) {
+                            $window.alert('It seems like the creator is not responding. Please try again later.');
+                            return;
+                        }
+
+                        // Create relationship between location and the new video
+                        var recorded_at = {
+                            video_id: createdVideo.data.video_id,
+                            location_id: $scope.newLocation.location_id,
+                            description: "Recorded at",
+                            preferred: true
+                        }
+
+                        $relationshipService.create('recorded_at', recorded_at).then(function (createdRelation) {
+                            if (createdVideo.status === 201) {
+                                $scope.redirect('/videos/' + createdVideo.data.video_id);
+                            }
+
+                        })
+
+                    })
+
+
+
+                })
+                .error(function (data, status, headers, config) {
+                    console.log('error status: ' + status);
+                })
+        };
+
         // Check where to upload the file..
         // if ($scope.newVideo.location.l_id) {
         if (!$scope.createLocation) {
-            // location_id = $scope.newVideo.location.l_id;
+            location_id = $scope.newVideo.location.location_id;
             location_name = $scope.newVideo.location.name;
+            startUpload();
         } else {
             // New Location needs to be created
             $scope.newLocation.lng = $scope.newVideo.location.lng;
@@ -310,93 +397,16 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
             $locationService.create($scope.newLocation)
                 .then(function (response) {
 
-                    if (response.status != 201) {
+                    if (response.status !== 201) {
                         $window.alert('It seems like the creator is not responding. Please try again later.');
                         return;
                     }
 
                     $scope.newLocation = response.data;
+                    startUpload();
                 });
         }
-
-        $scope.uploadStarted = true;
-
-        console.log("Uploading...");
-
-        // Get location if existing or create a new one...
-        $scope.uploadStatus = {
-            currentPercentage: 0,
-            loaded: 0,
-            total: 0
-        }
-
-        var uploadVideoData = {
-            file: $scope.uploadingVideo
-        }
-
-        if ($scope.createLocation) {
-            uploadVideoData.location = {
-                newLocation: $scope.newLocation,
-                newVideo: $scope.newVideo
-            }
-        } else {
-            uploadVideoData.location = {
-                existing_name: location_name,
-                newVideo: $scope.newVideo
-            }
-        }
-
-        Upload.upload({
-                url: '/cms/videos/upload',
-                data: uploadVideoData
-            })
-            .progress(function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-
-                $scope.uploadStatus.currentPercentage = progressPercentage;
-                $scope.uploadStatus.loaded = evt.loaded;
-                $scope.uploadStatus.total = evt.total;
-
-                angular.element('.progress-bar').attr('aria-valuenow', progressPercentage).css('width', progressPercentage + '%');
-            })
-            .success(function (data, status, headers, config) {
-                console.log("Upload finished! Creating Thumbnail now...");
-
-                $videoService.create({
-                    name: $scope.newVideo.name,
-                    description: $scope.newVideo.description,
-                    url: '/' + data.url.split('/public/')[1],
-                    recorded: $scope.newVideo.recorded
-                }).then(function (createdVideo) {
-
-                    if (createdVideo.status != 201) {
-                        $window.alert('It seems like the creator is not responding. Please try again later.');
-                        return;
-                    }
-
-                    // Create relationship between location and the new video
-                    var recorded_at = {
-                        video_id: createdVideo.data.video_id,
-                        location_id: $scope.newLocation.location_id,
-                        preferred: false //What does this parameter do?
-                    }
-
-                    $relationshipService.create('recorded_at', recorded_at).then(function (createdRelation) {
-                        if (createdVideo.status == 201) {
-                            $scope.redirect('/videos/' + createdVideo.data.video_id);
-                        }
-
-                    })
-
-                })
-
-
-
-            })
-            .error(function (data, status, headers, config) {
-                console.log('error status: ' + status);
-            })
-    }
+    };
 
 
 

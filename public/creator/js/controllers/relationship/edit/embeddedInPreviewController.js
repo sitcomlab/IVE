@@ -100,8 +100,19 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
      */
     $scope.changeSource = function(path) {
         path = $window.location.origin + config.videoFolder + path;
-        pathMp4 = path + ".mp4";
-        pathOgg = path + ".ogg";
+        let videoExtension = path.split('.')[1];
+
+        // if not extention in the url
+        if (videoExtension === null || videoExtension === undefined) {
+            var mp4path = path + '.mp4';
+            var oggpath = path + '.ogg';
+        }
+        else{
+            var mp4path = path;
+            var oggpath = path;
+        }
+        pathMp4 = mp4path;
+        pathOgg = oggpath;
         $("#video").find("#srcmp4").attr("src", pathMp4)
         $("#video").find("#srcogg").attr("src", pathOgg)
         $("#video-container video")[0].load();
