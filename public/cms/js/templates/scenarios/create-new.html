@@ -167,6 +167,65 @@
                         </span>
                 </div>
 
+                <div class="btn-group" role="group" aria-label="Switcher">
+                    <button type="button" ng-click="locationTypeIndoor = true; existingLocation = true" ng-class="{'active': locationTypeIndoor === true}" class="btn btn-secondary">Indoor</button>
+                    <button type="button" ng-click="locationTypeIndoor = false; existingLocation = true" ng-class="{'active': locationTypeIndoor === false}" class="btn btn-secondary">Outdoor</button>
+                </div>
+
+                <div ng-show="existingLocation">
+                    <div class="row" ng-show="locationTypeIndoor">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead class="thead-default">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="location in locationIndoor">
+                                    <a ng-click="clickLocation(location)">
+                                        <th>{{location.location_id}}</th>
+                                        <td>{{location.name}}</td>
+                                        <td>{{location.location_type}}</td>
+                                        <td>
+                                            <a href="" ng-click="clickLocation(location)"> <i class="fa fa-check" aria-hidden="true"></i></a>
+                                        </td>
+                                    </a>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-hide="locationTypeIndoor">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead class="thead-default">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="location in locationCoord">
+                                    <a ng-click="clickLocation(location)">
+                                        <th>{{location.location_id}}</th>
+                                        <td>{{location.name}}</td>
+                                        <td>{{location.location_type}}</td>
+                                        <td>
+                                            <a href="" ng-click="clickLocation(location)"> <i class="fa fa-check" aria-hidden="true"></i></a>
+                                        </td>
+                                    </a>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
                 <div ng-hide="existingLocation">
                     <hr>
                     <p>It seems like you want to create a new Location. Please add the following details:</p>

@@ -106,7 +106,6 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                                 }, this);
                             }, this);
                             // Now display the filtered overlays
-                            console.log(filtered);
                             displayOverlays(filtered);
                         })
                     }
@@ -1155,7 +1154,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                             if (video_index === videos.data.length - 1) {
                                 leafletData.getMap('addExistingVideoMap').then(function (map) {
                                     // Clear map first;
-                                    if ($scope.featureGroup !== null) {
+                                    if ($scope.featureGroup !== null && $scope.featureGroup !== undefined) {
                                         map.removeLayer($scope.featureGroup);
                                     }
                                     $scope.featureGroup = new L.featureGroup(videoMarkers).addTo(map);

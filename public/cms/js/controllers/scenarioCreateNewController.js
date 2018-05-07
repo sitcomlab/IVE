@@ -13,6 +13,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
 
     var promise;
     $scope.videoIndoor = true;
+    $scope.locationTypeIndoor = true;
 
     $scope.currentState.general = true;
 
@@ -314,8 +315,19 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
 
         let path = $window.location.origin + config.videoFolder + $scope.currentVideo.url;
 
-        let pathMp4 = path + ".mp4";
-        let pathOgg = path + ".ogg";
+        let videoExtensions = path.split('.')[1];
+
+        // if not extention in the url
+        if (videoExtensions === null || videoExtensions === undefined) {
+            var mp4path = path + '.mp4';
+            var oggpath = path + '.ogg';
+        }
+        else{
+            var mp4path = path;
+            var oggpath = path;
+        }
+        pathMp4 = mp4path;
+        pathOgg = oggpath;
         $("#video").find("#srcmp4").attr("src", pathMp4);
         $("#video").find("#srcogg").attr("src", pathOgg);
         $("#video-container video")[0].load();
@@ -1228,8 +1240,20 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
         }
     });
 
+    // Existing location selected out of the list
+    $scope.clickLocation = function(location){
+        $scope.newVideo.location.lat = location.lat;
+        $scope.newVideo.location.lng = location.lng;
+        $scope.newVideo.location.name = location.name;
+        $scope.newVideo.location.location_id = location.location_id;
+        $scope.newVideo.location.location_type = location.location_type;
+        $scope.existingLocation = true;
+    };
+
     $scope.setupAddNewVideoMap = function () {
         var locationMarkers = [];
+        $scope.locationIndoor = [];
+        $scope.locationCoord = [];
         // Get all locations and create markers for them;
         $locationService.list()
             .then(function onSuccess(response) {
@@ -1240,7 +1264,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                         // locations.push(location);
                         var markerOptions = {
                             clickable: true
-                        }
+                        };
 
                         var popupContent = `Location: ${location.name}`;
                         var marker = new L.Marker(L.latLng(location.lat, location.lng), markerOptions).bindPopup(popupContent);
@@ -1252,8 +1276,12 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                             $scope.newVideo.location.location_type = location.location_type;
                             $scope.existingLocation = true;
 
-                        })
+                        });
                         locationMarkers.push(marker);
+                        $scope.locationCoord.push(location);
+                    }
+                    else{
+                        $scope.locationIndoor.push(location);
                     }
                 }, this);
 

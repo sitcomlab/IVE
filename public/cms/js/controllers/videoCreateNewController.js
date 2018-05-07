@@ -15,14 +15,15 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
             lng: 0,
             lat: 0
         }
-    }
+    };
 
     $rootScope.currentCategory = "Videos";
     $rootScope.redirectBreadcrumb = function () {
         $location.url('/videos');
-    }
+    };
     $rootScope.currentSite = "Create new video";
 
+    $scope.locationTypeIndoor = true;
 
     // Input fields
     var name_input = angular.element('#name-input');
@@ -51,9 +52,24 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
             $window.alert(response.data);
         });
 
+    // Existing location selected out of the list
+    $scope.clickLocation = function(location){
+        $scope.newVideo.location.lat = location.lat;
+        $scope.newVideo.location.lng = location.lng;
+        $scope.newVideo.location.name = location.name;
+        $scope.newVideo.location.location_id = location.location_id;
+        $scope.newVideo.location.location_type = location.location_type;
+
+        location_id = location.location_id;
+
+        $scope.newLocation = location;
+        $scope.createLocation = false;
+    };
 
     $locationService.list()
         .then(function onSuccess(response) {
+            $scope.locationIndoor = [];
+            $scope.locationCoord = [];
             response.data.forEach(function (location) {
                 // Exclude indoor locations and those which are wrongly located at 0/0
                 if (location.location_type !== "indoor" && location.lat !== null && location.lng !== null) {
@@ -77,8 +93,12 @@ app.controller("videoCreateNewController", function ($scope, $rootScope, config,
                         $scope.newLocation = location;
                         $scope.createLocation = false;
 
-                    })
+                    });
                     locationMarkers.push(marker);
+                    $scope.locationCoord.push(location);
+                }
+                else{
+                    $scope.locationIndoor.push(location);
                 }
             }, this);
 
