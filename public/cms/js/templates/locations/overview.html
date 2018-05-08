@@ -26,3 +26,15 @@
         </div>
     </div>
 </div>
+<div class="btn-group" role="group" aria-label="Switcher">
+    <button type="button" ng-click="showIndoor = true" ng-class="{'active': showIndoor === true}" class="btn btn-secondary">Indoor/Without Coordinates</button>
+    <button type="button" ng-click="showIndoor = false" ng-class="{'active': showIndoor === false}" class="btn btn-secondary">Outdoor</button>
+</div>
+
+<div class="row" ng-show="showIndoor">
+    <a href="#" ng-click="clickLocation(location)" ng-repeat="location in locationsIndoor" class="list-group-item list-group-item-action">{{location.name}}</a>
+</div>
+
+<div class="row" ng-hide="showIndoor">
+    <a href="#" ng-click="clickLocation(location)" ng-repeat="location in locationsCoord" class="list-group-item list-group-item-action">{{location.name}}</a>
+</div>

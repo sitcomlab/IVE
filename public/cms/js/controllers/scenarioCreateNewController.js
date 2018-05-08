@@ -396,7 +396,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
         }
     };
 
-    // Upload an Image as an Overlay
+    // Upload an image as an Overlay
     $scope.uploadImage = function(file, errFiles) {
         $scope.newOverlay.url = "/images/" + file.name;
         $scope.f = file;
@@ -425,7 +425,36 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
         }
     };
 
-    // Upload an Image as an Overlay
+    // Upload an 3D-object as an Overlay
+    $scope.uploadObject = function(file, errFiles) {
+        $scope.newOverlay.url = "/objects/" + file.name;
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: config.apiURL + '/overlays/uploadObject',
+                method: 'POST',
+                data: {file: file},
+                headers: {
+                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                }
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        }
+    };
+
+    // Upload a video as an Overlay
     $scope.uploadVideoOverlay = function(file, errFiles) {
         $scope.newOverlay.url = "/videos/overlays/" + file.name;
         $scope.f = file;
@@ -542,7 +571,6 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                                         $scope.newOverlay.video_url = $scope.newScenario.videos[$scope.currentVideoIndex].video_url;
                                         $scope.newOverlay.video_id = $scope.newScenario.videos[$scope.currentVideoIndex].video_id;
                                         $scope.newOverlay = $scope.relationship;
-                                        console.log($scope.newOverlay);
                                         $scope.placeOverlay($scope.newOverlay);
                                     });
                             })
@@ -564,8 +592,6 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
 
     // Placement of an Overlay
     $scope.placeOverlay = function (Overlay) {
-        console.log(Overlay);
-        console.log($scope.relationship);
         $scope.currentState.createOverlay = false;
         $scope.currentState.placeOverlay = true;
 
@@ -600,14 +626,12 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
         $("#video-container-overlay video")[0].load();
         var vidload = document.getElementById("videoOverlay");
         vidload.onloadeddata = function() {
-            console.log("LOADED_DATA")
             $scope.setOverlays();
         };
     };
 
     // loading the overlay, set the controls
     $scope.setOverlays = function(){
-        console.log("SET_OVERLAYS")
         // Getting the right size for the overlay-container
         var controlOn = true;
         var overlay_container = $( '#overlay-container' );
@@ -706,11 +730,9 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
             $scope.scene.add(control);
         }
 
-
-
         // if overlay is an image
         if($scope.relationship.overlay_category === "picture"){
-            // Create renderer and allow transparent backgroun-color
+            // Create renderer and allow transparent background-color
             var renderer = new THREE.WebGLRenderer({
                 alpha: true
             });
@@ -818,6 +840,61 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
             $scope.scene.add(control);
         }
 
+        // if overlay is an object
+        if($scope.relationship.overlay_category === "object"){
+            // Create renderer and allow transparent background-color
+            var renderer = new THREE.WebGLRenderer({
+                alpha: true
+            });
+            renderer.setSize(overlay_container_width, overlay_container_height);
+            renderer.domElement.style.position = 'absolute';
+            renderer.setClearColor(0xffffff, 0);
+            overlay_container.append(renderer.domElement);
+
+            var pathObject = $window.location.origin + $scope.relationship.overlay_url;
+
+            var loader = new THREE.OBJLoader();
+
+            // load a resource
+            loader.load(
+                // resource URL
+                pathObject,
+                // called when resource is loaded
+                function ( object ) {
+                    // Creating the object
+                    $scope.object = object;
+                    $scope.object._overlay = $scope.relationship;
+                    $scope.object.position.x = parseFloat($scope.relationship.relationship_x);
+                    $scope.object.position.y = parseFloat($scope.relationship.relationship_y);
+                    $scope.object.position.z = parseFloat($scope.relationship.relationship_z);
+                    $scope.object.rotation.x = parseFloat($scope.relationship.relationship_rx);
+                    $scope.object.rotation.y = parseFloat($scope.relationship.relationship_ry);
+                    $scope.object.rotation.z = parseFloat($scope.relationship.relationship_rz);
+                    $scope.scene.add($scope.object);
+
+                    // Setting the controls for the object
+                    control = new THREE.TransformControls(camera, renderer.domElement);
+                    // control.addEventListener('change', render );
+                    control.addEventListener('change', valuesChanged );
+
+                    control.attach($scope.object);
+                    $scope.scene.add(control);
+
+                    render();
+
+                },
+                // called when loading is in progresses
+                function ( xhr ) {
+                    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+                },
+                // called when loading has errors
+                function ( error ) {
+                    console.log( 'An error happened' );
+                    console.log(error);
+                }
+            );
+        }
+
         // Switching the controls on and off
         window.addEventListener( 'keydown', function ( event ) {
             switch ( event.keyCode ) {
@@ -881,7 +958,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
             control.update();
             requestAnimationFrame( render );
 
-            if($scope.relationship.overlay_category === "picture"){
+            if($scope.relationship.overlay_category === "picture" || $scope.relationship.overlay_category === "video" || $scope.relationship.overlay_category === "object"){
                 renderer.render($scope.scene, camera);
             }
             if($scope.relationship.overlay_category === "website"){
@@ -898,9 +975,6 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                 $scope.objectCSS.rotation.z = $scope.object.rotation.z;
                 $scope.objectCSS.scale.x = $scope.object.scale.x / 100; // Scale it down again to show the right size
                 $scope.objectCSS.scale.y = $scope.object.scale.y / 100; // Scale it down again to show the right size
-            }
-            if($scope.relationship.overlay_category === "video"){
-                renderer.render($scope.scene, camera);
             }
         };
         render();

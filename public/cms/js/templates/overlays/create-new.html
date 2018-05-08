@@ -34,6 +34,7 @@
                     <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'picture'">Picture</a>
                     <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'website'">Website</a>
                     <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'video'">Video</a>
+                    <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'object'">.obj Object</a>
                 </div>
             </div>
         </div>
@@ -70,6 +71,20 @@
                 <span class="progress" ng-show="f.progress >= 0">
                                 <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></div>
                             </span>
+            </div>
+            {{errorMsg}}
+        </div>
+        <div ng-if="newOverlay.category == 'object'">
+            <button type="file" ngf-select="uploadObject($file, $invalidFiles)"
+                    accept="/*" ngf-max-height="1000" ngf-max-size="200MB">
+                Select File</button>
+            <br>
+            <br>
+            File:
+            <div >{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                <span class="progress" ng-show="f.progress >= 0">
+                        <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></div>
+                    </span>
             </div>
             {{errorMsg}}
         </div>

@@ -3,7 +3,7 @@ var fs = require('file-system');
 exports.request = function(req, res, next) {
     fs.readFile(req.files.file.path, function (err, data) {
         // set the correct path for the file not the temporary one from the API:
-        var filePath = 'public/videos/overlays/' + req.files.file.name;
+        var filePath = 'public/objects/' + req.files.file.name;
 
         // copy the data from the req.files.file.path and paste it to file.path
         fs.writeFile(filePath, data, function (err) {

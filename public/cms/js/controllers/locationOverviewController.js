@@ -11,6 +11,8 @@ app.controller("locationOverviewController", function ($scope, $rootScope, $wind
     $scope.clickedMarker = null;
     $scope.locations;
 
+    $scope.showIndoor = true;
+
     var name_input = angular.element('#name-input');
     var desc_input = angular.element('#desc-input');
     var lng_input = angular.element('#lng-input');
@@ -45,7 +47,16 @@ app.controller("locationOverviewController", function ($scope, $rootScope, $wind
         }
     });
 
+    // When a location out of the list is clicked
+    $scope.clickLocation = function(location){
+        $scope.redirect('/locations/' + location.location_id);
+    };
+
     $locationService.list().then(function onSuccess(response) {
+
+        // Arrays to list the locations
+        $scope.locationsIndoor = [];
+        $scope.locationsCoord = [];
 
         // Create Marker for every location and add it to the markers array
 
@@ -53,7 +64,7 @@ app.controller("locationOverviewController", function ($scope, $rootScope, $wind
 
         $relationshipService.list_by_type('connected_to').then(function onSuccess(relations) {
             $scope.connections = relations.data;
-        })
+        });
 
 
         $scope.locations.forEach(function (location) {
@@ -69,10 +80,14 @@ app.controller("locationOverviewController", function ($scope, $rootScope, $wind
 
                 marker.on('click', function (e) {
                     $scope.redirect(`/locations/${location.location_id}`);
-                })
+                });
 
                 locationMarkers.push(marker);
+                $scope.locationsCoord.push(location);
 
+            }
+            else{
+                $scope.locationsIndoor.push(location);
             }
         }, this);
 

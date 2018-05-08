@@ -11,6 +11,7 @@ exports.request = function(req, res, next) {
                 return console.warn(err);
             }
             console.log("The file: " + req.files.file.name + " was saved to " + filePath);
+            res.sendStatus(200);
         });
     });
 }

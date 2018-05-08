@@ -18,6 +18,7 @@ var list_by_video = require('../controllers/overlays/list_by_video');
 
 var uploadImage = require('../controllers/overlays/upload_image');
 var uploadVideo = require('../controllers/overlays/upload_video');
+var uploadObject = require('../controllers/overlays/upload_object');
 
 
 
@@ -53,5 +54,8 @@ router.post('/overlays/uploadImage', multipartMiddleware, isAuthenticated, uploa
 
 // UPLOAD VIDEO
 router.post('/overlays/uploadVideo', multipartMiddleware, isAuthenticated, uploadVideo.request);
+
+// UPLOAD OBJECT
+router.post('/overlays/uploadObject', multipartMiddleware, isAuthenticated, uploadObject.request);
 
 module.exports = router;

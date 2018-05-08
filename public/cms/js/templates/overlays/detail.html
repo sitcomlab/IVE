@@ -6,7 +6,7 @@
             <button ng-click="redirect('/overlays')" type="button" class="btn btn-secondary">
                     <i class="fa fa-caret-left" aria-hidden="true"></i> Back
                 </button>
-            <button ng-click="editOverlay()" type="button" class="btn btn-secondary">
+            <button ng-click="editOverlay()" type="button" class="btn btn-secondary" disabled>
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
                 </button>
         </div>
@@ -60,7 +60,8 @@
                     <div class="col-9 dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="#" ng-click="overlay.category = 'picture'">Picture</a>
                         <a class="dropdown-item" href="#" ng-click="overlay.category = 'website'">Website</a>
-                        <a class="dropdown-item" href="#" ng-click="overlay.category = 'other'">Other</a>
+                        <a class="dropdown-item" href="#" ng-click="overlay.category = 'video'">Video</a>
+                        <a class="dropdown-item" href="#" ng-click="overlay.category = 'object'">.obj Object</a>
                     </div>
                 </div>
             </div>
