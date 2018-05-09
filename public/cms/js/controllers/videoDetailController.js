@@ -50,14 +50,14 @@ app.controller("videoDetailController", function ($scope, $rootScope, $window, c
                 }],
                 tracks: [],
                 theme: "../bower_components/videogular-themes-default/videogular.css"
-            }
+            };
 
 
             // Get relationship to get the fitting location
             $relationshipService.list_by_type('recorded_at')
                 .then(function (results) {
                     results.data.forEach(function (relation) {
-                        if (relation.video_id === $scope.video.video_id) {
+                        if (relation.video_id === $scope.video.video_id && relation.location_lat !== null && relation.location_lng !== null) {
 
                             leafletData.getMap('videoDetailMap')
                                 .then(function (map) {

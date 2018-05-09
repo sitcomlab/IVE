@@ -218,7 +218,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
         } else {
             $scope.editMode = true;
             // Enable input Fields
-            angular.element('.col-10 > .form-control').removeAttr('disabled');
+            // angular.element('.col-10 > .form-control').removeAttr('disabled');       // Saving changed values may confuse the db
         }
     }
 
