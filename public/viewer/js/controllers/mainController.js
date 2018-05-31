@@ -13,6 +13,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         locationStatus: false,
         videoStatus: false
     };
+    $scope.feedbacks = [];
 
     /**
      * [changeSource description]
@@ -418,4 +419,11 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
     $socket.on('/change/saveValues', function(data){
         $scope.getOverlays();
     });
+
+    // Receive feedback
+    $socket.on('/post/feedback', function(data){
+        console.log(data);
+        $scope.feedbacks.push(data);
+    });
+
 });

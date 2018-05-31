@@ -180,4 +180,11 @@ app.constant("en_US", {
     YOU_WILL_RECEIVE_A_NEW_UUID: 'You will receive a new UUID, which has to be used as the folder name for the related video thumbnails. Please copy and paste your created thumbnails inside this folder.',
     PLEASE_USE_THE_UUID_FOR_THE_THUMBNAILS: 'Please use the automatically UUID as the folder name for the related video thumbnails. Please copy and paste your created thumbnails inside this folder.'
 
+    // Feedback client
+    YOUR_FEEDBACK: 'Your feedback',
+    YOUR_COMMENT: 'Your comment',
+    YOUR_RATING: 'Your rating',
+    COMMENT: 'Comment',
+    LIKE: 'Like',
+    DISLIKE: 'Dislike'
 });

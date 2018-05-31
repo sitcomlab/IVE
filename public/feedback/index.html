@@ -57,25 +57,6 @@
         <!-- MAIN -->
         <main ng-view></main>
 
-        <!-- Footer -->
-        <footer ng-controller="footerController">
-            <nav class="nav nav-pills flex-column navbar-inverse bg-inverse">
-                <ul class="nav nav-pills justify-content-between">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="" ng-click="toggleSettings()" style="cursor: pointer; background-color:#FFFFFF; border: 1px solid #CCCCCC; color: #292b2c;">
-                            <i class="fa fa-cogs" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-            <div ng-show="settingsStatus" class="settings bg-inverse">
-                - {{ 'CURRENTLY' | translate }} {{ 'NO' | translate }} {{ 'SETTINGS' | translate }} -
-            </div>
-
-        </footer>
-
-
         <!-- Translations -->
         <script src="../translations/en_US.js"></script>
         <script src="../translations/de_DE.js"></script>
@@ -86,13 +67,12 @@
         <!-- Modules -->
         <script src="js/modules/routes.js"></script>
         <script src="js/modules/sockets.js"></script>
-        
+
         <!-- Main app -->
         <script src="js/app.js"></script>
 
         <!-- Main controllers -->
         <script src="js/controllers/mainController.js"></script>
-        <script src="js/controllers/footerController.js"></script>
 
     </body>
 </html>

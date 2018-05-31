@@ -6,15 +6,19 @@ var app = angular.module("ive");
  */
 app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $socket, _) {
 
-    /**
-     * [sendComment description]
-     * @param {[type]} comment [description]
-     */
-    $scope.sendComment = function(){
+    // Init
+    $scope.feedback = {
+        rating: null,
+        comment: ""
+    };
 
+    /**
+     * [send feedback]
+     */
+    $scope.send = function(){
         // Send socket message
         $socket.emit('/post/feedback', {
-            vote: $scope.feedback.vote,
+            rating: $scope.feedback.rating,
             comment: $scope.feedback.comment
         });
     };
