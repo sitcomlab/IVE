@@ -4,7 +4,7 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, config, $routeParams, $filter, $location, $translate, $socket, _) {
+app.controller("mainController", function($scope, $socket) {
 
     // Init
     $scope.feedback = {

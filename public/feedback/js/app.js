@@ -18,6 +18,7 @@ var app = angular.module("ive", [
     // Import own modules
     "routes",
     "sockets"
+    
 ]);
 
 

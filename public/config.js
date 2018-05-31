@@ -8,7 +8,8 @@ app.constant("config", {
     appSubnames: {
         creator: "IVE | Creator",
         viewer: "IVE | Viewer",
-        remote: "IVE | Remote control"
+        remote: "IVE | Remote control",
+        feedback: "IVE |Feedback client"
     },
     appDevelopers: [{
         name: "Nicholas Schiestel",
