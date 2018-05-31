@@ -55,6 +55,14 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('/toggle/pointing', data);
     });
 
+
+    // feedback
+    socket.on('/post/feedback', function(data) {
+        console.log(colors.cyan(new Date() + " /post/feedback: " + JSON.stringify(data)));
+        // TODO: Store in database
+        socket.broadcast.emit('/post/feedback', data);
+    });
+
 });
 
 exports.sockets = io;
