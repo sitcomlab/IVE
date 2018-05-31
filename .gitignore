@@ -9,3 +9,4 @@ _site
 .sass-cache
 log.txt
 build.js
+.idea/*
