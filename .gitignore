@@ -10,3 +10,4 @@ _site
 log.txt
 build.js
 .idea/*
+feedback.db
