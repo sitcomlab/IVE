@@ -62,3 +62,11 @@ footer > .settings {
 #overview > .list-group > .list-group-item.active:hover {
     border: 1px solid #FFFFFF;
 }
+
+ #flipTextarea, #flipRating {
+     padding: 5px;
+}
+
+ #ratingArea, #comment, #feedbackSubmitBtn {
+     display: none;
+}

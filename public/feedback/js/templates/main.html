@@ -2,15 +2,15 @@
 
 <!-- Feedback template -->
 <div class="card">
-    <form class="form-horizontal" ng-submit="send()">
+    <form name="feedbackForm" class="form-horizontal" ng-submit="send()">
         <div class="card-header" style="font-size: 20pt;">
             {{ 'YOUR_FEEDBACK' | translate }}
         </div>
         <div class="card-block">
-            <label>
-                <b>{{ 'YOUR_COMMENT' | translate }}</b>
+            <label ng-show="!showMeFlipTextarea"  ng-click="ready()">
+                <b id="flipTextarea"  style="background-color: red " >{{ 'YOUR_COMMENT' | translate }}</b>
             </label>
-            <div class="form-group">
+            <div class="form-group" ng-show="!showMeFlipTextarea"  >
                 <textarea
                     class="form-control"
                     rows="5"
@@ -19,25 +19,26 @@
                     name="comment"
                     id="comment"
                     autofocus
-                    required></textarea>
+
+                    ></textarea>
             </div>
             <br>
 
-            <label>
-                <b>{{ 'YOUR_RATING' | translate }}</b> <sup class="text-danger">*</sup>
+            <label ng-show="!showMeFlipRating"  ng-click="ready()">
+                <b id="flipRating"  style="background-color: red ">{{ 'YOUR_RATING' | translate }}</b>
             </label>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
+            <div class="form-group" id="ratingArea" ng-show="!showMeFlipRating">
+                <div class="row"  >
+                    <div class="col" >
                         <label class="custom-control custom-radio">
                             <input
                                 type="radio"
                                 class="custom-control-input"
                                 id="rating1"
                                 name="rating"
-                                ng-value="true"
+                                value="Like"
                                 ng-model="feedback.rating"
-                                required>
+                                >
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">
                                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'LIKE' | translate }}
@@ -51,9 +52,9 @@
                                 class="custom-control-input"
                                 id="rating2"
                                 name="rating"
-                                ng-value="false"
+                                value="Dislike"
                                 ng-model="feedback.rating"
-                                required>
+                                >
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">
                                 <i class="fa fa-thumbs-down" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DISLIKE' | translate }}
@@ -65,7 +66,7 @@
             <br>
 
         </div>
-        <div class="card-footer right">
+        <div id="feedbackSubmitBtn"  class="card-footer right">
             <button class="btn btn-success" type="submit">
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
             </button>
