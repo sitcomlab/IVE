@@ -26,7 +26,9 @@ var app = angular.module("ive", [
     // Import services
     "videoService",
     "overlayService",
-    "relationshipService"
+    "relationshipService",
+    "authenticationService",
+
 
 ]);
 
@@ -57,3 +59,4 @@ app.run(function($translate, $rootScope, config, en_US) {
     // Run with default language
     $translate.use(config.appLanguage);
 });
+

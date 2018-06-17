@@ -7,7 +7,9 @@ SET
     v.description = {description},
     v.url = {url},
     v.recorded = {recorded},
-    thumbnails = {thumbnails}
+    v.comment = {comment},
+    v.rating = {rating},
+    v.thumbnails = {thumbnails}
 RETURN
     ID(v) AS video_id,
     v.created AS created,
@@ -17,5 +19,7 @@ RETURN
     v.description AS description,
     v.url AS url,
     v.recorded AS recorded,
-    v.thumbnails AS thumbnails
-;
+    v.comment AS comment,
+    v.rating AS rating,
+    v.thumbnails AS thumbnails;
+

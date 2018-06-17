@@ -13,6 +13,7 @@ var query_edit_video = fs.readFileSync(__dirname + '/../../queries/videos/edit.c
 
 // PUT
 exports.request = function(req, res) {
+    console.log(req.body.comment);
 
     // Start session
     var session = driver.session();
@@ -45,6 +46,13 @@ exports.request = function(req, res) {
 
             // TODO: Validate all attributes of req.body
 
+            if(req.body.rating === null || req.body.rating === undefined){
+                req.body.rating = [];
+            }
+            if(req.body.comment === null || req.body.comment === undefined){
+                req.body.comment = [];
+            }
+
             var params = {
                 video_id: req.params.video_id,
                 video_uuid: video_uuid,
@@ -52,8 +60,12 @@ exports.request = function(req, res) {
                 description: req.body.description,
                 url: req.body.url,
                 recorded: req.body.recorded,
-                thumbnails: req.body.thumbnails || 0
+                thumbnails: req.body.thumbnails || 0,
+                comment: req.body.comment,
+                rating: req.body.rating
             };
+
+            console.log(params);
 
             callback(null, params);
         },

@@ -28,8 +28,10 @@ RETURN
     v.description AS description,
     v.url AS url,
     v.recorded AS recorded,
-    v.thumbnails AS thumbnails
-ORDER BY
+    v.thumbnails AS thumbnails,
+    v.rating AS rating,
+    v.comment AS comment
+    ORDER BY
     CASE WHEN {orderby} = 'created.asc' THEN v.created END ASC,
     CASE WHEN {orderby} = 'created.desc' THEN v.created END DESC,
     CASE WHEN {orderby} = 'updated.asc' THEN v.updated END ASC,
