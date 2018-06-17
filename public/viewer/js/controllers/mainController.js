@@ -4,7 +4,7 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, $window, config, $routeParams, $filter, $location, $translate, $videoService, $overlayService, $sce, $socket, _, $relationshipService) {
+app.controller("mainController", function($scope, $rootScope, $window, config, $routeParams, $filter, $location, $translate, $videoService, $overlayService, $sce, $socket, _, $relationshipService, $authenticationService) {
 
 
     // Init
@@ -13,7 +13,11 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         locationStatus: false,
         videoStatus: false
     };
-    $scope.feedbacks = [];
+
+    $authenticationService.login(config.creatorLogin)
+        .then(function onSuccess(response) {
+            $authenticationService.set(response.data);
+        });
 
     /**
      * [changeSource description]
@@ -77,6 +81,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                             }
                             if(i === responseEmbeddedIn.data.length - 1){
                                 $scope.setOverlays();
+                                $scope.setFeedbackDiv();
                             }
                         }
                     });
@@ -96,7 +101,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         }
 
         // Creating the overlay container
-        video_container.after('<div id="overlay-container"></div>');
+        // video_container.after('<div id="overlay-container"></div>');
 
         // Getting the right size for the overlay-container
         $scope.overlay_container = $( '#overlay-container' );
@@ -345,6 +350,17 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $videoService.get(data.video_id)
         .then(function onSuccess(response) {
             $scope.current.video = response.data;
+            console.log(response.data);
+
+            // Prepare Feedback
+            if($scope.current.video.rating === null || $scope.current.video.rating === undefined){
+                $scope.current.video.rating = [];
+            }
+
+            // Prepare Feedback
+            if($scope.current.video.comment === null || $scope.current.video.comment === undefined){
+                $scope.current.video.comment = [];
+            }
 
             // Add to video player
             $scope.changeSource($scope.current.video.url);
@@ -420,10 +436,91 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $scope.getOverlays();
     });
 
+    $scope.setFeedbackDiv = function(){
+        var feedback_container_width = $( '#video-container' ).width();
+        var feedback_container_height = $( '#video-container' ).height();
+        $('.feedback-container').height(feedback_container_height);
+        $('.feedback-container').width(feedback_container_width);
+        $('#feedback-container-center').css('max-height', feedback_container_height + 'px');
+
+    };
+
+    var likeCount = 0;
+    var dislikeCount = 0;
+
+    $scope.countFeedback = function(){
+
+        for( let i = 0; i < $scope.current.video.rating.length; i++){
+            if($scope.current.video.rating[i] === "Like"){
+                likeCount += 1;
+            }
+            else if($scope.current.video.rating[i] === "Dislike"){
+                dislikeCount += 1;
+            }
+            console.log(likeCount);
+            console.log(dislikeCount);
+        }
+    };
+
+
     // Receive feedback
     $socket.on('/post/feedback', function(data){
         console.log(data);
-        $scope.feedbacks.push(data);
+        $scope.current.video.rating.push(data.rating);
+       // $scope.current.video.comment.push(data.comment);
+
+        console.log($scope.current.video);
+
+        $videoService.edit($scope.current.video.video_id, $scope.current.video)
+            .then(function(response){
+                console.log(response.data);
+            });
+
+        $scope.showMe = true;
+        $scope.showMeVideo = true;
+        $scope.countFeedback();
+
+
+        /* chart visualization */
+
+        var chartId = ("chartContainer-left");
+
+        var loopForSecondId=0;
+
+
+        while (loopForSecondId < 2 ) {
+            var chart = new CanvasJS.Chart(chartId , {
+                animationEnabled: true,
+                theme: "dark2", // "light1", "light2", "dark1", "dark2"
+                title:{
+                    text: "Rating"
+                },
+                axisY: {
+                    title: "N° of Votings"
+                },
+                data: [
+                    {
+                        indexLabelPlacement: "inside",
+                        type: "column",
+                        dataPoints: [
+                            { x: 1, y: 4, label: "Like", indexLabel: "4 "},
+                            { x: 2, y: 2,  label: "Dislike", indexLabel:"36%" }
+
+                        ]
+                    }
+                ]
+            });
+            chart.render();
+
+           chartId = ("chartContainer-right");
+
+            loopForSecondId++;
+
+        }
     });
 
 });
+
+
+
+
