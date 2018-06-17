@@ -43,3 +43,62 @@ h2 {
 #overlay-container {
     z-index: 50;
 }
+
+.feedback-container {
+
+    display: flex;
+
+}
+.feedback-container > div {
+    flex: 1; /*grow*/
+
+}
+
+
+#feedback-container-left{
+
+    background-color: white ;
+
+
+}
+
+#feedback-container-center{
+
+    background-color: greenyellow;
+
+
+}
+
+#feedback-container-right{
+
+    background-color: red;
+
+}
+
+
+div{
+    border-style: solid;
+    border-color: coral;
+}
+
+/*for feedback table*/
+table, th , td  {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+}
+table tr:nth-child(odd) {
+    background-color: black;
+    width: 100%;
+}
+table tr:nth-child(even) {
+    background-color: black;
+
+}
+
+.index{
+    width: auto;
+}
+
