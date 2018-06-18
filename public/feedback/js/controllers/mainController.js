@@ -12,6 +12,12 @@ app.controller("mainController", function($scope, $socket) {
         comment: ""
     };
 
+
+    $socket.on('/set/video', function(data){
+        console.log( data.video_id);
+    //    ' /videos/:'+data.video_id+'/posts'
+    });
+    
     /**
      * [send feedback]
      */
