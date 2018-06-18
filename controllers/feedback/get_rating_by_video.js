@@ -11,7 +11,7 @@ exports.request = function(req, res) {
 
     async.waterfall([
         function(callback) {
-            var query = fs.readFileSync(__dirname + "/../../sql/queries/posts/get_rating_by_video.sql", 'utf8').toString();
+            var query = fs.readFileSync(__dirname + "/../../sql/queries/posts/get_avg_rating_by_video.sql", 'utf8').toString();
 
             db.all(query, {
                 $video_id: req.params.video_id

@@ -2,6 +2,7 @@ var colors = require('colors');
 var async = require('async');
 var _ = require('underscore');
 var moment = require('moment');
+var uuid = require('uuid');
 var db = require('../../server.js').db;
 var fs = require("fs");
 
@@ -14,7 +15,7 @@ exports.request = function(req, res) {
 
     async.waterfall([
         function(callback) {
-            var query_create_post = fs.readFileSync(__dirname + '/../../sql/queries/posts/create.sql', 'utf8').toString();
+            var query = fs.readFileSync(__dirname + '/../../sql/queries/posts/create.sql', 'utf8').toString();
 
             db.all(query, {
                 $post_uuid: post_uuid,

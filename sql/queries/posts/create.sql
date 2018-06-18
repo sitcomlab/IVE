@@ -4,7 +4,7 @@ INSERT INTO Posts (
     rating,
     video_id
 ) VALUES (
-    $post_uuid
+    $post_uuid,
     $comment,
     $rating,
     $video_id
