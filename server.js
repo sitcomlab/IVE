@@ -1,4 +1,5 @@
 var colors = require('colors');
+var async = require('async');
 var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');

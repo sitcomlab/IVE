@@ -11,15 +11,20 @@ exports.request = function(req, res) {
 
     async.waterfall([
         function(callback) {
-            var query = fs.readFileSync(__dirname + "/../../sql/queries/posts/get_by_video.sql", 'utf8').toString();
+            var query = fs.readFileSync(__dirname + "/../../sql/queries/posts/get_rating_by_video.sql", 'utf8').toString();
 
             db.all(query, {
-                video_id: req.params.video_id
+                $video_id: req.params.video_id
             }, function(err, rows){
                 if(err) {
                     callback(err, 500);
                 } else {
-                    callback(null, 200, rows);
+                    // Check if entry exists
+                    if(rows.length > 0){
+                        callback(null, 200, rows[0]);
+                    } else {
+                        callback(new Error("Rating not found"), 404);
+                    }
                 }
             });
         }

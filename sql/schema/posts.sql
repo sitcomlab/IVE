@@ -4,5 +4,6 @@ CREATE TABLE Posts (
     created TEXT NOT NULL DEFAULT (datetime(CURRENT_TIMESTAMP, 'localtime')),
     updated TEXT NOT NULL DEFAULT (datetime(CURRENT_TIMESTAMP, 'localtime')),
     comment TEXT DEFAULT NULL,
-    rating INTEGER DEFAULT NULL
+    rating INTEGER DEFAULT NULL,
+    video_id INTEGER NOT NULL
 );

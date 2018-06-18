@@ -7,4 +7,4 @@ SELECT
     post.rating,
     post.video_id
 FROM Posts post
-ORDER BY 'created.desc' THEN post.created END DESC;
+ORDER BY post.created DESC;

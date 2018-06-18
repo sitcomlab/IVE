@@ -14,7 +14,7 @@ exports.request = function(req, res) {
             var query = fs.readFileSync(__dirname + "/../../sql/queries/posts/get_by_video.sql", 'utf8').toString();
 
             db.all(query, {
-                video_id: req.params.video_id
+                $video_id: req.params.video_id
             }, function(err, rows){
                 if(err) {
                     callback(err, 500);

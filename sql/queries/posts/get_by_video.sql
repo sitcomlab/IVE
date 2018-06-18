@@ -8,4 +8,4 @@ SELECT
     post.video_id
 FROM Posts post
 WHERE post.video_id = $video_id
-ORDER BY 'created.desc' THEN post.created END DESC;
+ORDER BY post.created DESC;
