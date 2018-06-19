@@ -4,7 +4,11 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $socket) {
+app.controller("mainController", function($scope, $socket, $timeout) {
+
+
+
+    $scope.submitAlertMessage = false;
 
     // Init
     $scope.feedback = {
@@ -17,16 +21,29 @@ app.controller("mainController", function($scope, $socket) {
         console.log( data.video_id);
     //    ' /videos/:'+data.video_id+'/posts'
     });
-    
+
     /**
      * [send feedback]
      */
     $scope.send = function(){
-        // Send socket message
-        $socket.emit('/post/feedback', {
-            rating: $scope.feedback.rating,
-            comment: $scope.feedback.comment
-        });
+
+        if ($scope.feedback.comment !== "" && $scope.feedback.rating === null){
+
+            // Send socket message comment
+            $socket.emit('/post/feedback', {
+                comment: new Date() + ": " + $scope.feedback.comment
+             });
+        }else { if ( $scope.feedback.rating === "Like" || $scope.feedback.rating === "Dislike" ) {
+
+            // Send socket message rating
+            $socket.emit('/post/feedback', {
+                rating: $scope.feedback.rating
+            });
+
+        } else {console.log("no socket message")}
+        }
+
+        //hide text area after send comment
         if ($scope.feedback.comment !== "" && $scope.feedback.rating === null){
             $scope.showMeFlipTextarea = true;
 
@@ -39,6 +56,12 @@ app.controller("mainController", function($scope, $socket) {
         if( $scope.showMeFlipTextarea === true && $scope.showMeFlipRating === true){
             $("#feedbackSubmitBtn").slideUp("slow");
         }
+
+        // submit alert for 2sec
+        $scope.submitAlertMessage = true;
+        $timeout(function() {
+            $scope.submitAlertMessage = false;
+        }, 2000);
 
     };
 
