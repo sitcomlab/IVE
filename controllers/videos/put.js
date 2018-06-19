@@ -13,7 +13,6 @@ var query_edit_video = fs.readFileSync(__dirname + '/../../queries/videos/edit.c
 
 // PUT
 exports.request = function(req, res) {
-    console.log(req.body.comment);
 
     // Start session
     var session = driver.session();
@@ -65,8 +64,6 @@ exports.request = function(req, res) {
                 rating: req.body.rating
             };
 
-            console.log(params);
-
             callback(null, params);
         },
         function(params, callback) { // Edit entry
@@ -88,10 +85,15 @@ exports.request = function(req, res) {
                 async.forEachOf(record.keys, function(key, item, callback) {
 
                     if (typeof(record._fields[item]) === 'object') {
+                        console.log("OBJECT");
                         if (key === 'id') {
                             object[key] = Number(record._fields[item].low);
                         } else if (record._fields[item] === null) {
                             object[key] = record._fields[item];
+                        } else if(key === "comment"){
+                            object[key] = record._fields[item]
+                        } else if(key === "rating"){
+                            object[key] = record._fields[item]
                         } else {
                             object[key] = Number(record._fields[item]);
                         }
