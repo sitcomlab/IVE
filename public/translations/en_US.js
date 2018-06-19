@@ -186,5 +186,7 @@ app.constant("en_US", {
     YOUR_RATING: 'Your rating',
     COMMENT: 'Comment',
     LIKE: 'Like',
-    DISLIKE: 'Dislike'
+    DISLIKE: 'Dislike',
+    ALERT_SUCCESS: 'Thanks for your feedback.'
+
 });

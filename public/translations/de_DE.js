@@ -10,5 +10,6 @@ app.constant("de_DE", {
     YOUR_RATING: 'Dein Rating',
     COMMENT: 'Kommentar',
     LIKE: 'Like',
-    DISLIKE: 'Dislike'
+    DISLIKE: 'Dislike',
+    ALERT_SUCCESS: 'Danke für dein Feedback.'
 });

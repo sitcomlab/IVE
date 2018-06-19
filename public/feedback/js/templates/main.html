@@ -2,7 +2,7 @@
 
 <!-- Feedback template -->
 <div class="card">
-    <form name="feedbackForm" class="form-horizontal" ng-submit="send()">
+    <form name="feedbackForm" class="form-horizontal" ng-submit="send()" method="post">
         <div class="card-header" style="font-size: 20pt;">
             {{ 'YOUR_FEEDBACK' | translate }}
         </div>
@@ -70,6 +70,9 @@
             <button class="btn btn-success" type="submit">
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
             </button>
+        </div>
+        <div ng-hide="!submitAlertMessage" class="alert alert-success">
+            <strong >Success! {{ 'ALERT_SUCCESS' | translate }}</strong>
         </div>
     </form>
 </div>
