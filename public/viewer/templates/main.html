@@ -38,14 +38,25 @@
 
     <!--@albert TODO: -->
     <div class="feedback-container" >
-        <div id="chartContainer-left"></div>
-
-        <div id="feedback-container-center" style="overflow: auto">
+        <div id="chartContainer-left" style="overflow: auto">
             <table ng-show="showMe">
+                <tr ng-repeat="post in comments">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ post.comment }}</td>
+                </tr>
             </table>
         </div>
 
-        <div id="chartContainer-right"></div>
+        <div id="feedback-container-center"></div>
+
+        <div id="chartContainer-right">
+            <table ng-show="showMe">
+                <tr ng-repeat="post in comments">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ post.comment}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 
 </div>
