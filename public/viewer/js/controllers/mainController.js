@@ -505,7 +505,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                         text: "Rating"
                     },
                     axisY: {
-                        title: "N° of Votings"
+                        title: "N° of Vots"
                     },
                     data: [
                         {
@@ -526,10 +526,6 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                loopForSecondId++;
 
         }}else if (data.comment !== ""){
-
-            $scope.names = data.comment;
-
-            console.log(data.comment);
 
         }
     });

@@ -45,9 +45,8 @@ h2 {
 }
 
 .feedback-container {
-
     display: flex;
-
+    position: fixed;
 }
 .feedback-container > div {
     flex: 1; /*grow*/
@@ -56,6 +55,8 @@ h2 {
 
 
 #feedback-container-left{
+background-color: #01ff70;
+
 
 }
 
@@ -69,8 +70,8 @@ h2 {
 
 
 div{
-    border-style: solid;
-    border-color: coral;
+    /*border-style: solid;*/
+    /*border-color: coral;*/
 }
 
 /*for feedback table*/
@@ -80,13 +81,16 @@ table, th , td  {
     padding: 5px;
     width: 100%;
     text-align: center;
+
 }
 table tr:nth-child(odd) {
     background-color: black;
     width: 100%;
+
 }
 table tr:nth-child(even) {
     background-color: black;
+
 
 }
 
