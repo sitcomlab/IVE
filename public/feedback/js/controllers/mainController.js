@@ -27,11 +27,17 @@ app.controller("mainController", function($scope, $socket, $timeout) {
      */
     $scope.send = function(){
 
+        var localDate = new Date();
+        var options = {
+            weekday: "short", month: "short",
+            day: "numeric", hour: "2-digit", minute: "2-digit"
+        };
+
         if ($scope.feedback.comment !== "" && $scope.feedback.rating === null){
 
             // Send socket message comment
             $socket.emit('/post/feedback', {
-                comment: new Date() + ": " + $scope.feedback.comment
+                comment: "On " + localDate.toLocaleTimeString("en-DE", options) + ", citizen wrote: " + ' "' + $scope.feedback.comment + '"'
              });
         }else { if ( $scope.feedback.rating === "Like" || $scope.feedback.rating === "Dislike" ) {
 
@@ -72,6 +78,7 @@ app.controller("mainController", function($scope, $socket, $timeout) {
             $("#feedbackSubmitBtn").slideDown("slow");
             //reset rating
             $scope.feedback = {rating : null};
+            $("#chartContainer-left").hide();
 
         });
 
@@ -82,6 +89,7 @@ app.controller("mainController", function($scope, $socket, $timeout) {
             $("#feedbackSubmitBtn").slideDown("slow");
             //reset comment
             $scope.feedback = {comment : ""};
+            $("#chartContainer-left").hide();
 
         });
 
