@@ -37,14 +37,15 @@
     </div>
 
     <!--@albert TODO: -->
-    <div class="feedback-container"  style="overflow: auto">
+    <div class="feedback-container" style="overflow: auto">
         <div id="chartContainer-left">
-            <table ng-show="showMe">
-                <tr  >
-                <th ng-click="orderByMe('comment')">Comments</th>
+
+            <table id="tableLeft" ng-show="showMe">
+                <tr>
+                    <th ng-click="orderByMe('comment')">Comments</th>
                 </tr>
                 <tr ng-repeat="comment in current.video.comment | orderBy: 'comment':true ">
-                <td>{{comment}}</td>
+                    <td>{{comment}}</td>
                 </tr>
             </table>
         </div>
@@ -52,7 +53,7 @@
         <div id="feedback-container-center"></div>
 
         <div id="chartContainer-right">
-            <table ng-show="showMe">
+            <table id="tableRight" ng-show="showMe">
                 <tr>
                     <th ng-click="orderByMe('comment')">Comments</th>
                 </tr>

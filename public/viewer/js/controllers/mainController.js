@@ -14,6 +14,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         videoStatus: false
     };
 
+    $scope.showMe = false;
+
     $authenticationService.login(config.creatorLogin)
         .then(function onSuccess(response) {
             $authenticationService.set(response.data);
@@ -464,6 +466,25 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         }
     };
 
+    $scope.feedbackContainerRight = $('#tableRight');
+    $scope.feedbackContainerLeft = $('#tableLeft');
+
+
+    $socket.on('/reset/feedback', function(data){
+
+       // $(".canvasjs-chart-canvas").fadeOut("slow");
+        $(".canvasjs-chart-container").fadeOut("slow");
+        $('.canvasjs-chart-container').remove();
+        $scope.chart = null;
+        $scope.showMe = false;
+
+        $('#tableRight').remove();
+        $('#tableLeft').remove();
+
+        $('#chartContainer-right').append($scope.feedbackContainerRight);
+        $('#chartContainer-left').append($scope.feedbackContainerLeft);
+    });
+
 
     // Receive feedback
     $socket.on('/post/feedback', function(data){
@@ -473,6 +494,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         }
         else {
             $scope.current.video.comment.push(data.comment);
+            $scope.showMe = true;
         }
 
         $videoService.edit($scope.current.video.video_id, $scope.current.video)
@@ -480,13 +502,12 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
             });
 
-        $scope.showMe = true;
+
         $scope.showMeVideo = true;
         $scope.countFeedback();
 
 
         var chartId = ("chartContainer-left");
-        var loopForSecondId=0;
 
         $scope.percentageLike = Math.round (100/$scope.current.video.rating.length * $scope.likeCount);
         $scope.percentageDislike = Math.round(100/$scope.current.video.rating.length * $scope.dislikeCount);
@@ -496,16 +517,18 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         if (data.rating !== undefined){
 
             /* chart visualization */
-
-            while (loopForSecondId < 2 ) {
-                var chart = new CanvasJS.Chart(chartId , {
+            for(let i = 0; i < 2; i++){
+                $scope.chart = new CanvasJS.Chart(chartId , {
                     animationEnabled: true,
-                    theme: "dark2", // "light1", "light2", "dark1", "dark2"
+                    theme: "dark1", // "light1", "light2", "dark1", "dark2"
                     title:{
                         text: "Rating"
                     },
+                    axisX:{
+                        labelFontSize: 20
+                    },
                     axisY: {
-                        title: "N° of Vots"
+                        title: "N° of Votes"
                     },
                     data: [
                         {
@@ -519,13 +542,12 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                         }
                     ]
                 });
-                chart.render();
+                $scope.chart.render();
 
-               chartId = ("chartContainer-right");
+                chartId = ("chartContainer-right");
+            }
 
-               loopForSecondId++;
-
-        }}else if (data.comment !== ""){
+        }else if (data.comment !== ""){
 
         }
     });
