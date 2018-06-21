@@ -8,7 +8,8 @@ app.constant("config", {
     appSubnames: {
         creator: "IVE | Creator",
         viewer: "IVE | Viewer",
-        remote: "IVE | Remote control"
+        remote: "IVE | Remote control",
+        feedback: "IVE |Feedback client"
     },
     appDevelopers: [{
         name: "Nicholas Schiestel",
@@ -18,6 +19,10 @@ app.constant("config", {
     appVersion: "v2.0",
     appLanguage: 'en_US',
     appYear: moment().format("YYYY"),
+    creatorLogin: {
+        username: 'admin',
+        password: 'admin'
+    },
     debugMode: false,
     html5Mode: true,
     limit: 7,
@@ -48,5 +53,6 @@ app.constant("config", {
             // return ngrok;
             return this.serverSettings.development.host + ":" + this.serverSettings.development.port + this.serverSettings.development.apiPath
         }
-    }
+    },
+
 });

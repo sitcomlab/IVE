@@ -55,6 +55,19 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('/toggle/pointing', data);
     });
 
+
+    // Post feedback
+    socket.on('/post/feedback', function(data) {
+        console.log(colors.cyan(new Date() + " /post/feedback: " + JSON.stringify(data)));
+        socket.broadcast.emit('/post/feedback', data);
+    });
+
+    // Reset feedback
+    socket.on('/reset/feedback', function(data) {
+        console.log(colors.cyan(new Date() + " /reset/feedback: " + JSON.stringify(data)));
+        socket.broadcast.emit('/reset/feedback', data);
+    });
+
 });
 
 exports.sockets = io;

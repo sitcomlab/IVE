@@ -9,5 +9,7 @@ RETURN
     v.description AS description,
     v.url AS url,
     v.recorded AS recorded,
-    v.thumbnails AS thumbnails
+    v.thumbnails AS thumbnails,
+    v.rating AS rating,
+    v.comment AS comment
 ;

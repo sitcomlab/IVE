@@ -43,3 +43,53 @@ h2 {
 #overlay-container {
     z-index: 50;
 }
+
+.feedback-container {
+    display: flex;
+    position: fixed;
+}
+.feedback-container > div {
+    flex: 1; /*grow*/
+
+}
+
+
+#feedback-container-left{
+    background-color: #01ff70;
+
+
+}
+
+#feedback-container-center{
+
+}
+
+#feedback-container-right{
+
+}
+
+
+div{
+    border-style: hidden;
+    border-color: coral;
+}
+
+/*for feedback table*/
+table, th , td  {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+
+}
+table tr:nth-child(odd) {
+    background-color: black;
+    width: 100%;
+
+}
+table tr:nth-child(even) {
+    background-color: black;
+
+}
+

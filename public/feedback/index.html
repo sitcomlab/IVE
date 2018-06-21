@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="ive">
     <head>
-        <base href="/viewer/index.html"/>
+        <base href="/feedback/index.html"/>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,7 @@
         <meta name="author" content="Nicholas Schiestel">
 
         <!-- Title -->
-        <title ng-bind="config.appSubnames.viewer">IVE</title>
+        <title ng-bind="config.appSubnames.feedback">IVE</title>
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
@@ -50,24 +50,9 @@
         <script src="../bower_components/angular-socket-io/socket.min.js"></script>
         <script src="../bower_components/angular-underscore-module/angular-underscore-module.js"></script>
         <script src="../bower_components/angular-momentjs/angular-momentjs.js"></script>
-        <script src="../bower_components/videogular/videogular.js"></script>
-        <script src="../bower_components/videogular-controls/vg-controls.js"></script>
-
-        <!-- Three.js -->
-        <script src="../bower_components/three.js/build/three.min.js"></script>
-        <script src="../bower_components/three.js/examples/js/controls/TransformControls.js"></script>
-        <script src="../bower_components/three.js/examples/js/renderers/CSS3DRenderer.js"></script>
-        <script src="../bower_components/three.js/examples/js/Detector.js"></script>
-        <script src="../bower_components/three.js/examples/js/loaders/OBJLoader.js"></script>
-
-        <!--chart-->
-
-        <script data-require="d3@*" data-semver="3.3.11" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.js"></script>
-        <script type="text/javascript" src="https://rawgit.com/chinmaymk/angular-charts/bower/dist/angular-charts.min.js"></script>
-
 
     </head>
-    <body >
+    <body>
 
         <!-- MAIN -->
         <main ng-view></main>
@@ -83,21 +68,11 @@
         <script src="js/modules/routes.js"></script>
         <script src="js/modules/sockets.js"></script>
 
-        <!-- Services -->
-        <script src="js/services/videoService.js"></script>
-        <script src="js/services/overlayService.js"></script>
-        <script src="js/services/relationshipService.js"></script>
-        <script src="js/services/authenticationService.js"></script>
-
         <!-- Main app -->
         <script src="js/app.js"></script>
 
         <!-- Main controllers -->
         <script src="js/controllers/mainController.js"></script>
-
-        <!--chart-->
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
 
     </body>
 </html>

@@ -14,22 +14,11 @@ var app = angular.module("ive", [
     "angular-momentjs",
     "btford.socket-io",
     "underscore",
-	"com.2fdevs.videogular",
-	"com.2fdevs.videogular.plugins.controls",
-	//"com.2fdevs.videogular.plugins.overlayplay",
-	//"com.2fdevs.videogular.plugins.poster"
 
     // Import own modules
     "routes",
-    "sockets",
-
-    // Import services
-    "videoService",
-    "overlayService",
-    "relationshipService",
-    "authenticationService",
-
-
+    "sockets"
+    
 ]);
 
 
@@ -59,4 +48,3 @@ app.run(function($translate, $rootScope, config, en_US) {
     // Run with default language
     $translate.use(config.appLanguage);
 });
-

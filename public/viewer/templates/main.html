@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <div>
 
     <!-- Video container -->
-    <div id="video-container" ng-if="current.videoStatus">
+    <div id="video-container" ng-if="current.videoStatus" >
         <video id="video" width="100%" loop autoplay preload="none">
             <source id="srcmp4" src="" type="video/mp4" />
             <source id="srcogg" src="" type="video/ogg; codecs=theora, vorbis" />
         </video>
     </div>
+    <div id="overlay-container" ng-show="!showMeVideo"></div>
 
     <!-- No scenario -->
     <div ng-if="!current.scenarioStatus" style="text-align: center">
@@ -34,4 +35,33 @@
         <br>
         <h2>{{ 'NO_VIDEO_FOUND' | translate }}</h2>
     </div>
+
+    <!--@albert TODO: -->
+    <div class="feedback-container" style="overflow: auto">
+        <div id="chartContainer-left">
+
+            <table id="tableLeft" ng-show="showMe">
+                <tr>
+                    <th ng-click="orderByMe('comment')">Comments</th>
+                </tr>
+                <tr ng-repeat="comment in current.video.comment | orderBy: 'comment':true ">
+                    <td>{{comment}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="feedback-container-center"></div>
+
+        <div id="chartContainer-right">
+            <table id="tableRight" ng-show="showMe">
+                <tr>
+                    <th ng-click="orderByMe('comment')">Comments</th>
+                </tr>
+                <tr ng-repeat="comment in current.video.comment | orderBy: 'comment':true">
+                    <td>{{comment}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
 </div>
