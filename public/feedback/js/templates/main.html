@@ -2,13 +2,15 @@
 
 <!-- Feedback template -->
 <div class="card">
-    <form name="feedbackForm" class="form-horizontal" ng-submit="send()" method="post">
+    <form name="feedbackForm" class="form-horizontal" ng-submit="send()">
         <div class="card-header" style="font-size: 20pt;">
             {{ 'YOUR_FEEDBACK' | translate }}
         </div>
         <div class="card-block">
             <label ng-show="!showMeFlipTextarea"  ng-click="ready()">
-                <b id="flipTextarea"  style="background-color: red " >{{ 'YOUR_COMMENT' | translate }}</b>
+                <b id="flipTextarea"  style="background-color: red" ng-click="reset()" >
+                    {{ 'YOUR_COMMENT' | translate }}
+                </b>
             </label>
             <div class="form-group" ng-show="!showMeFlipTextarea"  >
                 <textarea
@@ -25,7 +27,9 @@
             <br>
 
             <label ng-show="!showMeFlipRating"  ng-click="ready()">
-                <b id="flipRating"  style="background-color: red ">{{ 'YOUR_RATING' | translate }}</b>
+                <b id="flipRating"  style="background-color: red" ng-click="reset()">
+                    {{ 'YOUR_RATING' | translate }}
+                </b>
             </label>
             <div class="form-group" id="ratingArea" ng-show="!showMeFlipRating">
                 <div class="row"  >

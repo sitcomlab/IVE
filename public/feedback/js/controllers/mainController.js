@@ -19,8 +19,13 @@ app.controller("mainController", function($scope, $socket, $timeout) {
 
     $socket.on('/set/video', function(data){
         console.log( data.video_id);
-    //    ' /videos/:'+data.video_id+'/posts'
     });
+
+    $scope.reset = function(){
+        // Send socket message comment
+        $socket.emit('/reset/feedback', null);
+    };
+
 
     /**
      * [send feedback]
@@ -78,7 +83,6 @@ app.controller("mainController", function($scope, $socket, $timeout) {
             $("#feedbackSubmitBtn").slideDown("slow");
             //reset rating
             $scope.feedback = {rating : null};
-            $("#chartContainer-left").hide();
 
         });
 
@@ -89,7 +93,6 @@ app.controller("mainController", function($scope, $socket, $timeout) {
             $("#feedbackSubmitBtn").slideDown("slow");
             //reset comment
             $scope.feedback = {comment : ""};
-            $("#chartContainer-left").hide();
 
         });
 
