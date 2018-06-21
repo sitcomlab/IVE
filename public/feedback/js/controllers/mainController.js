@@ -44,13 +44,14 @@ app.controller("mainController", function($scope, $socket, $timeout) {
             $socket.emit('/post/feedback', {
                 comment: "On " + localDate.toLocaleTimeString("en-DE", options) + ", citizen wrote: " + ' "' + $scope.feedback.comment + '"'
              });
+            $("#feedbackSubmitBtn").slideUp("slow");
         }else { if ( $scope.feedback.rating === "Like" || $scope.feedback.rating === "Dislike" ) {
 
             // Send socket message rating
             $socket.emit('/post/feedback', {
                 rating: $scope.feedback.rating
             });
-
+            $("#feedbackSubmitBtn").slideUp("slow");
         } else {console.log("no socket message")}
         }
 
