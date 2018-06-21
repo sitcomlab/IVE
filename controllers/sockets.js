@@ -56,11 +56,16 @@ io.on('connection', function(socket) {
     });
 
 
-    // feedback
+    // Post feedback
     socket.on('/post/feedback', function(data) {
         console.log(colors.cyan(new Date() + " /post/feedback: " + JSON.stringify(data)));
-        // TODO: Store in database
         socket.broadcast.emit('/post/feedback', data);
+    });
+
+    // Reset feedback
+    socket.on('/reset/feedback', function(data) {
+        console.log(colors.cyan(new Date() + " /reset/feedback: " + JSON.stringify(data)));
+        socket.broadcast.emit('/reset/feedback', data);
     });
 
 });
