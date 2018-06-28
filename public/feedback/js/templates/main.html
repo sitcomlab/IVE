@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
 <!-- Feedback template -->
-<div class="card">
+<div class="card" ng-init="data.disabled = true"  >
     <form name="feedbackForm" class="form-horizontal" ng-submit="send()">
         <div class="card-header" style="font-size: 20pt;">
             {{ 'YOUR_FEEDBACK' | translate }}
         </div>
         <div class="card-block">
-            <label ng-show="!showMeFlipTextarea"  ng-click="ready()">
-                <b id="flipTextarea"  style="background-color: red" ng-click="reset()" >
+            <label ng-show="!showMeFlipTextarea" ng-click="ready()">
+                <a id="flipTextarea"  style="background-color: red" ng-click="reset()" class="btn btn-default"
+                   ng-class="{disabled: data.disabled}">
                     {{ 'YOUR_COMMENT' | translate }}
-                </b>
+                </a>
             </label>
             <div class="form-group" ng-show="!showMeFlipTextarea"  >
                 <textarea
@@ -27,9 +28,9 @@
             <br>
 
             <label ng-show="!showMeFlipRating"  ng-click="ready()">
-                <b id="flipRating"  style="background-color: red" ng-click="reset()">
+                <a id="flipRating"  style="background-color: red" class="btn" ng-click="reset()">
                     {{ 'YOUR_RATING' | translate }}
-                </b>
+                </a>
             </label>
             <div class="form-group" id="ratingArea" ng-show="!showMeFlipRating">
                 <div class="row"  >
@@ -71,7 +72,7 @@
 
         </div>
         <div id="feedbackSubmitBtn"  class="card-footer right">
-            <button class="btn btn-success" type="submit">
+            <button class="btn btn-success" type="submit" ng-model="disabledComment">
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'SEND' | translate }}
             </button>
         </div>
