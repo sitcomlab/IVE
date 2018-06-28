@@ -6,8 +6,8 @@ var app = angular.module("ive");
  */
 app.controller("mainController", function($scope, $socket, $timeout) {
 
-
-
+    // save time when feedback page is loaded
+    $scope.startDate = new Date();
     $scope.submitAlertMessage = false;
 
     // Init
@@ -15,11 +15,6 @@ app.controller("mainController", function($scope, $socket, $timeout) {
         rating: null,
         comment: ""
     };
-
-
-    $socket.on('/set/video', function(data){
-        console.log( data.video_id);
-    });
 
     $scope.reset = function(){
         // Send socket message comment
@@ -32,20 +27,27 @@ app.controller("mainController", function($scope, $socket, $timeout) {
      */
     $scope.send = function(){
 
+        $scope.data.disabled = false;
+
         var localDate = new Date();
+        // time settings
         var options = {
             weekday: "short", month: "short",
             day: "numeric", hour: "2-digit", minute: "2-digit"
         };
+        // how long does it take until submit the comment @return time in milliseconds
+        var timeUntilSubmitComment = localDate - $scope.startDate;
 
         if ($scope.feedback.comment !== "" && $scope.feedback.rating === null){
 
             // Send socket message comment
             $socket.emit('/post/feedback', {
-                comment: "On " + localDate.toLocaleTimeString("en-DE", options) + ", citizen wrote: " + ' "' + $scope.feedback.comment + '"'
+                comment: "participant rated: " + $scope.participantRating + " start: " + $scope.startDate + " end: " + localDate + " time difference: " + timeUntilSubmitComment + " milliseconds" + " #splitHere# " + "On " + localDate.toLocaleTimeString("en-DE", options) + ", citizen wrote: " + ' "' + $scope.feedback.comment + '"'
              });
             $("#feedbackSubmitBtn").slideUp("slow");
         }else { if ( $scope.feedback.rating === "Like" || $scope.feedback.rating === "Dislike" ) {
+
+            $scope.participantRating = $scope.feedback.rating;
 
             // Send socket message rating
             $socket.emit('/post/feedback', {
