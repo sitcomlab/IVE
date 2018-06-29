@@ -451,6 +451,24 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
     $scope.likeCount = 0;
     $scope.dislikeCount = 0;
+    $scope.likeCountExamples = 0;
+    $scope.dislikeCountExamples = 0;
+    $scope.countloopExamples = 3;
+
+    $scope.countVotingExamples = function(){
+
+        $scope.likeCountExamples = 0;
+        $scope.dislikeCountExamples = 0;
+
+        for( let x = 0 ; x < $scope.countloopExamples; x++){
+            if($scope.current.video.rating[x] === "Like"){
+                $scope.likeCountExamples += 1;
+            }
+            else if($scope.current.video.rating[x] === "Dislike"){
+                $scope.dislikeCountExamples += 1;
+            }
+        }
+    };
 
     $scope.countFeedback = function(){
 
@@ -499,13 +517,14 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
         $scope.chart = null;
         $scope.splitCommentElement();
+        $scope.countVotingExamples ();
     });
 
 
     // Receive feedbacks
     $socket.on('/post/feedback', function(data){
 
-         $("#chartContainer-right").css('background-color', 'black');
+        $("#chartContainer-right").css('background-color', 'black');
 
         if(data.rating !== undefined){
             $scope.current.video.rating.push(data.rating);
@@ -526,6 +545,14 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
         $scope.showMeVideo = true;
         $scope.countFeedback();
+        $scope.countVotingExamples ();
+
+        if($scope.current.video.rating[$scope.current.video.rating.length -1] === "Like"){
+            $scope.likeCountExamples += 1;
+        }
+        else if($scope.current.video.rating[$scope.current.video.rating.length -1] === "Dislike"){
+            $scope.dislikeCountExamples += 1;
+        }
 
 
         var chartId = ("chartContainer-left");
@@ -557,8 +584,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                             indexLabelPlacement: "inside",
                             type: "column",
                             dataPoints: [
-                                { x: 1, y: $scope.likeCount, label: "Like", indexLabel: $scope.percentageStringLike + "%"},
-                                { x: 2, y: $scope.dislikeCount,  label: "Dislike", indexLabel: $scope.percentageStringDislike + "%" }
+                                { x: 1, y: $scope.likeCountExamples, label: "Like", indexLabel: $scope.percentageStringLike + "%"},
+                                { x: 2, y: $scope.dislikeCountExamples,  label: "Dislike", indexLabel: $scope.percentageStringDislike + "%" }
 
                             ]
                         }
@@ -568,6 +595,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
                 // chartId = ("chartContainer-right");
           //  }
+
+            console.log($scope.current.video.rating);
 
         }else if (data.comment !== ""){
 
