@@ -8,7 +8,6 @@
             <source id="srcogg" src="" type="video/ogg; codecs=theora, vorbis" />
         </video>
     </div>
-    <div id="overlay-container" ng-show="!showMeVideo"></div>
 
     <!-- No scenario -->
     <div ng-if="!current.scenarioStatus" style="text-align: center">
@@ -40,7 +39,7 @@
     <div class="feedback-container" style="overflow: auto">
         <div id="chartContainer-left">
 
-            <table id="tableLeft" ng-show="showMe">
+            <table style="font-size: 200%" id="tableLeft" ng-show="showMe">
                 <tr>
                     <th ng-click="orderByMe('comment')">Comments</th>
                 </tr>
@@ -53,7 +52,7 @@
         <div id="feedback-container-center"></div>
 
         <div id="chartContainer-right">
-            <table id="tableRight" ng-show="showMe">
+            <table style="font-size: 200%" id="tableRight" ng-show="showMe">
                 <tr>
                     <th ng-click="orderByMe('comment')">Comments</th>
                 </tr>

@@ -20,8 +20,8 @@ app.constant("config", {
     appLanguage: 'en_US',
     appYear: moment().format("YYYY"),
     creatorLogin: {
-        username: 'admin',
-        password: 'admin'
+        username: 'sitcomlab',
+        password: 'Heisenbergstrasse2'
     },
     debugMode: false,
     html5Mode: true,
@@ -35,7 +35,7 @@ app.constant("config", {
     serverMode: 'development',
     serverSettings: {
         development: {
-            host: 'http://localhost',
+            host: 'http://giv-sitcomdev.uni-muenster.de',
             port: 5000,
             apiPath: "/api"
         },

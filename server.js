@@ -9,7 +9,7 @@ var neo4j = require('neo4j-driver').v1;
 var jwt = require('jsonwebtoken');
 var config = require('dotenv').config();
 var multipart = require('connect-multiparty');
-var sqlite3 = require('sqlite3').verbose();
+// var sqlite3 = require('sqlite3').verbose();
 
 
 // Connect to Neo4j
@@ -33,7 +33,7 @@ session
     });
 
 // Connect to sqlite3 (logger)
-var db = new sqlite3.Database('feedback.db');
+/*var db = new sqlite3.Database('feedback.db');
 db.serialize(function() {
     var schemas = [];
     if(JSON.parse(process.env.SQLITE_RESET)){
@@ -43,11 +43,11 @@ db.serialize(function() {
         schemas.push(fs.readFileSync(__dirname + "/sql/schema/posts.sql", 'utf8').toString());
     }
 
-    async.forEachOf(schemas, function (schema, key, callback) {
+   async.forEachOf(schemas, function (schema, key, callback) {
         db.run(schema, function(err){
             if(err){
-                callback(err);
-            } else {
+               callback(err);
+           } else {
                 callback(null);
             }
         });
@@ -62,6 +62,7 @@ db.serialize(function() {
     });
 });
 exports.db = db;
+*/
 
 // Load certificates
 if (process.env.NODE_ENV === "production") {

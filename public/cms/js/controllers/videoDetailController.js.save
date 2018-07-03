@@ -35,8 +35,7 @@ app.controller("videoDetailController", function ($scope, $rootScope, $window, c
             // Style date to 
             $scope.video.recorded = $filter('timestamp')($scope.video.recorded);
 
-            var videoExtension = $scope.video.url.split('.')[1];
-
+            var videoExtension = $scope.video.url.split('.')[1
             // if not extention in the url
             if (videoExtension === null || videoExtension === undefined) {
                 videoExtension = 'mp4';

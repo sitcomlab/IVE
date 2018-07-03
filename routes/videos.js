@@ -18,9 +18,9 @@ var list_by_location = require('../controllers/videos/list_by_location');
 
 var uploadVideo = require('../controllers/videos/upload_video');
 
-var get_by_video = require('../controllers/feedback/get_by_video');
-var get_rating_by_video = require(  '../controllers/feedback/get_rating_by_video');
-var post_by_video = require('../controllers/feedback/post_by_video');
+//var get_by_video = require('../controllers/feedback/get_by_video');
+//var get_rating_by_video = require(  '../controllers/feedback/get_rating_by_video');
+//var post_by_video = require('../controllers/feedback/post_by_video');
 
 
 // LIST
@@ -55,13 +55,13 @@ router.post('/videos/uploadVideo/:folderUrl', multipartMiddleware, isAuthenticat
 
 
 // GET FEEDBACK POSTS
-router.get('/videos/:video_id/posts', get_by_video.request);
+//router.get('/videos/:video_id/posts', get_by_video.request);
 
 // GET FEEDBACK (AVERAGE) RATING
-router.get('/videos/:video_id/rating', get_rating_by_video.request);
+//router.get('/videos/:video_id/rating', get_rating_by_video.request);
 
 // POST FEEDBACK
-router.post('/videos/:video_id/posts', post_by_video.request);
+//router.post('/videos/:video_id/posts', post_by_video.request);
 
 
 module.exports = router;

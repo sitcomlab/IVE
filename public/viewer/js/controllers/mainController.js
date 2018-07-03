@@ -28,10 +28,11 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      */
     $scope.changeSource = function(path) {
         path = $window.location.origin + config.videoFolder + path;
-        let videoExtension = path.split('.')[1];
+        let videoExtension = path.substr(path.length - 3);
 
+        console.log(videoExtension);
         // if not extention in the url
-        if (videoExtension === null || videoExtension === undefined) {
+        if (videoExtension !== "mp4" && videoExtension !== "ogg") {
             var mp4path = path + '.mp4';
             var oggpath = path + '.ogg';
         }
@@ -92,6 +93,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
     // Show the overlays in the overlay-container
     $scope.setOverlays = function(){
+	console.log($scope.relationships);
         // Setting everything to NULL, prevent loading issues
         $scope.scene = null;
         $scope.renderer = null;
@@ -103,7 +105,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         }
 
         // Creating the overlay container
-        // video_container.after('<div id="overlay-container"></div>');
+        video_container.after('<div id="overlay-container"></div>');
 
         // Getting the right size for the overlay-container
         $scope.overlay_container = $( '#overlay-container' );
@@ -525,10 +527,11 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                         text: "Rating"
                     },
                     axisX:{
-                        labelFontSize: 20
+                        labelFontSize: 50
                     },
                     axisY: {
-                        title: "N° of Votes"
+                        title: "N° of Votes",
+			interval: 1
                     },
                     data: [
                         {

@@ -38,6 +38,7 @@
         "moment": "^2.22.2",
         "mv": "^2.1.1",
         "neo4j-driver": "^1.6.1",
+        "node-pre-gyp": "^0.10.0",
         "path": "^0.12.7",
         "socket.io": "^2.1.1",
         "socket.io-client": "^2.1.1",

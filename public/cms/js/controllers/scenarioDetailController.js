@@ -341,10 +341,11 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
     $scope.changeSource = function(path) {
         path = $window.location.origin + config.videoFolder + path;
 
-        let videoExtension = path.split('.')[1];
+	let videoExtension = path.substr(path.length - 3);
 
+        console.log(videoExtension);
         // if not extention in the url
-        if (videoExtension === null || videoExtension === undefined) {
+        if (videoExtension !== "mp4" && videoExtension !== "ogg") {
             var mp4path = path + '.mp4';
             var oggpath = path + '.ogg';
         }
@@ -355,6 +356,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
 
         pathMp4 = mp4path;
         pathOgg = oggpath;
+	console.log(pathMp4);
         $("#video").find("#srcmp4").attr("src", pathMp4);
         $("#video").find("#srcogg").attr("src", pathOgg);
         $("#video-container video")[0].load();
