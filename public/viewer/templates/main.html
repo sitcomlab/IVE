@@ -56,7 +56,10 @@
                 <tr>
                     <th ng-click="orderByMe('comment')">Comments</th>
                 </tr>
-                <tr ng-repeat="comment in current.video.comment | orderBy: 'comment':true">
+                <tr ng-repeat="comment in oldComments | orderBy: 'comment':true | limitTo:1">
+                    <td ng-hide="showNew">{{comment}}</td>
+                </tr>
+                <tr ng-repeat="comment in oldComments | orderBy: 'comment':true | limitTo:-3">
                     <td>{{comment}}</td>
                 </tr>
             </table>

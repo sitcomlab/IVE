@@ -283,7 +283,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * @type {String}
      */
     $socket.on('/set/scenario', function(data) {
-        console.log(new Date() + " /set/scenario: " + data.scenario_id);
+       // console.log(new Date() + " /set/scenario: " + data.scenario_id);
         $scope.scenarioId = data.scenario_id;
         $scope.current = {
             scenarioStatus: true,
@@ -297,7 +297,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * @type {String}
      */
     $socket.on('/set/location', function(data) {
-        console.log(new Date() + " /set/location: " + data.location_id);
+     //   console.log(new Date() + " /set/location: " + data.location_id);
         $scope.current = {
             scenarioStatus: true,
             locationStatus: true,
@@ -343,7 +343,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * @type {String}
      */
     $socket.on('/set/video', function(data) {
-        console.log(new Date() + " /set/video: " + data.video_id);
+        // console.log(new Date() + " /set/video: " + data.video_id);
         $scope.current = {
             scenarioStatus: true,
             locationStatus: true,
@@ -354,12 +354,13 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $videoService.get(data.video_id)
         .then(function onSuccess(response) {
             $scope.current.video = response.data;
-            console.log(response.data);
+
 
             // Prepare Feedback
             if($scope.current.video.comment === null || $scope.current.video.comment === undefined){
                 $scope.current.video.comment = [];
             }
+
 
             // Prepare Feedback
             if($scope.current.video.rating === null || $scope.current.video.rating === undefined){
@@ -452,6 +453,24 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
     $scope.likeCount = 0;
     $scope.dislikeCount = 0;
+    $scope.likeCountExamples = 0;
+    $scope.dislikeCountExamples = 0;
+    $scope.countloopExamples = 3;
+
+    $scope.countVotingExamples = function(){
+
+        $scope.likeCountExamples = 0;
+        $scope.dislikeCountExamples = 0;
+
+        for( let x = 0 ; x < $scope.countloopExamples; x++){
+            if($scope.current.video.rating[x] === "Like"){
+                $scope.likeCountExamples += 1;
+            }
+            else if($scope.current.video.rating[x] === "Dislike"){
+                $scope.dislikeCountExamples += 1;
+            }
+        }
+    };
 
     $scope.countFeedback = function(){
 
@@ -468,35 +487,56 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         }
     };
 
-    $scope.feedbackContainerRight = $('#tableRight');
-    $scope.feedbackContainerLeft = $('#tableLeft');
+    // split every comment element in the array at the position #splitHere# in two new elements and show only the second element
+    $scope.splitCommentElement = function () {
 
+        $scope.oldComments = [];
+
+        for( let i = 0; i < $scope.current.video.comment.length; i++){
+            let commentString =$scope.current.video.comment[i];
+            var commentSplits = commentString.split(" #splitHere# ", 2);
+            $scope.oldComments.push(commentSplits[1]);
+        }
+    };
+
+
+    // only needed if rating or comment will show on right and left side
+    // $scope.feedbackContainerRight = $('#tableRight');
+    // $scope.feedbackContainerLeft = $('#tableLeft');
 
     $socket.on('/reset/feedback', function(data){
 
-       // $(".canvasjs-chart-canvas").fadeOut("slow");
-        $(".canvasjs-chart-container").fadeOut("slow");
-        $('.canvasjs-chart-container').remove();
+        // every line with // only needed if rating or comment will show on right and left side
+
+        // $(".canvasjs-chart-canvas").fadeOut("slow");
+        // $(".canvasjs-chart-container").fadeOut("slow");
+        // $('.canvasjs-chart-container').remove();
+        // $scope.showMe = true;
+        // $('#tableRight').remove();
+        // $('#tableLeft').remove();
+        // $('#chartContainer-right').append($scope.feedbackContainerRight);
+        //$('#chartContainer-left').append($scope.feedbackContainerLeft);
+
         $scope.chart = null;
-        $scope.showMe = false;
-
-        $('#tableRight').remove();
-        $('#tableLeft').remove();
-
-        $('#chartContainer-right').append($scope.feedbackContainerRight);
-        $('#chartContainer-left').append($scope.feedbackContainerLeft);
+        $scope.splitCommentElement();
+        $scope.countVotingExamples ();
     });
 
 
-    // Receive feedback
+    // Receive feedbacks
     $socket.on('/post/feedback', function(data){
+
+        $("#chartContainer-right").css('background-color', 'black');
 
         if(data.rating !== undefined){
             $scope.current.video.rating.push(data.rating);
+            $scope.showMe = true;
+            $scope.showNew = true;
         }
         else {
             $scope.current.video.comment.push(data.comment);
-            $scope.showMe = true;
+            $scope.splitCommentElement();
+            $scope.showNew = false;
         }
 
         $videoService.edit($scope.current.video.video_id, $scope.current.video)
@@ -507,6 +547,14 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
         $scope.showMeVideo = true;
         $scope.countFeedback();
+        $scope.countVotingExamples ();
+
+        if($scope.current.video.rating[$scope.current.video.rating.length -1] === "Like"){
+            $scope.likeCountExamples += 1;
+        }
+        else if($scope.current.video.rating[$scope.current.video.rating.length -1] === "Dislike"){
+            $scope.dislikeCountExamples += 1;
+        }
 
 
         var chartId = ("chartContainer-left");
@@ -519,7 +567,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         if (data.rating !== undefined){
 
             /* chart visualization */
-            for(let i = 0; i < 2; i++){
+            // only needed if rating will show on right and left side
+            //  for(let i = 0; i < 2; i++){
                 $scope.chart = new CanvasJS.Chart(chartId , {
                     animationEnabled: true,
                     theme: "dark1", // "light1", "light2", "dark1", "dark2"
@@ -538,8 +587,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                             indexLabelPlacement: "inside",
                             type: "column",
                             dataPoints: [
-                                { x: 1, y: $scope.likeCount, label: "Like", indexLabel: $scope.percentageStringLike + "%"},
-                                { x: 2, y: $scope.dislikeCount,  label: "Dislike", indexLabel: $scope.percentageStringDislike + "%" }
+                                { x: 1, y: $scope.likeCountExamples, label: "Like", indexLabel: $scope.percentageStringLike + "%"},
+                                { x: 2, y: $scope.dislikeCountExamples,  label: "Dislike", indexLabel: $scope.percentageStringDislike + "%" }
 
                             ]
                         }
@@ -547,12 +596,17 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                 });
                 $scope.chart.render();
 
-                chartId = ("chartContainer-right");
-            }
+                // chartId = ("chartContainer-right");
+          //  }
+
+            console.log($scope.current.video.rating);
 
         }else if (data.comment !== ""){
 
+            console.log($scope.current.video.comment);
         }
+
+
     });
 
 });

@@ -55,8 +55,6 @@ h2 {
 
 
 #feedback-container-left{
-    background-color: #01ff70;
-
 
 }
 
@@ -64,14 +62,14 @@ h2 {
 
 }
 
-#feedback-container-right{
-
+#chartContainer-right{
 }
 
 
 div{
     border-style: hidden;
-    border-color: coral;
+    /*border-style: solid;*/
+    /*border-color: coral;*/
 }
 
 /*for feedback table*/
