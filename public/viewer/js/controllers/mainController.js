@@ -288,6 +288,9 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
             locationStatus: false,
             videoStatus: false
         };
+        $scope.showMe = false;
+        $("#chartContainer-right").css('background-color', 'transparent');
+        $('.canvasjs-chart-container').remove();
     });
 
     /**
@@ -557,8 +560,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
         var chartId = ("chartContainer-left");
 
-        $scope.percentageLike = Math.round (100/$scope.current.video.rating.length * $scope.likeCount);
-        $scope.percentageDislike = Math.round(100/$scope.current.video.rating.length * $scope.dislikeCount);
+        $scope.percentageLike = Math.round (100/ 4 * $scope.likeCountExamples);     //Math.round (100/$scope.current.video.rating.length * $scope.likeCount);
+        $scope.percentageDislike = Math.round(100/4 * $scope.dislikeCountExamples); //Math.round (100/$scope.current.video.rating.length * $scope.dislikeCount);
         $scope.percentageStringLike = $scope.percentageLike.toString();
         $scope.percentageStringDislike = $scope.percentageDislike.toString();
 
