@@ -608,11 +608,10 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
     $scope.changeSource = function(path) {
         path = $window.location.origin + config.videoFolder + path;
 
-        let videoExtension = path.substr(path.length - 3);
+        let videoExtension = path.split('.')[1];
 
-        console.log(videoExtension);
         // if not extention in the url
-        if (videoExtension !== "mp4" && videoExtension !== "ogg") {
+        if (videoExtension === null || videoExtension === undefined) {
             var mp4path = path + '.mp4';
             var oggpath = path + '.ogg';
         }

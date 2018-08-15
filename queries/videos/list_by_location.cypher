@@ -14,8 +14,6 @@ RETURN
     v.url AS url,
     v.recorded AS recorded,
     v.thumbnails AS thumbnails,
-    v.rating AS rating,
-    v.comment AS comment,
     r.preferred AS preferred
 ORDER BY
     CASE WHEN {orderby} = 'created.asc' THEN v.created END ASC,

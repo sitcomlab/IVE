@@ -1,8 +1,8 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <div>
 
     <!-- Video container -->
-    <div id="video-container" ng-if="current.videoStatus" >
+    <div id="video-container" ng-if="current.videoStatus">
         <video id="video" width="100%" loop autoplay preload="none">
             <source id="srcmp4" src="" type="video/mp4" />
             <source id="srcogg" src="" type="video/ogg; codecs=theora, vorbis" />
@@ -34,36 +34,4 @@
         <br>
         <h2>{{ 'NO_VIDEO_FOUND' | translate }}</h2>
     </div>
-
-    <!--@albert TODO: -->
-    <div class="feedback-container" style="overflow: auto">
-        <div id="chartContainer-left">
-
-            <table style="font-size: 200%" id="tableLeft" ng-show="showMe">
-                <tr>
-                    <th ng-click="orderByMe('comment')">Comments</th>
-                </tr>
-                <tr ng-repeat="comment in current.video.comment | orderBy: 'comment':true ">
-                    <td>{{comment}}</td>
-                </tr>
-            </table>
-        </div>
-
-        <div id="feedback-container-center"></div>
-
-        <div id="chartContainer-right">
-            <table style="font-size: 200%" id="tableRight" ng-show="showMe">
-                <tr>
-                    <th ng-click="orderByMe('comment')">Comments</th>
-                </tr>
-                <tr ng-repeat="comment in oldComments | orderBy: 'comment':true | limitTo:1">
-                    <td ng-hide="showNew">{{comment}}</td>
-                </tr>
-                <tr ng-repeat="comment in oldComments | orderBy: 'comment':true | limitTo:-3">
-                    <td>{{comment}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
 </div>

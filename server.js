@@ -1,5 +1,4 @@
 var colors = require('colors');
-var async = require('async');
 var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');
@@ -9,8 +8,6 @@ var neo4j = require('neo4j-driver').v1;
 var jwt = require('jsonwebtoken');
 var config = require('dotenv').config();
 var multipart = require('connect-multiparty');
-// var sqlite3 = require('sqlite3').verbose();
-
 
 // Connect to Neo4j
 var driver = neo4j.driver(
@@ -32,37 +29,6 @@ session
         console.error(colors.red(new Date() + " Neo4j could not been accessed:\n" + JSON.stringify(err)));
     });
 
-// Connect to sqlite3 (logger)
-/*var db = new sqlite3.Database('feedback.db');
-db.serialize(function() {
-    var schemas = [];
-    if(JSON.parse(process.env.SQLITE_RESET)){
-        // Reset schema
-        schemas.push(fs.readFileSync(__dirname + "/sql/schema/reset.sql", 'utf8').toString());
-        // Build schema
-        schemas.push(fs.readFileSync(__dirname + "/sql/schema/posts.sql", 'utf8').toString());
-    }
-
-   async.forEachOf(schemas, function (schema, key, callback) {
-        db.run(schema, function(err){
-            if(err){
-               callback(err);
-           } else {
-                callback(null);
-            }
-        });
-    }, function (err) {
-        if (err) {
-            console.error(err.message)
-        } else {
-            if(JSON.parse(process.env.SQLITE_RESET)){
-                console.log(colors.green(new Date() + " Schema has been created"));
-            }
-        }
-    });
-});
-exports.db = db;
-*/
 
 // Load certificates
 if (process.env.NODE_ENV === "production") {

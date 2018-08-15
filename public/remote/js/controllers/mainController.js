@@ -119,17 +119,14 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                                                 for(let j = 0; j < $scope.overlays.length; j++){
                                                     if($scope.overlays[i] === response.data[i]){
                                                         exists = true;
-							console.log("TRUE");
                                                     }
                                                     if(j === $scope.overlays.length - 1 && exists === false){
                                                         $scope.overlays.push(response.data[i]);
-							console.log(response.data[i]);
                                                     }
                                                 }
                                             }
                                             else{
                                                 $scope.overlays.push(response.data[i]);
-						console.log(response.data[i]);
                                             }
                                         }
                                     }

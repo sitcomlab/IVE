@@ -27,22 +27,13 @@ exports.request = function(req, res) {
 
             // TODO: Validate all attributes of req.body
 
-            if(req.body.rating === null || req.body.rating === undefined){
-                req.body.rating = [];
-            }
-            if(req.body.comment === null || req.body.comment === undefined){
-                req.body.comment = [];
-            }
-
             var params = {
                 video_uuid: video_uuid,
                 name: req.body.name,
                 description: req.body.description,
                 url: req.body.url,
                 recorded: req.body.recorded,
-                thumbnails: req.body.thumbnails || 0,
-                comment: req.body.comment,
-                rating: req.body.rating
+                thumbnails: req.body.thumbnails || 0
             };
 
             callback(null, params);
@@ -70,11 +61,7 @@ exports.request = function(req, res) {
                             object[key] = Number(record._fields[item].low);
                         } else if (record._fields[item] === null) {
                             object[key] = record._fields[item];
-                        }else if(key === "comment"){
-                            object[key] = record._fields[item]
-                        } else if(key === "rating") {
-                            object[key] = record._fields[item]
-                        }else {
+                        } else {
                             object[key] = Number(record._fields[item]);
                         }
                     } else {

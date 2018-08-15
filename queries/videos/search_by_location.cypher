@@ -30,9 +30,7 @@ RETURN
     v.url AS url,
     v.recorded AS recorded,
     v.thumbnails AS thumbnails,
-    r.preferred AS preferred,
-    v.rating AS rating,
-    v.comment AS comment
+    r.preferred AS preferred
 ORDER BY
     CASE WHEN {orderby} = 'created.asc' THEN v.created END ASC,
     CASE WHEN {orderby} = 'created.desc' THEN v.created END DESC,

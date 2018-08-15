@@ -1,49 +1,47 @@
 {
-    "name": "ive",
-    "version": "1.0.0",
-    "description": "The Immersive Video Environment",
-    "main": "sever.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/sitcomlab/IVE.git"
-    },
-    "keywords": [
-        "IVE"
-    ],
-    "author": "Nicholas Schiestel",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/sitcomlab/IVE/issues"
-    },
-    "homepage": "https://github.com/sitcomlab/IVE#readme",
-    "dependencies": {
-        "ajv": "^4.7.3",
-        "async": "^2.6.1",
-        "body-parser": "^1.18.3",
-        "colors": "^1.3.0",
-        "commander": "^2.15.1",
-        "connect-multiparty": "2.1.0",
-        "cookie": "^0.3.1",
-        "cookie-parser": "^1.4.3",
-        "cookie-signature": "^1.0.6",
-        "debug": "^2.2.0",
-        "dotenv": "^4.0.0",
-        "express": "^4.16.3",
-        "file-system": "^2.2.2",
-        "http": "0.0.0",
-        "jsonwebtoken": "^8.3.0",
-        "moment": "^2.22.2",
-        "mv": "^2.1.1",
-        "neo4j-driver": "^1.6.1",
-        "node-pre-gyp": "^0.10.0",
-        "path": "^0.12.7",
-        "socket.io": "^2.1.1",
-        "socket.io-client": "^2.1.1",
-        "sqlite3": "^4.0.0",
-        "underscore": "^1.9.1",
-        "uuid": "^3.0.1"
-    }
+  "name": "ive",
+  "version": "1.0.0",
+  "description": "The Immersive Video Environment",
+  "main": "sever.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sitcomlab/IVE.git"
+  },
+  "keywords": [
+    "IVE"
+  ],
+  "author": "Nicholas Schiestel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sitcomlab/IVE/issues"
+  },
+  "homepage": "https://github.com/sitcomlab/IVE#readme",
+  "dependencies": {
+    "ajv": "^4.7.3",
+    "async": "^2.1.4",
+    "body-parser": "^1.15.2",
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "connect-multiparty": "2.1.0",
+    "cookie": "^0.3.1",
+    "cookie-parser": "^1.4.3",
+    "cookie-signature": "^1.0.6",
+    "debug": "^2.2.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "file-system": "^2.2.2",
+    "http": "0.0.0",
+    "jsonwebtoken": "^7.2.1",
+    "moment": "^2.15.2",
+    "mv": "^2.1.1",
+    "neo4j-driver": "^1.3.0",
+    "path": "^0.12.7",
+    "socket.io": "^1.5.1",
+    "socket.io-client": "^1.7.2",
+    "underscore": "^1.8.3",
+    "uuid": "^3.0.1"
+  }
 }

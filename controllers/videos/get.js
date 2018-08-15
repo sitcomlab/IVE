@@ -45,10 +45,6 @@ exports.request = function(req, res) {
                             object[key] = Number(record._fields[item].low);
                         } else if (record._fields[item] === null) {
                             object[key] = record._fields[item];
-                        } else if(key === "comment"){
-                            object[key] = record._fields[item]
-                        } else if(key === "rating"){
-                            object[key] = record._fields[item]
                         } else {
                             object[key] = Number(record._fields[item]);
                         }
