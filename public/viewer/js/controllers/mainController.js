@@ -21,14 +21,13 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      */
     $scope.changeSource = function(path) {
         path = $window.location.origin + config.videoFolder + path;
-        let videoExtension = path.split('.')[1];
+        let videoExtension = path.substr(path.length - 3);
 
         // if not extention in the url
-        if (videoExtension === null || videoExtension === undefined) {
+        if (videoExtension !== "mp4" && videoExtension !== "ogg") {
             var mp4path = path + '.mp4';
             var oggpath = path + '.ogg';
-        }
-        else{
+        } else {
             var mp4path = path;
             var oggpath = path;
         }

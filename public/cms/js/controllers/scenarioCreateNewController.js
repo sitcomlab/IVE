@@ -20,7 +20,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
     $rootScope.currentCategory = "Scenarios";
     $rootScope.redirectBreadcrumb = function () {
         $location.url('/scenarios');
-    }
+    };
     $rootScope.currentSite = "Create new scenario";
 
     // $scope.subsite = "create-new";
@@ -608,10 +608,10 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
     $scope.changeSource = function(path) {
         path = $window.location.origin + config.videoFolder + path;
 
-        let videoExtension = path.split('.')[1];
+        let videoExtension = path.substr(path.length - 3);
 
         // if not extention in the url
-        if (videoExtension === null || videoExtension === undefined) {
+        if (videoExtension !== "mp4" && videoExtension !== "ogg") {
             var mp4path = path + '.mp4';
             var oggpath = path + '.ogg';
         }
