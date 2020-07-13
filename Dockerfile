@@ -1,37 +1,25 @@
-FROM node:carbon
-# Create app directory
+FROM node:14-alpine as build
+
+ENV NODE_ENV=production
+
+# when a npm dependency has binary build steps, add: build-base python
+RUN apk --no-cache --virtual .build add git
+RUN npm install -g bower
+
 WORKDIR /usr/src/app
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
 
-RUN apt-get update -qq
-RUN apt-get install -y -qq git curl wget
-
-# install npm
-RUN apt-get install -y -qq npm
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-
-# install bower
-RUN npm install --global bower
-
-COPY package*.json ./
-COPY bower*.json ./
-
-COPY setup*.js ./
-COPY .bowerrc ./
-COPY .env ./
-RUN mkdir /queries
-RUN mkdir /queries/setup
-ADD queries/setup/* ./queries/setup/
-
+COPY package.json package-lock.json ./
 RUN npm install
+
+COPY bower.json .bowerrc ./
 RUN bower install --allow-root
 
-# Bundle app source
-COPY . .
+COPY . /usr/src/app
+# TODO: RM files not needed at runtime
 
+FROM node:14-alpine
+ENV NODE_ENV=production
+WORKDIR /usr/src/app
+COPY --from=build /usr/src/app /usr/src/app
 EXPOSE 5000
-
-# Start the application:
 CMD [ "npm", "start" ]
