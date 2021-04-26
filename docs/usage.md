@@ -3,7 +3,13 @@ layout: page
 permalink: /usage/
 ---
 
+#### Contents
+1. [TL;DR](#tldr)
+1. [Viewer and Remote Control](#viewer-and-remote-control)
+1. [Manage Content](#manage-content)
+
 # TL;DR
+
 * Open a webbrowser and go to <http://localhost:5000>
 * Open the **VIEWER** in a new tab (<http://localhost:5000/viewer>)
     * there is also a *dark-mode* for the demonstrations in the IVE: <http://localhost:5000/ive.html>

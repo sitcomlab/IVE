@@ -410,3 +410,13 @@ hr {
 small {
     font-size: 75%;
 }
+
+pre, code {
+  font-family: monospace;
+  background-color: #fcfcfc;
+}
+pre {
+    border: 1px solid #eaeaea;
+    padding: 6px 12px;
+    overflow: auto;
+}
