@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+{% assign author = site.data.authors[page.author] %}
+<article class="post">
+    <h1>
+        {{ page.title }}
+        <div class="time" style="float: right;">
+            {{ page.date | date: "%Y-%m-%d" }}
+        </div>
+    </h1>
+
+    <div class="entry">
+        {{ content }}
+    </div>
+
+    <div class="author">
+        written by <b>{{ author.fullname }}</b>
+            {% if author.github %}
+                <a href="https://github.com/{{ author.github }}" target="_blank" class="link">
+                    <i class="fa fa-github-alt" aria-hidden="true"></i>
+                </a>
+            {% endif %}
+            {% if author.twitter %}
+                <a href="https://twitter.com/{{ author.twitter }}" target="_blank" class="link">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            {% endif %}
+    </div>
+
+    {% include disqus.html %}
+</article>

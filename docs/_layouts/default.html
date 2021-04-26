@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}
+        </title>
+
+        {% include meta.html %}
+
+        <!--[if lt IE 9]>
+          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
+        <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
+
+        <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+
+        <!-- Fontawesome -->
+        <script src="https://use.fontawesome.com/ed5739a2c3.js"></script>
+    </head>
+
+    <body>
+        <div class="wrapper-masthead">
+            <div class="container">
+                <header class="masthead clearfix">
+                    <a href="{{ site.baseurl }}/" class="site-avatar">
+                        <img src="{{ site.avatar }}"/>
+                    </a>
+
+                    <div class="site-info">
+                        <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
+                        <p class="site-description">{{ site.description }}</p>
+                    </div>
+
+                    <nav>
+                        <a href="{{ site.baseurl }}/">News</a>
+                        <a href="{{ site.baseurl }}/intro">Introduction</a>
+                        <a href="{{ site.baseurl }}/usage">Usage</a>
+                        <a href="{{ site.baseurl }}/creator">Creator</a>
+                        <a href="{{ site.baseurl }}/install">Installation</a>
+                        <a href="{{ site.baseurl }}/import">Import</a>
+                        <a href="{{ site.baseurl }}/expansion">Expansion</a>
+                        <a href="{{ site.baseurl }}/data">Data Model</a>
+                        <a href="{{ site.baseurl }}/troubleshooting">Troubleshooting</a>
+                    </nav>
+                </header>
+            </div>
+        </div>
+
+        <div id="main" role="main" class="container main">
+            {{ content }}
+        </div>
+
+        <footer class="footer">
+            &copy; 2021
+            <b>Institute for Geoinformatics, Münster</b>
+            &nbsp;
+            <a href="https://github.com/sitcomlab/IVE" target="_blank" class="link">
+                <i class="fa fa-lg fa-github" aria-hidden="true"></i>
+            </a>
+        </footer>
+
+        {% include analytics.html %}
+    </body>
+</html>
