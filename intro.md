@@ -13,25 +13,43 @@ permalink: /intro/
         3. [Remote control](#remote-control)
         3. [Server](#server)
     2. [Architecture](#architecture)
-3. [Demo](#demo)
 
 ***
 
 # 1. About the IVE
 
+The Immersive Video Environment (IVE) is a web-based system to quickly
+create and interact with panoramic video footage that can be overlayed
+with additional content (images, web pages, videos). The underlying
+system also allows for flexible integration of existing systems (e.g.
+dynamic signage systems) and different means of interaction (e.g.
+speech, pointing gestures, remote control via mobile devices).
+
+[<img src="{{ site.baseurl }}/images/ive.jpeg" alt="IVE" class="picture" />]({{ site.baseurl }}/)
+
+The IVE can be used to make people feel as if they are in a remote
+location while they are actually standing inside a lab with three large
+screens that are showing the augmented video footage. Use cases for the
+IVE include running experiments and user studies, joint (participatory)
+design exercises and educational scenarios. This document is a tutorial
+that explains how to create content for the IVE.
+
+If you want to see some functionalities of the system immediately, just watch the following video:
+
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/0iaOFMc1ptU" frameborder="0" allowfullscreen></iframe>
+
+## 1.1. IPED-Toolkit
+
 The **Immersive Video Environment (IVE)** is the next version of the previous developed **Public Display Evaluation and Design Toolkit (IPED-Toolkit)**, which was designed by *Ostkamp* and *Kray* [1]. The idea behind the IPED-Toolkit was to use the system for quick prototyping and evaluating of public display systems. Instead of doing it in reality, which might be very expensive, the IPED-Toolkit can be used to easily test public displays in a virtual reality.
 To provide a virtual reality, the IPED-Toolkit used an immersive video environment - also called *CAVE system* - in which a user stands in the middle of three screens as in the picture below. The screens are spatially arranged, so that the user sees the video footages in a panoramic view and feels as he would be part of the scene. This is the reason why such a system is also named immersive.
 During the implementation of the *IPED-Toolkit*, it was found out, that the system is also capable of other things, not only limited to public displays. To build a more open toolkit for research and to solve some shortcomings, the 2nd version was introduced and renamed to **IVE**. It is still in development and does currently not cover all features of the IPED-Toolkit. Please checkout the roadmap for more information about it.
 
-<small>[1] [*Ostkamp, Morin and Christian Kray*. **“Supporting Design, Prototyping, and Evaluation of Public Display Systems.”** In Proceedings of the 2014 ACM SIGCHI Symposium on Engineering Interactive Computing Systems, 263–72. EICS ’14. New York, NY, USA: ACM, 2014.doi:10.1145/2607023.2607035.](http://dl.acm.org/citation.cfm?id=2607035)</small>
 
-[<img src="{{ site.baseurl }}/images/ive.jpeg" alt="IVE" class="picture" />]({{ site.baseurl }}/)
-
-
-## 1.1. IPED-Toolkit (original abstract)
+### 1.1.1 original IPED paper
 
 *Public displays have become ubiquitous in urban areas. They can efficiently deliver information to many people and increasingly also provide means for interaction. Designing, developing, and testing such systems can be challenging, particularly if a system consists of many displays in multiple locations. Deployment is costly and contextual factors such as placement within and interaction with the environment can have a major impact on the success of such systems. In the course of our research we developed a new prototyping and evaluation method for public display systems that integrates augmented panoramic imagery and a light-weight, graph-based model to simulate such systems. Our approach facilitates low-effort, rapid design of interactive public display systems and their evaluation. We realized a prototypical implementation and carried out an initial assessment based on a comparison with existing methods, our own experiences, and an example case study.*
 
+<small>[1] [*Ostkamp, Morin and Christian Kray*. **“Supporting Design, Prototyping, and Evaluation of Public Display Systems.”** In Proceedings of the 2014 ACM SIGCHI Symposium on Engineering Interactive Computing Systems, 263–72. EICS ’14. New York, NY, USA: ACM, 2014.doi:10.1145/2607023.2607035.](http://dl.acm.org/citation.cfm?id=2607035)</small>
 
 ***
 
@@ -84,9 +102,3 @@ Under the hood, the following technologies are used:
 For a more details about the required dependencies, checkout the `package.json` and `bower.json` files inside the repository.
 
 ***
-
-# 3. Demo
-
-If you want to see some functionalities of the system immediately, just watch the following video:
-
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/0iaOFMc1ptU" frameborder="0" allowfullscreen></iframe>

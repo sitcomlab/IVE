@@ -32,6 +32,8 @@ All relationships can be weighted. In the example graph the property `weight` in
 
 # 2. REST-API
 
+The CREATOR, as well as the VIEWER and REMOTE CONTROL, are using internally an REST-API to request and retrieve the data.
+
 ## 2.1. Postman
 
 All data can be accessed by a REST-API. You can easily test out the endpoints with the program [Postman](https://www.getpostman.com). Install it as a client or as an [Google Chrome extension](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop).
