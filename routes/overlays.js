@@ -16,11 +16,7 @@ var del = require('../controllers/overlays/delete');
 var list_by_scenario = require('../controllers/overlays/list_by_scenario');
 var list_by_video = require('../controllers/overlays/list_by_video');
 
-var uploadImage = require('../controllers/overlays/upload_image');
-var uploadVideo = require('../controllers/overlays/upload_video');
-var uploadObject = require('../controllers/overlays/upload_object');
-
-
+const { storeFileMiddleware } = require('../controllers/storage');
 
 // LIST
 router.get('/overlays', list.request);
@@ -50,12 +46,24 @@ router.get('/scenarios/:scenario_id/overlays', list_by_scenario.request);
 router.get('/videos/:video_id/overlays', list_by_video.request);
 
 // UPLOAD IMAGE
-router.post('/overlays/uploadImage', multipartMiddleware, isAuthenticated, uploadImage.request);
+router.post('/overlays/uploadImage',
+  multipartMiddleware,
+  isAuthenticated,
+  storeFileMiddleware('images', true),
+);
 
 // UPLOAD VIDEO
-router.post('/overlays/uploadVideo', multipartMiddleware, isAuthenticated, uploadVideo.request);
+router.post('/overlays/uploadVideo',
+  multipartMiddleware,
+  isAuthenticated,
+  storeFileMiddleware('video_overlays', true),
+);
 
 // UPLOAD OBJECT
-router.post('/overlays/uploadObject', multipartMiddleware, isAuthenticated, uploadObject.request);
+router.post('/overlays/uploadObject',
+  multipartMiddleware,
+  isAuthenticated,
+  storeFileMiddleware('objects', true),
+);
 
 module.exports = router;
