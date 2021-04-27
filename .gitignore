@@ -3,6 +3,8 @@ public/bower_components
 public/images/*
 public/videos/*
 public/thumbnails/*
+public/objects/*
+neo4j-data
 .DS_Store
 .env
 _site
