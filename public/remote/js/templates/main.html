@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-
 <!-- Setup scenario -->
 <div class="card" ng-if="!current.scenario">
     <h5 class="card-header">
         {{ 'PLEASE_SELECT_A' | translate }} {{ 'SCENARIO' | translate }}
     </h5>
-    <button type="button" class="list-group-item list-group-item-action" ng-repeat="scenario in scenarios | orderBy: ['name']" ng-click="setCurrentScenario(scenario)" ng-if="scenarios.length > 0" ng-class="{'active': current.scenario.scenario_id == scenario.scenario_id }">
+    <a role="button" class="list-group-item list-group-item-action" ng-repeat="scenario in scenarios | orderBy: ['name']" ng-click="setCurrentScenario(scenario)" ng-if="scenarios.length > 0" ng-class="{'active': current.scenario.scenario_id == scenario.scenario_id }">
         {{scenario.name}}
-    </button>
+    </a>
     <div class="card-block card-block-active" ng-if="scenarios.length == 0">
         <span class="text-muted">
             {{ 'NO_SCENARIOS_FOUND' | translate }}
@@ -18,25 +16,22 @@
 <!-- Scenario defined -->
 <div ng-if="current.scenario">
     <div class="card">
-        <a href="#" class="link" ng-click="toggleScenarios()">
+        <a role="button" ng-click="toggleScenarios()">
             <h5 class="card-header d-flex justify-content-between">
-                <span ng-if="!current.scenarioStatus">
-                    {{ 'SCENARIO' | translate }}
+                <span>
+                    {{ 'CHANGE_CURRENT' | translate }} {{ 'SCENARIO' | translate }}
                 </span>
                 <span ng-if="!current.scenarioStatus">
                     <i class="fa fa-caret-down" aria-hidden="true"></i>
-                </span>
-                <span ng-if="current.scenarioStatus">
-                    {{ 'CHANGE_CURRENT' | translate }} {{ 'SCENARIO' | translate }}
                 </span>
                 <span ng-if="current.scenarioStatus">
                     <i class="fa fa-caret-up" aria-hidden="true"></i>
                 </span>
             </h5>
         </a>
-        <button type="button" class="list-group-item list-group-item-action" ng-repeat="scenario in scenarios | orderBy: ['name']" ng-click="setCurrentScenario(scenario)" ng-class="{'active': current.scenario.scenario_id == scenario.scenario_id }" ng-if="current.scenarioStatus">
+        <a role="button" class="list-group-item list-group-item-action" ng-repeat="scenario in scenarios | orderBy: ['name']" ng-click="setCurrentScenario(scenario)" ng-class="{'active': current.scenario.scenario_id == scenario.scenario_id }" ng-if="current.scenarioStatus">
             {{scenario.name}}
-        </button>
+        </a>
     </div>
     <br>
 </div>
@@ -47,9 +42,9 @@
         <h5 class="card-header">
             {{ 'PLEASE_SELECT_A' | translate }} {{ 'START_LOCATION' | translate }}
         </h5>
-        <button type="button" class="list-group-item list-group-item-action" ng-repeat="location in locations | orderBy: ['name']" ng-click="setCurrentLocation(location)" ng-if="locations.length > 0" ng-class="{'active': current.location.location_id == location.location_id }">
+        <a role="button" class="list-group-item list-group-item-action" ng-repeat="location in locations | orderBy: ['name']" ng-click="setCurrentLocation(location)" ng-if="locations.length > 0" ng-class="{'active': current.location.location_id == location.location_id }">
             {{location.name}}
-        </button>
+        </a>
         <div class="card-block card-block-active" ng-if="locations.length == 0">
             <span class="text-muted">
                 {{ 'NO_LOCATIONS_FOUND' | translate }}
@@ -62,25 +57,22 @@
 <!-- Location defined -->
 <div ng-if="current.scenario && current.location">
     <div class="card">
-        <a href="#" class="link" ng-click="toggleLocations()">
+        <a role="button" ng-click="toggleLocations()">
             <h5 class="card-header d-flex justify-content-between">
-                <span ng-if="!current.locationStatus">
-                    {{ 'LOCATION' | translate }}
+                <span>
+                    {{ 'CHANGE_CURRENT' | translate }} {{ 'LOCATION' | translate }}
                 </span>
                 <span ng-if="!current.locationStatus">
                     <i class="fa fa-caret-down" aria-hidden="true"></i>
-                </span>
-                <span ng-if="current.locationStatus">
-                    {{ 'CHANGE_CURRENT' | translate }} {{ 'LOCATION' | translate }}
                 </span>
                 <span ng-if="current.locationStatus">
                     <i class="fa fa-caret-up" aria-hidden="true"></i>
                 </span>
             </h5>
         </a>
-        <button type="button" class="list-group-item list-group-item-action" ng-repeat="location in locations | orderBy: ['name']" ng-click="setCurrentLocation(location)" ng-class="{'active': current.location.location_id == location.location_id }" ng-if="current.locationStatus">
+        <a role="button" class="list-group-item list-group-item-action" ng-repeat="location in locations | orderBy: ['name']" ng-click="setCurrentLocation(location)" ng-class="{'active': current.location.location_id == location.location_id }" ng-if="current.locationStatus">
             {{location.name}}
-        </button>
+        </a>
     </div>
     <br>
 </div>
@@ -92,9 +84,9 @@
         <h5 class="card-header">
             {{ 'CONNECTED_LOCATIONS' | translate }}
         </h5>
-        <button type="button" class="list-group-item list-group-item-action" ng-repeat="connected_location in connected_locations | orderBy: ['name']" ng-click="setCurrentLocation(connected_location)" ng-if="connected_locations.length > 0">
+        <a role="button" class="list-group-item list-group-item-action" ng-repeat="connected_location in connected_locations | orderBy: ['name']" ng-click="setCurrentLocation(connected_location)" ng-if="connected_locations.length > 0">
             {{connected_location.name}}
-        </button>
+        </a>
         <div class="card-block card-block-active" ng-if="connected_locations.length == 0">
             <span class="text-muted">
                 {{ 'NO_CONNECTED_LOCATIONS_FOUND' | translate }}
@@ -111,9 +103,9 @@
         <h5 class="card-header">
             {{ 'VIDEOS' | translate }}
         </h5>
-        <button type="button" class="list-group-item list-group-item-action" ng-repeat="video in videos | orderBy: ['name']" ng-click="setCurrentVideo(video)" ng-class="{'active': current.video.video_id == video.video_id}" ng-if="videos.length > 0">
+        <a role="button" class="list-group-item list-group-item-action" ng-repeat="video in videos | orderBy: ['name']" ng-click="setCurrentVideo(video)" ng-class="{'active': current.video.video_id == video.video_id}" ng-if="videos.length > 0">
             {{video.name}}
-        </button>
+        </a>
         <div class="card-block card-block-active" ng-if="videos.length == 0">
             <span class="text-muted">
                 {{ 'NO_VIDEOS_FOUND' | translate }}
@@ -130,7 +122,7 @@
         <h5 class="card-header">
             {{ 'OVERLAYS' | translate }}
         </h5>
-        <button type="button" class="list-group-item list-group-item-action" ng-repeat="overlay in overlays | orderBy: ['overlay_id']" ng-click="toggleOverlay(overlay)" ng-if="overlays.length > 0">
+        <a role="button" class="list-group-item list-group-item-action" ng-repeat="overlay in overlays | orderBy: ['overlay_id']" ng-click="toggleOverlay(overlay)" ng-if="overlays.length > 0">
             <div class="d-flex w-100 justify-content-between">
                 {{overlay.name}}
                 <span ng-if="overlay.display" class="text-success">
@@ -140,8 +132,8 @@
                     <i class="fa fa-toggle-off" aria-hidden="true"></i>
                 </span>
             </div>
-        </button>
-        <button type="button" class="list-group-item list-group-item-action" ng-click="togglePointingOverlay()">
+        </a>
+        <a role="button" class="list-group-item list-group-item-action" ng-click="togglePointingOverlay()">
             <div class="d-flex w-100 justify-content-between">
                 Pointing overlay
                 <span ng-if="pointingOverlay.display" class="text-success">
@@ -151,7 +143,7 @@
                     <i class="fa fa-toggle-off" aria-hidden="true"></i>
                 </span>
             </div>
-        </button>
+        </a>
         <div class="card-block card-block-active" ng-if="overlays.length == 0">
             <span class="text-muted">
                 {{ 'NO_OVERLAYS_FOUND' | translate }}
