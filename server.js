@@ -133,5 +133,5 @@ if(process.env.NODE_ENV === "production") {
 // Start websocket server
 var io = require('socket.io')(httpServer);
 exports.io = io;
-var sockets = require('./controllers/sockets.js').sockets;
+require('./controllers/sockets.js').sockets;
 console.log(colors.green(new Date() + " Websocket-Server is listening at port " + process.env.HTTP_PORT));
