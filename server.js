@@ -4,31 +4,25 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
-var neo4j = require('neo4j-driver').v1;
+var neo4j = require('neo4j-driver');
 var jwt = require('jsonwebtoken');
 var config = require('dotenv').config();
 var multipart = require('connect-multiparty');
 
 // Connect to Neo4j
-var driver = neo4j.driver(
+exports.driver = neo4j.driver(
     "bolt://" + process.env.NEO4J_HOST + ":" + process.env.NEO4J_PORT,
-    neo4j.auth.basic(
-        process.env.NEO4J_USERNAME,
-        process.env.NEO4J_PASSWORD
-));
-exports.driver = driver;
-var session = driver.session();
-var query = "RETURN true;";
-session
-    .run(query)
+    neo4j.auth.basic( process.env.NEO4J_USERNAME, process.env.NEO4J_PASSWORD),
+    // { connectionTimeout: 3000 },
+)
+
+exports.driver.verifyConnectivity()
     .then(function(result) {
-        session.close();
         console.log(colors.green(new Date() + " Neo4j is running on port " + process.env.NEO4J_PORT));
     })
     .catch(function(err) {
-        console.error(colors.red(new Date() + " Neo4j could not been accessed:\n" + JSON.stringify(err)));
+        console.error(colors.red(new Date() + " Neo4j could not be accessed:\n" + JSON.stringify(err)));
     });
-
 
 // Load certificates
 if (process.env.NODE_ENV === "production") {
