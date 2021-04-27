@@ -16,9 +16,7 @@ var del = require('../controllers/videos/delete');
 var list_by_scenario = require('../controllers/videos/list_by_scenario');
 var list_by_location = require('../controllers/videos/list_by_location');
 
-var uploadVideo = require('../controllers/videos/upload_video');
-
-
+const { storeFileMiddleware } = require('../controllers/storage');
 
 // LIST
 router.get('/videos', list.request);
@@ -47,6 +45,10 @@ router.get('/scenarios/:scenario_id/videos', list_by_scenario.request);
 router.get('/locations/:location_id/videos', list_by_location.request);
 
 // UPLOAD NEW IVE VIDEO
-router.post('/videos/uploadVideo/:folderUrl', multipartMiddleware, isAuthenticated, uploadVideo.request);
+router.post('/videos/uploadVideo/:folderUrl',
+  multipartMiddleware,
+  isAuthenticated,
+  storeFileMiddleware('videos', true),
+);
 
 module.exports = router;
