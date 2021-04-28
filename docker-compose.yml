@@ -2,8 +2,7 @@
 version: "2"
 services:
   app:
-    container_name: app
-    restart: always
+    container_name: ive
     build: .
     env_file: .env
     depends_on:
@@ -12,10 +11,15 @@ services:
       - "5000:5000"
     links:            ## connects neo4j to app container
       - neo4j
+    volumes:
+      - ./public:/usr/src/app/public
 
   neo4j:
     container_name: neo4j
     image: neo4j:3.0          ## we use neo4j v3
+    env_file: .env
     ports:                    ## publish ports to have Web UI
       - "7474:7474"
       - "7687:7687"
+    volumes:
+      - ./neo4j-data:/data
