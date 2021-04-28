@@ -16,7 +16,7 @@
     "font-awesome": "^4.6.3",
     "bootstrap": "v4.0.0-alpha.6",
     "angular-socket-io": "^0.7.0",
-    "socket.io-client": "^1.5.0",
+    "socket.io-client": "4.0.1",
     "angular-sanitize": "^1.6.6",
     "videogular": "^1.4.4",
     "videogular-themes-default": "^1.4.4",
