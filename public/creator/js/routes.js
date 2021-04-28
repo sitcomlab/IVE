@@ -11,10 +11,6 @@ app.config(function($routeProvider, $locationProvider, config) {
             templateUrl: "templates/login.html",
             controller: "loginController"
         })
-        .when("/help", {
-            templateUrl: "templates/help.html",
-            controller: "helpController"
-        })
 
         // Map
         .when("/map", {
