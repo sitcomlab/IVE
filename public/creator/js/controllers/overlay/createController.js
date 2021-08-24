@@ -3,6 +3,8 @@ var app = angular.module("ive.upload", ['ngFileUpload']);
 // Overlay create controller
 app.controller("overlayCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService, Upload, $timeout) {
 
+    $scope.errorMessage = "";
+
     /*************************************************
         FUNCTIONS
      *************************************************/
@@ -43,6 +45,12 @@ app.controller("overlayCreateController", function($scope, $rootScope, $routePar
     };
 
     $scope.uploadImage = function(file, errFiles) {
+        if (file === null || errFiles !== null) {
+            const { $error, errorParam } = errFiles[0];
+            $scope.errorMessage = `invalid height: ${$error} ${errorParam}`;
+            return
+        }
+
         $scope.overlay.url = "/images/" + file.name;
         $scope.f = file;
         $scope.errFile = errFiles && errFiles[0];

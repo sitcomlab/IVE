@@ -14,6 +14,10 @@
             </div>
         </div>
         <div class="card-block">
+            <div ng-if="errorMessage" class="alert alert-danger" role="alert">
+                {{ errorMessage }}
+            </div>
+
             <label>
                 <b>{{ 'NAME' | translate }}</b> <sup class="text-danger">*</sup>
             </label>
@@ -97,7 +101,7 @@
                         required>
                     <div ng-if="overlay.category == 'picture'">
                         <button type="file" ngf-select="uploadImage($file, $invalidFiles)"
-                                accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
+                                accept="image/*" ngf-max-height="1080" ngf-max-size="20MB">
                             Select File</button>
                         <br>
                         <br>
@@ -111,7 +115,7 @@
                     </div>
                     <div ng-if="overlay.category == 'video'">
                         <button type="file" ngf-select="uploadVideo($file, $invalidFiles)"
-                                accept="video/*" ngf-max-height="1000" ngf-max-size="20MB">
+                                accept="video/*" ngf-max-height="1080" ngf-max-size="20MB">
                             Select File</button>
                         <br>
                         <br>
