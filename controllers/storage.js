@@ -14,6 +14,8 @@ function storeFileMiddleware (objectType, finalize) {
     throw new Error(`invalid store type ${objectType}. Possible values: ${Object.keys(PATHS)}`)
 
   return async function (req, res, next) {
+    if (!req.files.file) return res.sendStatus(422, 'missing attached file')
+
     const tmpfile = req.files.file.path
     const filename = req.params.folderUrl 
       ? join(req.params.folderUrl, req.files.file.name)
