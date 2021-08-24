@@ -12,7 +12,10 @@ services:
     links:            ## connects neo4j to app container
       - neo4j
     volumes:
-      - ./public:/usr/src/app/public
+      - ./public/images:/usr/src/app/public/images
+      - ./public/objects:/usr/src/app/public/objects
+      - ./public/thumbnails:/usr/src/app/public/thumbails
+      - ./public/videos:/usr/src/app/public/videos
 
   neo4j:
     container_name: neo4j
