@@ -14,7 +14,7 @@ services:
     volumes:
       - ./public/images:/usr/src/app/public/images
       - ./public/objects:/usr/src/app/public/objects
-      - ./public/thumbnails:/usr/src/app/public/thumbails
+      - ./public/thumbnails:/usr/src/app/public/thumbnails
       - ./public/videos:/usr/src/app/public/videos
 
   neo4j:
