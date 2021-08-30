@@ -99,24 +99,20 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
      * @return {[type]}      [description]
      */
     $scope.changeSource = function(path) {
-        path = $window.location.origin + config.videoFolder + path;
-        let videoExtension = path.split('.')[1];
-
+        const fullPath = $window.location.origin + config.videoFolder + path;
+        const videoExtension = path.split('.').pop();
+        let mp4path = fullPath;
+        let oggpath = fullPath;
         // if not extention in the url
-        if (videoExtension === null || videoExtension === undefined) {
-            var mp4path = path + '.mp4';
-            var oggpath = path + '.ogg';
+        if (videoExtension === undefined) {
+            mp4path = fullPath + '.mp4';
+            oggpath = fullPath + '.ogg';
         }
-        else{
-            var mp4path = path;
-            var oggpath = path;
-        }
-        pathMp4 = mp4path;
-        pathOgg = oggpath;
-        $("#video").find("#srcmp4").attr("src", pathMp4)
-        $("#video").find("#srcogg").attr("src", pathOgg)
+        
+        $("#video").find("#srcmp4").attr("src", mp4path)
+        $("#video").find("#srcogg").attr("src", oggpath)
         $("#video-container video")[0].load();
-        var vidload = document.getElementById("video");
+        const vidload = document.getElementById("video");
         vidload.onloadeddata = function() {
             $scope.setOverlays();
         };
