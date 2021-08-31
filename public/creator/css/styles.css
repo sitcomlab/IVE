@@ -128,3 +128,13 @@ form .progress {
     background: orange;
     width: 0;
 }
+
+.loginmodal {
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 4000;
+}

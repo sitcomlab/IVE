@@ -131,7 +131,7 @@
                                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;{{authenticated_user.username}}
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user_dropdown">
-                                        <a class="dropdown-item" href="" ng-click="redirect('/')">
+                                        <a class="dropdown-item" href="" ng-click="logout()">
                                             <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'LOGOUT' | translate }}
                                         </a>
                                     </div>
@@ -159,6 +159,11 @@
 
                 <!-- Main view -->
                 <div class="view" ng-view ng-show="!loading.status"></div>
+            </div>
+
+            <!-- Login Modal -->
+            <div class="loginmodal" ng-if="loggingIn">
+                <ng-include src="'templates/login.html'"></ng-include>
             </div>
 
             <!-- Footer -->
@@ -221,7 +226,6 @@
 
         <!-- CONTROLLERS -->
         <script src="js/controllers/mainController.js"></script>
-        <script src="js/controllers/loginController.js"></script>
         <script src="js/controllers/mapController.js"></script>
 
         <!-- Scenario -->
