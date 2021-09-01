@@ -10,8 +10,8 @@ app.factory('$authenticationService', function($http, $log, config) {
     return {
         init: function(){
             return {
-                username: "admin",
-                password: "admin"
+                username: "",
+                password: ""
             };
         },
         get: function(){

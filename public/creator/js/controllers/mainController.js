@@ -85,7 +85,7 @@ app.controller("mainController", function($scope, $rootScope, $filter, $translat
     $scope.loginForm = {};
     $scope.loggingIn = false; // if true, login modal is shown.
 
-    // populate form with default credentials // FIXME: that's a bad idea, right..?
+    // populate form with default credentials
     $scope.login = $authenticationService.init();
 
     // check authentication, if missing, show login modal.
