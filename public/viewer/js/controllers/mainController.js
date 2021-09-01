@@ -13,6 +13,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         locationStatus: false,
         videoStatus: false
     };
+    $scope.hasNotPlayed = true;
+
 
     /**
      * [changeSource description]
@@ -41,6 +43,27 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
             $scope.getOverlays();
         };
     };
+
+    /**
+     * [play description]
+     * @return {[type]}      [description]
+     */
+    $scope.play = function(){
+        document.querySelector("video").play();
+    };
+
+    /**
+     * [handleFirstPlay description]
+     * @return {[type]}      [description]
+     */
+    handleFirstPlay = function(event) {
+        if($scope.hasNotPlayed === true) {
+          $scope.hasNotPlayed = false;
+          $scope.$apply();
+          let vid = event.target;
+          vid.onplay = null;
+        }
+      }
 
     // Load the overlays to the selected video
     $scope.getOverlays = function(){
@@ -343,7 +366,6 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $videoService.get(data.video_id)
         .then(function onSuccess(response) {
             $scope.current.video = response.data;
-
             // Add to video player
             $scope.changeSource($scope.current.video.url);
 
