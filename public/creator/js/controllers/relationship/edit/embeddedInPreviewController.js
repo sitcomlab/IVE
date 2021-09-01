@@ -104,7 +104,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
         let mp4path = fullPath;
         let oggpath = fullPath;
         // if not extention in the url
-        if (videoExtension === undefined) {
+        if (videoExtension !== 'mp4' && videoExtension !== 'ogg') {
             mp4path = fullPath + '.mp4';
             oggpath = fullPath + '.ogg';
         }
