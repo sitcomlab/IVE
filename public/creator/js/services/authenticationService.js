@@ -23,7 +23,12 @@ app.factory('$authenticationService', function($http, $log, config) {
         authenticated: function(){
             return !!authenticated_user;
         },
+        getToken: function(){
+            if (authenticated_user) return authenticated_user.token
+        },
         login: function(data) {
+            // NOTE: we don't handle refreshing the token, so we may store expired tokens..
+            // but the backend doesnt implement a route to refresh a token yet
             return $http.post(config.getApiEndpoint() + "/login", data)
                 .then(res => { 
                     authenticated_user = res.data;
