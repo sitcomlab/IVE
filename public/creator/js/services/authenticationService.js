@@ -1,16 +1,17 @@
-var app = angular.module("authenticationService", []);
+const user_storage_key = 'AUTH_USER';
 
+var app = angular.module("authenticationService", []);
 
 // User service
 app.factory('$authenticationService', function($http, $log, config) {
 
-    var authenticated_user;
+    let authenticated_user = JSON.parse(localStorage.getItem(user_storage_key));
 
     return {
         init: function(){
             return {
-                username: "admin",
-                password: "admin"
+                username: "",
+                password: ""
             };
         },
         get: function(){
@@ -20,30 +21,24 @@ app.factory('$authenticationService', function($http, $log, config) {
             authenticated_user = data;
         },
         authenticated: function(){
-            if(authenticated_user !== undefined){
-                return true;
-            } else {
-                return false;
-            }
-        },
-        setToken: function(data){
-            authenticated_user.token = data;
+            return !!authenticated_user;
         },
         getToken: function(){
-            if(authenticated_user !== undefined){
-                if(authenticated_user.token !== undefined){
-                    return authenticated_user.token;
-                } else {
-                    return undefined;
-                }
-            } else {
-                return undefined;
-            }
+            if (authenticated_user) return authenticated_user.token
         },
         login: function(data) {
-            return $http.post(config.getApiEndpoint() + "/login", data);
+            // NOTE: we don't handle refreshing the token, so we may store expired tokens..
+            // but the backend doesnt implement a route to refresh a token yet
+            return $http.post(config.getApiEndpoint() + "/login", data)
+                .then(res => { 
+                    authenticated_user = res.data;
+                    localStorage.setItem(user_storage_key, JSON.stringify(authenticated_user));
+                    return res.data;
+                })
+        },
+        logout: function(){
+            authenticated_user = null;
+            localStorage.removeItem(user_storage_key);
         }
-
     };
-
 });
