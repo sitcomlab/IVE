@@ -14,9 +14,8 @@ io.on('connection', function(socket) {
         console.log(colors.magenta(new Date() + " Socket disconnected: " +  socket.client.id));
     });
 
-    // Current State
+    // Return current State as an object
     socket.on('/get/state', function() {
-        console.log(currentState);
         socket.emit('/get/state', currentState);
     });
 
