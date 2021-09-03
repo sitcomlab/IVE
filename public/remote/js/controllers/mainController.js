@@ -130,11 +130,9 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         $overlayService.list_by_video($scope.current.video.video_id)
         .then(function onSuccess(response) {
             // Make sure the overlays are in the scenario
-            $scope.filter = {};
-            $scope.filter.relationship_type = "overlay";
-            $relationshipService.list_by_label("belongs_to", $scope.pagination, $scope.filter)
+            const filter = { relationship_type = "overlay" };
+            $relationshipService.list_by_label("belongs_to", $scope.pagination, filter)
                 .then(function(responseBelongsTo){
-                    $scope.filter = undefined;
                     $scope.overlays = [];
                     for(let i = 0; i < response.data.length; i++){
                         for(let k = 0; k < responseBelongsTo.data.length; k++){
