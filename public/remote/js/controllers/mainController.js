@@ -131,7 +131,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         .then(function onSuccess(response) {
             // Make sure the overlays are in the scenario
             const filter = { relationship_type = "overlay" };
-            $relationshipService.list_by_label("belongs_to", $scope.pagination, filter)
+            return $relationshipService.list_by_label("belongs_to", $scope.pagination, filter)
                 .then(function(responseBelongsTo){
                     $scope.overlays = [];
                     for(let i = 0; i < response.data.length; i++){
