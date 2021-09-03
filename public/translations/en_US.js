@@ -54,6 +54,8 @@ app.constant("en_US", {
     CONNECTED: 'connected',
     ABSTRACT: 'abstract',
     _ABSTRACT: 'Abstract',
+    TRANSITION: 'transition',
+    _TRANSITION: 'Transition',
     INDOOR: 'indoor',
     _INDOOR: 'Indoor',
     OUTDOOR: 'outdoor',
