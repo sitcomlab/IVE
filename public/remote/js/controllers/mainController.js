@@ -123,6 +123,19 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
      * @param {[type]} video [description]
      */
     $scope.setCurrentVideo = function(video){
+        $scope.userVideoChange(video);
+
+        // Send socket message
+        $socket.emit('/set/video', {
+            video_id: video.video_id
+        });
+    };
+
+    /**
+     * [userVideoChange description]
+     * @param {[type]} video [description]
+     */
+    $scope.userVideoChange = function (video) {
         $scope.current.video = video;
 
 
@@ -158,13 +171,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         }).catch(function onError(response) {
             $scope.err = response.data;
         });
-
-        // Send socket message
-        $socket.emit('/set/video', {
-            video_id: video.video_id
-        });
-    };
-
+    }
 
     /**
      * [toggleOverlay description]
@@ -299,7 +306,8 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         // Load Video
         $videoService.retrieve(data.video_id)
         .then(function onSuccess(response) {
-            $scope.current.video = response.data;
+            $scope.userVideoChange(response.data);
+            // $scope.current.video = response.data;
         }).catch(function onError(response) {
             $scope.err = response.data;
         });
