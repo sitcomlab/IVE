@@ -94,49 +94,14 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
 
             if($scope.videos.length !== 0){
 
-                $scope.current.video = _.findWhere($scope.videos, {
+                const preferredVideo = _.findWhere($scope.videos, {
                     preferred: true
                 });
 
-                if($scope.current.video === -1){
+                if(preferredVideo === -1){
                     delete $scope.current.video;
                 } else {
-                    // Load all related overlays
-                    $overlayService.list_by_video($scope.current.video.video_id)
-                    .then(function onSuccess(response) {
-                        // Make sure the overlays are in the scenario
-                        $scope.filter = {};
-                        $scope.filter.relationship_type = "overlay";
-                        $relationshipService.list_by_label("belongs_to", $scope.pagination, $scope.filter)
-                            .then(function(responseBelongsTo){
-                                $scope.filter = undefined;
-                                $scope.overlays = [];
-                                for(let i = 0; i < response.data.length; i++){
-                                    for(let k = 0; k < responseBelongsTo.data.length; k++){
-                                        if(response.data[i].overlay_id === responseBelongsTo.data[k].overlay_id && responseBelongsTo.data[k].scenario_id === $scope.current.scenario.scenario_id){
-                                            let exists = false;
-                                            if($scope.overlays.length > 0){
-                                                for(let j = 0; j < $scope.overlays.length; j++){
-                                                    if($scope.overlays[i] === response.data[i]){
-                                                        exists = true;
-                                                    }
-                                                    if(j === $scope.overlays.length - 1 && exists === false){
-                                                        $scope.overlays.push(response.data[i]);
-                                                    }
-                                                }
-                                            }
-                                            else{
-                                                $scope.overlays.push(response.data[i]);
-                                            }
-                                        }
-                                    }
-                                }
-                            }).catch(function onError(responseBelongsTo) {
-                                $scope.err = responseBelongsTo.data;
-                            });
-                    }).catch(function onError(response) {
-                        $scope.err = response.data;
-                    });
+                    $scope.setCurrentVideo(preferredVideo);
                 }
             }
         }).catch(function onError(response) {
@@ -159,6 +124,40 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
      */
     $scope.setCurrentVideo = function(video){
         $scope.current.video = video;
+
+
+        // Load all related overlays
+        $overlayService.list_by_video($scope.current.video.video_id)
+        .then(function onSuccess(response) {
+            // Make sure the overlays are in the scenario
+            const filter = { relationship_type = "overlay" };
+            return $relationshipService.list_by_label("belongs_to", $scope.pagination, filter)
+                .then(function(responseBelongsTo){
+                    $scope.overlays = [];
+                    for(let i = 0; i < response.data.length; i++){
+                        for(let k = 0; k < responseBelongsTo.data.length; k++){
+                            if(response.data[i].overlay_id === responseBelongsTo.data[k].overlay_id && responseBelongsTo.data[k].scenario_id === $scope.current.scenario.scenario_id){
+                                let exists = false;
+                                if($scope.overlays.length > 0){
+                                    for(let j = 0; j < $scope.overlays.length; j++){
+                                        if($scope.overlays[i] === response.data[i]){
+                                            exists = true;
+                                        }
+                                        if(j === $scope.overlays.length - 1 && !exists){
+                                            $scope.overlays.push(response.data[i]);
+                                        }
+                                    }
+                                }
+                                else{
+                                    $scope.overlays.push(response.data[i]);
+                                }
+                            }
+                        }
+                    }
+                });
+        }).catch(function onError(response) {
+            $scope.err = response.data;
+        });
 
         // Send socket message
         $socket.emit('/set/video', {
