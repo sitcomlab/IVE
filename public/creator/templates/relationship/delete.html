@@ -149,18 +149,9 @@
         <h5>
             {{ 'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS' | translate }} <code>{{ relationship_label | uppercase }}</code> {{ ' RELATIONSHIP' | translate }}?
         </h5>
-        <br>
-        <label>
-            <b>{{ 'TYPE' | translate }}</b>
-        </label>
-        <input type="text" class="form-control" ng-model="input" id="name" placeholder="{{ 'RELATIONSHIP_LABEL' | translate }}" autofocus>
-        <small class="form-text text-muted">
-            {{ 'PLEASE_TYPE_IN_THE_LABEL_OF_THIS_RELATIONSHIP_TO_CONFIRM' | translate }}
-        </small>
-        <br>
     </div>
     <div class="card-footer right">
-        <button class="btn btn-danger" type="button" ng-click="delete()" ng-disabled="(input | lowercase) != relationship_label">
+        <button class="btn btn-danger" type="button" ng-click="delete()">
             <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
         </button>
     </div>

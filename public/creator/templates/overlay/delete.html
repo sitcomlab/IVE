@@ -16,18 +16,9 @@
         <h5>
             {{ 'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS' | translate }} {{ 'OVERLAY' | translate }}: <code>{{overlay.name}}</code> ?
         </h5>
-        <br>
-        <label>
-            <b>{{ 'NAME' | translate }}</b>
-        </label>
-        <input type="text" class="form-control" ng-model="input" id="name" placeholder="{{ 'NAME' | translate }}" autofocus>
-        <small class="form-text text-muted">
-            {{ 'PLEASE_TYPE_IN_THE_NAME_OF_THE' | translate }} {{ 'OVERLAY' | translate }} {{ 'TO_CONFIRM' | translate }}
-        </small>
-        <br>
     </div>
     <div class="card-footer right">
-        <button class="btn btn-danger" type="button" ng-click="delete()" ng-disabled="input != overlay.name">
+        <button class="btn btn-danger" type="button" ng-click="delete()">
             <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;{{ 'DELETE' | translate }}
         </button>
     </div>
