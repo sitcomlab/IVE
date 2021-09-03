@@ -68,7 +68,7 @@ As it can be seen in the previous example graph, there are 4 main nodes (or enti
 * `description` (String):  optional description of the location
 * `lat` (Float): Latitude value of the location
 * `lng` (Float): Longitude value of the location
-* `location_type` (String, options: `indoor`, `outdoor`, `abstract`): type of the location
+* `location_type` (String, options: `indoor`, `outdoor`, `abstract`, `transition`): type of the location
 
 
 ## 2.3. Videos
@@ -148,6 +148,7 @@ For specifying a <span class="label label-location">Location</span> use the `loc
 * `indoor`
 * `outdoor`
 * `abstract`
+* `transition`
 
 The parent location approach also allows the normal usage of `-[CONNECTED_TO]->` relationships between
 <span class="label label-location">indoor:Locations</span> as well as <span class="label label-location">outdoor:Locations</span>. The following example shows a graph of the institute building and the relationships between the <span class="label label-location">Locations</span>:
