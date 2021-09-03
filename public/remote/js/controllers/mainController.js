@@ -154,8 +154,6 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                             }
                         }
                     }
-                }).catch(function onError(responseBelongsTo) {
-                    $scope.err = responseBelongsTo.data;
                 });
         }).catch(function onError(response) {
             $scope.err = response.data;
