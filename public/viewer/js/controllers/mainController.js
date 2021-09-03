@@ -4,7 +4,7 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, $window, config, $routeParams, $filter, $location, $translate, $videoService, $overlayService, $sce, $socket, _, $relationshipService) {
+app.controller("mainController", function($scope, $rootScope, $window, config, $routeParams, $filter, $location, $translate, $videoService, $locationService, $overlayService, $sce, $socket, _, $relationshipService) {
 
 
     // Init
@@ -21,7 +21,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * @param  {[type]} path [description]
      * @return {[type]}      [description]
      */
-    $scope.changeSource = function(path) {
+    $scope.changeSource = function(path, loop) {
         path = $window.location.origin + config.videoFolder + path;
         let videoExtension = path.substr(path.length - 3);
 
@@ -37,6 +37,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         pathOgg = oggpath;
         $("#video").find("#srcmp4").attr("src", pathMp4)
         $("#video").find("#srcogg").attr("src", pathOgg)
+        $("#video").find("#srcogg").attr("loop", loop)
+        $("#video").find("#srcmp4").attr("loop", loop)
         $("#video-container video")[0].load();
         var vidload = document.getElementById("video");
         vidload.onloadeddata = function() {
@@ -340,9 +342,18 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                     console.log("No preferred videos found");
                 } else {
                     $scope.current.videoStatus = true;
-
-                    // Add to video player
-                    $scope.changeSource($scope.current.video.url);
+                    if(data.location_type == 'transition') {
+                        $locationService.list_by_location(data.location_id)
+                        .then(function onSuccess(response) {
+                            $scope.connected_locations = response.data;
+                            $scope.changeSource($scope.current.video.url, false);
+                        }).catch(function onError(response) {
+                            $scope.err = response.data;
+                        });
+                    } else {
+                            // Add to video player
+                    $scope.changeSource($scope.current.video.url, true);
+                    }
                 }
             } else {
                 console.log("No videos found");
@@ -353,6 +364,22 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         });
 
     };
+
+        /**
+     * [handleFirstPlay description]
+     * @return {[type]}      [description]
+     */
+         handleTransitionEnd = function(event) {
+             console.log(event);
+            if($scope.connected_locations[0]) {
+                $socket.emit('/set/location', {
+                    location_id: $scope.connected_locations[0].location_id,
+                    location_type: $scope.connected_locations[0].location_type
+                });
+              $scope.$apply();
+            }
+          }
+    
 
 
     /**
@@ -373,7 +400,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         .then(function onSuccess(response) {
             $scope.current.video = response.data;
             // Add to video player
-            $scope.changeSource($scope.current.video.url);
+            $scope.changeSource($scope.current.video.url, true);
 
         }).catch(function onError(response) {
             $scope.err = response.data;
