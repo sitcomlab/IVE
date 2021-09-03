@@ -18,6 +18,9 @@ app.factory('$overlayService', function($http, config) {
         },
         get: function(overlay_id) {
             return $http.get(config.getApiEndpoint() + "/overlays/" + overlay_id);
+        },
+        retrieve: function(overlay_id) {
+            return $http.get(config.getApiEndpoint() + "/overlays/" + overlay_id);
         }
 
     };

@@ -18,6 +18,9 @@ app.factory('$videoService', function($http, config) {
         },
         retrieve: function(video_id) {
             return $http.get(config.getApiEndpoint() + "/videos/" + video_id);
+        },
+        get: function(video_id) {
+            return $http.get(config.getApiEndpoint() + "/videos/" + video_id);
         }
 
     };
