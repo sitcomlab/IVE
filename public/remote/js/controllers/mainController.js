@@ -78,8 +78,12 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         // Load all connected locations
         $locationService.list_by_location($scope.current.location.location_id)
         .then(function onSuccess(response) {
-            $scope.connected_locations = response.data;
-            $scope.connected_transitions = _.where(response.data, {location_type: "transition"});
+            $scope.connected_locations = _.filter(response.data, function(location) {
+                return location.location_type !== 'transition';
+            });
+            $scope.connected_transitions = _.where(response.data, {
+                location_type: 'transition'
+            });
         }).catch(function onError(response) {
             $scope.err = response.data;
         });
