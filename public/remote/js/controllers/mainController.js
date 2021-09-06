@@ -42,6 +42,50 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         $socket.emit('/set/location', { location_id: location.location_id });
     };
 
+    /**
+     * [setCurrentLocation description]
+     * @param {[type]} location [description]
+     */
+    $scope.setCurrentLocation = function(location){
+        $scope.current.location = location;
+
+        // Send socket message
+        $socket.emit('/set/location', {
+            location_id: location.location_id
+        });
+
+        // Load all related videos
+        $videoService.list_by_location($scope.current.location.location_id)
+        .then(function onSuccess(response) {
+            $scope.videos = response.data;
+
+            if($scope.videos.length !== 0){
+
+                const preferredVideo = _.findWhere($scope.videos, {
+                    preferred: true
+                });
+
+                if(preferredVideo === -1){
+                    delete $scope.current.video;
+                } else {
+                    $scope.setCurrentVideo(preferredVideo);
+                }
+            }
+        }).catch(function onError(response) {
+            $scope.err = response.data;
+        });
+
+        // Load all connected locations
+        $locationService.list_by_location($scope.current.location.location_id)
+        .then(function onSuccess(response) {
+            $scope.connected_locations = response.data;
+            $scope.connected_transitions = _.where(response.data, {location_type: "transition"});
+        }).catch(function onError(response) {
+            $scope.err = response.data;
+        });
+
+    };
+
     $scope.onSelectVideo = function(video){
         setCurrentVideo(video);
         // sync other remote clients & server state
@@ -193,7 +237,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
 
     // apply state
     $socket.on('/get/state', function(state) {
-        console.log(state)
+        console.log(state);
         const { scenario, location, video, overlay } = state
         // TODO: overlays
 
