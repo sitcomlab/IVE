@@ -97,6 +97,25 @@
 </div>
 
 
+<!-- Select transition -->
+<div ng-if="current.scenario && current.location">
+    <div class="card">
+        <h5 class="card-header">
+            {{ 'CONNECTED_TRANSITIONS' | translate }}
+        </h5>
+        <a role="button" class="list-group-item list-group-item-action" ng-repeat="connected_transition in connected_transitions | orderBy: ['name']" ng-click="setCurrentLocation(connected_transition)" ng-if="connected_transitions.length > 0">
+            {{connected_location.name}}
+        </a>
+        <div class="card-block card-block-active" ng-if="connected_transitions.length == 0">
+            <span class="text-muted">
+                {{ 'NO_CONNECTED_TRANSITIONS_FOUND' | translate }}
+            </span>
+        </div>
+    </div>
+    <br>
+</div>
+
+
 <!-- Select video -->
 <div ng-if="current.scenario && current.location">
     <div class="card">

@@ -112,6 +112,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         $locationService.list_by_location($scope.current.location.location_id)
         .then(function onSuccess(response) {
             $scope.connected_locations = response.data;
+            $scope.connected_transitions = _.where(response.data, {location_type: "transition"});
         }).catch(function onError(response) {
             $scope.err = response.data;
         });
