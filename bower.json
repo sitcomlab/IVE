@@ -27,7 +27,7 @@
     "angular-momentjs": "^0.2.2",
     "leaflet": "~0.7.x",
     "ui-leaflet": "^2.0.0",
-    "three.js": "threejs#*",
+    "threejs": "r132",
     "components-threejs": "^0.0.79",
     "ngclipboard": "^1.1.1",
     "mapbox-gl-js": "https://github.com/nicho90/mapbox-gl-js-bower.git#0.39.1",
@@ -39,8 +39,6 @@
   },
   "resolutions": {
     "angular": "1.8.0",
-    "angular-route": "1.8.0",
-    "angular-sanitize": "1.8.0",
-    "bootstrap": "v4.0.0-alpha.6"
+    "angular-sanitize": "1.8.0"
   }
 }
