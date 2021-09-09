@@ -51,10 +51,11 @@ app.use(express.static(__dirname + '/public', {
     redirect: true
 }));
 
-// Allow CORS
+// Allow CORS, disable caching for API
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Cache-Control", "no-store");
     next();
 });
 
