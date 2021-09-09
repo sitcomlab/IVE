@@ -3,7 +3,7 @@
 
     <!-- Video container -->
     <div id="video-container" ng-if="current.videoStatus">
-        <video id="video" width="100%" loop autoplay preload="none" onplay="handleFirstPlay(event)">
+        <video id="video" width="100%"  autoplay preload="none" onplay="handleFirstPlay(event)" onended="handleTransitionEnd(event)">
             <source id="srcmp4" src="" type="video/mp4" />
             <source id="srcogg" src="" type="video/ogg; codecs=theora, vorbis" />
         </video>

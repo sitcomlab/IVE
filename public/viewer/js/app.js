@@ -27,7 +27,8 @@ var app = angular.module("ive", [
     "videoService",
     "overlayService",
     "relationshipService",
-    "authenticationService"
+    "authenticationService",
+    "locationService"
 
 ]);
 
