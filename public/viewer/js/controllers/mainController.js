@@ -342,7 +342,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             return $locationService.list_by_location(data.location_id)
                 .then(function onSuccess(response) {
                     $scope.connected_locations = response.data;
-                    changeSource($scope.current.video.url, false);
+                    changeSource($scope.current.video.url);
                 }).catch(function onError(response) {
                     $scope.err = response.data;
                 });
