@@ -8,7 +8,8 @@
                     <span class="badge" ng-class="{
                         'badge-primary': location.location_type=='outdoor',
                         'badge-default': location.location_type=='indoor',
-                        'badge-success': location.location_type=='abstract'
+                        'badge-success': location.location_type=='abstract',
+                        'badge-info': connected_location.location_type=='transition'
                     }">
                         {{location.location_type}}
                     </span>
@@ -154,7 +155,8 @@
                     <span class="badge" ng-class="{
                         'badge-primary': connected_location.location_type=='outdoor',
                         'badge-default': connected_location.location_type=='indoor',
-                        'badge-success': connected_location.location_type=='abstract'
+                        'badge-success': connected_location.location_type=='abstract',
+                        'badge-info': connected_location.location_type=='transition'
                     }">
                         {{connected_location.location_type}}
                     </span>
