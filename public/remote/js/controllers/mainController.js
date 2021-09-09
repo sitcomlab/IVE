@@ -42,60 +42,11 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         $socket.emit('/set/location', { location_id: location.location_id });
     };
 
-    /**
-     * [setCurrentLocation description]
-     * @param {[type]} location [description]
-     */
-    $scope.setCurrentLocation = function(location){
-        $scope.current.location = location;
-
-        // Send socket message
-        $socket.emit('/set/location', {
-            location_id: location.location_id
-        });
-
-        // Load all related videos
-        $videoService.list_by_location($scope.current.location.location_id)
-        .then(function onSuccess(response) {
-            $scope.videos = response.data;
-
-            if($scope.videos.length !== 0){
-
-                const preferredVideo = _.findWhere($scope.videos, {
-                    preferred: true
-                });
-
-                if(preferredVideo === -1){
-                    delete $scope.current.video;
-                } else {
-                    $scope.setCurrentVideo(preferredVideo);
-                }
-            }
-        }).catch(function onError(response) {
-            $scope.err = response.data;
-        });
-
-        // Load all connected locations
-        $locationService.list_by_location($scope.current.location.location_id)
-        .then(function onSuccess(response) {
-            $scope.connected_locations = _.filter(response.data, function(location) {
-                return location.location_type !== 'transition';
-            });
-            $scope.connected_transitions = _.where(response.data, {
-                location_type: 'transition'
-            });
-        }).catch(function onError(response) {
-            $scope.err = response.data;
-        });
-
-    };
-
     $scope.onSelectVideo = function(video){
         setCurrentVideo(video);
         // sync other remote clients & server state
         $socket.emit('/set/video', { video_id: video.video_id });
     };
-
 
     $scope.toggleOverlay = function(overlay){
         for(let i = 0; i < $scope.overlays.length; i++){
@@ -162,7 +113,10 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         // Load all connected locations
         const connectedLocsP = $locationService.list_by_location($scope.current.location.location_id)
             .then(function onSuccess(response) {
-                $scope.connected_locations = response.data;
+                $scope.connected_locations = response.data
+                    .filter(location =>  location.location_type !== 'transition');
+                $scope.connected_transitions = response.data
+                    .filter(location =>  location.location_type === 'transition');
             })
 
         return Promise.all([videosP, connectedLocsP])
