@@ -48,7 +48,6 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         $socket.emit('/set/video', { video_id: video.video_id });
     };
 
-
     $scope.toggleOverlay = function(overlay){
         for(let i = 0; i < $scope.overlays.length; i++){
             if($scope.overlays[i].overlay_id === overlay.overlay_id){
@@ -114,7 +113,10 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         // Load all connected locations
         const connectedLocsP = $locationService.list_by_location($scope.current.location.location_id)
             .then(function onSuccess(response) {
-                $scope.connected_locations = response.data;
+                $scope.connected_locations = response.data
+                    .filter(location =>  location.location_type !== 'transition');
+                $scope.connected_transitions = response.data
+                    .filter(location =>  location.location_type === 'transition');
             })
 
         return Promise.all([videosP, connectedLocsP])
@@ -193,7 +195,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
 
     // apply state
     $socket.on('/get/state', function(state) {
-        console.log(state)
+        console.log(state);
         const { scenario, location, video, overlay } = state
         // TODO: overlays
 
