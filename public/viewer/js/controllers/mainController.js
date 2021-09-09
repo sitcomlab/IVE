@@ -37,8 +37,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         pathOgg = oggpath;
         $("#video").find("#srcmp4").attr("src", pathMp4)
         $("#video").find("#srcogg").attr("src", pathOgg)
-        $("#video").find("#srcogg").attr("loop", loop)
-        $("#video").find("#srcmp4").attr("loop", loop)
+        $("#video").attr("loop", loop)
         $("#video-container video")[0].load();
         var vidload = document.getElementById("video");
         vidload.onloadeddata = function() {
