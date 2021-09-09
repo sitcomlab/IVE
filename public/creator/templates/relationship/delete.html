@@ -25,7 +25,8 @@
                         <span class="badge" ng-class="{
                             'badge-primary': relationship.location_type=='outdoor',
                             'badge-default': relationship.location_type=='indoor',
-                            'badge-success': relationship.location_type=='abstract'
+                            'badge-success': relationship.location_type=='abstract',
+                            'badge-info': connected_location.location_type=='transition'
                         }">{{relationship.location_type}}</span>
                         <br>
                         <img class="previewMap" ng-src="{{ relationship.location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.location_id|findLocationById:locations).lat !== null && (relationship.location_id|findLocationById:locations).lng !== null">
@@ -55,7 +56,8 @@
                         <span class="badge" ng-class="{
                             'badge-primary': relationship.start_location_type=='outdoor',
                             'badge-default': relationship.start_location_type=='indoor',
-                            'badge-success': relationship.start_location_type=='abstract'
+                            'badge-success': relationship.start_location_type=='abstract',
+                            'badge-info': connected_location.location_type=='transition'
                         }">{{relationship.start_location_type}}</span>
                         <br>
                         <img class="previewMap" ng-src="{{ relationship.start_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.start_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.start_location_id|findLocationById:locations).lat !== null && (relationship.start_location_id|findLocationById:locations).lng !== null">
@@ -70,7 +72,8 @@
                         <span class="badge" ng-class="{
                             'badge-primary': relationship.end_location_type=='outdoor',
                             'badge-default': relationship.end_location_type=='indoor',
-                            'badge-success': relationship.end_location_type=='abstract'
+                            'badge-success': relationship.end_location_type=='abstract',
+                            'badge-info': connected_location.location_type=='transition'
                         }">{{relationship.end_location_type}}</span>
                         <br>
                         <img class="previewMap" ng-src="{{ relationship.end_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.end_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.end_location_id|findLocationById:locations).lat !== null && (relationship.end_location_id|findLocationById:locations).lng !== null">
@@ -99,7 +102,8 @@
                         <span class="badge" ng-class="{
                             'badge-primary': relationship.child_location_type=='outdoor',
                             'badge-default': relationship.child_location_type=='indoor',
-                            'badge-success': relationship.child_location_type=='abstract'
+                            'badge-success': relationship.child_location_type=='abstract',
+                            'badge-info': connected_location.location_type=='transition'
                         }">{{relationship.child_location_type}}</span>
                         <br>
                         <img class="previewMap" ng-src="{{ relationship.child_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.child_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.child_location_id|findLocationById:locations).lat !== null && (relationship.child_location_id|findLocationById:locations).lng !== null">
@@ -114,7 +118,8 @@
                         <span class="badge" ng-class="{
                             'badge-primary': relationship.parent_location_type=='outdoor',
                             'badge-default': relationship.parent_location_type=='indoor',
-                            'badge-success': relationship.parent_location_type=='abstract'
+                            'badge-success': relationship.parent_location_type=='abstract',
+                            'badge-info': connected_location.location_type=='transition'
                         }">{{relationship.parent_location_type}}</span>
                         <br>
                         <img class="previewMap" ng-src="{{ relationship.parent_location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.parent_location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.parent_location_id|findLocationById:locations).lat !== null && (relationship.parent_location_id|findLocationById:locations).lng !== null">
@@ -136,7 +141,8 @@
                         <span class="badge" ng-class="{
                             'badge-primary': relationship.location_type=='outdoor',
                             'badge-default': relationship.location_type=='indoor',
-                            'badge-success': relationship.location_type=='abstract'
+                            'badge-success': relationship.location_type=='abstract',
+                            'badge-info': connected_location.location_type=='transition'
                         }">{{relationship.location_type}}</span>
                         <br>
                         <img class="previewMap" ng-src="{{ relationship.location_id | findLocationById:locations | previewMapRequest }}" alt="{{(relationship.location_id|findLocationById:locations).name}}" style="width: 100%; height: auto; margin-top: 10px;" ng-if="(relationship.location_id|findLocationById:locations).lat !== null && (relationship.location_id|findLocationById:locations).lng !== null">
