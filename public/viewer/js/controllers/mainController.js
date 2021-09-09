@@ -4,7 +4,7 @@ var app = angular.module("ive");
 /**
  * Main Controller
  */
-app.controller("mainController", function($scope, $rootScope, $window, config, $routeParams, $filter, $location, $translate, $videoService, $locationService, $overlayService, $sce, $socket, _, $relationshipService) {
+app.controller("mainController", function ($scope, $rootScope, $window, config, $routeParams, $filter, $location, $translate, $videoService, $locationService, $overlayService, $sce, $socket, _, $relationshipService) {
 
 
     // Init
@@ -21,7 +21,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * @param  {[type]} path [description]
      * @return {[type]}      [description]
      */
-    $scope.changeSource = function(path, loop) {
+    function changeSource(path, loop) {
         path = $window.location.origin + config.videoFolder + path;
         let videoExtension = path.substr(path.length - 3);
 
@@ -37,11 +37,11 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         pathOgg = oggpath;
         $("#video").find("#srcmp4").attr("src", pathMp4)
         $("#video").find("#srcogg").attr("src", pathOgg)
-        $("#video").attr("loop", loop)
+        $("#video").attr("loop", !$scope.transition)
         $("#video-container video")[0].load();
         var vidload = document.getElementById("video");
-        vidload.onloadeddata = function() {
-            $scope.getOverlays();
+        vidload.onloadeddata = function () {
+            getOverlays();
         };
     };
 
@@ -49,7 +49,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * [play description]
      * @return {[type]}      [description]
      */
-    $scope.play = function(){
+    $scope.play = function () {
         document.querySelector("video").play();
     };
 
@@ -57,51 +57,51 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * [handleFirstPlay description]
      * @return {[type]}      [description]
      */
-    handleFirstPlay = function(event) {
-        if($scope.hasNotPlayed === true) {
-          $scope.hasNotPlayed = false;
-          $scope.$apply();
-          let vid = event.target;
-          vid.onplay = null;
+    handleFirstPlay = function (event) {
+        if ($scope.hasNotPlayed === true) {
+            $scope.hasNotPlayed = false;
+            $scope.$apply();
+            let vid = event.target;
+            vid.onplay = null;
         }
-      }
+    }
 
     // Load the overlays to the selected video
-    $scope.getOverlays = function() {
+    function getOverlays () {
         let embeddedIn
         return $relationshipService.list_by_label("embedded_in", $scope.pagination, $scope.filter)
-            .then(function(responseEmbeddedIn) {
+            .then(function (responseEmbeddedIn) {
                 embeddedIn = responseEmbeddedIn
                 $scope.filter = {};
                 $scope.filter.relationship_type = "overlay";
                 return $relationshipService.list_by_label("belongs_to", $scope.pagination, $scope.filter)
             })
-            .then(function(responseBelongsTo){
+            .then(function (responseBelongsTo) {
                 $scope.filter = undefined;
                 $scope.relationships = [];
-                for(let i = 0; i < embeddedIn.data.length; i++){
-                    if(embeddedIn.data[i].video_id === $scope.current.video.video_id){
-                        for(let k = 0; k < responseBelongsTo.data.length; k++){
-                            if(embeddedIn.data[i].overlay_id === responseBelongsTo.data[k].overlay_id && responseBelongsTo.data[k].scenario_id === $scope.scenarioId){
+                for (let i = 0; i < embeddedIn.data.length; i++) {
+                    if (embeddedIn.data[i].video_id === $scope.current.video.video_id) {
+                        for (let k = 0; k < responseBelongsTo.data.length; k++) {
+                            if (embeddedIn.data[i].overlay_id === responseBelongsTo.data[k].overlay_id && responseBelongsTo.data[k].scenario_id === $scope.scenarioId) {
                                 let exists = false;
-                                if($scope.relationships.length > 0){
-                                    for(let j = 0; j < $scope.relationships.length; j++){
-                                        if($scope.relationships[j] === embeddedIn.data[i]){
+                                if ($scope.relationships.length > 0) {
+                                    for (let j = 0; j < $scope.relationships.length; j++) {
+                                        if ($scope.relationships[j] === embeddedIn.data[i]) {
                                             exists = true;
                                         }
-                                        if(j === $scope.relationships.length - 1 && exists === false){
+                                        if (j === $scope.relationships.length - 1 && exists === false) {
                                             $scope.relationships.push(embeddedIn.data[i])
                                         }
                                     }
                                 }
-                                else{
+                                else {
                                     $scope.relationships.push(embeddedIn.data[i])
                                 }
                             }
                         }
                     }
-                    if(i === embeddedIn.data.length - 1){
-                        $scope.setOverlays();
+                    if (i === embeddedIn.data.length - 1) {
+                        setOverlays();
                     }
                 }
             });
@@ -109,13 +109,13 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
     };
 
     // Show the overlays in the overlay-container
-    $scope.setOverlays = function(){
+    function setOverlays () {
         // Setting everything to NULL, prevent loading issues
         $scope.scene = null;
         $scope.renderer = null;
         $scope.cssRenderer = null;
-        var video_container = $( '#video-container' );
-        if($scope.overlay_container){
+        var video_container = $('#video-container');
+        if ($scope.overlay_container) {
             $scope.overlay_container.remove();
             $scope.overlay_container = null;
         }
@@ -124,17 +124,17 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         video_container.after('<div id="overlay-container"></div>');
 
         // Getting the right size for the overlay-container
-        $scope.overlay_container = $( '#overlay-container' );
-        var overlay_container_width = $( '#video-container' ).width();
-        var overlay_container_height = $( '#video-container' ).height();
+        $scope.overlay_container = $('#overlay-container');
+        var overlay_container_width = $('#video-container').width();
+        var overlay_container_height = $('#video-container').height();
 
         // Creating the scene
         $scope.scene = new THREE.Scene();
 
         // Creating the camera
-        $scope.camera = new THREE.PerspectiveCamera( 75, overlay_container_width/overlay_container_height, 1, 3000 );
+        $scope.camera = new THREE.PerspectiveCamera(75, overlay_container_width / overlay_container_height, 1, 3000);
         // camera.position.set( 0, 101, 300 );
-        $scope.camera.lookAt( $scope.scene.position );
+        $scope.camera.lookAt($scope.scene.position);
         $scope.camera.position.z = 5;
 
         // Make sure that Three.js uses CORS to load external urls as textures, for example.
@@ -178,9 +178,9 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
         $scope.overlay_container.append(elementpointing);
 
         // Create Overlays
-        for(var i = 0; i < $scope.relationships.length; i++){
+        for (var i = 0; i < $scope.relationships.length; i++) {
             // If Website
-            if($scope.relationships[i].overlay_category === "website"){
+            if ($scope.relationships[i].overlay_category === "website") {
                 // Creating the iframe
                 var element = document.createElement('iframe');
                 element.src = $scope.relationships[i].overlay_url;
@@ -207,20 +207,20 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                 $scope.scene.add(objectCSS);
             }
             // If image
-            if($scope.relationships[i].overlay_category === "picture"){
+            if ($scope.relationships[i].overlay_category === "picture") {
                 // Setting the image as texture for the object
                 var path = $window.location.origin + $scope.relationships[i].overlay_url;
-                var texture = THREE.ImageUtils.loadTexture(path, {}, function() {
+                var texture = THREE.ImageUtils.loadTexture(path, {}, function () {
                     $scope.renderer.render($scope.scene);
                 });
-                var geometry = new THREE.PlaneGeometry( parseFloat($scope.relationships[i].relationship_w), parseFloat($scope.relationships[i].relationship_h));
+                var geometry = new THREE.PlaneGeometry(parseFloat($scope.relationships[i].relationship_w), parseFloat($scope.relationships[i].relationship_h));
                 var material = new THREE.MeshBasicMaterial({
                     map: texture,
                     side: THREE.DoubleSide
                 });
 
                 // Creating the object
-                var object = new THREE.Mesh(geometry, material );
+                var object = new THREE.Mesh(geometry, material);
                 object._overlay = $scope.relationships[i];
                 object.position.x = parseFloat($scope.relationships[i].relationship_x);
                 object.position.y = parseFloat($scope.relationships[i].relationship_y);
@@ -232,7 +232,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                 $scope.scene.add(object);
             }
             // If video
-            if($scope.relationships[i].overlay_category === "video"){
+            if ($scope.relationships[i].overlay_category === "video") {
                 // Creating the video element
                 var vid = document.createElement('video');
 
@@ -286,7 +286,7 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
         // Render the scene
         var render = function () {
-            requestAnimationFrame( render );
+            requestAnimationFrame(render);
             $scope.cssRenderer.render($scope.scene, $scope.camera);
             $scope.renderer.render($scope.scene, $scope.camera);
         };
@@ -298,8 +298,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * [scenario description]
      * @type {String}
      */
-    $socket.on('/set/scenario', function (data) { $scope.setScenario(data) });
-    $scope.setScenario = function(data) {
+    $socket.on('/set/scenario', function (data) { setScenario(data) });
+    function setScenario (data) {
         console.log(new Date() + " /set/scenario: " + data.scenario_id);
         $scope.scenarioId = data.scenario_id;
         $scope.current = {
@@ -313,80 +313,52 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
      * [location description]
      * @type {String}
      */
-    $socket.on('/set/location', function (data) { $scope.setLocation(data) });
-    $scope.setLocation = function(data) {
+    $socket.on('/set/location', function (data) { setLocation(data) });
+    function setLocation (data) {
         console.log(new Date() + " /set/location: " + data.location_id);
         $scope.current = {
             scenarioStatus: true,
             locationStatus: true,
             videoStatus: false
         };
-
-        // Request related video data automatically
-        $videoService.list_by_location(data.location_id)
-        .then(function onSuccess(response) {
-            $scope.videos = response.data;
-
-            // Check for videos
-            if($scope.videos.length !== 0){
-
-                // Find preferred video
-                $scope.current.video = _.findWhere($scope.videos, {
-                    preferred: true
+        if (data.location_type === 'transition') {
+            $scope.transition = true;
+            return $locationService.list_by_location(data.location_id)
+                .then(function onSuccess(response) {
+                    $scope.connected_locations = response.data;
+                    changeSource($scope.current.video.url, false);
+                }).catch(function onError(response) {
+                    $scope.err = response.data;
                 });
+        }
+        else {
+            $scope.transition = false;
+        }
+    }
 
-                // Check for preferred video
-                if($scope.current.video === -1){
-                    delete $scope.current.video;
-                    console.log("No preferred videos found");
-                } else {
-                    $scope.current.videoStatus = true;
-                    if(data.location_type == 'transition') {
-                        $locationService.list_by_location(data.location_id)
-                        .then(function onSuccess(response) {
-                            $scope.connected_locations = response.data;
-                            $scope.changeSource($scope.current.video.url, false);
-                        }).catch(function onError(response) {
-                            $scope.err = response.data;
-                        });
-                    } else {
-                            // Add to video player
-                    $scope.changeSource($scope.current.video.url, true);
-                    }
-                }
-            } else {
-                console.log("No videos found");
-            }
+    /**
+    * [handleFirstPlay description]
+    * @return {[type]}      [description]
+    */
+    handleTransitionEnd = function (event) {
+        console.log(event);
+        if ($scope.transition) {
+            $socket.emit('/set/location', {
+                location_id: $scope.connected_locations[0].location_id,
+                location_type: $scope.connected_locations[0].location_type
+            });
+            $scope.$apply();
+        }
+    }
 
-        }).catch(function onError(response) {
-            $scope.err = response.data;
-        });
-
-    };
-
-        /**
-     * [handleFirstPlay description]
-     * @return {[type]}      [description]
-     */
-         handleTransitionEnd = function(event) {
-             console.log(event);
-            if($scope.connected_locations[0]) {
-                $socket.emit('/set/location', {
-                    location_id: $scope.connected_locations[0].location_id,
-                    location_type: $scope.connected_locations[0].location_type
-                });
-              $scope.$apply();
-            }
-          }
-    
 
 
     /**
      * [video description]
      * @type {String}
      */
-    $socket.on('/set/video', function (data) { $scope.setVideo(data) });
-    $scope.setVideo = function(data) {
+    $socket.on('/set/video', function (data) { setVideo(data) });
+    function setVideo (data) {
         console.log(new Date() + " /set/video: " + data.video_id);
         $scope.current = {
             scenarioStatus: true,
@@ -396,39 +368,38 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
         // Request video data
         $videoService.get(data.video_id)
-        .then(function onSuccess(response) {
-            $scope.current.video = response.data;
-            // Add to video player
-            $scope.changeSource($scope.current.video.url, true);
-
-        }).catch(function onError(response) {
-            $scope.err = response.data;
-        });
+            .then(function onSuccess(response) {
+                $scope.current.video = response.data;
+                // Add to video player
+                changeSource($scope.current.video.url, true);
+            }).catch(function onError(response) {
+                $scope.err = response.data;
+            });
     };
 
     /**
      * [controls description]
      * @type {String}
      */
-    $socket.on('/toggle/controls', function(data) {
+    $socket.on('/toggle/controls', function (data) {
         console.log(new Date() + " /toggle/controls: " + data.status);
         $scope.controls = data.status;
     });
 
 
     // Switch overlays on and off
-    $socket.on('/toggle/overlay', function (data) { $scope.setOverlay(data) });
-    $scope.setOverlay = function(data){
-        for(let i = 0; i < $scope.scene.children.length; i++){
-            if($scope.scene.children[i].name === data.overlay_id && data.display === false){
+    $socket.on('/toggle/overlay', function (data) { setOverlay(data) });
+    function setOverlay (data) {
+        for (let i = 0; i < $scope.scene.children.length; i++) {
+            if ($scope.scene.children[i].name === data.overlay_id && data.display === false) {
                 $scope.scene.children[i].visible = false;
-                if(data.type === "website"){
+                if (data.type === "website") {
                     $('#' + data.overlay_id).css('visibility', 'hidden');
                 }
             }
-            if($scope.scene.children[i].name === data.overlay_id && data.display === true){
+            if ($scope.scene.children[i].name === data.overlay_id && data.display === true) {
                 $scope.scene.children[i].visible = true;
-                if(data.type === "website"){
+                if (data.type === "website") {
                     $('#' + data.overlay_id).css('visibility', 'visible');
                 }
             }
@@ -436,8 +407,8 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
     };
 
     // Switch pointing overlay on and off
-    $socket.on('/toggle/pointing', function (data){
-        if(data.display === true){
+    $socket.on('/toggle/pointing', function (data) {
+        if (data.display === true) {
             $('#pointing').css('visibility', 'visible');
 
         } else {
@@ -446,10 +417,10 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
     });
 
     // Live changing of the overlay
-    $socket.on('/change/values', function(data) {
-        for(let i = 0; i < $scope.scene.children.length; i++){
-            if($scope.scene.children[i]._overlay.relationship_id === data.relationship_id){
-                if($scope.scene.children[i]._overlay.overlay_category === "website"){
+    $socket.on('/change/values', function (data) {
+        for (let i = 0; i < $scope.scene.children.length; i++) {
+            if ($scope.scene.children[i]._overlay.relationship_id === data.relationship_id) {
+                if ($scope.scene.children[i]._overlay.overlay_category === "website") {
                     $scope.scene.children[i].scale.x = data.size_x * 0.01;
                     $scope.scene.children[i].scale.y = data.size_y * 0.01;
                 }
@@ -469,12 +440,12 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
     });
 
     // Replacing the overlay
-    $socket.on('/change/saveValues', function(data){
-        $scope.getOverlays();
+    $socket.on('/change/saveValues', function (data) {
+        getOverlays();
     });
 
 
-    $socket.on('/get/state', function(data){
+    $socket.on('/get/state', function (data) {
         console.log("state")
         console.log(data)
 
@@ -484,30 +455,30 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
             videoStatus: false
         };
 
-        if(data.scenario) {
+        if (data.scenario) {
             $scope.current.scenarioStatus = true;
-            $scope.setScenario(data.scenario);
+            setScenario(data.scenario);
         };
-        if(data.location) {
+        if (data.location) {
             $scope.current.locationStatus = true;
-            $scope.setLocation(data.location);
+            setLocation(data.location);
         };
-        if(data.video) {
+        if (data.video) {
             $scope.current.videoStatus = true;
-            $scope.setVideo(data.video);
+            setVideo(data.video);
         };
 
-        $scope.getOverlays().then(function(){
-            Object.keys(data.overlay).forEach(function(key){
+        getOverlays().then(function () {
+            Object.keys(data.overlay).forEach(function (key) {
                 current_overlay = {};
                 current_overlay.overlay_id = key;
                 current_overlay.display = data.overlay[key];
                 console.log(current_overlay);
-                $scope.setOverlay(current_overlay);
+                setOverlay(current_overlay);
             })
         });
 
-     });
+    });
 
-     $socket.emit('/get/state');
+    $socket.emit('/get/state');
 });
