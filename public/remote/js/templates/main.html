@@ -104,7 +104,7 @@
             {{ 'CONNECTED_TRANSITIONS' | translate }}
         </h5>
         <a role="button" class="list-group-item list-group-item-action" ng-repeat="connected_transition in connected_transitions | orderBy: ['name']" ng-click="setCurrentLocation(connected_transition)" ng-if="connected_transitions.length > 0">
-            {{connected_location.name}}
+            {{connected_transition.name}}
         </a>
         <div class="card-block card-block-active" ng-if="connected_transitions.length == 0">
             <span class="text-muted">
