@@ -21,7 +21,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
      * @param  {[type]} path [description]
      * @return {[type]}      [description]
      */
-    function changeSource(path, loop) {
+    function changeSource(path) {
         path = $window.location.origin + config.videoFolder + path;
         let videoExtension = path.substr(path.length - 3);
 
