@@ -387,7 +387,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             .then(function onSuccess(response) {
                 $scope.current.video = response.data;
                 // Add to video player
-                changeSource($scope.current.video.url, true);
+                changeSource($scope.current.video.url);
             }).catch(function onError(response) {
                 $scope.err = response.data;
             });
