@@ -465,9 +465,6 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
 
 
     $socket.on('/get/state', function(data){
-        console.log("state")
-        console.log(data.overlay[0])
-
         $scope.current_state = data;
 
         $scope.current = {
@@ -494,7 +491,6 @@ app.controller("mainController", function($scope, $rootScope, $window, config, $
                 current_overlay = {};
                 current_overlay.overlay_id = key;
                 current_overlay.display = data.overlay[key];
-                console.log(current_overlay);
                 $scope.setOverlay(current_overlay);
             })
         });
