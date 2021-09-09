@@ -106,6 +106,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                         delete $scope.current.video;
                     } else {
                         setCurrentVideo(preferredVideo);
+                        $socket.emit('/set/video', { video_id: preferredVideo.video_id });
                     }
                 }
             });
