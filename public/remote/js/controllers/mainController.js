@@ -105,7 +105,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                     if(preferredVideo === -1){
                         delete $scope.current.video;
                     } else {
-                        $scope.setCurrentVideo(preferredVideo);
+                        setCurrentVideo(preferredVideo);
                     }
                 }
             });
