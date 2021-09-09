@@ -357,7 +357,6 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
     * @return {[type]}      [description]
     */
     handleTransitionEnd = function (event) {
-        console.log(event);
         if ($scope.transition) {
             $socket.emit('/set/location', {
                 location_id: $scope.connected_locations[0].location_id,
