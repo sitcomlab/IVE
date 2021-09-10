@@ -21,6 +21,7 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
      * @return {[type]} [description]
      */
     $scope.send = function(){
+        $scope.relationship.description = '';
         // Validate input
         if($scope.createRelationshipForm.$invalid) {
             // Update UI
