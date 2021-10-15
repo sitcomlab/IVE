@@ -206,7 +206,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 objectCSS.scale.y = 0.01; // Scale it down again to show the right size
                 if(typeof $scope.current_state != "undefined") {
                     if(typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined"){
-                        object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id];
+                        objectCSS.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id];
                     }
                 }
                 $scope.scene.add(objectCSS);
