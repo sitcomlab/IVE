@@ -4,6 +4,8 @@
 var colors = require('colors');
 var io = require('./../server.js').io;
 var currentState = {"overlay":{}};
+const { videoChange, locationChange, scenarioChange } = require('../controllers/actionLogger');
+
 io.on('connection', function(socket) {
 
     // On connection
@@ -22,6 +24,7 @@ io.on('connection', function(socket) {
     // Scenario
     socket.on('/set/scenario', function(data) {
         console.log(colors.cyan(new Date() + " /set/scenario: " + JSON.stringify(data)));
+        scenarioChange(currentState.scenario, data)
         currentState.scenario = data;
         socket.broadcast.emit('/set/scenario', data);
     });
@@ -29,6 +32,7 @@ io.on('connection', function(socket) {
     // Location
     socket.on('/set/location', function(data) {
         console.log(colors.cyan(new Date() + " /set/location: " + JSON.stringify(data)));
+        locationChange(currentState.location, data)
         currentState.location = data;
         socket.broadcast.emit('/set/location', data);
     });
@@ -36,6 +40,7 @@ io.on('connection', function(socket) {
     // Video
     socket.on('/set/video', function(data) {
         console.log(colors.cyan(new Date() + " /set/video: " + JSON.stringify(data)));
+        videoChange(currentState.video, data)
         currentState.video = data;
         socket.broadcast.emit('/set/video', data);
     });
