@@ -3,6 +3,7 @@
  */
 var colors = require('colors');
 var io = require('./../server.js').io;
+var logging = false;
 var currentState = {"overlay":{}};
 const { videoChange, locationChange, scenarioChange } = require('../controllers/actionLogger');
 
@@ -17,14 +18,31 @@ io.on('connection', function(socket) {
     });
 
     // Return current State as an object
+    socket.on('/toggle/logging', function() {
+        if (logging) {
+            logging = false;
+            console.log("logging off");
+        } else {
+            logging = true;
+            console.log("logging on");
+        }
+        socket.broadcast.emit('/get/logging', logging);
+    });
+
+    // Return current State as an object
     socket.on('/get/state', function() {
         socket.emit('/get/state', currentState);
+    });
+
+    // Return current State as an object
+    socket.on('/get/logging', function() {
+        socket.emit('/get/logging', logging);
     });
 
     // Scenario
     socket.on('/set/scenario', function(data) {
         console.log(colors.cyan(new Date() + " /set/scenario: " + JSON.stringify(data)));
-        scenarioChange(currentState.scenario, data)
+        if (logging) scenarioChange(currentState.scenario, data);
         currentState.scenario = data;
         socket.broadcast.emit('/set/scenario', data);
     });
@@ -32,7 +50,7 @@ io.on('connection', function(socket) {
     // Location
     socket.on('/set/location', function(data) {
         console.log(colors.cyan(new Date() + " /set/location: " + JSON.stringify(data)));
-        locationChange(currentState.location, data)
+        if (logging) locationChange(currentState.location, data);
         currentState.location = data;
         socket.broadcast.emit('/set/location', data);
     });
@@ -40,7 +58,7 @@ io.on('connection', function(socket) {
     // Video
     socket.on('/set/video', function(data) {
         console.log(colors.cyan(new Date() + " /set/video: " + JSON.stringify(data)));
-        videoChange(currentState.video, data)
+        if (logging) videoChange(currentState.video, data);
         currentState.video = data;
         socket.broadcast.emit('/set/video', data);
     });

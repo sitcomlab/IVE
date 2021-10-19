@@ -36,6 +36,7 @@
 
         <!-- Custom styles -->
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <link href="css/switch.css" rel="stylesheet" type="text/css"/>
 
         <!-- Dependecies -->
         <script src="../bower_components/socket.io-client/dist/socket.io.js"></script>
@@ -70,7 +71,11 @@
             </nav>
 
             <div ng-show="settingsStatus" class="settings bg-inverse">
-                - {{ 'CURRENTLY' | translate }} {{ 'NO' | translate }} {{ 'SETTINGS' | translate }} -
+                    <label class="switch" >
+                        <input type="checkbox" ng-model="logging" ng-click="toggleLogging()">
+                        <span class="slider round"></span>
+                    </label>
+                    logging
             </div>
 
         </footer>
