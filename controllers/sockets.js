@@ -5,7 +5,7 @@ var colors = require('colors');
 var io = require('./../server.js').io;
 var logging = false;
 var currentState = {"overlay":{}};
-const { videoChange, locationChange, scenarioChange } = require('../controllers/actionLogger');
+const { videoChange, locationChange, scenarioChange, clearLogs, exportLogs } = require('../controllers/actionLogger');
 
 io.on('connection', function(socket) {
 
@@ -18,15 +18,19 @@ io.on('connection', function(socket) {
     });
 
     // Return current State as an object
-    socket.on('/toggle/logging', function() {
+    socket.on('/toggle/logging', async function() {
         if (logging) {
             logging = false;
+            let logs = await exportLogs()
+            socket.emit('/get/logs', logs);
+            socket.broadcast.emit('/get/logs', logs);
             console.log("logging off");
         } else {
             logging = true;
             console.log("logging on");
         }
-        socket.broadcast.emit('/get/logging', logging);
+        clearLogs();
+        socket.broadcast.emit('/get/logstate', logging);
     });
 
     // Return current State as an object

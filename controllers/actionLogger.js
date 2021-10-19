@@ -41,16 +41,30 @@ function scenarioChange (prev, curr) {
   writeToLog("" + currTime + ", Scenario, " + prevId + ", " + curr.scenario_id)
 }
 
-function exportLogs (objectType, finalize) {
-
+function exportLogs () {
+  return new Promise(function(resolve,reject){
+    fs.readFile(join(__dirname, '../public/logs/remote.csv'), 'utf8' , (err, data) => {
+      if (err) {
+        console.error(err)
+        reject();
+      }
+      resolve(data);
+    });
+  });
 }
 
-function clearLogs (objectType, finalize) {
-
+function clearLogs () {
+  fs.writeFile(join(__dirname, '../public/logs/remote.csv'), "Timestamp, Type, previous, current\n", function(err) {
+    if(err) {
+        return console.log(err);
+    }
+}); 
 }
 
 module.exports = {
   videoChange,
   locationChange,
-  scenarioChange
+  scenarioChange,
+  clearLogs,
+  exportLogs
   }

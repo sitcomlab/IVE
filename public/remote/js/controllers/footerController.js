@@ -9,7 +9,7 @@ app.controller("footerController", function($scope, $rootScope, config, $transla
 
     $scope.settingsStatus = false;
 
-    $socket.emit('/get/logging');
+    $socket.emit('/get/logstate');
 
     $scope.toggleSettings = function(){
         $scope.settingsStatus = !$scope.settingsStatus;
@@ -19,8 +19,12 @@ app.controller("footerController", function($scope, $rootScope, config, $transla
         $socket.emit('/toggle/logging', {});
     };
 
-    $socket.on('/get/logging', function(state) {
+    $socket.on('/get/logstate', function(state) {
         $scope.logging = state;
+    });
+
+    $socket.on('/get/logs', function(logs) {
+        console.log(logs)
     });
 
 });
