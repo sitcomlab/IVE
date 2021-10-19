@@ -23,22 +23,9 @@ function writeToLog(content) {
   });
 }
 
-function videoChange (prev, curr) {
+function logChange (type, prev, curr) {
   var currTime = date.getTime();
-  var prevId = (typeof prev == 'undefined') ? undefined : prev.video_id;
-  writeToLog("" + currTime + ", Video, " + prevId + ", " + curr.video_id)
-}
-
-function locationChange (prev, curr) {
-  var currTime = date.getTime();
-  var prevId = (typeof prev == 'undefined') ? undefined : prev.location_id;
-  writeToLog("" + currTime + ", Location, " + prevId + ", " + curr.location_id)
-}
-
-function scenarioChange (prev, curr) {
-  var currTime = date.getTime();
-  var prevId = (typeof prev == 'undefined') ? undefined : prev.scenario_id;
-  writeToLog("" + currTime + ", Scenario, " + prevId + ", " + curr.scenario_id)
+  writeToLog("" + currTime + ", " + type + ", " + prev + ", " + curr);
 }
 
 function exportLogs () {
@@ -54,7 +41,7 @@ function exportLogs () {
 }
 
 function clearLogs () {
-  fs.writeFile(join(__dirname, '../public/logs/remote.csv'), "Timestamp, Type, previous, current\n", function(err) {
+  fs.writeFile(join(__dirname, '../public/logs/remote.csv'), "Timestamp, Type, previous, current\r\n", function(err) {
     if(err) {
         return console.log(err);
     }
@@ -62,9 +49,7 @@ function clearLogs () {
 }
 
 module.exports = {
-  videoChange,
-  locationChange,
-  scenarioChange,
+  logChange,
   clearLogs,
   exportLogs
   }
