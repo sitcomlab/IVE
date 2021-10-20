@@ -24,7 +24,16 @@ app.controller("footerController", function($scope, $rootScope, config, $transla
     });
 
     $socket.on('/get/logs', function(logs) {
-        console.log(logs)
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(logs));
+        element.setAttribute('download', 'logs-' + (new Date()).getTime() + '.csv');
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
     });
 
 });

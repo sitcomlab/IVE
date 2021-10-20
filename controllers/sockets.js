@@ -24,7 +24,7 @@ io.on('connection', function(socket) {
             logging = false;
             // read out existing logs
             let logs = await exportLogs()
-            // and emit these logs to the clients
+            // and emit these logs to all the clients
             socket.emit('/get/logs', logs);
             socket.broadcast.emit('/get/logs', logs);
             clearLogs();
@@ -32,20 +32,31 @@ io.on('connection', function(socket) {
         } else {
             logging = true;
             clearLogs();
-            if (typeof currentState.scenario != 'undefined') 
+            // log the initial states (if they are not undefined)
+            if (typeof currentState.scenario != 'undefined') // scenario
             {
-                scenarioChange(undefined, currentState.scenario);
-                if (typeof currentState.location != 'undefined') 
+                logChange(
+                    "Scenario",
+                    undefined,
+                    currentState.scenario.scenario_id);
+                if (typeof currentState.location != 'undefined') // location
                 {
-                    locationChange(undefined, currentState.location);
-                    if (typeof currentState.video != 'undefined') 
+                    logChange(
+                        "Location",
+                        undefined,
+                        currentState.location.location_id);
+                    if (typeof currentState.video != 'undefined') // video
                     {
-                        videoChange(undefined, currentState.video);
+                        logChange(
+                            "Location",
+                            undefined,
+                            currentState.video.video_id);
                     }
                 }
             }
             console.log(new Date() + " /set/scenario: logging on");
         }
+        // comunicate to the other clients if logging is on or off
         socket.broadcast.emit('/get/logstate', logging);
     });
 
@@ -54,9 +65,9 @@ io.on('connection', function(socket) {
         socket.emit('/get/state', currentState);
     });
 
-    // Return current State as an object
-    socket.on('/get/logging', function() {
-        socket.emit('/get/logging', logging);
+    // Return if logging is on or off
+    socket.on('/get/logstate', function() {
+        socket.emit('/get/logstate', logging);
     });
 
     // Scenario
