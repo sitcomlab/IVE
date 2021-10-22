@@ -5,7 +5,7 @@ var colors = require('colors');
 var io = require('./../server.js').io;
 var logging = false;
 var currentState = {"overlay":{}};
-const { logChange, clearLogs, exportLogs } = require('../controllers/actionLogger');
+const { logState, clearLogs, exportLogs } = require('../controllers/actionLogger');
 
 io.on('connection', function(socket) {
 
@@ -29,31 +29,12 @@ io.on('connection', function(socket) {
             socket.broadcast.emit('/get/logs', logs);
             clearLogs();
             console.log(colors.cyan(new Date() + " /set/scenario: logging off"));
+        // turn on logging
         } else {
             logging = true;
-            clearLogs();
+            await clearLogs();
             // log the initial states (if they are not undefined)
-            if (typeof currentState.scenario != 'undefined') // scenario
-            {
-                logChange(
-                    "Scenario",
-                    undefined,
-                    currentState.scenario.scenario_id);
-                if (typeof currentState.location != 'undefined') // location
-                {
-                    logChange(
-                        "Location",
-                        undefined,
-                        currentState.location.location_id);
-                    if (typeof currentState.video != 'undefined') // video
-                    {
-                        logChange(
-                            "Location",
-                            undefined,
-                            currentState.video.video_id);
-                    }
-                }
-            }
+            logState(currentState);
             console.log(new Date() + " /set/scenario: logging on");
         }
         // comunicate to the other clients if logging is on or off
@@ -73,43 +54,28 @@ io.on('connection', function(socket) {
     // Scenario
     socket.on('/set/scenario', function(data) {
         console.log(colors.cyan(new Date() + " /set/scenario: " + JSON.stringify(data)));
-        if (logging) {
-            logChange(
-                "Scenario",
-                ((typeof currentState.scenario == 'undefined') ? undefined : currentState.scenario.scenario_id), 
-                ((typeof data == 'undefined') ? undefined : data.scenario_id));
-        }
         currentState.scenario = data;
+        if (logging) logState(currentState);
         socket.broadcast.emit('/set/scenario', data);
     });
 
     // Location
     socket.on('/set/location', function(data) {
         console.log(colors.cyan(new Date() + " /set/location: " + JSON.stringify(data)));
-        if (logging) {
-            logChange(
-                "Location",
-                ((typeof currentState.location == 'undefined') ? undefined : currentState.location.location_id), 
-                ((typeof data == 'undefined') ? undefined : data.location_id));
-        }
         currentState.location = data;
+        if (logging) logState(currentState);
         socket.broadcast.emit('/set/location', data);
     });
 
     // Video
     socket.on('/set/video', function(data) {
         console.log(colors.cyan(new Date() + " /set/video: " + JSON.stringify(data)));
+        currentState.video = data;
         if (logging) {
             let prevId = ((typeof currentState.video == 'undefined') ? undefined : currentState.video.video_id);
             let currId = ((typeof data == 'undefined') ? undefined : data.video_id);
-            if (prevId != currId) {
-            logChange(
-                "Video",
-                prevId, 
-                currId);
-            }
+            if (prevId != currId) logState(currentState);
         }
-        currentState.video = data;
         socket.broadcast.emit('/set/video', data);
     });
 
