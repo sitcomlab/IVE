@@ -158,6 +158,9 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                                 }
                             }
                         }
+                         $socket.emit('/set/overlays', {
+                            overlays: $scope.overlays
+                        });
                     });
             }).catch(function onError(response) {
                 $scope.err = response.data;

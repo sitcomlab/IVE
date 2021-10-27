@@ -79,10 +79,21 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('/set/video', data);
     });
 
+    // Overlays
+    socket.on('/set/overlays', function(data) {
+        console.log(colors.cyan(new Date() + " /set/overlays: " + JSON.stringify(data)));
+        currentState.overlay = {};
+        data.overlays.forEach(element => {
+            currentState.overlay[element.overlay_id] = element.display;
+        });
+        logState(currentState);
+    });
+
     // Show/Hide Overlay
     socket.on('/toggle/overlay', function(data) {
         console.log(colors.cyan(new Date() + " /toggle/overlay: " + JSON.stringify(data)));
         currentState.overlay[data.overlay_id] = data.display;
+        logState(currentState);
         socket.broadcast.emit('/toggle/overlay', data);
     });
 
