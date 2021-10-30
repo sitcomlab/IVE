@@ -1,6 +1,5 @@
 const fs = require('fs-extra')
 const { join, dirname } = require('path')
-var date = new Date();
 
 /**
  * Write content to the log file (while keeping previous entries)
@@ -34,14 +33,22 @@ function writeToLog(content) {
  * @param curr the new value
  * */ 
 function logChange (type, prev, curr) {
-  var currTime = date.getTime();
+  let currTime = new Date().getTime();
   writeToLog("" + currTime + ", " + type + ", " + prev + ", " + curr);
 }
 
 function logState (state) {
-  var currTime = date.getTime();
+  let currTime = new Date().getTime();
   let scenario_id = (typeof state.scenario != "undefined") ? state.scenario.scenario_id : "";
-  let location_id = (typeof state.location != "undefined") ? state.location.location_id : "";
+  if(typeof state.location != "undefined") {
+    var location_id = state.location.location_id;
+    var location_type = state.location.location_type;
+    var location_length = (typeof state.location.length != "undefined") ? state.location.length : "";
+  } else {
+    var location_id = "";
+    var location_type = "";
+    var location_length = "";
+  }
   let video_id = (typeof state.video != "undefined") ? state.video.video_id : "";
   let overlay_ids = "";
   for (const [key, value] of Object.entries(state.overlay)) {
@@ -56,6 +63,8 @@ function logState (state) {
   currTime + ", " + 
   scenario_id + ", " + 
   location_id + ", " + 
+  location_type + ", " + 
+  location_length + ", " + 
   video_id + ", " + 
   overlay_ids);
 }
@@ -81,7 +90,7 @@ function exportLogs () {
  */
 function clearLogs () {
   return new Promise(function(resolve,reject){
-    fs.writeFile(join(__dirname, '../public/logs/remote.csv'), "Timestamp, Scenario, Location, Video, Overlay\r\n", function(err) {
+    fs.writeFile(join(__dirname, '../public/logs/remote.csv'), "Timestamp, Scenario, Location, Location_Type, Location_Length, Video, Overlay\r\n", function(err) {
       if(err) {
           console.log(err);
           reject();

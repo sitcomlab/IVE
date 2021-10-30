@@ -10,7 +10,8 @@ var set_video = require('../controllers/handlers/set_video');
 router.get('/handlers/set/scenario/:scenario_id', set_scenario.request);
 
 // SET LOCATION
-router.get('/handlers/set/location/:location_id', set_location.request);
+router.get('/handlers/set/location/:location_id/:location_type', set_location.request);
+router.get('/handlers/set/location/:location_id/:location_type/:length', set_location.request);
 
 // SET VIDEO
 router.get('/handlers/set/video/:video_id/:description', set_video.request);

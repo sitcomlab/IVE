@@ -39,13 +39,17 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     $scope.onSelectLocation = function(location){
         setCurrentLocation(location);
         // sync other remote clients & server state
-        $socket.emit('/set/location', { location_id: location.location_id, location_type: location.location_type});
+        if(location.location_type == "transition") {
+            $socket.emit('/set/location', { location_id: location.location_id, location_type: location.location_type, length: location.length });
+        } else {
+            $socket.emit('/set/location', { location_id: location.location_id, location_type: location.location_type });
+        }
     };
 
     $scope.onSelectVideo = function(video){
         setCurrentVideo(video);
         // sync other remote clients & server state
-        $socket.emit('/set/video', { video_id: video.video_id, description: video.description });
+        $socket.emit('/set/video', { video_id: video.video_id });
     };
 
     $scope.toggleOverlay = function(overlay){
