@@ -31,6 +31,7 @@ RETURN
     end.location_uuid AS location_uuid,
     end.name AS name,
     end.description AS description,
+    end.length AS length,
     end.lat AS lat,
     end.lng AS lng,
     end.location_type AS location_type

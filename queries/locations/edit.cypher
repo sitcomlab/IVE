@@ -5,6 +5,7 @@ SET
     l.location_uuid = {location_uuid},
     l.name = {name},
     l.description = {description},
+    l.length = {length},
     l.lat = {lat},
     l.lng = {lng},
     l.location_type = {location_type}
@@ -15,6 +16,7 @@ RETURN
     l.location_uuid AS location_uuid,
     l.name AS name,
     l.description AS description,
+    l.length AS length,
     l.lat AS lat,
     l.lng AS lng,
     l.location_type AS location_type

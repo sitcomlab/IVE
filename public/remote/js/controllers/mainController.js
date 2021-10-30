@@ -45,7 +45,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     $scope.onSelectVideo = function(video){
         setCurrentVideo(video);
         // sync other remote clients & server state
-        $socket.emit('/set/video', { video_id: video.video_id });
+        $socket.emit('/set/video', { video_id: video.video_id, description: video.description });
     };
 
     $scope.toggleOverlay = function(overlay){
@@ -106,7 +106,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                         delete $scope.current.video;
                     } else {
                         setCurrentVideo(preferredVideo);
-                        $socket.emit('/set/video', { video_id: preferredVideo.video_id });
+                        $socket.emit('/set/video', { video_id: preferredVideo.video_id, description: preferredVideo.description});
                     }
                 }
             });
