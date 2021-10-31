@@ -14,7 +14,7 @@ router.get('/handlers/set/location/:location_id/:location_type', set_location.re
 router.get('/handlers/set/location/:location_id/:location_type/:length', set_location.request);
 
 // SET VIDEO
-router.get('/handlers/set/video/:video_id/:description', set_video.request);
+router.get('/handlers/set/video/:video_id/:overlays', set_video.request);
 
 
 module.exports = router;

@@ -46,10 +46,10 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         }
     };
 
-    $scope.onSelectVideo = function(video){
-        setCurrentVideo(video);
+    $scope.onSelectVideo = async function(video){
+        await setCurrentVideo(video);
         // sync other remote clients & server state
-        $socket.emit('/set/video', { video_id: video.video_id });
+        $socket.emit('/set/video', { video_id: video.video_id, overlays: $scope.overlays });
     };
 
     $scope.toggleOverlay = function(overlay){
@@ -97,7 +97,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
 
         // Load all related videos
         const videosP = $videoService.list_by_location($scope.current.location.location_id)
-            .then(function onSuccess(response) {
+            .then(async function onSuccess(response) {
                 $scope.videos = response.data;
 
                 if($scope.videos.length !== 0){
@@ -109,8 +109,8 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                     if(preferredVideo === -1){
                         delete $scope.current.video;
                     } else {
-                        setCurrentVideo(preferredVideo);
-                        $socket.emit('/set/video', { video_id: preferredVideo.video_id, description: preferredVideo.description});
+                        await setCurrentVideo(preferredVideo);
+                        $socket.emit('/set/video', { video_id: preferredVideo.video_id, overlays: $scope.overlays});
                     }
                 }
             });
@@ -162,9 +162,6 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                                 }
                             }
                         }
-                         $socket.emit('/set/overlays', {
-                            overlays: $scope.overlays
-                        });
                     });
             }).catch(function onError(response) {
                 $scope.err = response.data;

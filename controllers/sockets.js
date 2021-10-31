@@ -62,7 +62,11 @@ io.on('connection', function(socket) {
     // Location
     socket.on('/set/location', function(data) {
         console.log(colors.cyan(new Date() + " /set/location: " + JSON.stringify(data)));
+        // set location
         currentState.location = data;
+        // reset video and overlays
+        currentState.video = undefined;
+        currentState.overlay = {};
         if (logging) logState(currentState);
         socket.broadcast.emit('/set/location', data);
     });
@@ -70,23 +74,19 @@ io.on('connection', function(socket) {
     // Video
     socket.on('/set/video', function(data) {
         console.log(colors.cyan(new Date() + " /set/video: " + JSON.stringify(data)));
+        let prevId = ((typeof currentState.video == 'undefined') ? undefined : currentState.video.video_id);
+        // set video
         currentState.video = data;
-        if (logging) {
-            let prevId = ((typeof currentState.video == 'undefined') ? undefined : currentState.video.video_id);
-            let currId = ((typeof data == 'undefined') ? undefined : data.video_id);
-            if (prevId != currId) logState(currentState);
-        }
-        socket.broadcast.emit('/set/video', data);
-    });
-
-    // Overlays
-    socket.on('/set/overlays', function(data) {
-        console.log(colors.cyan(new Date() + " /set/overlays: " + JSON.stringify(data)));
+        // set overlay
         currentState.overlay = {};
         data.overlays.forEach(element => {
             currentState.overlay[element.overlay_id] = element.display;
         });
-        logState(currentState);
+        if (logging) {
+            let currId = ((typeof data == 'undefined') ? undefined : data.video_id);
+            if (prevId != currId) logState(currentState);
+        }
+        socket.broadcast.emit('/set/video', data);
     });
 
     // Show/Hide Overlay
