@@ -27,6 +27,7 @@ app.controller("locationCreateController", function($scope, $rootScope, $routePa
             $scope.createLocationForm.name.$pristine = false;
             $scope.createLocationForm.description.$pristine = false;
             $scope.createLocationForm.location_type.$pristine = false;
+            $scope.createLocationForm.length.$pristine = false;
             $scope.createLocationForm.lng.$pristine = false;
             $scope.createLocationForm.lat.$pristine = false;
         } else {

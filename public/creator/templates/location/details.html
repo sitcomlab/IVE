@@ -71,6 +71,15 @@
                                 <span class="text-muted" ng-if="location.description == null || location.description == '' ">-</span>
                             </td>
                         </tr>
+                        <tr ng-if="location.location_type == 'transition'">
+                            <th>
+                                {{ 'LENGTH' | translate }}
+                            </th>
+                            <td>
+                                <kbd ng-if="location.length != null && location.length != '' ">{{location.length}}</kbd>
+                                <span class="text-muted" ng-if="location.length == null || location.length == '' ">-</span>
+                            </td>
+                        </tr>
                         <tr>
                             <th>
                                 {{ 'LONGITUDE' | translate }}

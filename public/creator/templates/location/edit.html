@@ -77,6 +77,36 @@
                 </span>
             </div>
             <br>
+      
+            <div ng-if="location.location_type == 'transition'" class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <label>
+                        <b>{{ 'LENGTH' | translate }}</b> <sup class="text-danger">*</sup>
+                    </label>
+                    <div class="form-group" ng-class="{'has-danger': createLocationForm.length.$invalid && !createLocationForm.length.$pristine}">
+                        <input
+                            type="number"
+                            step="any"
+                            class="form-control"
+                            ng-model="location.length"
+                            name="length"
+                            id="length"
+                            placeholder="{{ 'LENGTH' | translate }}"
+                            aria-describedby="inputLength"
+                            ng-required="location.location_type=='transition' || location.location_type=='outdoor'">
+                        <span ng-show="createLocationForm.length.$error.required && !createLocationForm.length.$pristine" class="text-danger">
+                            <small>
+                                {{ 'REQUIRED' | translate }}
+                            </small>
+                        </span>
+                        <span ng-show="createLocationForm.length.$error.number && !createLocationForm.length.$pristine" class="text-danger">
+                            <small>
+                                {{ 'NOT_A_NUMBER' | translate }}
+                            </small>
+                        </span>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">

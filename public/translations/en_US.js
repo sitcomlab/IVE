@@ -62,6 +62,7 @@ app.constant("en_US", {
     _OUTDOOR: 'Outdoor',
     LONGITUDE: 'Longitude',
     LATITUDE: 'Latitude',
+    LENGTH: 'Length',
     LOCATION_TYPE: 'Location type',
     RECORDED: 'Recorded',
     THUMBNAILS: 'Thumbnails',

@@ -39,13 +39,17 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     $scope.onSelectLocation = function(location){
         setCurrentLocation(location);
         // sync other remote clients & server state
-        $socket.emit('/set/location', { location_id: location.location_id, location_type: location.location_type});
+        if(location.location_type == "transition") {
+            $socket.emit('/set/location', { location_id: location.location_id, location_type: location.location_type, length: location.length });
+        } else {
+            $socket.emit('/set/location', { location_id: location.location_id, location_type: location.location_type });
+        }
     };
 
-    $scope.onSelectVideo = function(video){
-        setCurrentVideo(video);
+    $scope.onSelectVideo = async function(video){
+        await setCurrentVideo(video);
         // sync other remote clients & server state
-        $socket.emit('/set/video', { video_id: video.video_id });
+        $socket.emit('/set/video', { video_id: video.video_id, overlays: $scope.overlays });
     };
 
     $scope.toggleOverlay = function(overlay){
@@ -93,7 +97,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
 
         // Load all related videos
         const videosP = $videoService.list_by_location($scope.current.location.location_id)
-            .then(function onSuccess(response) {
+            .then(async function onSuccess(response) {
                 $scope.videos = response.data;
 
                 if($scope.videos.length !== 0){
@@ -105,8 +109,8 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                     if(preferredVideo === -1){
                         delete $scope.current.video;
                     } else {
-                        setCurrentVideo(preferredVideo);
-                        $socket.emit('/set/video', { video_id: preferredVideo.video_id });
+                        await setCurrentVideo(preferredVideo);
+                        $socket.emit('/set/video', { video_id: preferredVideo.video_id, overlays: $scope.overlays});
                     }
                 }
             });

@@ -27,6 +27,7 @@ app.controller("locationEditController", function($scope, $rootScope, $routePara
             $scope.editLocationForm.name.$pristine = false;
             $scope.editLocationForm.description.$pristine = false;
             $scope.editLocationForm.location_type.$pristine = false;
+            $scope.editLocationForm.length.$pristine = false;
             $scope.editLocationForm.lng.$pristine = false;
             $scope.editLocationForm.lat.$pristine = false;
         } else {
