@@ -79,6 +79,7 @@ io.on('connection', function(socket) {
         currentState.video = data;
         // set overlay
         currentState.overlay = {};
+        console.log("overlays" + data.overlays);
         if(data.overlays) {
             data.overlays.forEach(element => {
                 currentState.overlay[element.overlay_id] = element.display;
