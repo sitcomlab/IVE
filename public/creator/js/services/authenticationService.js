@@ -26,6 +26,9 @@ app.factory('$authenticationService', function($http, $log, config) {
         getToken: function(){
             if (authenticated_user) return authenticated_user.token
         },
+        getRefreshToken: function(){
+            if (authenticated_user) return authenticated_user.refreshToken
+        },
         login: function(data) {
             // NOTE: we don't handle refreshing the token, so we may store expired tokens..
             // but the backend doesnt implement a route to refresh a token yet
@@ -35,6 +38,10 @@ app.factory('$authenticationService', function($http, $log, config) {
                     localStorage.setItem(user_storage_key, JSON.stringify(authenticated_user));
                     return res.data;
                 })
+        },
+        updateUser: function(data) {
+            authenticated_user = data;
+            localStorage.setItem(user_storage_key, JSON.stringify(authenticated_user));
         },
         logout: function(){
             authenticated_user = null;

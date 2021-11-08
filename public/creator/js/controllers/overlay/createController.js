@@ -1,7 +1,7 @@
 var app = angular.module("ive.upload", ['ngFileUpload']);
 
 // Overlay create controller
-app.controller("overlayCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService, Upload, $timeout) {
+app.controller("overlayCreateController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService, Upload, $timeout) {
 
     /*************************************************
         FUNCTIONS
@@ -56,13 +56,42 @@ app.controller("overlayCreateController", function($scope, $rootScope, $routePar
                 }
             });
 
+            // TODO: this nesting of requests is kind of difficult to read and debug. could be made cleaner
             file.upload.then(function (response) {
                 $timeout(function () {
                     file.result = response.data;
                 });
-            }, function (response) {
-                if (response.status > 0)
-                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, (response) => {
+                if (response.status > 0) {
+                    if (response.data == "Token expired!") {
+                        $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                        .then(res => { 
+                            $authenticationService.updateUser(res.data);
+                            file.upload = Upload.upload({
+                                url: config.getApiEndpoint() + '/overlays/uploadImage',
+                                method: 'POST',
+                                data: {file: file},
+                                headers: {
+                                    'Authorization': 'Bearer ' + res.data.token
+                                }
+                            });
+                            file.upload.then(function (response) {
+                                $timeout(function () {
+                                    file.result = response.data;
+                                });
+                            }, function (response) {
+                                if (response.status > 0) {
+                                    $scope.errorMsg = response.status + ': ' + response.data;
+                                }
+                            }, function (evt) {
+                                file.progress = Math.min(100, parseInt(100.0 *
+                                    evt.loaded / evt.total));
+                            });
+                        })
+                    } else {
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                    }
+                }
             }, function (evt) {
                 file.progress = Math.min(100, parseInt(100.0 *
                     evt.loaded / evt.total));

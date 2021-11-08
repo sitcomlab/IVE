@@ -1,10 +1,10 @@
 var colors = require('colors');
 var moment = require('moment');
-var jwt = require('jsonwebtoken');
+const { createToken } = require('./jwtHelper');
 
 
 // LOGIN
-exports.request = function(req, res) {
+exports.request = async function(req, res) {
 
     // Authentication
     if(process.env.ADMIN_USERNAME === req.body.username && process.env.ADMIN_PASSWORD === req.body.password){
@@ -16,10 +16,13 @@ exports.request = function(req, res) {
             iat: moment().unix(),
             exp: moment().add(1, 'days').unix()
         };
+        const { token, refreshToken } = await createToken(payload);
+
         // Create JWT
         var result = {
             username: process.env.ADMIN_USERNAME,
-            token: jwt.sign(payload, process.env.JWT_SECRET)
+            token: token,
+            refreshToken: refreshToken
         };
         res.status(200).send(result);
     } else {
