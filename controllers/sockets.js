@@ -79,9 +79,11 @@ io.on('connection', function(socket) {
         currentState.video = data;
         // set overlay
         currentState.overlay = {};
-        data.overlays.forEach(element => {
-            currentState.overlay[element.overlay_id] = element.display;
-        });
+        if(data.overlays) {
+            data.overlays.forEach(element => {
+                currentState.overlay[element.overlay_id] = element.display;
+            });
+        }
         if (logging) {
             let currId = ((typeof data == 'undefined') ? undefined : data.video_id);
             if (prevId != currId) logState(currentState);
