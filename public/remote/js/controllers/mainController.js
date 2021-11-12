@@ -37,7 +37,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     };
 
     $scope.onSelectLocation = function(location){
-        setCurrentLocation(location);
+        setCurrentLocation(location, undefined);
         // sync other remote clients & server state
         if(location.location_type == "transition") {
             $socket.emit('/set/location', { location_id: location.location_id, location_type: location.location_type, length: location.length });
@@ -47,7 +47,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     };
 
     $scope.onSelectVideo = async function(video){
-        await setCurrentVideo(video);
+        await setCurrentVideoOverlays(video, undefined);
         // sync other remote clients & server state
         $socket.emit('/set/video', { video_id: video.video_id, overlays: $scope.overlays });
     };
@@ -91,7 +91,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
             });
     };
 
-    function setCurrentLocation (location) {
+    function setCurrentLocation (location, overlays) {
         if (!location) return
         $scope.current.location = location;
 
@@ -109,7 +109,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                     if(preferredVideo === -1){
                         delete $scope.current.video;
                     } else {
-                        await setCurrentVideo(preferredVideo);
+                        await setCurrentVideoOverlays(preferredVideo, overlays);
                         $socket.emit('/set/video', { video_id: preferredVideo.video_id, overlays: $scope.overlays});
                     }
                 }
@@ -130,7 +130,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
             });
     };
 
-    function setCurrentVideo (video) {
+    function setCurrentVideoOverlays (video, overlay) {
         if (!video) return
         $scope.current.video = video;
 
@@ -152,11 +152,17 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                                                 exists = true;
                                             }
                                             if(j === $scope.overlays.length - 1 && !exists){
+                                                if (overlay && Object.keys(overlay).length > 0 && typeof overlay[response.data[i].overlay_id] !== "undefined") {
+                                                    response.data[i].display = overlay[response.data[i].overlay_id];
+                                                }
                                                 $scope.overlays.push(response.data[i]);
                                             }
                                         }
                                     }
                                     else{
+                                        if (overlay && Object.keys(overlay).length > 0 && typeof overlay[response.data[i].overlay_id] !== "undefined") {
+                                            response.data[i].display = overlay[response.data[i].overlay_id];
+                                        }
                                         $scope.overlays.push(response.data[i]);
                                     }
                                 }
@@ -181,7 +187,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     $socket.on('/set/location', function(data) {
         $locationService.retrieve(data.location_id)
         .then(function onSuccess(response) {
-            return setCurrentLocation(response.data);
+            return setCurrentLocation(response.data, undefined);
         }).catch(function onError(response) {
             $scope.err = response.data;
         });
@@ -191,10 +197,24 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     $socket.on('/set/video', function(data) {
         $videoService.retrieve(data.video_id)
         .then(function onSuccess(response) {
-            return setCurrentVideo(response.data);
+            let overlays = {};
+            if (data.overlays) {
+                for (let i=0; i < data.overlays.length; i++) {
+                    overlays[data.overlays[i].overlay_id] = data.overlays[i].display;
+                }
+            }
+            return setCurrentVideoOverlays(response.data, overlays);
         }).catch(function onError(response) {
             $scope.err = response.data;
         });
+    });
+
+    $socket.on('/toggle/overlay', function(data) {
+        for (let i = 0; i < $scope.overlays.length; i++) {
+            if ($scope.overlays[i].overlay_id === data.overlay_id) {
+                $scope.overlays[i].display = data.display
+            }
+        }
     });
 
 
@@ -206,8 +226,8 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
 
         Promise.all([
             setCurrentScenario(scenario),
-            setCurrentLocation(location),
-            setCurrentVideo(video),
+            setCurrentLocation(location, overlay),
+            setCurrentVideoOverlays(video, overlay)
         ]).catch(res => {
             $scope.err = res.data
         })
