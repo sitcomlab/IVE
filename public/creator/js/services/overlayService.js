@@ -262,10 +262,12 @@ app.factory('$overlayService', function($http, config, $authenticationService) {
             });
         },
         remove: function(overlay_id) {
-            data.body = { refresh: $authenticationService.getRefreshToken() };
             return $http.delete(config.getApiEndpoint() + "/overlays/" + overlay_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
+                },
+                body: {
+                    refresh: $authenticationService.getRefreshToken()
                 }
             });
         }

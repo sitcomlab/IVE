@@ -230,10 +230,12 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
             });
         },
         remove: function(relationship_id) {
-            data.body = { refresh: $authenticationService.getRefreshToken() };
             return $http.delete(config.getApiEndpoint() + "/relationships/" + relationship_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
+                },
+                body: {
+                    refresh: $authenticationService.getRefreshToken()
                 }
             });
         }

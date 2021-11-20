@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Overlay edit controller
-app.controller("overlayEditController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService) {
+app.controller("overlayEditController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
@@ -37,7 +37,24 @@ app.controller("overlayEditController", function($scope, $rootScope, $routeParam
                 $scope.redirect("/overlays/" + $scope.overlay.overlay_id);
             })
             .catch(function onError(response) {
-                $window.alert(response.data);
+                if (response.data == "Token expired!") {
+                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                    .then(res => { 
+                        $authenticationService.updateUser(res.data);
+                        $overlayService.edit($scope.overlay.overlay_id, $scope.overlay)
+                        .then(function onSuccess(response) {
+                            $scope.overlay = response.data;
+                            $scope.redirect("/overlays/" + $scope.overlay.overlay_id);
+                        })
+                        .catch(function onError(response) {
+                            if (response.status > 0) {
+                                $window.alert(response.data);
+                            }
+                        });
+                    })
+                } else {
+                    $window.alert(response.data);
+                }
             });
         }
     };

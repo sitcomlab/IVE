@@ -1,7 +1,7 @@
 var app = angular.module("ive.upload.video", ['ngFileUpload']);
 
 // Video create controller
-app.controller("videoCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $videoService, Upload, $timeout) {
+app.controller("videoCreateController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $videoService, Upload, $timeout) {
 
     /*************************************************
         FUNCTIONS
@@ -40,7 +40,24 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
                 $scope.redirect("/videos/" + $scope.video.video_id);
             })
             .catch(function onError(response) {
-                $window.alert(response.data);
+                if (response.data == "Token expired!") {
+                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                    .then(res => { 
+                        $authenticationService.updateUser(res.data);
+                        $videoService.create($scope.video)
+                        .then(function onSuccess(response) {
+                            $scope.video = response.data;
+                            $scope.redirect("/videos/" + $scope.video.video_id);
+                        })
+                        .catch(function onError(response) {
+                            if (response.status > 0) {
+                                $window.alert(response.data);
+                            }
+                        });
+                    })
+                } else {
+                    $window.alert(response.data);
+                }
             });
         }
     };
@@ -65,8 +82,36 @@ app.controller("videoCreateController", function($scope, $rootScope, $routeParam
                     file.result = response.data;
                 });
             }, function (response) {
-                if (response.status > 0)
-                    $scope.errorMsg = response.status + ': ' + response.data;
+                if (response.status > 0) {
+                    if (response.data == "Token expired!") {
+                        $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                        .then(res => { 
+                            $authenticationService.updateUser(res.data);
+                            file.upload = Upload.upload({
+                                url: config.getApiEndpoint() + '/videos/uploadVideo/' + folderUrl,
+                                method: 'POST',
+                                data: {file: file},
+                                headers: {
+                                    'Authorization': 'Bearer ' + $authenticationService.getToken()
+                                }
+                            });
+                            file.upload.then(function (response) {
+                                $timeout(function () {
+                                    file.result = response.data;
+                                });
+                            }, function (response) {
+                                if (response.status > 0) {
+                                    $scope.errorMsg = response.status + ': ' + response.data;
+                                }
+                            }, function (evt) {
+                                file.progress = Math.min(100, parseInt(100.0 *
+                                    evt.loaded / evt.total));
+                            });
+                        })
+                    } else {
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                    }
+                }
             }, function (evt) {
                 file.progress = Math.min(100, parseInt(100.0 *
                     evt.loaded / evt.total));

@@ -263,10 +263,12 @@ app.factory('$locationService', function($http, config, $authenticationService) 
             });
         },
         remove: function(location_id) {
-            data.refresh = $authenticationService.getRefreshToken();
             return $http.delete(config.getApiEndpoint() + "/locations/" + location_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
+                },
+                body: {
+                    refresh: $authenticationService.getRefreshToken()
                 }
             });
         }

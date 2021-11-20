@@ -243,10 +243,12 @@ app.factory('$videoService', function($http, config, $authenticationService) {
             });
         },
         remove: function(video_id) {
-            data.body = { refresh: $authenticationService.getRefreshToken() };
             return $http.delete(config.getApiEndpoint() + "/videos/" + video_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
+                },
+                body: {
+                    refresh: $authenticationService.getRefreshToken()
                 }
             });
         }

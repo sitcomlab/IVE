@@ -134,6 +134,9 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
             return $http.delete(config.getApiEndpoint() + "/scenarios/" + scenario_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
+                },
+                body: {
+                    refresh: $authenticationService.getRefreshToken()
                 }
             });
         }
