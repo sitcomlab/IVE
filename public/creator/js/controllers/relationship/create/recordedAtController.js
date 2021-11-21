@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Relationship recorded_at create controller
-app.controller("recordedAtCreateController", function($scope, $rootScope, $routeParams, $interval, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService, $videoService, _) {
+app.controller("recordedAtCreateController", function($http, $scope, $rootScope, $routeParams, $interval, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService, $videoService, _) {
 
     /*************************************************
         FUNCTIONS
@@ -34,7 +34,24 @@ app.controller("recordedAtCreateController", function($scope, $rootScope, $route
                 $scope.redirect("/relationships/recorded_at/" + $scope.relationship.relationship_id);
             })
             .catch(function onError(response) {
-                $window.alert(response.data);
+                if (response.data == "Token expired!") {
+                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                    .then(res => { 
+                        $authenticationService.updateUser(res.data);
+                        $relationshipService.create('recorded_at', $scope.relationship)
+                        .then(function onSuccess(response) {
+                            $scope.relationship = response.data;
+                            $scope.redirect("/relationships/recorded_at/" + $scope.relationship.relationship_id);
+                        })
+                        .catch(function onError(response) {
+                            if (response.status > 0) {
+                                $window.alert(response.data);
+                            }
+                        });
+                    })
+                } else {
+                    $window.alert(response.data);
+                }
             });
         }
     };

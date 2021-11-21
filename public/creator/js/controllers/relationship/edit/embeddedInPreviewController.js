@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Relationship embedded_in edit in preview mode controller
-app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $sce, $authenticationService, $relationshipService, $videoService, $q, $socket) {
+app.controller("embeddedInEditPreviewController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $sce, $authenticationService, $relationshipService, $videoService, $q, $socket) {
 
     /*************************************************
      FUNCTIONS
@@ -73,7 +73,27 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
                                                                                 $scope.redirect("/edit/relationships/" + $scope.relationship_label + "/" + $scope.relationship.relationship_id);
                                                                             })
                                                                             .catch(function onError(response) {
-                                                                                $window.alert(response.data);
+                                                                                if (response.data == "Token expired!") {
+                                                                                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                                                                                    .then(res => { 
+                                                                                        $authenticationService.updateUser(res.data);
+                                                                                        $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
+                                                                                        .then(function onSuccess(response) {
+                                                                                            $scope.relationship = response.data;
+                                                                                            $socket.emit('/change/saveValues', {
+                                                                                                relationship_id: $scope.relationship.relationship_id
+                                                                                            });
+                                                                                            $scope.redirect("/edit/relationships/" + $scope.relationship_label + "/" + $scope.relationship.relationship_id);
+                                                                                        })
+                                                                                        .catch(function onError(response) {
+                                                                                            if (response.status > 0) {
+                                                                                                $window.alert(response.data);
+                                                                                            }
+                                                                                        });
+                                                                                    })
+                                                                                } else {
+                                                                                    $window.alert(response.data);
+                                                                                }
                                                                             });
                                                                     })
                                                             })

@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Relationship embedded_in create controller
-app.controller("embeddedInCreateController", function($scope, $rootScope, $routeParams, $interval, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $videoService, $overlayService, _) {
+app.controller("embeddedInCreateController", function($http, $scope, $rootScope, $routeParams, $interval, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $videoService, $overlayService, _) {
 
     /*************************************************
         FUNCTIONS
@@ -58,7 +58,32 @@ app.controller("embeddedInCreateController", function($scope, $rootScope, $route
                         });
                 })
                 .catch(function onError(response) {
-                    $window.alert(response.data);
+                    if (response.data == "Token expired!") {
+                        $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                        .then(res => { 
+                            $authenticationService.updateUser(res.data);
+                            $relationshipService.create('embedded_in', $scope.relationship)
+                            .then(function onSuccess(response) {
+
+                                // Saving the BelongsTo relationship
+                                $relationshipService.create('belongs_to', $scope.relationshipBelongsTo, 'overlay')
+                                    .then(function onSuccess(responseBelongsTo) {
+                                        $scope.relationship = response.data;
+                                        $scope.redirect("/relationships/embedded_in/" + $scope.relationship.relationship_id);
+                                    })
+                                    .catch(function onError(response) {
+                                        $window.alert(response.data);
+                                    });
+                            })
+                            .catch(function onError(response) {
+                                if (response.status > 0) {
+                                    $window.alert(response.data);
+                                }
+                            });
+                        })
+                    } else {
+                        $window.alert(response.data);
+                    }
                 });
         }
     };
