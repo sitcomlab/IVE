@@ -71,11 +71,20 @@
             </nav>
 
             <div ng-show="settingsStatus" class="settings bg-inverse">
+                <div>
                     <label class="switch" >
                         <input type="checkbox" ng-model="logging" ng-click="toggleLogging()">
                         <span class="slider round"></span>
                     </label>
                     logging
+                </div>
+                <div>
+                    <label class="switch" >
+                        <input type="checkbox" ng-model="overlays" ng-click="toggleOverlays()">
+                        <span class="slider round"></span>
+                    </label>
+                    show overlays
+                </div>
             </div>
 
         </footer>

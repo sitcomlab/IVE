@@ -4,6 +4,7 @@
 var colors = require('colors');
 var io = require('./../server.js').io;
 var logging = false;
+var overlays = true;
 var currentState = {"overlay":{}};
 const { logState, clearLogs, exportLogs } = require('../controllers/actionLogger');
 
@@ -41,6 +42,27 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('/get/logstate', logging);
     });
 
+    socket.on('/toggle/overlays', async function() {
+        // turn off all overlays
+        if (overlays) {
+            overlays = false;
+            for (const [key, value] of Object.entries(currentState.overlay)) {
+                currentState.overlay[key] = false;
+                let overlay = {
+                    overlay_id: parseInt(key),
+                    display: false
+                }
+                socket.broadcast.emit('/toggle/overlay', overlay);
+                socket.emit('/toggle/overlay', overlay);
+            };
+        // turn on overlays
+        } else {
+            overlays = true;
+        }
+        // comunicate to the other clients if logging is on or off
+        socket.emit('/get/overlaystate', overlays);
+    });
+
     // Return current State as an object
     socket.on('/get/state', function() {
         socket.emit('/get/state', currentState);
@@ -49,6 +71,11 @@ io.on('connection', function(socket) {
     // Return if logging is on or off
     socket.on('/get/logstate', function() {
         socket.emit('/get/logstate', logging);
+    });
+
+    // Return if logging is on or off
+    socket.on('/get/overlaystate', function() {
+        socket.emit('/get/overlaystate', overlays);
     });
 
     // Scenario
@@ -80,20 +107,24 @@ io.on('connection', function(socket) {
         // set overlay
         currentState.overlay = {};
         data.overlays.forEach(element => {
+            element.display = (overlays) ? element.display : overlays
             currentState.overlay[element.overlay_id] = element.display;
         });
         if (logging) {
             let currId = ((typeof data == 'undefined') ? undefined : data.video_id);
             if (prevId != currId) logState(currentState);
         }
+        socket.emit('/set/video', data);
         socket.broadcast.emit('/set/video', data);
     });
 
     // Show/Hide Overlay
     socket.on('/toggle/overlay', function(data) {
         console.log(colors.cyan(new Date() + " /toggle/overlay: " + JSON.stringify(data)));
+        data.display = (overlays) ? data.display : overlays
         currentState.overlay[data.overlay_id] = data.display;
         logState(currentState);
+        socket.emit('/toggle/overlay', data);
         socket.broadcast.emit('/toggle/overlay', data);
     });
 

@@ -10,6 +10,7 @@ app.controller("footerController", function($scope, $rootScope, config, $transla
     $scope.settingsStatus = false;
 
     $socket.emit('/get/logstate');
+    $socket.emit('/get/overlaystate');
 
     $scope.toggleSettings = function(){
         $scope.settingsStatus = !$scope.settingsStatus;
@@ -18,6 +19,14 @@ app.controller("footerController", function($scope, $rootScope, config, $transla
     $scope.toggleLogging = function() {
         $socket.emit('/toggle/logging', {});
     };
+
+    $scope.toggleOverlays = function() {
+        $socket.emit('/toggle/overlays', {});
+    };
+
+    $socket.on('/get/overlaystate', function(state) {
+        $scope.overlays = state;
+    });
 
     $socket.on('/get/logstate', function(state) {
         $scope.logging = state;
