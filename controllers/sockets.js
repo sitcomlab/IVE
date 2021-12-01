@@ -4,7 +4,7 @@
 var colors = require('colors');
 var io = require('./../server.js').io;
 var logging = false;
-var overlays = true;
+var overlaysstate = true;
 var currentState = {"overlay":{}};
 const { logState, clearLogs, exportLogs } = require('../controllers/actionLogger');
 
@@ -44,10 +44,9 @@ io.on('connection', function(socket) {
 
     socket.on('/toggle/overlays', async function() {
         // turn off all overlays
-        if (overlays) {
-            overlays = false;
+        if (overlaysstate) {
             for (const [key, value] of Object.entries(currentState.overlay)) {
-                currentState.overlay[key] = false;
+                currentState.overlay[key].display = false;
                 let overlay = {
                     overlay_id: parseInt(key),
                     display: false
@@ -55,12 +54,24 @@ io.on('connection', function(socket) {
                 socket.broadcast.emit('/toggle/overlay', overlay);
                 socket.emit('/toggle/overlay', overlay);
             };
+            overlaysstate = false;
         // turn on overlays
         } else {
-            overlays = true;
+            for (const [key, value] of Object.entries(currentState.overlay)) {
+                currentState.overlay[key].display = currentState.overlay[key].default;
+                let overlay = {
+                    overlay_id: parseInt(key),
+                    display: currentState.overlay[key].default
+                }
+                socket.broadcast.emit('/toggle/overlay', overlay);
+                socket.emit('/toggle/overlay', overlay);
+            };
+            overlaysstate = true;
         }
-        // comunicate to the other clients if logging is on or off
-        socket.emit('/get/overlaystate', overlays);
+        // log that the overlays have been turned off
+        if (logging) logState(currentState);
+        // comunicate to the other clients if overlays are on or off
+        socket.emit('/get/overlaysstate', overlaysstate);
     });
 
     // Return current State as an object
@@ -74,8 +85,8 @@ io.on('connection', function(socket) {
     });
 
     // Return if logging is on or off
-    socket.on('/get/overlaystate', function() {
-        socket.emit('/get/overlaystate', overlays);
+    socket.on('/get/overlaysstate', function() {
+        socket.emit('/get/overlaysstate', overlaysstate);
     });
 
     // Scenario
@@ -107,8 +118,11 @@ io.on('connection', function(socket) {
         // set overlay
         currentState.overlay = {};
         data.overlays.forEach(element => {
-            element.display = (overlays) ? element.display : overlays
-            currentState.overlay[element.overlay_id] = element.display;
+            element.display = (overlaysstate) ? element.display : overlaysstate
+            currentState.overlay[element.overlay_id] = {
+                display: element.display,
+                default: element.display
+            }
         });
         if (logging) {
             let currId = ((typeof data == 'undefined') ? undefined : data.video_id);
@@ -121,8 +135,8 @@ io.on('connection', function(socket) {
     // Show/Hide Overlay
     socket.on('/toggle/overlay', function(data) {
         console.log(colors.cyan(new Date() + " /toggle/overlay: " + JSON.stringify(data)));
-        data.display = (overlays) ? data.display : overlays
-        currentState.overlay[data.overlay_id] = data.display;
+        data.display = (overlaysstate) ? data.display : overlaysstate
+        currentState.overlay[data.overlay_id].display = data.display;
         logState(currentState);
         socket.emit('/toggle/overlay', data);
         socket.broadcast.emit('/toggle/overlay', data);
