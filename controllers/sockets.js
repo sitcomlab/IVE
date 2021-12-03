@@ -72,9 +72,10 @@ io.on('connection', function(socket) {
         }
         // log that the overlays have been turned off
         if (logging) logState(currentState);
-        // comunicate to the other clients if overlays are on or off
-        socket.emit('/get/overlaysstate', overlaysstate);
+        // send the data to the other clients
         socket.broadcast.emit('/get/overlaysstate', overlaysstate);
+        // the data has to be sent back to the client where it came from in case the overlays were all turned off
+        socket.emit('/get/overlaysstate', overlaysstate);
     });
 
     // Return current State as an object
@@ -121,31 +122,37 @@ io.on('connection', function(socket) {
         // set overlay
         currentState.overlay = {};
         data.overlays.forEach(element => {
+            // when the video is loaded from the database it only has the property "display" but this actually is the default value 
+            // So when this is called and the default is undefined it should be set to the value of the given "display"
+            element.default = (typeof element.default == "undefined") ? element.display : element.default
+            // if all overlays are turned of the display value should also be set to false
             element.display = (overlaysstate) ? element.display : overlaysstate;
-            //TODO: set default everywhere: element.default = 
             currentState.overlay[element.overlay_id] = {
                 display: element.display,
                 default: element.default
             }
-            socket.emit('/toggle/overlay', element);
-            socket.broadcast.emit('/toggle/overlay', element);
         });
         if (logging) {
             let currId = ((typeof data == 'undefined') ? undefined : data.video_id);
             if (prevId != currId) logState(currentState);
         }
-        socket.emit('/set/video', data);
+        // send the data to the other clients
         socket.broadcast.emit('/set/video', data);
+        // the data has to be sent back to the client where it came from in case the overlays were all turned off
+        socket.emit('/set/video', data);
     });
 
     // Show/Hide Overlay
     socket.on('/toggle/overlay', function(data) {
         console.log(colors.cyan(new Date() + " /toggle/overlay: " + JSON.stringify(data)));
+        // if all overlays are turned of the display value should also be set to false
         data.display = (overlaysstate) ? data.display : overlaysstate
         currentState.overlay[data.overlay_id].display = data.display;
         logState(currentState);
-        socket.emit('/toggle/overlay', data);
+        // send the data to the other clients
         socket.broadcast.emit('/toggle/overlay', data);
+        // the data has to be sent back to the client where it came from in case the overlays were all turned off
+        socket.emit('/toggle/overlay', data);
     });
 
     // Live changing of the overlay values; change values of overlays (rotation, position, ...)
