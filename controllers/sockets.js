@@ -49,7 +49,8 @@ io.on('connection', function(socket) {
                 currentState.overlay[key].display = false;
                 let overlay = {
                     overlay_id: parseInt(key),
-                    display: false
+                    display: false,
+                    default: currentState.overlay[key].default
                 }
                 socket.broadcast.emit('/toggle/overlay', overlay);
                 socket.emit('/toggle/overlay', overlay);
@@ -61,7 +62,8 @@ io.on('connection', function(socket) {
                 currentState.overlay[key].display = currentState.overlay[key].default;
                 let overlay = {
                     overlay_id: parseInt(key),
-                    display: currentState.overlay[key].default
+                    display: currentState.overlay[key].default,
+                    default: currentState.overlay[key].default
                 }
                 socket.broadcast.emit('/toggle/overlay', overlay);
                 socket.emit('/toggle/overlay', overlay);
@@ -72,6 +74,7 @@ io.on('connection', function(socket) {
         if (logging) logState(currentState);
         // comunicate to the other clients if overlays are on or off
         socket.emit('/get/overlaysstate', overlaysstate);
+        socket.broadcast.emit('/get/overlaysstate', overlaysstate);
     });
 
     // Return current State as an object
@@ -118,11 +121,14 @@ io.on('connection', function(socket) {
         // set overlay
         currentState.overlay = {};
         data.overlays.forEach(element => {
-            element.display = (overlaysstate) ? element.display : overlaysstate
+            element.display = (overlaysstate) ? element.display : overlaysstate;
+            //TODO: set default everywhere: element.default = 
             currentState.overlay[element.overlay_id] = {
                 display: element.display,
-                default: element.display
+                default: element.default
             }
+            socket.emit('/toggle/overlay', element);
+            socket.broadcast.emit('/toggle/overlay', element);
         });
         if (logging) {
             let currId = ((typeof data == 'undefined') ? undefined : data.video_id);

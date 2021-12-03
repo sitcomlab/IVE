@@ -153,7 +153,8 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                                             }
                                             if(j === $scope.overlays.length - 1 && !exists){
                                                 if (overlay && Object.keys(overlay).length > 0 && typeof overlay[response.data[i].overlay_id] !== "undefined") {
-                                                    response.data[i].display = overlay[response.data[i].overlay_id];
+                                                    response.data[i].display = overlay[response.data[i].overlay_id].display;
+                                                    response.data[i].default = overlay[response.data[i].overlay_id].default;
                                                 }
                                                 $scope.overlays.push(response.data[i]);
                                             }
@@ -161,7 +162,8 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                                     }
                                     else{
                                         if (overlay && Object.keys(overlay).length > 0 && typeof overlay[response.data[i].overlay_id] !== "undefined") {
-                                            response.data[i].display = overlay[response.data[i].overlay_id];
+                                            response.data[i].display = overlay[response.data[i].overlay_id].display;
+                                            response.data[i].default = overlay[response.data[i].overlay_id].default;
                                         }
                                         $scope.overlays.push(response.data[i]);
                                     }
@@ -200,7 +202,9 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
             let overlays = {};
             if (data.overlays) {
                 for (let i=0; i < data.overlays.length; i++) {
-                    overlays[data.overlays[i].overlay_id] = data.overlays[i].display;
+                    overlays[data.overlays[i].overlay_id] = {}
+                    overlays[data.overlays[i].overlay_id].display = data.overlays[i].display;
+                    overlays[data.overlays[i].overlay_id].default = (typeof data.overlays[i].default != "undefined") ? data.overlays[i].default : data.overlays[i].display;
                 }
             }
             return setCurrentVideoOverlays(response.data, overlays);
@@ -213,6 +217,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
         for (let i = 0; i < $scope.overlays.length; i++) {
             if ($scope.overlays[i].overlay_id === data.overlay_id) {
                 $scope.overlays[i].display = data.display
+                $scope.overlays[i].default = data.default
             }
         }
     });
