@@ -86,6 +86,7 @@ io.on('connection', function(socket) {
             let currId = ((typeof data == 'undefined') ? undefined : data.video_id);
             if (prevId != currId) logState(currentState);
         }
+        data.length = currentState.location.length;
         socket.broadcast.emit('/set/video', data);
     });
 

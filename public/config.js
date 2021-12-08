@@ -27,6 +27,7 @@ app.constant("config", {
     videoFolder: '/videos',
     thumbnailFolder: '/thumbnails',
     thumbnailSpeed: 50,
+    walkingSpeed: 6, // meters per second
     serverMode: 'development',
     serverSettings: {
         development: {
