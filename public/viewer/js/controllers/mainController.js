@@ -211,7 +211,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 objectCSS.scale.y = 0.01; // Scale it down again to show the right size
                 if(typeof $scope.current_state != "undefined") {
                     if(typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined"){
-                        objectCSS.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id];
+                        objectCSS.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id].display;
                     }
                 }
                 $scope.scene.add(objectCSS);
@@ -241,7 +241,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 object.name = $scope.relationships[i].overlay_id;
                 if(typeof $scope.current_state != "undefined") {
                     if(typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined"){
-                        object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id];
+                        object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id].display;
                     }
                 }
                 
@@ -298,7 +298,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 object.name = $scope.relationships[i].overlay_id;
                 if(typeof $scope.current_state != "undefined") {
                     if(typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined"){
-                        object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id];
+                        object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id].display;
                     }
                 }
                 $scope.scene.add(object);
@@ -410,14 +410,19 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
     // Switch overlays on and off
     $socket.on('/toggle/overlay', function (data) { setOverlay(data) });
     function setOverlay (data) {
+        if (typeof $scope.current_state.overlay[data.overlay_id] == "undefined") {
+            $scope.current_state.overlay[data.overlay_id] = {}
+        }
+        $scope.current_state.overlay[data.overlay_id].display = data.display
+        $scope.current_state.overlay[data.overlay_id].default = data.default
         for (let i = 0; i < $scope.scene.children.length; i++) {
-            if ($scope.scene.children[i].name === data.overlay_id && data.display === false) {
+            if ($scope.scene.children[i].name == data.overlay_id && data.display === false) {
                 $scope.scene.children[i].visible = false;
                 if (data.type === "website") {
                     $('#' + data.overlay_id).css('visibility', 'hidden');
                 }
             }
-            if ($scope.scene.children[i].name === data.overlay_id && data.display === true) {
+            if ($scope.scene.children[i].name == data.overlay_id && data.display === true) {
                 $scope.scene.children[i].visible = true;
                 if (data.type === "website") {
                     $('#' + data.overlay_id).css('visibility', 'visible');
@@ -493,7 +498,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             Object.keys(data.overlay).forEach(function (key) {
                 current_overlay = {};
                 current_overlay.overlay_id = key;
-                current_overlay.display = data.overlay[key];
+                current_overlay.display = data.overlay[key].display;
                 setOverlay(current_overlay);
             })
         });

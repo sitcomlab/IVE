@@ -49,7 +49,7 @@ exports.request = function(req, res) {
                 location_uuid: location_uuid,
                 name: req.body.name,
                 description: req.body.description,
-                length: req.body.length,
+                length: (req.body.length) ? req.body.length : 0,
                 lat: req.body.lat,
                 lng: req.body.lng,
                 location_type: req.body.location_type

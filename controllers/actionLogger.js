@@ -52,7 +52,7 @@ function logState (state) {
   let video_id = (typeof state.video != "undefined") ? state.video.video_id : "";
   let overlay_ids = "";
   for (const [key, value] of Object.entries(state.overlay)) {
-    if (value) {
+    if (value.display) {
       overlay_ids += key+";";
     }
   }
