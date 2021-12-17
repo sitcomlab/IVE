@@ -136,7 +136,9 @@ io.on('connection', function(socket) {
             let currId = ((typeof data == 'undefined') ? undefined : data.video_id);
             if (prevId != currId) logState(currentState);
         }
-        // send the data to the other clients
+
+        data.length = currentState.location.length;
+      
         socket.broadcast.emit('/set/video', data);
         // the data has to be sent back to the client where it came from in case the overlays were all turned off
         socket.emit('/set/video', data);

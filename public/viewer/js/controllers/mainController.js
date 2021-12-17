@@ -21,7 +21,16 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
      * @param  {[type]} path [description]
      * @return {[type]}      [description]
      */
-    function changeSource(path) {
+    function changeSource(path, length) {
+        var vidload = document.getElementById("video");
+        vidload.onloadeddata = () => {
+            if (typeof length != "undefined") {
+                vidload.playbackRate = vidload.duration/(length/config.walkingSpeed);
+            } else {
+                vidload.playbackRate = 1;
+            }
+            getOverlays();
+        };
         path = $window.location.origin + config.videoFolder + path;
         let videoExtension = path.substr(path.length - 3);
 
@@ -39,10 +48,6 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
         $("#video").find("#srcogg").attr("src", pathOgg)
         $("#video").attr("loop", !$scope.transition)
         $("#video-container video")[0].load();
-        var vidload = document.getElementById("video");
-        vidload.onloadeddata = function () {
-            getOverlays();
-        };
     };
 
     /**
@@ -386,7 +391,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             .then(function onSuccess(response) {
                 $scope.current.video = response.data;
                 // Add to video player
-                changeSource($scope.current.video.url);
+                changeSource($scope.current.video.url, data.length);
             }).catch(function onError(response) {
                 $scope.err = response.data;
             });
@@ -484,7 +489,9 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
         };
         if (data.video) {
             $scope.current.videoStatus = true;
-            setVideo(data.video);
+            setVideo({
+                ...data.video,
+                length: data.location.length});
         };
 
         getOverlays().then(function () {
