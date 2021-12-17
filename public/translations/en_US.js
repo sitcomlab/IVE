@@ -118,6 +118,8 @@ app.constant("en_US", {
     NO_CONNECTED_LOCATIONS_FOUND: 'No connected locations found',
     NO_VIDEOS_FOUND: 'No videos found',
     NO_OVERLAYS_FOUND: 'No overlays found',
+    LOGGING: 'logging',
+    SHOW_OVERLAYS: "show overlays (not including pointing)",
 
     CURRENTLY: 'currently',
     YES: 'Yes',
