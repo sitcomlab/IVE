@@ -31,6 +31,8 @@ RETURN
     o.description AS overlay_description,
     o.category AS overlay_category,
     o.url AS overlay_url,
+    o.distance_meters AS overlay_distance_meters,
+    o.distance_seconds AS overlay_distance_seconds,
     ID(r) AS relationship_id,
     r.created AS relationship_created,
     r.updated AS relationship_updated,

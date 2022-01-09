@@ -30,7 +30,9 @@ RETURN
     o.name AS name,
     o.description AS description,
     o.category AS category,
-    o.url AS url
+    o.url AS url,
+    o.distance_meters AS distance_meters,
+    o.distance_seconds AS distance_seconds
 ORDER BY
     CASE WHEN {orderby} = 'created.asc' THEN o.created END ASC,
     CASE WHEN {orderby} = 'created.desc' THEN o.created END DESC,

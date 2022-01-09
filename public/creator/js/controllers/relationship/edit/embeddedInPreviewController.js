@@ -330,6 +330,56 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
             $scope.scene.add(control);
         }
 
+        // If Distance
+        if ($scope.relationship.overlay_category === "distance") {
+            // Create renderer and allow transparent backgroun-color
+            var renderer = new THREE.WebGLRenderer({
+                alpha: true
+            });
+            renderer.setSize(overlay_container_width, overlay_container_height);
+            renderer.domElement.style.position = 'absolute';
+            renderer.setClearColor(0xffffff, 0);
+            overlay_container.append(renderer.domElement);
+
+            var meters = $scope.relationship.overlay_distance_meters.toString();
+            var allSeconds = $scope.relationship.overlay_distance_seconds.toString();
+            var minutes = Math.floor(allSeconds / 60);
+            var seconds = allSeconds - minutes * 60;
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            context.font = "Bold 40px Arial";
+            context.fillStyle = "rgba(255,0,0,0.95)";
+            context.fillText(meters + " m", 0, 40);
+            context.fillText(minutes + ":" + seconds, 0, 80);
+
+            var texture = new THREE.Texture(canvas) 
+            texture.needsUpdate = true;
+            
+            var material = new THREE.MeshBasicMaterial( {map: texture, side:THREE.DoubleSide } );
+            material.transparent = true;
+
+            // Creating the object
+            $scope.object = new THREE.Mesh(
+                new THREE.PlaneGeometry(parseFloat($scope.relationship.relationship_w), parseFloat($scope.relationship.relationship_h)),
+                material);
+            $scope.object._overlay = $scope.relationship;
+            $scope.object.position.x = parseFloat($scope.relationship.relationship_x);
+            $scope.object.position.y = parseFloat($scope.relationship.relationship_y);
+            $scope.object.position.z = parseFloat($scope.relationship.relationship_z);
+            $scope.object.rotation.x = parseFloat($scope.relationship.relationship_rx);
+            $scope.object.rotation.y = parseFloat($scope.relationship.relationship_ry);
+            $scope.object.rotation.z = parseFloat($scope.relationship.relationship_rz);
+            $scope.scene.add($scope.object);
+
+            // Setting the controls for the object
+            control = new THREE.TransformControls(camera, renderer.domElement);
+            // control.addEventListener('change', render );
+            control.addEventListener('change', valuesChanged );
+
+            control.attach($scope.object);
+            $scope.scene.add(control);
+        }
+
         // Switching the controls on and off
         window.addEventListener( 'keydown', function ( event ) {
             switch ( event.keyCode ) {
@@ -393,7 +443,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
             control.update();
             requestAnimationFrame( render );
 
-            if($scope.relationship.overlay_category === "picture"){
+            if($scope.relationship.overlay_category === "picture" || $scope.relationship.overlay_category === "distance"){
                 renderer.render($scope.scene, camera);
             }
             if($scope.relationship.overlay_category === "website"){
