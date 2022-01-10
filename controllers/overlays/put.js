@@ -50,7 +50,9 @@ exports.request = function(req, res) {
                 name: req.body.name,
                 description: req.body.description,
                 category: req.body.category,
-                url: req.body.url
+                url: req.body.url,
+                distance_meters: req.body.distance_meters,
+                distance_seconds: req.body.distance_seconds
             };
 
             callback(null, params);

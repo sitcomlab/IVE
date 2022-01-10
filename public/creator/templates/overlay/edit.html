@@ -66,6 +66,7 @@
                         <option value="website">{{ '_WEBSITE' | translate}}</option>
                         <option value="picture">{{ '_PICTURE' | translate}}</option>
                         <option value="video">{{ '_VIDEO' | translate}}</option>
+                        <option value="distance">{{ '_DISTANCE' | translate}}</option>
                     </select>
                 </div>
                 <span ng-show="editOverlayForm.category.$error.required && !editOverlayForm.category.$pristine" class="text-danger">
@@ -76,30 +77,84 @@
             </div>
             <br>
 
-            <label>
-                <b>{{ 'URL' | translate }}</b> <sup class="text-danger">*</sup>
-            </label>
-            <div class="form-group" ng-class="{'has-danger': editOverlayForm.url.$invalid && !editOverlayForm.url.$pristine}">
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-file-image-o" aria-hidden="true" ng-if="overlay.category == 'picture'"></i>
-                        <i class="fa fa-file-video-o" aria-hidden="true" ng-if="overlay.category == 'video'"></i>
-                        <i class="fa fa-external-link" aria-hidden="true" ng-if="overlay.category == 'website'"></i>
+            <div ng-if="overlay.category != 'distance'">
+                <label>
+                    <b>{{ 'URL' | translate }}</b> <sup class="text-danger">*</sup>
+                </label>
+                <div class="form-group" ng-class="{'has-danger': editOverlayForm.url.$invalid && !editOverlayForm.url.$pristine}">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-file-image-o" aria-hidden="true" ng-if="overlay.category == 'picture'"></i>
+                            <i class="fa fa-file-video-o" aria-hidden="true" ng-if="overlay.category == 'video'"></i>
+                            <i class="fa fa-external-link" aria-hidden="true" ng-if="overlay.category == 'website'"></i>
+                        </div>
+                        <input
+                            class="form-control"
+                            ng-model="overlay.url"
+                            name="url"
+                            id="url"
+                            placeholder="{{ 'URL' | translate }}"
+                            aria-describedby="inputUrl"
+                            required>
                     </div>
-                    <input
-                        class="form-control"
-                        ng-model="overlay.url"
-                        name="url"
-                        id="url"
-                        placeholder="{{ 'URL' | translate }}"
-                        aria-describedby="inputUrl"
-                        required>
+                    <span ng-show="editOverlayForm.url.$error.required && !editOverlayForm.url.$pristine" class="text-danger">
+                        <small>
+                            {{ 'REQUIRED' | translate }}
+                        </small>
+                    </span>
                 </div>
-                <span ng-show="editOverlayForm.url.$error.required && !editOverlayForm.url.$pristine" class="text-danger">
-                    <small>
-                        {{ 'REQUIRED' | translate }}
-                    </small>
-                </span>
+            </div>
+            <div ng-if="overlay.category == 'distance'">
+                <label>
+                    <b>{{ 'IN_METERS' | translate }}</b> <sup class="text-danger">*</sup>
+                </label>
+                <div class="form-group" ng-class="{'has-danger': createOverlayForm.distance_meters.$invalid && !createOverlayForm.distance_meters.$pristine }">
+                    <input
+                        type="number"
+                        step="any"
+                        class="form-control"
+                        ng-model="overlay.distance_meters"
+                        name="distance_meters"
+                        id="distance_meters"
+                        placeholder="{{ 'METERS' | translate }}"
+                        aria-describedby="inputDistanceMeters"
+                        ng-required="overlay.category=='distance'">
+                    <span ng-show="createOverlayForm.distance_meters.$error.required && !createOverlayForm.distance_meters.$pristine" class="text-danger">
+                        <small>
+                            {{ 'REQUIRED' | translate }}
+                        </small>
+                    </span>
+                    <span ng-show="createOverlayForm.distance_meters.$error.number && !createOverlayForm.distance_meters.$pristine" class="text-danger">
+                        <small>
+                            {{ 'NOT_A_NUMBER' | translate }}
+                        </small>
+                    </span>
+                </div>
+                <label>
+                    <b>{{ 'IN_SECONDS' | translate }}</b> <sup class="text-danger">*</sup>
+                </label>
+                <div class="form-group" ng-class="{'has-danger': createOverlayForm.distance_seconds.$invalid && !createOverlayForm.distance_seconds.$pristine }">
+                    <input
+                        type="number"
+                        step="any"
+                        class="form-control"
+                        ng-model="overlay.distance_seconds"
+                        name="distance_seconds"
+                        id="distance_seconds"
+                        placeholder="{{ 'SECONDS' | translate }}"
+                        aria-describedby="inputDistanceSeconds"
+                        ng-required="overlay.category=='distance'">
+                    <span ng-show="createOverlayForm.distance_seconds.$error.required && !createOverlayForm.distance_seconds.$pristine" class="text-danger">
+                        <small>
+                            {{ 'REQUIRED' | translate }}
+                        </small>
+                    </span>
+                    <span ng-show="createOverlayForm.distance_seconds.$error.number && !createOverlayForm.distance_seconds.$pristine" class="text-danger">
+                        <small>
+                            {{ 'NOT_A_NUMBER' | translate }}
+                        </small>
+                    </span>
+                </div>
             </div>
 
         </div>

@@ -303,6 +303,50 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 }
                 $scope.scene.add(object);
             }
+            // If Distance
+            if ($scope.relationships[i].overlay_category === "distance") {
+
+                var meters = $scope.relationships[i].overlay_distance_meters.toString();
+                var allSeconds = $scope.relationships[i].overlay_distance_seconds.toString();
+                var minutes = Math.floor(allSeconds / 60);
+                var seconds = allSeconds - minutes * 60;
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+                context.font = "Bold 40px Arial";
+                context.fillStyle = "rgba(255,0,0,0.95)";
+                context.fillText(meters + " m", 0, 40);
+                if (seconds < 10) {
+                    context.fillText(minutes + ":" + "0" + seconds + " min", 0, 80)
+                } else {
+                    context.fillText(minutes + ":" + seconds + " min", 0, 80)
+                };
+
+                var texture = new THREE.Texture(canvas) 
+                texture.needsUpdate = true;
+                
+                var material = new THREE.MeshBasicMaterial( {map: texture, side:THREE.DoubleSide } );
+                material.transparent = true;
+
+                // Creating the object
+                var object = new THREE.Mesh(
+                    new THREE.PlaneGeometry(parseFloat($scope.relationships[i].relationship_w), parseFloat($scope.relationships[i].relationship_h)),
+                    material);
+                object._overlay = $scope.relationships[i];
+                object.position.x = parseFloat($scope.relationships[i].relationship_x);
+                object.position.y = parseFloat($scope.relationships[i].relationship_y);
+                object.position.z = parseFloat($scope.relationships[i].relationship_z);
+                object.rotation.x = parseFloat($scope.relationships[i].relationship_rx);
+                object.rotation.y = parseFloat($scope.relationships[i].relationship_ry);
+                object.rotation.z = parseFloat($scope.relationships[i].relationship_rz);
+                object.name = $scope.relationships[i].overlay_id;
+                if(typeof $scope.current_state != "undefined") {
+                    if(typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined"){
+                        object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id];
+                    }
+                }
+                
+                $scope.scene.add(object);
+            }
         }
 
         // Render the scene
