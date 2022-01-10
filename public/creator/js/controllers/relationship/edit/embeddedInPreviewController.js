@@ -350,7 +350,11 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
             context.font = "Bold 40px Arial";
             context.fillStyle = "rgba(255,0,0,0.95)";
             context.fillText(meters + " m", 0, 40);
-            context.fillText(minutes + ":" + seconds, 0, 80);
+            if (seconds < 10) {
+                 context.fillText(minutes + ":" + "0" + seconds + " min", 0, 80)
+            } else {
+                 context.fillText(minutes + ":" + seconds + " min", 0, 80)
+            };
 
             var texture = new THREE.Texture(canvas) 
             texture.needsUpdate = true;
