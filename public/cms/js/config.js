@@ -25,5 +25,6 @@ app.constant("config", {
         password: 'pass'
     },
     thumbnailFolder: '/thumbnails',
-    thumbnailSpeed: 50
+    thumbnailSpeed: 50,
+    walkingSpeed: 1.42 // meters per second
 });

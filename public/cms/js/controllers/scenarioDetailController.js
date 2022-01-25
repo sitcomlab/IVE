@@ -1032,7 +1032,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
     $scope.distanceValueChanged= function(value) {
         console.log("Value changed "+ value);
         if(value != undefined) {
-            $scope.newOverlay.distance_seconds = Math.round(value / 1.42); // Assign after calculation
+            $scope.newOverlay.distance_seconds = Math.round(value / config.walkingSpeed); // Assign after calculation
         }
         else{
             $scope.newOverlay.distance_seconds = undefined;
