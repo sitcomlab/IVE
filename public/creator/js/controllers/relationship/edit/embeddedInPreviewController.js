@@ -444,8 +444,6 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
         // Render the scene
         var render = function () {
-            control.update();
-            requestAnimationFrame( render );
 
             if($scope.relationship.overlay_category === "picture" || $scope.relationship.overlay_category === "distance"){
                 renderer.render($scope.scene, camera);
@@ -469,6 +467,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
                 renderer.render($scope.scene, camera);
             }
         };
+        control.addEventListener( 'change', render );
         render();
     };
 

@@ -766,8 +766,6 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
 
         // Render the scene
         var render = function () {
-            control.update();
-            requestAnimationFrame( render );
 
             if($scope.relationship.overlay_category === "picture" || $scope.relationship.overlay_category === "video" || $scope.relationship.overlay_category === "object" || $scope.relationship.overlay_category === "distance"){
                 renderer.render($scope.scene, camera);
@@ -788,6 +786,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
                 $scope.objectCSS.scale.y = $scope.object.scale.y / 100; // Scale it down again to show the right size
             }
         };
+        control.addEventListener( 'change', render );
         render();
     };
 
