@@ -955,8 +955,6 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
 
         // Render the scene
         var render = function () {
-            control.update();
-            requestAnimationFrame( render );
 
             if($scope.relationship.overlay_category === "picture" || $scope.relationship.overlay_category === "video" || $scope.relationship.overlay_category === "object"){
                 renderer.render($scope.scene, camera);
@@ -977,6 +975,8 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
                 $scope.objectCSS.scale.y = $scope.object.scale.y / 100; // Scale it down again to show the right size
             }
         };
+        
+        control.addEventListener( 'change', render );
         render();
     };
 

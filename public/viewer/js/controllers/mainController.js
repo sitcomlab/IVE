@@ -351,11 +351,31 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
 
         // Render the scene
         var render = function () {
-            requestAnimationFrame(render);
             $scope.cssRenderer.render($scope.scene, $scope.camera);
             $scope.renderer.render($scope.scene, $scope.camera);
         };
 
+        // Update the scene
+        var updateOverlayScene = function () {
+            const width = $('#video-container').width();
+            const height = $('#video-container').height();
+            $scope.camera.aspect = width / height;
+            $scope.camera.updateProjectionMatrix();
+            $scope.renderer.setSize(width, height);
+            setCanvasDimensions($scope.renderer.domElement, width, height);
+            render();
+        };
+
+        // Adjust Canvas dimesnions to video canvas
+        var setCanvasDimensions = function(canvas, width, height) {
+            canvas.width = width;
+            canvas.height = height;
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
+        };
+ 
+        // Listen to window resize events to update content
+        window.addEventListener( 'resize', updateOverlayScene, false );
         render();
     };
 
