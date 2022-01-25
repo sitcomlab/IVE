@@ -22,7 +22,7 @@ app.constant("config", {
     html5Mode: true,
     creatorLogin: {
         username: 'admin',
-        password: 'admin'
+        password: 'pass'
     },
     thumbnailFolder: '/thumbnails',
     thumbnailSpeed: 50
