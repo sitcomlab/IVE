@@ -593,6 +593,62 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
             $scope.scene.add(control);
         }
 
+        
+        // If Distance
+        if ($scope.relationship.overlay_category === "distance") {
+            // Create renderer and allow transparent backgroun-color
+            var renderer = new THREE.WebGLRenderer({
+                alpha: true
+            });
+            renderer.setSize(overlay_container_width, overlay_container_height);
+            renderer.domElement.style.position = 'absolute';
+            renderer.setClearColor(0xffffff, 0);
+            overlay_container.append(renderer.domElement);
+
+            var meters = $scope.relationship.overlay_distance_meters.toString();
+            var allSeconds = $scope.relationship.overlay_distance_seconds.toString();
+            var minutes = Math.floor(allSeconds / 60);
+            var seconds = allSeconds - minutes * 60;
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            context.font = "Bold 40px Arial";
+            context.fillStyle = "rgba(255,0,0,0.95)";
+            context.fillText(meters + " m", 0, 40);
+            if (seconds < 10) {
+                    context.fillText(minutes + ":" + "0" + seconds + " min", 0, 80)
+            } else {
+                    context.fillText(minutes + ":" + seconds + " min", 0, 80)
+            };
+
+            var texture = new THREE.Texture(canvas) 
+            texture.needsUpdate = true;
+            
+            var material = new THREE.MeshBasicMaterial( {map: texture, side:THREE.DoubleSide } );
+            material.transparent = true;
+
+            // Creating the object
+            $scope.object = new THREE.Mesh(
+                new THREE.PlaneGeometry(parseFloat($scope.relationship.relationship_w), parseFloat($scope.relationship.relationship_h)),
+                material);
+            $scope.object._overlay = $scope.relationship;
+            $scope.object.position.x = parseFloat($scope.relationship.relationship_x);
+            $scope.object.position.y = parseFloat($scope.relationship.relationship_y);
+            $scope.object.position.z = parseFloat($scope.relationship.relationship_z);
+            $scope.object.rotation.x = parseFloat($scope.relationship.relationship_rx);
+            $scope.object.rotation.y = parseFloat($scope.relationship.relationship_ry);
+            $scope.object.rotation.z = parseFloat($scope.relationship.relationship_rz);
+            $scope.scene.add($scope.object);
+
+            // Setting the controls for the object
+            control = new THREE.TransformControls(camera, renderer.domElement);
+            // control.addEventListener('change', render );
+            control.addEventListener('change', valuesChanged );
+
+            control.attach($scope.object);
+            $scope.scene.add(control);
+        }
+        
+
         // if overlay is an object
         if($scope.relationship.overlay_category === "object"){
             // Create renderer and allow transparent background-color
@@ -713,7 +769,7 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
             control.update();
             requestAnimationFrame( render );
 
-            if($scope.relationship.overlay_category === "picture" || $scope.relationship.overlay_category === "video" || $scope.relationship.overlay_category === "object"){
+            if($scope.relationship.overlay_category === "picture" || $scope.relationship.overlay_category === "video" || $scope.relationship.overlay_category === "object" || $scope.relationship.overlay_category === "distance"){
                 renderer.render($scope.scene, camera);
             }
             if($scope.relationship.overlay_category === "website"){
@@ -972,6 +1028,16 @@ app.controller("scenarioDetailController", function ($scope, $rootScope, $route,
             });
         }
     };
+
+    $scope.distanceValueChanged= function(value) {
+        console.log("Value changed "+ value);
+        if(value != undefined) {
+            $scope.newOverlay.distance_seconds = Math.round(value / 1.42); // Assign after calculation
+        }
+        else{
+            $scope.newOverlay.distance_seconds = undefined;
+        }
+    }
 
     $scope.submitNewOverlay = function (overlay) {
         $overlayService.create(overlay)

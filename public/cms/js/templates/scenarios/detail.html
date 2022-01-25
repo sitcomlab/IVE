@@ -182,6 +182,7 @@
                         <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'website'">Website</a>
                         <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'video'">Video</a>
                         <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'object'">.obj Object</a>
+                        <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'distance'">Distance</a>
                     </div>
                 </div>
             </div>
@@ -234,6 +235,35 @@
                     </span>
                 </div>
                 {{errorMsg}}
+            </div>
+            <div ng-if="newOverlay.category == 'distance'">
+                <label for="url-input" class="col-2 col-form-label">Distance :</label>
+                <div class="col-10">
+                    <input
+                        type="number"
+                        step="any"
+                        class="form-control"
+                        ng-model="newOverlay.distance_meters"
+                        name="distance_meters"
+                        id="distance_meters"
+                        placeholder="'METERS'"
+                        ng-change="distanceValueChanged(newOverlay.distance_meters)"
+                        aria-describedby="inputDistanceMeters"
+                        ng-required="newOverlay.category=='distance'">
+                </div>
+                <label for="url-input" class="col-2 col-form-label">Duration :</label>
+                <div class="col-10">
+                    <input
+                        type="number"
+                        step="any"
+                        class="form-control"
+                        ng-model="newOverlay.distance_seconds"
+                        name="distance_seconds"
+                        id="distance_seconds"
+                        placeholder="'SECONDS'"
+                        aria-describedby="inputDistanceSeconds"
+                        ng-required="newOverlay.category=='distance'">
+                </div>
             </div>
             <button type="button" class="btn btn-secondary float-left" ng-click="redirect('/scenario/'+scenario.scenario_id)"><i class="fa fa-caret-left" aria-hidden="true"></i> Cancel</button>
             <button type="submit" class="btn btn-secondary float-right" ng-click="submitNewOverlay(newOverlay)">Create Overlay <i class="fa fa-caret-right" aria-hidden="true"></i></button>
