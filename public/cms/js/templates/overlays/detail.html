@@ -44,10 +44,22 @@
                     <input class="form-control" type="text" ng-model="overlay.tags" id="tags-input" disabled>
                 </div>
             </div>
-            <div class="form-group row">
+            <div ng-if="overlay.category != 'distance'" class="form-group row">
                 <label for="url-input" class="col-2 col-form-label">URL:</label>
                 <div class="col-10">
                     <input class="form-control" type="string" ng-model="overlay.url" id="url-input" disabled>
+                </div>
+            </div>
+            <div ng-if="overlay.category == 'distance'" class="form-group row">
+                <label for="url-input" class="col-2 col-form-label">Distance:</label>
+                <div class="col-10">
+                    <input class="form-control" type="string" ng-model="overlay.distance_meters" id="url-input" disabled>
+                </div>
+            </div>
+            <div ng-if="overlay.category == 'distance'" class="form-group row">
+                <label for="url-input" class="col-2 col-form-label">Duration:</label>
+                <div class="col-10">
+                    <input class="form-control" type="string" ng-model="overlay.distance_seconds" id="url-input" disabled>
                 </div>
             </div>
             <div class="form-group row">
