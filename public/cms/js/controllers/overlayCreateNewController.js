@@ -45,7 +45,6 @@ app.controller("overlayCreateNewController", function ($scope, $rootScope, $wind
     }
 
     $scope.distanceValueChanged= function(value) {
-        console.log("Value changed "+ value);
         if(value != undefined) {
             $scope.newOverlay.distance_seconds = Math.round(value / config.walkingSpeed); // Assign after calculation
         }
