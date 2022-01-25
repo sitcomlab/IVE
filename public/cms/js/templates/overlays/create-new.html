@@ -35,6 +35,7 @@
                     <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'website'">Website</a>
                     <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'video'">Video</a>
                     <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'object'">.obj Object</a>
+                    <a class="dropdown-item" href="#" ng-click="newOverlay.category = 'distance'">Distance</a>
                 </div>
             </div>
         </div>
@@ -85,6 +86,36 @@
                 <span class="progress" ng-show="f.progress >= 0">
                         <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></div>
                     </span>
+            </div>
+            {{errorMsg}}
+        </div>
+        <div ng-if="newOverlay.category == 'distance'">
+            <label for="url-input" class="col-2 col-form-label">Distance :</label>
+            <div class="col-10">
+                <input
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    ng-model="newOverlay.distance_meters"
+                    name="distance_meters"
+                    id="distance_meters"
+                    placeholder="'METERS'"
+                    ng-change="distanceValueChanged(newOverlay.distance_meters)"
+                    aria-describedby="inputDistanceMeters"
+                    ng-required="newOverlay.category=='distance'">
+            </div>
+            <label for="url-input" class="col-2 col-form-label">Duration :</label>
+            <div class="col-10">
+                <input
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    ng-model="newOverlay.distance_seconds"
+                    name="distance_seconds"
+                    id="distance_seconds"
+                    placeholder="'SECONDS'"
+                    aria-describedby="inputDistanceSeconds"
+                    ng-required="newOverlay.category=='distance'">
             </div>
             {{errorMsg}}
         </div>
