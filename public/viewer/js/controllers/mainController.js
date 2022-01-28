@@ -374,10 +374,8 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             canvas.style.height = `${height}px`;
         };
  
-        // window.setTimeout(render, 200)
         // Listen to window resize events to update content
         window.addEventListener( 'resize', updateOverlayScene, false );
-        updateOverlayScene();
         render();
     };
 
@@ -495,6 +493,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 }
             }
         }
+        $scope.renderer.render($scope.scene, $scope.camera);
     };
 
     // Switch pointing overlay on and off
