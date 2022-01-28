@@ -744,7 +744,7 @@ app.controller("scenarioCreateNewController", function ($scope, config, $authent
             // Setting the image as texture for the object
             var path = $window.location.origin + $scope.relationship.overlay_url;
             var texture = THREE.ImageUtils.loadTexture(path, {}, function() {
-                renderer.render($scope.scene);
+                renderer.render($scope.scene, camera);
             });
             var geometry = new THREE.PlaneGeometry( parseFloat($scope.relationship.relationship_w), parseFloat($scope.relationship.relationship_h));
             var material = new THREE.MeshBasicMaterial({
