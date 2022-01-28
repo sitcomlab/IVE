@@ -220,8 +220,8 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             if ($scope.relationships[i].overlay_category === "picture") {
                 // Setting the image as texture for the object
                 var path = $window.location.origin + $scope.relationships[i].overlay_url;
-                var texture = THREE.ImageUtils.loadTexture(path, {}, function () {
-                    $scope.renderer.render($scope.scene);
+                var texture = THREE.ImageUtils.loadTexture( path, {}, function() {
+                    $scope.renderer.render($scope.scene, $scope.camera);
                 });
                 var geometry = new THREE.PlaneGeometry(parseFloat($scope.relationships[i].relationship_w), parseFloat($scope.relationships[i].relationship_h));
                 var material = new THREE.MeshBasicMaterial({
@@ -493,6 +493,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 }
             }
         }
+        $scope.renderer.render($scope.scene, $scope.camera);
     };
 
     // Switch pointing overlay on and off
