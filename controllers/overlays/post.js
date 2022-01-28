@@ -32,8 +32,8 @@ exports.request = function(req, res) {
                 description: req.body.description,
                 category: req.body.category,
                 url: req.body.url,
-                distance_meters: req.body.distance_meters,
-                distance_seconds: req.body.distance_seconds
+                distance_meters: (req.body.distance_meters) ? req.body.distance_meters : 0,
+                distance_seconds: (req.body.distance_seconds) ? req.body.distance_seconds : 0,
             };
 
             callback(null, params);

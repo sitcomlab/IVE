@@ -11,3 +11,4 @@ _site
 .sass-cache
 log.txt
 build.js
+public/logs/*
