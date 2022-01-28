@@ -7,8 +7,8 @@ SET
     o.description = {description},
     o.category = {category},
     o.url = {url},
-    distance_meters = {distance_meters},
-    distance_seconds = {distance_seconds}
+    o.distance_meters = {distance_meters},
+    o.distance_seconds = {distance_seconds}
 RETURN
     ID(o) AS overlay_id,
     o.created AS created,
