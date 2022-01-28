@@ -25,7 +25,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
         var vidload = document.getElementById("video");
         vidload.onloadeddata = () => {
             if (typeof length != "undefined") {
-                vidload.playbackRate = vidload.duration/(length/config.walkingSpeed);
+                vidload.playbackRate = vidload.duration/(length/(config.walkingSpeed * config.playbackFactor));
             } else {
                 vidload.playbackRate = 1;
             }
