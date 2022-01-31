@@ -79,7 +79,7 @@ app.controller("overlayOverviewController", function ($scope, $rootScope, $windo
                         var current_overlay = $scope.overlays[i];
                         if (current_overlay.name.toLowerCase().search('(' + normalized + ')') != -1) match = true;
                         if (current_overlay.description) { 
-                            if (current_overlay.description?.toLowerCase().search('(' + normalized + ')') != -1) match = true;
+                            if (current_overlay.description.toLowerCase().search('(' + normalized + ')') != -1) match = true;
                         }
                         if (match) searchResults.push(current_overlay);
                     }
