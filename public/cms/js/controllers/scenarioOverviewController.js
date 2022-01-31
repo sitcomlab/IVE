@@ -100,7 +100,9 @@ app.controller("scenarioOverviewController", function ($scope, $rootScope, $wind
                         var match = false;
                         var current_scenario = $scope.scenarios[i];
                         if (current_scenario.name.toLowerCase().search('(' + normalized + ')') !== -1) match = true;
-                        if (current_scenario.description.toLowerCase().search('(' + normalized + ')') !== -1) match = true;
+                        if(current_scenario.description) {
+                            if (current_scenario.description.toLowerCase().search('(' + normalized + ')') !== -1) match = true;
+                        }
                         if (match) searchResults.push(current_scenario);
                     }
                     $scope.scenarios = searchResults;

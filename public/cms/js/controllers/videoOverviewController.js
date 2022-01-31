@@ -81,7 +81,9 @@ app.controller("videoOverviewController", function ($scope, $rootScope, $window,
                         var match = false;
                         var current_video = $scope.videos[i];
                         if (current_video.name.toLowerCase().search('(' + normalized + ')') != -1) match = true;
-                        if (current_video.description.toLowerCase().search('(' + normalized + ')') != -1) match = true;
+                        if (current_video.description) { 
+                            if (current_video.description.toLowerCase().search('(' + normalized + ')') != -1) match = true;
+                        }
                         if (match) searchResults.push(current_video);
                     }
                     $scope.videos = searchResults;

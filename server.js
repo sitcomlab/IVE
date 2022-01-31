@@ -110,6 +110,9 @@ app.get('/', function(req, res, next) {
 app.get('/creator/*', function(req, res, next) {
     res.sendFile(path.resolve('public/creator/index.html'));
 });
+app.get('/cms/*', function(req, res, next) {
+    res.sendFile(path.resolve('public/cms/index.html'));
+});
 app.get('/viewer/*', function(req, res, next) {
     res.sendFile(path.resolve('public/viewer/index.html'));
 });
