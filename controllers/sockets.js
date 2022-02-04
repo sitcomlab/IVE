@@ -46,27 +46,33 @@ io.on('connection', function(socket) {
         // turn off all overlays
         if (overlaysstate) {
             for (const [key, value] of Object.entries(currentState.overlay)) {
-                currentState.overlay[key].display = false;
-                let overlay = {
-                    overlay_id: parseInt(key),
-                    display: false,
-                    default: currentState.overlay[key].default
+                let currentOverlay = currentState.overlay[key];
+                if (currentOverlay.category != "distance") {
+                    currentOverlay.display = false;
+                    let overlay = {
+                        overlay_id: parseInt(key),
+                        display: false,
+                        default: currentOverlay.default
+                    }
+                    socket.broadcast.emit('/toggle/overlay', overlay);
+                    socket.emit('/toggle/overlay', overlay);
                 }
-                socket.broadcast.emit('/toggle/overlay', overlay);
-                socket.emit('/toggle/overlay', overlay);
             };
             overlaysstate = false;
         // turn on overlays
         } else {
             for (const [key, value] of Object.entries(currentState.overlay)) {
-                currentState.overlay[key].display = currentState.overlay[key].default;
-                let overlay = {
-                    overlay_id: parseInt(key),
-                    display: currentState.overlay[key].default,
-                    default: currentState.overlay[key].default
+                let currentOverlay = currentState.overlay[key];
+                if (currentOverlay.category != "distance") {
+                    currentOverlay.display = currentOverlay.default;
+                    let overlay = {
+                        overlay_id: parseInt(key),
+                        display: currentOverlay.default,
+                        default: currentOverlay.default
+                    }
+                    socket.broadcast.emit('/toggle/overlay', overlay);
+                    socket.emit('/toggle/overlay', overlay);
                 }
-                socket.broadcast.emit('/toggle/overlay', overlay);
-                socket.emit('/toggle/overlay', overlay);
             };
             overlaysstate = true;
         }
@@ -129,7 +135,8 @@ io.on('connection', function(socket) {
             element.display = (overlaysstate) ? element.display : overlaysstate;
             currentState.overlay[element.overlay_id] = {
                 display: element.display,
-                default: element.default
+                default: element.default,
+                category: element.category
             }
         });
         if (logging) {
@@ -148,7 +155,7 @@ io.on('connection', function(socket) {
     socket.on('/toggle/overlay', function(data) {
         console.log(colors.cyan(new Date() + " /toggle/overlay: " + JSON.stringify(data)));
         // if all overlays are turned of the display value should also be set to false
-        data.display = (overlaysstate) ? data.display : overlaysstate
+        data.display = (overlaysstate || currentState.overlay[data.overlay_id].category == "distance") ? data.display : overlaysstate
         currentState.overlay[data.overlay_id].display = data.display;
         logState(currentState);
         // send the data to the other clients
