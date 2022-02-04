@@ -330,7 +330,7 @@
             </div>
             <!--Show videos with coordinates-->
             <div class="row" ng-hide="videoIndoor">
-                <div ng-repeat="video in videosCoord" class="col-md-4 video">
+                <div ng-repeat="video in videosCoord track by $index" class="col-md-4 video">
                     <a href="" ng-click="addListVideo(video)">
                         <p>{{video.name}}</p>
                         <img
