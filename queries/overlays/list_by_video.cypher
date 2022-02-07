@@ -13,6 +13,7 @@ RETURN
     o.description AS description,
     o.category AS category,
     o.url AS url,
+    o.title AS title,
     o.distance_meters AS distance_meters,
     o.distance_seconds AS distance_seconds,
     r.display AS display

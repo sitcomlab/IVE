@@ -51,6 +51,7 @@ exports.request = function(req, res) {
                 description: req.body.description,
                 category: req.body.category,
                 url: req.body.url,
+                title: req.body.title,
                 distance_meters: (req.body.distance_meters) ? req.body.distance_meters : 0,
                 distance_seconds: (req.body.distance_seconds) ? req.body.distance_seconds : 0,
             };
