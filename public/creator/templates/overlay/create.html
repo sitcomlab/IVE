@@ -135,6 +135,25 @@
             </div>
             <div ng-if="overlay.category == 'distance'">
                 <label>
+                    <b>{{ 'TITLE' | translate }}</b> <sup class="text-danger">*</sup>
+                </label>
+                <div class="form-group" ng-class="{'has-danger': createOverlayForm.distance_meters.$invalid && !createOverlayForm.distance_meters.$pristine }">
+                    <input
+                        step="any"
+                        class="form-control"
+                        ng-model="overlay.title"
+                        name="title"
+                        id="title"
+                        placeholder="{{ 'TITLE' | translate }}"
+                        aria-describedby="inputTitle"
+                        ng-required="overlay.category=='distance'">
+                    <span ng-show="createOverlayForm.title.$error.required && !createOverlayForm.title.$pristine" class="text-danger">
+                        <small>
+                            {{ 'REQUIRED' | translate }}
+                        </small>
+                    </span>
+                </div>
+                <label>
                     <b>{{ 'IN_METERS' | translate }}</b> <sup class="text-danger">*</sup>
                 </label>
                 <div class="form-group" ng-class="{'has-danger': createOverlayForm.distance_meters.$invalid && !createOverlayForm.distance_meters.$pristine }">

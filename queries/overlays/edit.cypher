@@ -7,6 +7,7 @@ SET
     o.description = {description},
     o.category = {category},
     o.url = {url},
+    o.title = {title},
     o.distance_meters = {distance_meters},
     o.distance_seconds = {distance_seconds}
 RETURN
@@ -18,6 +19,7 @@ RETURN
     o.description AS description,
     o.category AS category,
     o.url AS url,
+    o.title AS title,
     o.distance_meters AS distance_meters,
     o.distance_seconds AS distance_seconds
 ;

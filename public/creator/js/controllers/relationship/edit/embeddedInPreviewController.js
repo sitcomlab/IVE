@@ -347,13 +347,23 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
             var seconds = allSeconds - minutes * 60;
             var canvas = document.createElement('canvas');
             var context = canvas.getContext('2d');
+            context.font = "Bold 45px Arial";
+            context.fillStyle = "rgba(255,255,255,1)";
+            context.strokeStyle = 'black';
+            context.lineWidth = 10;
+            if ($scope.relationship.overlay_title) {
+                context.strokeText($scope.relationship.overlay_title, 10, 40);
+                context.fillText($scope.relationship.overlay_title, 10, 40);
+            }
             context.font = "Bold 40px Arial";
-            context.fillStyle = "rgba(255,0,0,0.95)";
-            context.fillText(meters + " m", 0, 40);
+            context.strokeText(meters + " m", 5, 95);
+            context.fillText(meters + " m", 5, 95);
             if (seconds < 10) {
-                 context.fillText(minutes + ":" + "0" + seconds + " min", 0, 80)
+                 context.strokeText(minutes + ":" + "0" + seconds + " min", 5, 135);
+                 context.fillText(minutes + ":" + "0" + seconds + " min", 5, 135)
             } else {
-                 context.fillText(minutes + ":" + seconds + " min", 0, 80)
+                 context.strokeText(minutes + ":" + seconds + " min", 5, 135);
+                 context.fillText(minutes + ":" + seconds + " min", 5, 135)
             };
 
             var texture = new THREE.Texture(canvas) 

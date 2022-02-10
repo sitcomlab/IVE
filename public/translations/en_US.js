@@ -72,6 +72,7 @@ app.constant("en_US", {
     EXAMPLE: 'Example',
     WEBSITE: 'website',
     _WEBSITE: 'Website',
+    TITLE: 'Title',
     _DISTANCE: 'Distance',
     IN_METERS: 'in meters',
     IN_SECONDS: 'in seconds',
