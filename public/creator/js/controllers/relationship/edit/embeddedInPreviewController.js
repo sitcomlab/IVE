@@ -351,9 +351,9 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
             context.fillStyle = "rgba(255,255,255,1)";
             context.strokeStyle = 'black';
             context.lineWidth = 10;
-            if ($scope.relationships[i].overlay_title) {
-                context.strokeText($scope.relationships[i].overlay_title, 10, 40);
-                context.fillText($scope.relationships[i].overlay_title, 10, 40);
+            if ($scope.relationship.overlay_title) {
+                context.strokeText($scope.relationship.overlay_title, 10, 40);
+                context.fillText($scope.relationship.overlay_title, 10, 40);
             }
             context.font = "Bold 40px Arial";
             context.strokeText(meters + " m", 5, 95);
