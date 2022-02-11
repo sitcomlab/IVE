@@ -29,7 +29,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             } else {
                 vidload.playbackRate = 1;
             }
-            getOverlays();
+            $socket.emit('/get/overlaysstate');
         };
         path = $window.location.origin + config.videoFolder + path;
         let videoExtension = path.substr(path.length - 3);
@@ -209,10 +209,10 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 objectCSS.name = $scope.relationships[i].overlay_id;
                 objectCSS.scale.x = 0.01; // Scale it down again to show the right size
                 objectCSS.scale.y = 0.01; // Scale it down again to show the right size
-                if(typeof $scope.current_state != "undefined") {
-                    if(typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined"){
-                        objectCSS.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id].display;
-                    }
+                if(typeof $scope.current_state != "undefined" && typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined") {
+                    objectCSS.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id].display;
+                } else if (typeof $scope.overlaystate != "undefined") {
+                    object.visible = $scope.overlaystate;
                 }
                 $scope.scene.add(objectCSS);
             }
@@ -239,10 +239,10 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 object.rotation.y = parseFloat($scope.relationships[i].relationship_ry);
                 object.rotation.z = parseFloat($scope.relationships[i].relationship_rz);
                 object.name = $scope.relationships[i].overlay_id;
-                if(typeof $scope.current_state != "undefined") {
-                    if(typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined"){
-                        object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id].display;
-                    }
+                if(typeof $scope.current_state != "undefined" && typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined") {
+                    object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id].display;
+                } else if (typeof $scope.overlaystate != "undefined") {
+                    object.visible = $scope.overlaystate;
                 }
                 
                 $scope.scene.add(object);
@@ -296,10 +296,10 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                 object.rotation.y = parseFloat($scope.relationships[i].relationship_ry);
                 object.rotation.z = parseFloat($scope.relationships[i].relationship_rz);
                 object.name = $scope.relationships[i].overlay_id;
-                if(typeof $scope.current_state != "undefined") {
-                    if(typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined"){
-                        object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id].display;
-                    }
+                if(typeof $scope.current_state != "undefined" && typeof $scope.current_state.overlay[$scope.relationships[i].overlay_id] != "undefined") {
+                    object.visible = $scope.current_state.overlay[$scope.relationships[i].overlay_id].display;
+                } else if (typeof $scope.overlaystate != "undefined") {
+                    object.visible = $scope.overlaystate;
                 }
                 $scope.scene.add(object);
             }
@@ -403,6 +403,15 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             videoStatus: false
         };
     };
+
+    /**
+     * [scenario description]
+     * @type {String}
+     */
+     $socket.on('/get/overlaysstate', function (data) { 
+        $scope.overlaystate = data
+        getOverlays()
+        });
 
     /**
      * [location description]
