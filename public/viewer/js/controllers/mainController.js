@@ -449,7 +449,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             $socket.emit('/set/location', {
                 location_id: $scope.connected_locations[0].location_id,
                 location_type: $scope.connected_locations[0].location_type,
-                location_name: $scope.connected_locations[0].location_name
+                location_name: $scope.connected_locations[0].name
             });
             $scope.$apply();
         }
