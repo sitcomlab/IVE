@@ -115,7 +115,8 @@ io.on('connection', function(socket) {
         // reset video and overlays
         currentState.video = undefined;
         currentState.overlay = {};
-        if (logging) logState(currentState);
+        // switch of location logging, to not have duplicate entries (since all locations have preferred videos and therefore the video will trigger a log entry)
+        // if (logging) logState(currentState);
         socket.broadcast.emit('/set/location', data);
     });
 
