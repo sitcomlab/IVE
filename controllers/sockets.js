@@ -32,7 +32,7 @@ io.on('connection', function(socket) {
         // turn on logging
         } else {
             logging = true;
-            await clearLogs();
+            clearLogs();
             // log the initial states (if they are not undefined)
             logState(currentState);
             console.log(new Date() + " /set/scenario: logging on");
@@ -114,7 +114,8 @@ io.on('connection', function(socket) {
         // reset video and overlays
         currentState.video = undefined;
         currentState.overlay = {};
-        if (logging) logState(currentState);
+        // switch of location logging, to not have duplicate entries (since all locations have preferred videos and therefore the video will trigger a log entry)
+        // if (logging) logState(currentState);
         socket.broadcast.emit('/set/location', data);
     });
 
@@ -135,7 +136,11 @@ io.on('connection', function(socket) {
             currentState.overlay[element.overlay_id] = {
                 display: element.display,
                 default: element.default,
-                category: element.category
+                category: element.category,
+                name: element.name,
+                title: element.title,
+                distance_meters: element.distance_meters,
+                distance_seconds: element.distance_seconds,
             }
         });
         if (logging) {

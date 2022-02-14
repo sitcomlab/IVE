@@ -33,23 +33,29 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
     $scope.onSelectScenario = function(scenario){
         setCurrentScenario(scenario);
         // sync other remote clients & server state
-        $socket.emit('/set/scenario', { scenario_id: scenario.scenario_id });
+        $socket.emit('/set/scenario', { scenario_id: scenario.scenario_id,
+        scenario_name: scenario.name });
     };
 
     $scope.onSelectLocation = function(location){
         setCurrentLocation(location, undefined);
         // sync other remote clients & server state
         if(location.location_type == "transition") {
-            $socket.emit('/set/location', { location_id: location.location_id, location_type: location.location_type, length: location.length });
+            $socket.emit('/set/location', { location_id: location.location_id, 
+                location_type: location.location_type, 
+                location_length: location.length,
+                location_name: location.name });
         } else {
-            $socket.emit('/set/location', { location_id: location.location_id, location_type: location.location_type });
+            $socket.emit('/set/location', { location_id: location.location_id, 
+                location_type: location.location_type,
+                location_name: location.name });
         }
     };
 
     $scope.onSelectVideo = async function(video){
         await setCurrentVideoOverlays(video, undefined);
         // sync other remote clients & server state
-        $socket.emit('/set/video', { video_id: video.video_id, overlays: $scope.overlays });
+        $socket.emit('/set/video', { video_id: video.video_id, video_name: video.name, overlays: $scope.overlays });
     };
 
     $scope.toggleOverlay = function(overlay){
@@ -110,7 +116,7 @@ app.controller("mainController", function($scope, $rootScope, config, $routePara
                         delete $scope.current.video;
                     } else {
                         await setCurrentVideoOverlays(preferredVideo, overlays);
-                        $socket.emit('/set/video', { video_id: preferredVideo.video_id, overlays: $scope.overlays});
+                        $socket.emit('/set/video', { video_id: preferredVideo.video_id, video_name: preferredVideo.name, overlays: $scope.overlays});
                     }
                 }
             });
