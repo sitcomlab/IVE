@@ -1,30 +1,6 @@
 const fs = require('fs-extra')
 const { join, dirname } = require('path')
-
-/**
- * Write content to the log file (while keeping previous entries)
- * @param content content to be added to the file
- */
-function writeToLog(content) {
-  fs.open(join(__dirname, '../public/logs/remote.csv'), 'a', 666, function( err, id ) {
-    if (err) {
-      console.error(err)
-      return
-    }
-    fs.write( id, content + "\n", null, 'utf8', function(err){
-      if (err) {
-        console.error(err)
-        return
-      }
-      fs.close(id, err => {
-          if (err) {
-            console.error(err)
-            return
-          }
-        });
-    });
-  });
-}
+var log = []
 
 /** 
  * log a change
@@ -38,35 +14,45 @@ function logChange (type, prev, curr) {
 }
 
 function logState (state) {
-  let currTime = new Date().getTime();
-  let scenario_id = (typeof state.scenario != "undefined") ? state.scenario.scenario_id : "";
-  if(typeof state.location != "undefined") {
-    var location_id = state.location.location_id;
-    var location_type = state.location.location_type;
-    var location_length = (typeof state.location.length != "undefined") ? state.location.length : "";
-  } else {
-    var location_id = "";
-    var location_type = "";
-    var location_length = "";
+  let logEntry = {
+    "timestamp": new Date().getTime(),
   }
-  let video_id = (typeof state.video != "undefined") ? state.video.video_id : "";
-  let overlay_ids = "";
+  if (typeof state.scenario != "undefined") {
+    logEntry["scenario"] = {
+      "id": state.scenario.scenario_id,
+      "name": state.scenario.scenario_name
+    };
+  }
+  if(typeof state.location != "undefined") {
+    logEntry["location"] = {
+      "id": state.location.location_id,
+      "name": state.location.location_name,
+      "type": state.location.location_type
+    };
+    if (typeof state.location.location_length != "undefined") {
+      logEntry.location["length"] = state.location.location_length
+    }
+  } 
+  if(typeof state.video != "undefined"){
+    logEntry["video"] = {
+      "id": state.video.video_id,
+      "name": state.video.video_name
+    };
+  }
+  logEntry["overlays"] = [];
   for (const [key, value] of Object.entries(state.overlay)) {
     if (value.display) {
-      overlay_ids += key+";";
+      logEntry["overlays"].push({
+        "id": key,
+        "category":value.category,
+        "name":value.name,
+        "title":value.title,
+        "distance_meters":value.distance_meters,
+        "distance_seconds":value.distance_seconds,
+      })
     }
   }
-  if (overlay_ids != null && overlay_ids.length > 0) {
-    overlay_ids = overlay_ids.substring(0, overlay_ids.length - 1);
-  }
-  writeToLog("" + 
-  currTime + ", " + 
-  scenario_id + ", " + 
-  location_id + ", " + 
-  location_type + ", " + 
-  location_length + ", " + 
-  video_id + ", " + 
-  overlay_ids);
+  log.push(logEntry)
 }
 
 /**
@@ -75,13 +61,20 @@ function logState (state) {
  */
 function exportLogs () {
   return new Promise(function(resolve,reject){
-    fs.readFile(join(__dirname, '../public/logs/remote.csv'), 'utf8' , (err, data) => {
-      if (err) {
-        console.error(err)
-        reject();
+    fs.writeFile(join(__dirname, '../public/logs/remote.json'), JSON.stringify(log), 'utf8', function(err) {
+      if(err) {
+          console.log(err);
+          reject();
       }
-      resolve(data);
-    });
+      log = []
+      fs.readFile(join(__dirname, '../public/logs/remote.json'), 'utf8' , (err, data) => {
+        if (err) {
+          console.error(err)
+          reject();
+        }
+        resolve(data);
+      });
+    }); 
   });
 }
 
@@ -89,15 +82,7 @@ function exportLogs () {
  * clear the log file and write the first row
  */
 function clearLogs () {
-  return new Promise(function(resolve,reject){
-    fs.writeFile(join(__dirname, '../public/logs/remote.csv'), "Timestamp, Scenario, Location, Location_Type, Location_Length, Video, Overlay\r\n", function(err) {
-      if(err) {
-          console.log(err);
-          reject();
-      }
-      resolve();
-    }); 
-  });
+  log = [];
 }
 
 module.exports = {
