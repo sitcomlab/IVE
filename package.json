@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/sitcomlab/IVE#readme",
   "dependencies": {
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "body-parser": "^1.15.2",
     "colors": "^1.1.2",
     "connect-multiparty": "^2.2.0",
