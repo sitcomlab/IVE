@@ -4,8 +4,7 @@
 var colors = require('colors');
 var io = require('./../server.js').io;
 var logging = false;
-var overlaysstate = true;
-var currentState = {"overlay":{}};
+var currentState = {"overlay":{}, "overlaysstate":true};
 const { logState, clearLogs, exportLogs } = require('../controllers/actionLogger');
 
 io.on('connection', function(socket) {
@@ -44,7 +43,7 @@ io.on('connection', function(socket) {
 
     socket.on('/toggle/overlays', async function() {
         // turn off all overlays
-        if (overlaysstate) {
+        if (currentState.overlaysstate) {
             for (const [key, value] of Object.entries(currentState.overlay)) {
                 let currentOverlay = currentState.overlay[key];
                 if (currentOverlay.category != "distance") {
@@ -58,7 +57,7 @@ io.on('connection', function(socket) {
                     socket.emit('/toggle/overlay', overlay);
                 }
             };
-            overlaysstate = false;
+            currentState.overlaysstate = false;
         // turn on overlays
         } else {
             for (const [key, value] of Object.entries(currentState.overlay)) {
@@ -74,14 +73,14 @@ io.on('connection', function(socket) {
                     socket.emit('/toggle/overlay', overlay);
                 }
             };
-            overlaysstate = true;
+            currentState.overlaysstate = true;
         }
         // log that the overlays have been turned off
         if (logging) logState(currentState);
         // send the data to the other clients
-        socket.broadcast.emit('/get/overlaysstate', overlaysstate);
+        socket.broadcast.emit('/get/overlaysstate', currentState.overlaysstate);
         // the data has to be sent back to the client where it came from in case the overlays were all turned off
-        socket.emit('/get/overlaysstate', overlaysstate);
+        socket.emit('/get/overlaysstate', currentState.overlaysstate);
     });
 
     // Return current State as an object
@@ -96,7 +95,7 @@ io.on('connection', function(socket) {
 
     // Return if logging is on or off
     socket.on('/get/overlaysstate', function() {
-        socket.emit('/get/overlaysstate', overlaysstate);
+        socket.emit('/get/overlaysstate', currentState.overlaysstate);
     });
 
     // Scenario
@@ -133,7 +132,7 @@ io.on('connection', function(socket) {
             // So when this is called and the default is undefined it should be set to the value of the given "display"
             element.default = (typeof element.default == "undefined") ? element.display : element.default
             // if all overlays are turned of the display value should also be set to false
-            element.display = (overlaysstate) ? element.display : overlaysstate;
+            element.display = (currentState.overlaysstate) ? element.display : currentState.overlaysstate;
             currentState.overlay[element.overlay_id] = {
                 display: element.display,
                 default: element.default,
@@ -150,7 +149,7 @@ io.on('connection', function(socket) {
         }
 
         data.length = currentState.location.length;
-    
+        
         socket.broadcast.emit('/set/video', data);
         // the data has to be sent back to the client where it came from in case the overlays were all turned off
         socket.emit('/set/video', data);
@@ -160,7 +159,7 @@ io.on('connection', function(socket) {
     socket.on('/toggle/overlay', function(data) {
         console.log(colors.cyan(new Date() + " /toggle/overlay: " + JSON.stringify(data)));
         // if all overlays are turned of the display value should also be set to false
-        data.display = (overlaysstate || currentState.overlay[data.overlay_id].category == "distance") ? data.display : overlaysstate
+        data.display = (currentState.overlaysstate || currentState.overlay[data.overlay_id].category == "distance") ? data.display : currentState.overlaysstate
         currentState.overlay[data.overlay_id].display = data.display;
         logState(currentState);
         // send the data to the other clients
