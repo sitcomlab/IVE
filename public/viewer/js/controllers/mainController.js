@@ -361,6 +361,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
 
         // Render the scene
         var render = function () {
+            requestAnimationFrame(render);
             $scope.cssRenderer.render($scope.scene, $scope.camera);
             $scope.renderer.render($scope.scene, $scope.camera);
         };
