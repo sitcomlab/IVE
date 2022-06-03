@@ -22,6 +22,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
      */
 
     $scope.save = function(){
+        $scope.overlayVideo.pause();
         $scope.scene.updateMatrixWorld(true);
 
         // Getting translation, rotation, scale
@@ -275,6 +276,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
             // Create the video element
             var vid = document.createElement('video');
+            $scope.overlayVideo = vid;
 
             // Setting the path to the video
             var path = $window.location.origin + $scope.relationship.overlay_url;
@@ -454,7 +456,6 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
         // Render the scene
         var render = function () {
-
             if($scope.relationship.overlay_category === "picture" || $scope.relationship.overlay_category === "distance"){
                 renderer.render($scope.scene, camera);
             }
@@ -521,6 +522,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
     // Abort the editing
     $scope.abort = function (){
+        $scope.overlayVideo.pause();
         // Resetting the overlay in the viewer
         $socket.emit('/change/saveValues', {
             relationship_id: $scope.relationship.relationship_id

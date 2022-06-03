@@ -6,7 +6,6 @@ var app = angular.module("ive");
  */
 app.controller("mainController", function ($scope, $rootScope, $window, config, $routeParams, $filter, $location, $translate, $videoService, $locationService, $overlayService, $sce, $socket, _, $relationshipService) {
 
-
     // Init
     $scope.current = {
         scenarioStatus: false,
@@ -22,6 +21,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
      * @return {[type]}      [description]
      */
     function changeSource(path, length) {
+        stopAnimation();
         var vidload = document.getElementById("video");
         vidload.onloadeddata = () => {
             if (typeof length != "undefined") {
@@ -113,12 +113,23 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
 
     };
 
+    function stopAnimation() {
+        $scope.stillInterested = false;
+    };
+
+
+
     // Show the overlays in the overlay-container
     function setOverlays () {
         // Setting everything to NULL, prevent loading issues
+        $scope.overlayVideos?.forEach(video => {
+            video.pause();
+          });
         $scope.scene = null;
         $scope.renderer = null;
         $scope.cssRenderer = null;
+        $scope.overlayVideos = [];
+
         var video_container = $('#video-container');
         if ($scope.overlay_container) {
             $scope.overlay_container.remove();
@@ -251,7 +262,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
             if ($scope.relationships[i].overlay_category === "video") {
                 // Creating the video element
                 var vid = document.createElement('video');
-
+                $scope.overlayVideos.push(vid);
                 //Setting the path to the video
                 var path = $window.location.origin + $scope.relationships[i].overlay_url;
 
@@ -302,6 +313,7 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
                     object.visible = $scope.overlaystate;
                 }
                 $scope.scene.add(object);
+                $scope.stillInterested = true;
             }
             // If Distance
             if ($scope.relationships[i].overlay_category === "distance") {
@@ -361,7 +373,9 @@ app.controller("mainController", function ($scope, $rootScope, $window, config, 
 
         // Render the scene
         var render = function () {
-            requestAnimationFrame(render);
+            if ($scope.stillInterested) {
+                requestAnimationFrame(render);
+            }
             $scope.cssRenderer.render($scope.scene, $scope.camera);
             $scope.renderer.render($scope.scene, $scope.camera);
         };
