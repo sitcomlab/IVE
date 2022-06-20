@@ -302,7 +302,7 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
                 var text = new THREE.VideoTexture(vid);
                 text.minFilter = THREE.LinearFilter;
                 text.magFilter = THREE.LinearFilter;
-                text.format = THREE.RGBFormat;
+                text.format = THREE.RGBAFormat;
                 var material = new THREE.MeshBasicMaterial({
                     map: text,
                     side: THREE.DoubleSide
