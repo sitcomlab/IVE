@@ -22,7 +22,9 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
      */
 
     $scope.save = function(){
-        $scope.overlayVideo.pause();
+        if($scope.relationship.overlay_category === "video"){
+            $scope.overlayVideo.pause();
+        }
         $scope.scene.updateMatrixWorld(true);
 
         // Getting translation, rotation, scale
@@ -522,7 +524,9 @@ app.controller("embeddedInEditPreviewController", function($scope, $rootScope, $
 
     // Abort the editing
     $scope.abort = function (){
-        $scope.overlayVideo.pause();
+        if($scope.relationship.overlay_category === "video"){
+            $scope.overlayVideo.pause();
+        }
         // Resetting the overlay in the viewer
         $socket.emit('/change/saveValues', {
             relationship_id: $scope.relationship.relationship_id
