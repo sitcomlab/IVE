@@ -25,7 +25,7 @@
     "colors": "^1.1.2",
     "connect-multiparty": "^2.2.0",
     "dotenv": "^8.2.0",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "fs-extra": "^9.1.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.15.2",
