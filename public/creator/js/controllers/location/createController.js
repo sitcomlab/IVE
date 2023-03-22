@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Location create controller
-app.controller("locationCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $locationService) {
+app.controller("locationCreateController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $locationService) {
 
     /*************************************************
         FUNCTIONS
@@ -39,7 +39,24 @@ app.controller("locationCreateController", function($scope, $rootScope, $routePa
                 $scope.redirect("/locations/" + new_location.location_id);
             })
             .catch(function onError(response) {
-                $window.alert(response.data);
+                if (response.data == "Token expired!") {
+                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                    .then(res => { 
+                        $authenticationService.updateUser(res.data);
+                        $locationService.create($scope.location)
+                        .then(function onSuccess(response) {
+                            var new_location = response.data;
+                            $scope.redirect("/locations/" + new_location.location_id);
+                        })
+                        .catch(function onError(response) {
+                            if (response.status > 0) {
+                                $window.alert(response.data);
+                            }
+                        });
+                    })
+                } else {
+                    $window.alert(response.data);
+                }
             });
         }
     };

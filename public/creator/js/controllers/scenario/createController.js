@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Scenario create controller
-app.controller("scenarioCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+app.controller("scenarioCreateController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
 
     /*************************************************
         FUNCTIONS
@@ -35,7 +35,24 @@ app.controller("scenarioCreateController", function($scope, $rootScope, $routePa
                 $scope.redirect("/scenarios/" + new_scenario.scenario_id);
             })
             .catch(function onError(response) {
-                $window.alert(response.data);
+                if (response.data == "Token expired!") {
+                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                    .then(res => { 
+                        $authenticationService.updateUser(res.data);
+                        $scenarioService.create($scope.scenario)
+                        .then(function onSuccess(response) {
+                            var new_scenario = response.data;
+                            $scope.redirect("/scenarios/" + new_scenario.scenario_id);
+                        })
+                        .catch(function onError(response) {
+                            if (response.status > 0) {
+                                $window.alert(response.data);
+                            }
+                        });
+                    })
+                } else {
+                    $window.alert(response.data);
+                }
             });
         }
     };

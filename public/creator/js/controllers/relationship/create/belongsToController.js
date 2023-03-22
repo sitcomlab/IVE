@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Relationship belongs_to create controller
-app.controller("belongsToCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService, $videoService, $overlayService) {
+app.controller("belongsToCreateController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService, $videoService, $overlayService) {
 
     /*************************************************
         FUNCTIONS
@@ -34,7 +34,24 @@ app.controller("belongsToCreateController", function($scope, $rootScope, $routeP
                 $scope.redirect("/relationships/belongs_to/" + $scope.relationship.relationship_id + "/" + $scope.label);
             })
             .catch(function onError(response) {
-                $window.alert(response.data);
+                if (response.data == "Token expired!") {
+                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                    .then(res => { 
+                        $authenticationService.updateUser(res.data);
+                        $relationshipService.create('belongs_to', $scope.relationship, $scope.label)
+                        .then(function onSuccess(response) {
+                            $scope.relationship = response.data;
+                            $scope.redirect("/relationships/belongs_to/" + $scope.relationship.relationship_id + "/" + $scope.label);
+                        })
+                        .catch(function onError(response) {
+                            if (response.status > 0) {
+                                $window.alert(response.data);
+                            }
+                        });
+                    })
+                } else {
+                    $window.alert(response.data);
+                }
             });
         }
     };

@@ -225,6 +225,7 @@ app.factory('$videoService', function($http, config, $authenticationService) {
             return $http.get(config.getApiEndpoint() + "/videos/" + video_id);
         },
         create: function(data) {
+            data.body = { refresh: $authenticationService.getRefreshToken() };
             return $http.post(config.getApiEndpoint() + "/videos", data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
@@ -233,6 +234,7 @@ app.factory('$videoService', function($http, config, $authenticationService) {
             });
         },
         edit: function(video_id, data) {
+            data.body = { refresh: $authenticationService.getRefreshToken() };
             return $http.put(config.getApiEndpoint() + "/videos/" + video_id, data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
@@ -244,6 +246,9 @@ app.factory('$videoService', function($http, config, $authenticationService) {
             return $http.delete(config.getApiEndpoint() + "/videos/" + video_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
+                },
+                body: {
+                    refresh: $authenticationService.getRefreshToken()
                 }
             });
         }

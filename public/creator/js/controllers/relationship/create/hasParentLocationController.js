@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Relationship has_parent_location create controller
-app.controller("hasParentLocationCreateController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService) {
+app.controller("hasParentLocationCreateController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService, $scenarioService, $locationService) {
 
     /*************************************************
         FUNCTIONS
@@ -35,7 +35,24 @@ app.controller("hasParentLocationCreateController", function($scope, $rootScope,
                 $scope.redirect("/relationships/has_parent_location/" + $scope.relationship.relationship_id);
             })
             .catch(function onError(response) {
-                $window.alert(response.data);
+                if (response.data == "Token expired!") {
+                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                    .then(res => { 
+                        $authenticationService.updateUser(res.data);
+                        $relationshipService.create('has_parent_location', $scope.relationship)
+                        .then(function onSuccess(response) {
+                            $scope.relationship = response.data;
+                            $scope.redirect("/relationships/has_parent_location/" + $scope.relationship.relationship_id);
+                        })
+                        .catch(function onError(response) {
+                            if (response.status > 0) {
+                                $window.alert(response.data);
+                            }
+                        });
+                    })
+                } else {
+                    $window.alert(response.data);
+                }
             });
         }
     };

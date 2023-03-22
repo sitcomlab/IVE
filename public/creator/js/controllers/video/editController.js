@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Video edit controller
-app.controller("videoEditController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $videoService) {
+app.controller("videoEditController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $videoService) {
 
     /*************************************************
         FUNCTIONS
@@ -38,7 +38,24 @@ app.controller("videoEditController", function($scope, $rootScope, $routeParams,
                 $scope.redirect("/videos/" + $scope.video.video_id);
             })
             .catch(function onError(response) {
-                $window.alert(response.data);
+                if (response.data == "Token expired!") {
+                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                    .then(res => { 
+                        $authenticationService.updateUser(res.data);
+                        $videoService.edit($scope.video.video_id, $scope.video)
+                        .then(function onSuccess(response) {
+                            $scope.video = response.data;
+                            $scope.redirect("/videos/" + $scope.video.video_id);
+                        })
+                        .catch(function onError(response) {
+                            if (response.status > 0) {
+                                $window.alert(response.data);
+                            }
+                        });
+                    })
+                } else {
+                    $window.alert(response.data);
+                }
             });
         }
     };

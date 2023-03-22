@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Scenario delete controller
-app.controller("scenarioDeleteController", function($scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
+app.controller("scenarioDeleteController", function($http, $scope, $rootScope, $routeParams, $filter, $translate, $location, config, $window, $authenticationService, $scenarioService) {
 
     /*************************************************
         FUNCTIONS
@@ -28,7 +28,23 @@ app.controller("scenarioDeleteController", function($scope, $rootScope, $routePa
             $scope.redirect("/scenarios");
         })
         .catch(function onError(response) {
-            $window.alert(response.data);
+            if (response.data == "Token expired!") {
+                $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                .then(res => { 
+                    $authenticationService.updateUser(res.data);
+                    $scenarioService.remove($scope.scenario.scenario_id)
+                    .then(function onSuccess(response) {
+                        $scope.redirect("/scenarios");
+                    })
+                    .catch(function onError(response) {
+                        if (response.status > 0) {
+                            $window.alert(response.data);
+                        }
+                    });
+                })
+            } else {
+                $window.alert(response.data);
+            }
         });
     };
 

@@ -114,6 +114,7 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
             return $http.get(config.getApiEndpoint() + "/scenarios/" + scenario_id);
         },
         create: function(data) {
+            data.body = { refresh: $authenticationService.getRefreshToken() };
             return $http.post(config.getApiEndpoint() + "/scenarios", data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
@@ -133,6 +134,9 @@ app.factory('$scenarioService', function($http, config, $authenticationService) 
             return $http.delete(config.getApiEndpoint() + "/scenarios/" + scenario_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
+                },
+                body: {
+                    refresh: $authenticationService.getRefreshToken()
                 }
             });
         }

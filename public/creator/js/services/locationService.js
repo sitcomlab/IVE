@@ -245,6 +245,7 @@ app.factory('$locationService', function($http, config, $authenticationService) 
             return $http.get(config.getApiEndpoint() + "/locations/" + location_id);
         },
         create: function(data) {
+            data.refresh = $authenticationService.getRefreshToken();
             return $http.post(config.getApiEndpoint() + "/locations", data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
@@ -253,6 +254,7 @@ app.factory('$locationService', function($http, config, $authenticationService) 
             });
         },
         edit: function(location_id, data) {
+            data.refresh = $authenticationService.getRefreshToken();
             return $http.put(config.getApiEndpoint() + "/locations/" + location_id, data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
@@ -264,6 +266,9 @@ app.factory('$locationService', function($http, config, $authenticationService) 
             return $http.delete(config.getApiEndpoint() + "/locations/" + location_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
+                },
+                body: {
+                    refresh: $authenticationService.getRefreshToken()
                 }
             });
         }

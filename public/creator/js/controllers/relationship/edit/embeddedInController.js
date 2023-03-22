@@ -1,7 +1,7 @@
 var app = angular.module("ive");
 
 // Relationship embedded_in edit controller
-app.controller("embeddedInEditController", function($scope, $rootScope, $routeParams, $interval, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
+app.controller("embeddedInEditController", function($http, $scope, $rootScope, $routeParams, $interval, $filter, $translate, $location, config, $window, $authenticationService, $relationshipService) {
 
     /*************************************************
         FUNCTIONS
@@ -46,7 +46,24 @@ app.controller("embeddedInEditController", function($scope, $rootScope, $routePa
                 $scope.redirect("/relationships/" + $scope.relationship_label + "/" + $scope.relationship.relationship_id);
             })
             .catch(function onError(response) {
-                $window.alert(response.data);
+                if (response.data == "Token expired!") {
+                    $http.post(config.getApiEndpoint() + "/refreshToken", { refresh: $authenticationService.getRefreshToken() })
+                    .then(res => { 
+                        $authenticationService.updateUser(res.data);
+                        $relationshipService.edit($scope.relationship_label, $scope.relationship.relationship_id, $scope.relationship)
+                        .then(function onSuccess(response) {
+                            $scope.relationship = response.data;
+                            $scope.redirect("/relationships/" + $scope.relationship_label + "/" + $scope.relationship.relationship_id);
+                        })
+                        .catch(function onError(response) {
+                            if (response.status > 0) {
+                                $window.alert(response.data);
+                            }
+                        });
+                    })
+                } else {
+                    $window.alert(response.data);
+                }
             });
         }
     };

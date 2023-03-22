@@ -71,7 +71,11 @@ exports.isAuthenticated = function isAuthenticated(req, res, next) {
         // Verify token
         jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
             if(err){
-                res.status(401).send("Authentication failed!");
+                if(err.name == 'TokenExpiredError') {
+                    res.status(401).send("Token expired!");
+                } else {
+                    res.status(401).send("Authentication failed!");
+                }
             } else {
                 // Authorization
                 if(decoded.username === process.env.ADMIN_USERNAME && decoded.iss === process.env.SERVER_URL){

@@ -203,6 +203,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
             }
         },
         create: function(relationship_label, data, relationship_type) {
+            data.body = { refresh: $authenticationService.getRefreshToken() };
             if(relationship_type){
                 return $http.post(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_type, data, {
                     headers: {
@@ -220,6 +221,7 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
             }
         },
         edit: function(relationship_label, relationship_id, data) {
+            data.body = { refresh: $authenticationService.getRefreshToken() };
             return $http.put(config.getApiEndpoint() + "/relationship/" + relationship_label + "/" + relationship_id, data, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken(),
@@ -231,6 +233,9 @@ app.factory('$relationshipService', function($http, config, $authenticationServi
             return $http.delete(config.getApiEndpoint() + "/relationships/" + relationship_id, {
                 headers: {
                     'Authorization': 'Bearer ' + $authenticationService.getToken()
+                },
+                body: {
+                    refresh: $authenticationService.getRefreshToken()
                 }
             });
         }
